@@ -169,6 +169,103 @@ export function signatureOf(path: string): PageSignature | null {
   };
 }
 
+
+/** Source of a view module by component name, or null when it cannot be located. */
+function viewSource(view: string): string | null {
+  for (const dir of ["components/pages", "components/home"]) {
+    for (const ext of [".tsx", ".ts"]) {
+      const p = join(ROOT, dir, view + ext);
+      if (existsSync(p)) return readFileSync(p, "utf8");
+    }
+  }
+  return null;
+}
+
+/**
+ * A shared view must not decide STRUCTURE from the locale.
+ *
+ * Choosing words by locale is the whole point; choosing whether a section, a card or a destination exists
+ * is the defect this file was written to catch, wearing a shared view as a disguise.
+ */
+function localeBranches(view: string): string[] {
+  const src = viewSource(view);
+  if (!src) return [];
+  const code = stripComments(src);
+  const hits = [...code.matchAll(/locale\s*===\s*["'](?:pt|en)["']/g)];
+  return hits.length
+    ? [`${view} branches on the locale ${hits.length} time(s) — a shared view may choose words, never structure`]
+    : [];
+}
+
+/**
+ * Per-edition content must have the same SHAPE.
+ *
+ * A view that reads `CONTENT[locale]` is only as shared as the two entries are alike: an array with one
+ * fewer item, or a field left empty in one edition, gives one reader less page than the other while the
+ * view itself stays identical.
+ */
+function contentShapeDifferences(view: string): string[] {
+  const src = viewSource(view);
+  if (!src) return [];
+  const mod = stripComments(src).match(/from "@\/(components\/[a-zA-Z/]*[a-zA-Z]*[Cc]ontent)"/);
+  if (!mod) return [];
+  for (const ext of [".ts", ".tsx"]) {
+    const p = join(ROOT, mod[1] + ext);
+    if (!existsSync(p)) continue;
+    const text = stripComments(readFileSync(p, "utf8"));
+    const start = text.indexOf("\n  pt: {");
+    const mid = text.indexOf("\n  en: {");
+    if (start < 0 || mid < start) return [];
+    const pt = text.slice(start, mid);
+    const en = text.slice(mid);
+    const out: string[] = [];
+    // Every list the content declares must have the same length in both editions. Counting lines is not
+    // enough: a list written on one line loses an item without losing a line, and that mutation passed.
+    const lists = (text: string) => {
+      const found: Record<string, number> = {};
+      for (const m of text.matchAll(/(\w+):\s*\[([^\]]*)\]/g)) {
+        // Split on TOP-LEVEL commas only. Counting every comma would count the ones inside the prose —
+        // "architecture, trust, conformance" is one item, not three — which is exactly the false positive
+        // the first version of this produced.
+        const body = m[2];
+        let depth = 0;
+        let quote: string | null = null;
+        let items = body.trim() ? 1 : 0;
+        for (let k = 0; k < body.length; k += 1) {
+          const ch = body[k];
+          if (quote) {
+            if (ch === "\\") k += 1;
+            else if (ch === quote) quote = null;
+            continue;
+          }
+          if (ch === '"' || ch === "'" || ch === "`") quote = ch;
+          else if (ch === "{" || ch === "[") depth += 1;
+          else if (ch === "}" || ch === "]") depth -= 1;
+          else if (ch === "," && depth === 0) items += 1;
+        }
+        // A trailing comma before the closing bracket does not add an item.
+        if (/,\s*$/.test(body)) items -= 1;
+        found[m[1]] = items;
+      }
+      return found;
+    };
+    const lp = lists(pt);
+    const le = lists(en);
+    for (const key of new Set([...Object.keys(lp), ...Object.keys(le)])) {
+      if (lp[key] !== le[key]) {
+        out.push(`${mod[1]}: "${key}" has ${lp[key] ?? "no"} item(s) in pt and ${le[key] ?? "no"} in en`);
+      }
+    }
+    // No field that one edition fills and the other leaves blank.
+    const blanks = (s: string) => (s.match(/:\s*""/g) || []).length;
+    if (blanks(pt) !== blanks(en)) {
+      out.push(`${mod[1]}: one edition leaves a field empty that the other fills`);
+    }
+    return out;
+  }
+  return [];
+}
+
 /** Every bilingual pair the registry declares, as (id, pt, en). */
 export function bilingualPairs(): { id: string; pt: string; en: string }[] {
   return ROUTES.filter((r) => (r.policy === "BILINGUAL" || r.policy === "DYNAMIC_BILINGUAL") && r.en)
@@ -200,7 +297,13 @@ export function parityOf(pair: { id: string; pt: string; en: string }): ParityVe
   }
   if (a.view && a.view === b.view) {
     out.shared_view = a.view;
-    return out; // one structure, two realizations — nothing can drift
+    // A shared view is the strongest shape, but it is NOT self-evidently identical: it can still branch on
+    // the locale and hand one edition something the other does not get. Two mutations proved exactly that —
+    // wrapping a destination in `locale === "pt" ? … : null` and emptying one edition's heading both left
+    // the signature green. So a shared view is checked for structural branching, and its per-edition
+    // content is checked for shape.
+    out.differences.push(...localeBranches(a.view), ...contentShapeDifferences(a.view));
+    return out;
   }
   const cmp = (name: string, x: string[], y: string[]) => {
     if (JSON.stringify(x) !== JSON.stringify(y)) {

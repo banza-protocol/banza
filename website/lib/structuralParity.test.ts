@@ -23,19 +23,17 @@ describe("PT and EN are two realizations of the same page", () => {
     expect(pairs.length).toBeGreaterThan(15);
   });
 
-  // Six pages still carry the defect this file was written to catch: their English edition was authored
-  // separately and offers a different set of destinations, sections or components. They are named here
-  // rather than excluded quietly — this is a defect backlog, not an allowance. The assertion below is a
-  // ratchet: a route may LEAVE this list, never join it. Adding a name here to make a build pass would be
-  // visible in the diff and is not what the list is for.
-  const KNOWN_DIVERGENT = [
-    "CERTIFICATION",
-  ] as const;
+  // The backlog is empty. It held six pages whose English edition had been authored separately and offered
+  // a different set of destinations, sections or components; every one of them is now a single view
+  // rendering both editions. The list stays — as a ratchet, not as an allowance — because an empty list is
+  // the only honest way to say "none, and none may be added": a name can never be added to make a build
+  // pass without that appearing in the diff, and a route that is fixed must be removed from it.
+  const KNOWN_DIVERGENT: readonly string[] = [];
 
-  it("lets no route become structurally divergent", () => {
+  it("gives every bilingual route the same structure in both editions", () => {
     const divergent = pairs.map(parityOf).filter((v) => v.differences.length > 0);
     const unexpected = divergent
-      .filter((v) => !KNOWN_DIVERGENT.includes(v.id as (typeof KNOWN_DIVERGENT)[number]))
+      .filter((v) => !KNOWN_DIVERGENT.includes(v.id))
       .map((v) => `${v.id}: ${v.differences.join(" · ")}`);
     expect(unexpected, "these routes newly render structurally different pages per edition").toEqual([]);
   });
