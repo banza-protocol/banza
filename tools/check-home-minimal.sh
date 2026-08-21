@@ -3,7 +3,7 @@
 # BANZA Home-Minimal Guard (M2.7B → M2.16 dossier home).
 #
 # The homepage PRESENTS the protocol; it is not documentation. As of M2.16 the canonical shape is the
-# BanzAI-first hero (HomeHeroDiagram + HomeAsk). This lightweight backstop blocks re-introduction of
+# BanzAI-first hero (HomeHeroDiagram). This lightweight backstop blocks re-introduction of
 # removed-model vocabulary and any AFFIRMATIVE mis-positioning of BANZA as a bank/PSP/wallet/operator
 # (negative boundary statements stay allowed). Deep contract enforcement lives in
 # check-homepage-final-public-release.sh.

@@ -561,7 +561,12 @@ fn summary_for(doc: &RegistryDoc) -> String {
 
 /// Compose the deterministic document-lookup card for a question that references a registry document AND
 /// whose task is a lookup/metadata. Returns `None` for a non-lookup task or an unresolved reference.
-pub fn document_lookup_card(question: &str, document_id: &str) -> Option<DocumentLookupCard> {
+pub fn document_lookup_card(
+    question: &str,
+    document_id: &str,
+    locale: &str,
+) -> Option<DocumentLookupCard> {
+    let en = locale.starts_with("en");
     // Resolve the referenced document first: an explicit structured id wins; else detect it in the text.
     let doc = if !document_id.trim().is_empty() {
         resolve(document_id.trim())
@@ -589,17 +594,25 @@ pub fn document_lookup_card(question: &str, document_id: &str) -> Option<Documen
     // stop being true are rewritten or removed rather than marked superseded. So an absent status line
     // is not missing information — it is the policy. Saying "não declarado" would invite the reader to
     // wonder whether the decision still stands.
+    // DATA vs PRESENTATION. A status carried BY the record is data and is reproduced as written; the
+    // status this composer supplies when the record carries none is prose it wrote itself, and prose the
+    // composer writes belongs to the reader's edition. Same for an undeclared date.
     let status = if doc.status.is_empty() {
-        if doc.kind == "RFC" {
-            "publicada".to_string()
-        } else {
-            "em vigor".to_string()
+        match (doc.kind == "RFC", en) {
+            (true, true) => "published".to_string(),
+            (true, false) => "publicada".to_string(),
+            (false, true) => "in force".to_string(),
+            (false, false) => "em vigor".to_string(),
         }
     } else {
         doc.status.clone()
     };
     let date = if doc.date.is_empty() {
-        "não declarada".to_string()
+        if en {
+            "not declared".to_string()
+        } else {
+            "não declarada".to_string()
+        }
     } else {
         doc.date.clone()
     };
@@ -607,16 +620,26 @@ pub fn document_lookup_card(question: &str, document_id: &str) -> Option<Documen
 
     let mut md = String::new();
     md.push_str(&format!("**{}**\n\n", doc.title));
+    // Field labels are presentation and follow the answer's locale. They were Portuguese unconditionally,
+    // so an English reader received an English title and an English summary between Portuguese labels —
+    // an answer declaring `answer_locale = en` while a third of what it rendered was not English.
+    let (l_type, l_status, l_date, l_path) = if en {
+        ("Type", "Status", "Date", "Path")
+    } else {
+        ("Tipo", "Estado", "Data", "Caminho")
+    };
     md.push_str(&format!(
-        "- **Tipo:** {kind_label} · **Estado:** {status} · **Data:** {date}\n"
+        "- **{l_type}:** {kind_label} · **{l_status}:** {status} · **{l_date}:** {date}\n"
     ));
-    md.push_str(&format!("- **Caminho:** `{}`\n", doc.path));
+    md.push_str(&format!("- **{l_path}:** `{}`\n", doc.path));
     if !summary.is_empty() {
         md.push_str(&format!("\n{summary}\n"));
     }
-    md.push_str(
-        "\nEste documento regista uma decisão do protocolo: não aprova, não certifica e não confere estatuto a nenhum operador.",
-    );
+    md.push_str(if en {
+        "\nThis document records a protocol decision: it does not approve, does not certify and confers no status on any operator."
+    } else {
+        "\nEste documento regista uma decisão do protocolo: não aprova, não certifica e não confere estatuto a nenhum operador."
+    });
 
     Some(DocumentLookupCard {
         matched: true,
@@ -632,6 +655,88 @@ pub fn document_lookup_card(question: &str, document_id: &str) -> Option<Documen
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    // `answer_locale` names the locale of the COMPLETE reader-facing presentation, so everything this
+    // composer writes itself must be in it. The card was composed with Portuguese labels unconditionally:
+    // an English reader got an English title and an English summary between "Tipo:", "Estado:" and
+    // "Caminho:", under an answer that declared itself English. A third of what it rendered was not.
+    //
+    // The line the property draws is between DATA and PRESENTATION, not between "translated" and "not".
+    // The path, the id and the canonical title are data and are reproduced as written in both editions;
+    // the labels around them, the status this composer supplies when the record declares none, and the
+    // closing boundary sentence are prose it wrote, and they follow the reader.
+    #[test]
+    fn an_english_card_is_english_wherever_the_composer_wrote_the_words() {
+        let c = document_lookup_card("ADR-025", "", "en").expect("card");
+        let md = &c.answer_markdown;
+        for label in ["Type:", "Status:", "Date:", "Path:"] {
+            assert!(md.contains(label), "EN card lost the {label} label:\n{md}");
+        }
+        for pt in [
+            "Tipo:",
+            "Estado:",
+            "Data:",
+            "Caminho:",
+            "não declarada",
+            "em vigor",
+        ] {
+            assert!(
+                !md.contains(pt),
+                "EN card still emits Portuguese {pt:?}:\n{md}"
+            );
+        }
+        assert!(
+            md.contains("does not approve, does not certify"),
+            "EN card must close with the English boundary sentence:\n{md}"
+        );
+        assert!(
+            !md.contains("Este documento regista"),
+            "EN card still closes in Portuguese:\n{md}"
+        );
+    }
+
+    #[test]
+    fn a_portuguese_card_stays_portuguese() {
+        // The complement. Proving the English card is English is half a fix if the Portuguese one was
+        // overwritten to get there.
+        let c = document_lookup_card("ADR-025", "", "pt-PT").expect("card");
+        let md = &c.answer_markdown;
+        for label in ["Tipo:", "Estado:", "Data:", "Caminho:"] {
+            assert!(md.contains(label), "PT card lost the {label} label:\n{md}");
+        }
+        assert!(
+            md.contains("Este documento regista"),
+            "PT card lost its boundary sentence"
+        );
+        for en in ["Type:", "Status:", "Date:", "Path:"] {
+            assert!(
+                !md.contains(en),
+                "PT card leaked the English {en:?} label:\n{md}"
+            );
+        }
+    }
+
+    #[test]
+    fn the_record_s_own_data_is_reproduced_not_translated() {
+        // Identity survives the edition: the path, the id and the canonical title are what the record
+        // says, byte for byte, in both. Translating them would make the answer unciteable.
+        let en = document_lookup_card("ADR-025", "", "en").expect("card");
+        let pt = document_lookup_card("ADR-025", "", "pt-PT").expect("card");
+        assert_eq!(
+            en.path, pt.path,
+            "the path is data, identical in both editions"
+        );
+        assert_eq!(en.id, pt.id, "the id is data");
+        assert_eq!(en.title, pt.title, "the canonical title is data");
+        assert!(
+            en.answer_markdown.contains(&en.path),
+            "the EN card cites the canonical path"
+        );
+        assert!(
+            pt.answer_markdown.contains(&pt.path),
+            "the PT card cites the canonical path"
+        );
+    }
 
     #[test]
     fn registry_is_built_from_the_real_indexed_decision_records() {
@@ -833,7 +938,8 @@ mod tests {
             ("ADR 006", "ADR-006", "ADR-006"),
             ("ADR-6", "ADR-006", "ADR-006"),
         ] {
-            let c = document_lookup_card(q, "").unwrap_or_else(|| panic!("no card for {q:?}"));
+            let c =
+                document_lookup_card(q, "", "pt-PT").unwrap_or_else(|| panic!("no card for {q:?}"));
             assert!(c.matched);
             assert_eq!(c.id, id, "{q}");
             assert!(c.answer_markdown.contains(frag), "{q} lost the title");
@@ -845,7 +951,7 @@ mod tests {
             );
         }
         // A structured document_id (the "Explicar com BanzAI" button flow) resolves too.
-        let c = document_lookup_card("", "ADR-012").expect("card from a structured id");
+        let c = document_lookup_card("", "ADR-012", "pt-PT").expect("card from a structured id");
         assert_eq!(c.id, "ADR-012");
     }
 
@@ -853,7 +959,7 @@ mod tests {
     fn the_lookup_card_satisfies_the_task_completion_metadata_check() {
         // The card must pass the deterministic Task-Completion validator's document_lookup metadata gate
         // (title/estado/decisão/versão/.md) — the exact check that used to REJECT the model's explanation.
-        let c = document_lookup_card("ADR 002", "").expect("card");
+        let c = document_lookup_card("ADR 002", "", "pt-PT").expect("card");
         let ob = crate::obligations::obligations_for("ADR 002", "ADR-001");
         let v = crate::taskcheck::check_completion(
             &ob,
@@ -880,7 +986,7 @@ mod tests {
             "resume o ADR-001",
         ] {
             assert!(
-                document_lookup_card(q, "").is_none(),
+                document_lookup_card(q, "", "pt-PT").is_none(),
                 "{q} must escalate to the trunk, not the lookup card"
             );
         }
@@ -893,7 +999,7 @@ mod tests {
             "o que é o BANZA?",
             "exemplo de manifest",
         ] {
-            assert!(document_lookup_card(q, "").is_none(), "{q}");
+            assert!(document_lookup_card(q, "", "pt-PT").is_none(), "{q}");
         }
     }
 }

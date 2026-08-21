@@ -152,14 +152,22 @@ existsSync("services/banzai-api/test/context-e2e.test.js")
 // 12. DOCUMENT-LOOKUP terminal — the reopened regression: a BARE documentary reference is a deterministic
 // lookup card (title/estado/caminho, 0 model calls); an EXPLAIN request is NOT (escalates to the trunk).
 {
-  const card = (q, id) => {
-    try { return JSON.parse(kb.document_lookup_card_json(q, id || "")); } catch { return null; }
+  const card = (q, id, locale) => {
+    try { return JSON.parse(kb.document_lookup_card_json(q, id || "", locale || "pt-PT")); } catch { return null; }
   };
-  const c = card("ADR 002", "");
+  const c = card("ADR 002", "", "pt-PT");
   (c && c.matched && /Estado:/.test(c.answer_markdown) && /Caminho:/.test(c.answer_markdown) && c.id === "ADR-002")
     ? ok("bare 'ADR 002' → deterministic document-lookup card (title/estado/caminho)")
     : fail(`bare document lookup did not produce a structured card: ${JSON.stringify(c).slice(0, 160)}`);
-  const e = card("explica o ADR-001 em detalhe", "");
+  // The same card asked for in English. The labels are presentation and follow the reader; the id and the
+  // path are data and are identical in both. Asserting only the Portuguese spelling let the composer
+  // declare `answer_locale = en` while emitting Portuguese labels, which is what it did in production.
+  const cEn = card("ADR 002", "", "en");
+  (cEn && cEn.matched && /Status:/.test(cEn.answer_markdown) && /Path:/.test(cEn.answer_markdown)
+    && !/Estado:|Caminho:/.test(cEn.answer_markdown) && cEn.id === "ADR-002" && cEn.path === c.path)
+    ? ok("the EN card carries English labels and the SAME canonical id/path")
+    : fail(`EN document card is not fully English or lost its identity: ${JSON.stringify(cEn).slice(0, 200)}`);
+  const e = card("explica o ADR-001 em detalhe", "", "pt-PT");
   (!e || e.matched !== true)
     ? ok("'explica o ADR-001' is NOT a lookup card (escalates to the grounded trunk)")
     : fail("an explain request was wrongly served as a document-lookup card");

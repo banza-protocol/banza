@@ -181,6 +181,12 @@ const SHELL_GRID = {
   "collapsed-open": "lg:grid-cols-[64px_minmax(0,1fr)_clamp(288px,24vw,368px)]",
 } as const;
 
+/** A follow-up question in the reader's edition, with the document's canonical id filled in. The id is
+ *  data — "ADR-025" is "ADR-025" in every language — so only the sentence around it is realized. */
+function docQuestionFor(id: AgentCopyId, docId: string, locale: Locale): string {
+  return agentCopy(id, locale).replace("{id}", docId);
+}
+
 function ThinkingIndicator() {
   const locale = useBanzaiLocale();
   const t = (id: AgentCopyId) => agentCopy(id, locale);
@@ -197,7 +203,7 @@ function ThinkingIndicator() {
       <span className="flex h-8 w-8 flex-none items-center justify-center rounded-[9px] bg-bordo text-creme-high">
         <Ico name="sparkle" size={15} sw={1.4} />
       </span>
-      <span className="sr-only">A preparar a resposta…</span>
+      <span className="sr-only">{t("a11y.preparingAnswer")}</span>
       <span aria-hidden="true" className="font-mono text-[12px] transition-opacity duration-300">{line}</span>
       <span aria-hidden="true" className="flex items-center gap-[3px]">
         <span className="h-[4px] w-[4px] rounded-full bg-ink-5/60 motion-safe:animate-bounce [animation-delay:-0.24s]" />
@@ -712,7 +718,7 @@ export function BanzaiAgent({
       setLastMetrics(outcome.metrics); // §12 — surfaced in the inspector
       if (outcome.cancelled) {
         // Honest cancelled state — nothing was generated/persisted server-side (the slot was freed).
-        setMsgs((p) => [...p, { role: "ai", text: "Pedido cancelado.", kind: "unavailable", status: "Cancelado" }]);
+        setMsgs((p) => [...p, { role: "ai", text: t("answer.cancelledText"), kind: "unavailable", status: t("answer.cancelledStatus") }]);
       } else if (outcome.answer) {
         applyAnswer(outcome.answer);
       }
@@ -895,7 +901,7 @@ export function BanzaiAgent({
         <button
           type="button"
           onClick={() => setInspectorOpen((v) => !v)}
-          aria-label={inspectorOpen ? "Fechar inspetor" : "Abrir inspetor"}
+          aria-label={inspectorOpen ? t("shell.hideInspector") : t("shell.showInspector")}
           aria-controls="banzai-inspector"
           aria-expanded={inspectorOpen}
           className="ml-auto flex h-9 flex-none items-center gap-1.5 rounded-[9px] border border-black/10 bg-white px-3 text-[12.5px] font-medium text-ink-3 transition-colors hover:border-bordo/30 hover:text-bordo focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40"
@@ -966,7 +972,7 @@ export function BanzaiAgent({
         {/* Modos (ask/validation/onboarding) · Jornada de validação (active session only) · Resultados
             (ONE entry) · Recursos (Guia · Referência · Programadores). */}
         <nav className={cx("flex flex-1 flex-col gap-[3px] pb-4", railCollapsed ? "px-[8px]" : "px-[10px]")} aria-label={t("nav.label")}>
-          {sidebarDivider("MODOS")}
+          {sidebarDivider(t("section.modes"))}
           {MODES.map((m) => renderMode(m, railCollapsed))}
 
           {/* ADR-036 — the 9-step journey group appears only when a validation is ACTIVE (an operator +
@@ -980,10 +986,10 @@ export function BanzaiAgent({
             </>
           )}
 
-          {sidebarDivider("RESULTADOS")}
+          {sidebarDivider(t("section.results"))}
           {TABS.filter((t) => t.group === "resultados").map((t) => renderTab(t, railCollapsed))}
 
-          {sidebarDivider("RECURSOS")}
+          {sidebarDivider(t("section.resources"))}
           {TABS.filter((t) => t.group === "recursos").map((t) => renderTab(t, railCollapsed))}
         </nav>
 
@@ -1087,7 +1093,7 @@ export function BanzaiAgent({
                         <div className={`rounded-[12px] px-[18px] py-[14px] ${ai ? CARD : "border border-pend/25 bg-tint-gold"}`}>
                           {ai && m.correctionDisplay && m.correctionDisplay.length > 0 && (
                             <p className="m-0 mb-[9px] font-mono text-[11px] leading-[1.5] text-ink-4">
-                              Interpretado como {m.correctionDisplay.map((c) => `“${c}”`).join(", ")}.
+                              {t("answer.interpretedAs")} {m.correctionDisplay.map((c) => `“${c}”`).join(", ")}.
                             </p>
                           )}
                           {ai ? (
@@ -1137,10 +1143,10 @@ export function BanzaiAgent({
                         {ai && m.resolvedDocument && (
                           <div className="mt-[10px] flex flex-wrap gap-[7px]">
                             {[
-                              [t("doc.viewDecision"), `Qual foi a decisão do ${m.resolvedDocument.id}?`],
-                              [t("doc.viewConsequences"), `Quais foram as consequências do ${m.resolvedDocument.id}?`],
-                              ["Impacto para operadores", `Como o ${m.resolvedDocument.id} afecta implementadores?`],
-                              ["Resumir", `Resume o ${m.resolvedDocument.id}`],
+                              [t("doc.viewDecision"), docQuestionFor("docq.decision", m.resolvedDocument.id, locale)],
+                              [t("doc.viewConsequences"), docQuestionFor("docq.consequences", m.resolvedDocument.id, locale)],
+                              [t("doc.impactForOperators"), docQuestionFor("docq.impact", m.resolvedDocument.id, locale)],
+                              [t("doc.summarize"), docQuestionFor("docq.summarize", m.resolvedDocument.id, locale)],
                             ].map(([label, q]) => (
                               <button key={label} type="button" onClick={() => askInChat(q)} className="rounded-full border border-line-2 bg-white px-[11px] py-[4px] text-[12px] text-ink-3 transition-colors hover:border-bordo/40 hover:text-bordo">{label}</button>
                             ))}
@@ -1203,8 +1209,8 @@ export function BanzaiAgent({
             <div className="mx-auto max-w-[760px]">
               <div className="flex items-end gap-[10px] rounded-[14px] border border-black/10 bg-white py-[10px] pl-3 pr-[10px] shadow-[0_1px_2px_rgba(16,19,30,0.04)] transition-shadow focus-within:border-bordo/40 focus-within:shadow-[0_0_0_3px_rgba(142,19,38,0.08)]">
                 <span className="flex h-[38px] w-[38px] flex-none items-center justify-center rounded-[10px] bg-tint-bordo text-bordo"><Ico name="sparkle" size={17} sw={1.4} /></span>
-                <textarea ref={inputRef} onKeyDown={onKey} rows={1} placeholder={agent.assistantPlaceholder} aria-label="Pergunte ao BanzAI" className="max-h-[120px] flex-1 resize-none bg-transparent py-[9px] text-[15px] leading-[1.5] text-ink outline-none placeholder:text-ink-5" />
-                <button onClick={send} aria-label="Enviar" className="flex h-[38px] w-[38px] flex-none items-center justify-center rounded-[10px] bg-bordo text-creme-high shadow-[0_2px_8px_rgba(142,19,38,0.25)] transition-colors hover:bg-[#7a0f20]"><Ico name="send" size={17} sw={1.6} /></button>
+                <textarea ref={inputRef} onKeyDown={onKey} rows={1} placeholder={agent.assistantPlaceholder} aria-label={t("tab.assistente")} className="max-h-[120px] flex-1 resize-none bg-transparent py-[9px] text-[15px] leading-[1.5] text-ink outline-none placeholder:text-ink-5" />
+                <button onClick={send} aria-label={t("shell.send")} className="flex h-[38px] w-[38px] flex-none items-center justify-center rounded-[10px] bg-bordo text-creme-high shadow-[0_2px_8px_rgba(142,19,38,0.25)] transition-colors hover:bg-[#7a0f20]"><Ico name="send" size={17} sw={1.6} /></button>
               </div>
               <div className="mt-[10px] flex flex-wrap justify-between gap-3 px-1">
                 <span className="font-mono text-[11px] text-ink-5">{t("input.hint")}</span>
@@ -1240,7 +1246,7 @@ export function BanzaiAgent({
         id="banzai-inspector"
         ref={inspectorRef}
         tabIndex={-1}
-        aria-label={isValidation ? t("inspector.validationContext") : "Inspetor · fontes e contexto"}
+        aria-label={isValidation ? t("inspector.validationContext") : t("inspector.sourcesAndContext")}
         className={cx(
           "order-3 min-h-0 flex-col gap-5 overflow-y-auto border-black/[0.07] bg-paper-2 px-[20px] py-6 focus-visible:outline-none lg:order-3 lg:border-l",
           inspectorOpen ? "flex" : "hidden",
@@ -1249,13 +1255,13 @@ export function BanzaiAgent({
       >
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 font-mono text-[11px] tracking-[0.16em] text-ink-4">
-            <Ico name="book" size={15} className="text-bordo-soft" /> {isValidation ? t("section.validationContext") : "FONTES E CONTEXTO"}
+            <Ico name="book" size={15} className="text-bordo-soft" /> {isValidation ? t("section.validationContext") : t("section.sourcesAndContext").toUpperCase()}
           </div>
           <button
             type="button"
             onClick={() => setInspectorOpen(false)}
-            aria-label="Fechar inspetor"
-            title="Fechar inspetor"
+            aria-label={t("shell.hideInspector")}
+            title={t("shell.hideInspector")}
             className="flex h-7 w-7 flex-none items-center justify-center rounded-[7px] border border-black/10 bg-white text-ink-4 transition-colors hover:border-bordo/30 hover:text-bordo focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40"
           >
             <Ico name="x" size={15} />
@@ -1315,7 +1321,7 @@ export function BanzaiAgent({
         )}
 
         <section>
-          <div className="mb-[10px] flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-ink-5"><Ico name="scale" size={13} className="text-ink-5" /> FRONTEIRA</div>
+          <div className="mb-[10px] flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-ink-5"><Ico name="scale" size={13} className="text-ink-5" /> {t("section.boundary").toUpperCase()}</div>
           <div className={`flex flex-col gap-[11px] p-[16px] ${CARD}`}>
             <p className="m-0 text-[12px] leading-[1.55] text-ink-3">{t("agent.whatItIs")}</p>
             <p className="m-0 text-[12px] leading-[1.55] text-ink-3">{t("agent.noCentralApproval")}</p>
@@ -1328,7 +1334,7 @@ export function BanzaiAgent({
             presents last-known state as current. Replaces the former hardcoded BADGES + "Pré-produção…". */}
         {runtimeStrip && (
           <section>
-            <div className="mb-[10px] flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-ink-5"><Ico name="shield" size={13} className="text-ink-5" /> ESTADO</div>
+            <div className="mb-[10px] flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-ink-5"><Ico name="shield" size={13} className="text-ink-5" /> {t("section.state").toUpperCase()}</div>
             {runtimeStrip}
           </section>
         )}

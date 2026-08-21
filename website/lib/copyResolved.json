@@ -105,6 +105,34 @@
           "pt": "Ocultar inspetor",
           "en": "Hide inspector"
         },
+        "shell.send": {
+          "pt": "Enviar",
+          "en": "Send"
+        },
+        "section.modes": {
+          "pt": "Modos",
+          "en": "Modes"
+        },
+        "section.results": {
+          "pt": "Resultados",
+          "en": "Results"
+        },
+        "section.resources": {
+          "pt": "Recursos",
+          "en": "Resources"
+        },
+        "section.sourcesAndContext": {
+          "pt": "Fontes e contexto",
+          "en": "Sources and context"
+        },
+        "section.boundary": {
+          "pt": "Fronteira",
+          "en": "Boundary"
+        },
+        "section.state": {
+          "pt": "Estado",
+          "en": "State"
+        },
         "shell.showInspector": {
           "pt": "Mostrar inspetor",
           "en": "Show inspector"
@@ -448,6 +476,50 @@
         "doc.viewConsequences": {
           "pt": "Ver consequências",
           "en": "View consequences"
+        },
+        "inspector.sourcesAndContext": {
+          "pt": "Inspetor · fontes e contexto",
+          "en": "Inspector · sources and context"
+        },
+        "doc.impactForOperators": {
+          "pt": "Impacto para operadores",
+          "en": "Impact for operators"
+        },
+        "doc.summarize": {
+          "pt": "Resumir",
+          "en": "Summarize"
+        },
+        "docq.decision": {
+          "pt": "Qual foi a decisão do {id}?",
+          "en": "What did {id} decide?"
+        },
+        "docq.consequences": {
+          "pt": "Quais foram as consequências do {id}?",
+          "en": "What were the consequences of {id}?"
+        },
+        "docq.impact": {
+          "pt": "Como o {id} afecta implementadores?",
+          "en": "How does {id} affect implementers?"
+        },
+        "docq.summarize": {
+          "pt": "Resume o {id}",
+          "en": "Summarize {id}"
+        },
+        "answer.interpretedAs": {
+          "pt": "Interpretado como",
+          "en": "Interpreted as"
+        },
+        "answer.cancelledText": {
+          "pt": "Pedido cancelado.",
+          "en": "Request cancelled."
+        },
+        "answer.cancelledStatus": {
+          "pt": "Cancelado",
+          "en": "Cancelled"
+        },
+        "a11y.preparingAnswer": {
+          "pt": "A preparar a resposta…",
+          "en": "Preparing the answer…"
         },
         "inspector.validationContext": {
           "pt": "Inspetor · contexto da validação",

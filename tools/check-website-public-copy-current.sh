@@ -67,10 +67,11 @@ fi
 
 REFERENCIA="docs/reference/pt/BANZA_REFERENCIA.md"
 FOOTER="website/components/SiteFooter.tsx"
-# M2.16: the homepage is the dossier BanzAI-first hero (page.tsx + HomeHeroDiagram + HomeAsk), rendered
-# above the global SiteFooter.
-HOME_SET=("$HOME_SRC"
-          "website/components/home/HomeAsk.tsx" "website/components/home/HomeHeroDiagram.tsx" "$FOOTER")
+# The homepage as it is actually composed (page.tsx + HomeHeroDiagram), rendered above the global
+# SiteFooter. components/home/HomeAsk.tsx was in this set and is not part of the home: no route imports
+# it and it does not appear in the built output, so its presence here reported coverage of a file no
+# reader can reach.
+HOME_SET=("$HOME_SRC" "website/components/home/HomeHeroDiagram.tsx" "$FOOTER")
 
 # Current-copy source files (never tests, never the archival decision corpus, never wasm bundles).
 current_files() {

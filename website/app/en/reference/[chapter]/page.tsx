@@ -102,7 +102,7 @@ export default async function EnReferenceChapterPage({ params }: { params: Promi
             <div className="min-w-0">
               <article className="max-w-[820px]">
                 <ReferenceMarkdown markdown={chapter.content} />
-                {chapter.num === 12 && <BanzaiRuntimeStrip />}
+                {chapter.num === 12 && <BanzaiRuntimeStrip locale="en" />}
               </article>
               <p className="mt-8 max-w-[80ch] text-[12.5px] leading-[1.6] text-ink-5">
                 Cross-chapter references (§) resolve on the{" "}

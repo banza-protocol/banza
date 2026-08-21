@@ -11,6 +11,7 @@
 // reference follows the route (ISR, no rebuild), fails safe, and never presents last-known as current.
 
 import { getBanzaiRuntimeContract } from "@/lib/banzaiArchitecture";
+import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n";
 
 const RT = getBanzaiRuntimeContract();
 const RUNTIME_ORIGIN = process.env[RT.fetch.origin_env] || RT.fetch.origin_default;
@@ -26,9 +27,17 @@ export const RUNTIME_FETCH = {
 // The manifest provenance is a complete labelled statement ("Fonte: estado público do runtime"). Split
 // off the leading label so it can be emphasised WITHOUT the component re-adding "Fonte:" (which produced
 // a duplicated "Fonte: Fonte:"). Resilient: if the manifest ever drops the prefix, we still bold "Fonte:".
-const PROV_SEP = RT.labels.provenance_pt.indexOf(": ");
-const PROV_LABEL = PROV_SEP >= 0 ? RT.labels.provenance_pt.slice(0, PROV_SEP + 1) : "Fonte:";
-const PROV_TEXT = PROV_SEP >= 0 ? RT.labels.provenance_pt.slice(PROV_SEP + 2) : RT.labels.provenance_pt;
+// Every reader-facing string here comes from the manifest, per edition. The strip composes no prose of
+// its own: it lived entirely in Portuguese, and on the English BanzAI surface the whole ESTADO panel —
+// heading, provenance, field labels, even the Sim/Não values — was Portuguese under an English app.
+function provenance(locale: Locale): { label: string; text: string } {
+  const full = locale === "en" ? RT.labels.provenance_en : RT.labels.provenance_pt;
+  const sep = full.indexOf(": ");
+  const fallbackLabel = locale === "en" ? "Source:" : "Fonte:";
+  return sep >= 0
+    ? { label: full.slice(0, sep + 1), text: full.slice(sep + 2) }
+    : { label: fallbackLabel, text: full };
+}
 
 type Runtime = Record<string, unknown>;
 
@@ -64,16 +73,16 @@ async function fetchRuntime(): Promise<Runtime | null> {
   }
 }
 
-function yesNo(v: unknown): string {
-  return v === true ? "Sim" : v === false ? "Não" : "—";
+function yesNo(v: unknown, locale: Locale): string {
+  if (v === true) return RT.value_labels.yes[locale];
+  if (v === false) return RT.value_labels.no[locale];
+  return "—";
 }
 
-function inferenceLabel(v: unknown): string {
-  const s = String(v);
-  if (s === "local") return "local (on-host)";
-  if (s === "external") return "externa";
-  if (s === "none") return "sem inferência";
-  return "—";
+function inferenceLabel(v: unknown, locale: Locale): string {
+  const key = `inference.${String(v)}` as keyof typeof RT.value_labels;
+  const entry = RT.value_labels[key];
+  return entry ? entry[locale] : "—";
 }
 
 function str(v: unknown): string {
@@ -84,8 +93,13 @@ function str(v: unknown): string {
 // validation or fail-safe behaviour. "reference" (default) is the §12 chapter placement;
 // "agent" embeds the same runtime-truth strip in the /banzai shell right sidebar (no top margin, so it
 // sits flush inside the sidebar's ESTADO slot).
-export async function BanzaiRuntimeStrip({ variant = "reference" }: { variant?: "reference" | "agent" } = {}) {
+export async function BanzaiRuntimeStrip({
+  variant = "reference",
+  locale = DEFAULT_LOCALE,
+}: { variant?: "reference" | "agent"; locale?: Locale } = {}) {
   const rt = await fetchRuntime();
+  const prov = provenance(locale);
+  const statusHref = locale === "en" ? "/en/status" : "/estado";
   const wrapClass =
     variant === "agent"
       ? "rounded-[10px] border border-line bg-white px-[16px] py-[16px]"
@@ -93,11 +107,11 @@ export async function BanzaiRuntimeStrip({ variant = "reference" }: { variant?: 
 
   return (
     <section
-      aria-label="Estado verificável do runtime do BanzAI"
+      aria-label={RT.aria_label[locale]}
       className={wrapClass}
     >
       <div className="mb-1 flex flex-wrap items-baseline justify-between gap-2">
-        <div className="eyebrow">ESTADO DO RUNTIME · AGORA</div>
+        <div className="eyebrow">{RT.section_label[locale].toUpperCase()}</div>
         <a
           href={RT.route}
           className="font-mono text-[10.5px] tracking-[0.06em] text-ink-5 no-underline hover:text-ink-4"
@@ -108,7 +122,7 @@ export async function BanzaiRuntimeStrip({ variant = "reference" }: { variant?: 
 
       {/* Provenance is stated as a field (§8), not merely inferable from prose — in both branches. */}
       <div className="mt-1 text-[11px] leading-[1.5] text-ink-5">
-        <span className="font-semibold text-ink-4">{PROV_LABEL}</span> {PROV_TEXT} ·{" "}
+        <span className="font-semibold text-ink-4">{prov.label}</span> {prov.text} ·{" "}
         <span className="font-mono">
           GET {RT.route}
         </span>{" "}
@@ -117,8 +131,10 @@ export async function BanzaiRuntimeStrip({ variant = "reference" }: { variant?: 
 
       {rt === null ? (
         <p className="mt-2 text-[14.5px] font-semibold leading-[1.5] text-ink">
-          {RT.labels.fallback_pt}
-          <span className="ml-1 font-normal text-ink-4">{RT.labels.fallback_detail_pt}</span>
+          {locale === "en" ? RT.labels.fallback_en : RT.labels.fallback_pt}
+          <span className="ml-1 font-normal text-ink-4">
+            {locale === "en" ? RT.labels.fallback_detail_en : RT.labels.fallback_detail_pt}
+          </span>
           {/* No "Verificado em:" here — no value was confirmed, so the timestamp is honestly omitted
               (never substitute the client/render time). */}
         </p>
@@ -137,17 +153,23 @@ export async function BanzaiRuntimeStrip({ variant = "reference" }: { variant?: 
           >
             {(
               [
-                ["Estado", str(rt.status)],
-                ["Modo", str(rt.mode)],
-                ["Modelo disponível", yesNo(rt.model_available)],
-                ["Inferência", inferenceLabel(rt.inference_location)],
-                ["Chamadas externas", yesNo(rt.external_calls)],
-                ["Motores determinísticos", yesNo(rt.deterministic_engines_available)],
-                ["Serviço", str(rt.service)],
-                ["Release", str(rt.release)],
-                ["Autoritativo", yesNo(rt.authoritative)],
+                [RT.field_labels.status[locale], str(rt.status)],
+                [RT.field_labels.mode[locale], str(rt.mode)],
+                [RT.field_labels.model_available[locale], yesNo(rt.model_available, locale)],
+                [RT.field_labels.inference_location[locale], inferenceLabel(rt.inference_location, locale)],
+                [RT.field_labels.external_calls[locale], yesNo(rt.external_calls, locale)],
+                [
+                  RT.field_labels.deterministic_engines_available[locale],
+                  yesNo(rt.deterministic_engines_available, locale),
+                ],
+                [RT.field_labels.service[locale], str(rt.service)],
+                [RT.field_labels.release[locale], str(rt.release)],
+                [RT.field_labels.authoritative[locale], yesNo(rt.authoritative, locale)],
                 // §8: the verification timestamp, bound to the shown snapshot, is now a distinct field.
-                [RT.labels.verified_prefix_pt.replace(/:$/, ""), str(rt.checked_at)],
+                [
+                  (locale === "en" ? RT.labels.verified_prefix_en : RT.labels.verified_prefix_pt).replace(/:$/, ""),
+                  str(rt.checked_at),
+                ],
               ] as const
             ).map(([label, value]) => (
               <div key={label} className="min-w-0">
@@ -159,11 +181,13 @@ export async function BanzaiRuntimeStrip({ variant = "reference" }: { variant?: 
             ))}
           </div>
           <p className="mt-4 text-[12.5px] leading-[1.6] text-ink-4">
-            {RT.rule_pt.split("/estado")[0]}
-            <a href="/estado" className="text-ink-4 underline hover:text-ink">
-              /estado
+            {/* The rule names the status page; each edition links to its OWN, so an English reader is not
+                sent into the Portuguese site by a sentence they just read in English. */}
+            {locale === "en" ? RT.rule_en.split("the status page")[0] : RT.rule_pt.split("/estado")[0]}
+            <a href={statusHref} className="text-ink-4 underline hover:text-ink">
+              {locale === "en" ? "the status page" : "/estado"}
             </a>
-            {RT.rule_pt.split("/estado")[1]}
+            {locale === "en" ? RT.rule_en.split("the status page")[1] : RT.rule_pt.split("/estado")[1]}
           </p>
         </>
       )}

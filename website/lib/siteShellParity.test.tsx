@@ -320,3 +320,35 @@ describe("full shell — the language switch offers the real counterpart", () =>
     expect(chrome).toContain('hrefLang="en"');
   });
 });
+
+// ── CHROMELESS SURFACES ARE CHROMELESS IN BOTH EDITIONS ───────────────────────────────────────────
+//
+// /banzai is a dedicated full-height app: one page, no editorial content beneath it, so the global BANZA
+// footer is deliberately withheld there. The gate that withholds it compared the raw pathname against the
+// Portuguese spelling, so the English edition — which serves the very same app at /en/banzai — fell
+// through and rendered the institutional footer under a surface designed to fill the viewport.
+//
+// The property is stated per surface and asserted across editions, because "is this page chromeless" is a
+// fact about the surface, never about the language it is read in.
+describe("the BanzAI surface carries no global footer, in either edition", () => {
+  const FOOTER_MARKER = /BANZA is not a bank|BANZA não é banco/;
+
+  const SURFACES = [
+    { name: "BanzAI root", pt: "/banzai", en: "/en/banzai" },
+    { name: "BanzAI operator context", pt: "/banzai/operador", en: "/en/banzai/operator" },
+  ] as const;
+
+  it.each(SURFACES)("$name renders no footer in PT or EN", ({ pt, en }) => {
+    for (const path of [pt, en]) {
+      const html = renderShell(path);
+      expect(html, `${path} must render the page itself`).toContain("PAGE-BODY-MARKER");
+      expect(FOOTER_MARKER.test(html), `${path} must not render the global footer`).toBe(false);
+    }
+  });
+
+  // Non-vacuity: the marker this suite looks for must actually appear on a page that DOES have a footer.
+  // Without this the assertions above would pass just as happily against a marker that matches nothing.
+  it.each([["/"], ["/en"], ["/en/trust"], ["/confianca"]])("%s still renders the footer", (path) => {
+    expect(FOOTER_MARKER.test(renderShell(path)), `${path} should have a footer`).toBe(true);
+  });
+});

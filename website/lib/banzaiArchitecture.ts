@@ -45,6 +45,9 @@ export type BanzaiRepoRelation = {
   qualifier_pt: string;
 };
 
+/** One string, realized in each edition. */
+export type Localized = { pt: string; en: string };
+
 export type BanzaiRuntimeContract = {
   route: string;
   method: string;
@@ -67,8 +70,19 @@ export type BanzaiRuntimeContract = {
     verified_prefix_pt: string;
     fallback_pt: string;
     fallback_detail_pt: string;
+    provenance_en: string;
+    verified_prefix_en: string;
+    fallback_en: string;
+    fallback_detail_en: string;
   };
   rule_pt: string;
+  rule_en: string;
+  // Reader-facing labels per edition. They live in the manifest rather than in the component so the strip
+  // composes no prose of its own — the same reason the Portuguese ones were put here.
+  section_label: Localized;
+  aria_label: Localized;
+  field_labels: Record<string, Localized>;
+  value_labels: Record<string, Localized>;
 };
 
 export type BanzaiArchitectureManifest = {

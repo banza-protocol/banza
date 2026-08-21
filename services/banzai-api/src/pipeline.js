@@ -1842,7 +1842,10 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // (no metadata) → MISSING_REQUIRED_SECTION → degraded "erro temporário" fallback. Still fires DURING a
     // journey; only a genuine journey next-step turn skips it (the journey answer owns that turn).
     if (!journeyOwnsTurn) {
-      const look = documentLookup(correctedQuestion, documentId ? String(documentId) : "");
+      // The composer is given the reader's locale, so the `answer_locale` stamped below describes what it
+      // actually produced. Without it the card was composed in Portuguese and still stamped EN — the field
+      // attesting to a presentation nobody had made.
+      const look = documentLookup(correctedQuestion, documentId ? String(documentId) : "", locale);
       if (look) {
         return {
           result: {

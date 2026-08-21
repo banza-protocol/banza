@@ -109,6 +109,18 @@ export const AGENT_COPY = {
   // Shell chrome that had no owner at all and rendered Portuguese on the English surface, beside English
   // suggestions and an English composer. Small labels, but a reader reads them.
   "shell.hideInspector": L("Ocultar inspetor", "Hide inspector"),
+  "shell.send": L("Enviar", "Send"),
+
+  // Sidebar and inspector section dividers. These were uppercase Portuguese literals inline in the shell,
+  // so the English reader navigated an English app through Portuguese signposts — MODOS above "Ask BanzAI",
+  // RECURSOS above "Guide". They are rendered uppercase by the component; the copy is written normally so
+  // each edition can be read on its own.
+  "section.modes": L("Modos", "Modes"),
+  "section.results": L("Resultados", "Results"),
+  "section.resources": L("Recursos", "Resources"),
+  "section.sourcesAndContext": L("Fontes e contexto", "Sources and context"),
+  "section.boundary": L("Fronteira", "Boundary"),
+  "section.state": L("Estado", "State"),
   "shell.showInspector": L("Mostrar inspetor", "Show inspector"),
   "shell.continue": L("CONTINUAR", "CONTINUE"),
   "shell.clearConversation": L("Limpar conversa", "Clear conversation"),
@@ -397,6 +409,25 @@ export const AGENT_COPY = {
     "Ver consequências",
     "View consequences",
   ),
+  "inspector.sourcesAndContext": L("Inspetor · fontes e contexto", "Inspector · sources and context"),
+  "doc.impactForOperators": L("Impacto para operadores", "Impact for operators"),
+  "doc.summarize": L("Resumir", "Summarize"),
+
+  // The follow-up questions these buttons SEND. The reader sees their own click echoed back as their
+  // message, so a Portuguese question from an English button reads as if they typed it.
+  "docq.decision": L("Qual foi a decisão do {id}?", "What did {id} decide?"),
+  "docq.consequences": L("Quais foram as consequências do {id}?", "What were the consequences of {id}?"),
+  "docq.impact": L("Como o {id} afecta implementadores?", "How does {id} affect implementers?"),
+  "docq.summarize": L("Resume o {id}", "Summarize {id}"),
+
+  // Interpreted-input notice, the cancelled state, and the screen-reader progress line. The last one is
+  // announced only to assistive technology: an interface that looks English and speaks Portuguese to a
+  // screen reader is localized for some readers and not others.
+  "answer.interpretedAs": L("Interpretado como", "Interpreted as"),
+  "answer.cancelledText": L("Pedido cancelado.", "Request cancelled."),
+  "answer.cancelledStatus": L("Cancelado", "Cancelled"),
+  "a11y.preparingAnswer": L("A preparar a resposta…", "Preparing the answer…"),
+
   "inspector.validationContext": L(
     "Inspetor · contexto da validação",
     "Inspector · validation context",

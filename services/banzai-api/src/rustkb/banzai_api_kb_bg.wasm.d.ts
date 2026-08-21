@@ -52,7 +52,7 @@ export const build_family_package_json: (a: number, b: number, c: number, d: num
 export const classify_diagnosis_json: (a: number, b: number) => [number, number];
 export const answer_obligations_json: (a: number, b: number, c: number, d: number) => [number, number];
 export const tasked_answer_json: (a: number, b: number, c: number, d: number) => [number, number];
-export const document_lookup_card_json: (a: number, b: number, c: number, d: number) => [number, number];
+export const document_lookup_card_json: (a: number, b: number, c: number, d: number, e: number, f: number) => [number, number];
 export const build_output_prompt_obliged_json: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number) => [number, number];
 export const task_completion_json: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number) => [number, number];
 export const catalogue_subjects_json: () => [number, number];

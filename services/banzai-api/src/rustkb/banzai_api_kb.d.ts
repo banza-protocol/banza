@@ -205,7 +205,7 @@ export function detect_doc_refs_json(question: string): string;
  * escalates to the grounded trunk) or the document does not resolve. `document_id` is the optional
  * structured id from the "Explicar com BanzAI" button; empty means "detect from the question".
  */
-export function document_lookup_card_json(question: string, document_id: string): string;
+export function document_lookup_card_json(question: string, document_id: string, locale: string): string;
 
 /**
  * Node WASM: the routing source state this binary was built from, so a checker can prove the shipped

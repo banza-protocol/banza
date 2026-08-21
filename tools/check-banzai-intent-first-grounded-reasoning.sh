@@ -30,7 +30,11 @@ ROUTE_RS="engines/banzai-query-core/src/route.rs"
 LIB_RS="engines/banzai-api-kb/src/lib.rs"
 POLICY_RS="engines/banzai-query-core/src/source_policy.rs"
 ANSWER_JS="services/banzai-api/src/answerContract.js"
-HOME_ASK="website/components/home/HomeAsk.tsx"
+# The answer surface that actually renders to readers. This property used to be asserted on
+# components/home/HomeAsk.tsx, which no production route imported and which is absent from the built
+# output — so it protected nothing, and the `if [ -f ]` around it meant deleting the file would have
+# retired the property in silence rather than loudly.
+ANSWER_SURFACE="website/components/banzai/BanzaiAgent.tsx"
 ROUTE_TESTS="engines/banzai-api-kb/tests/route.rs"
 POLICY_TEST="services/banzai-api/test/source-policy.test.js"
 
@@ -112,14 +116,14 @@ if [ -f "$ANSWER_JS" ]; then
   esac
 fi
 
-# ── C. answer symbol (defect C) — the hazard-triangle glyph is gone from the home card ───────────────
-if [ -f "$HOME_ASK" ]; then
-  # U+25ED (◭) must not be present as the AI avatar.
-  if grep -q $'◭' "$HOME_ASK" 2>/dev/null || grep -q "◭" "$HOME_ASK"; then
-    report "C1 answer symbol" "HomeAsk.tsx still uses the ◭ hazard-triangle glyph"
-  else
-    ok "C answer symbol corrected (no ◭ hazard glyph)"
-  fi
+# ── C. answer symbol (defect C) — the hazard-triangle glyph is gone from the live answer surface ─────
+# Not wrapped in `if [ -f ]`: a missing answer surface is a failure, not a reason to skip the check.
+[ -f "$ANSWER_SURFACE" ] || report "C1 answer surface" "$ANSWER_SURFACE not found"
+# U+25ED (◭) must not be present as the AI avatar.
+if grep -q $'◭' "$ANSWER_SURFACE" 2>/dev/null || grep -q "◭" "$ANSWER_SURFACE"; then
+  report "C1 answer symbol" "$ANSWER_SURFACE still uses the ◭ hazard-triangle glyph"
+else
+  ok "C answer symbol corrected (no ◭ hazard glyph on the live answer surface)"
 fi
 
 # ── self-test: the detectors actually fire ──────────────────────────────────────────────────────────

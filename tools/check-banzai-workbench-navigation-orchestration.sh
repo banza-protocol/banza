@@ -79,10 +79,20 @@ grep -q 'group === "recursos"' "$AGENT_TSX" && grep -q 'group === "resultados"' 
 copy_presented "$AGENT_TSX" agent section.validationJourney pt 'JORNADA DE VALIDAÇÃO' \
   && ok "renderer shows the 'JORNADA DE VALIDAÇÃO' divider (validation mode)" \
   || fail "$AGENT_TSX must show the validation-journey divider"
-# The order in source: MODOS → the validation-journey divider → RECURSOS.
-MODIV=$(grep -n 'sidebarDivider("MODOS")' "$AGENT_TSX" | head -1 | cut -d: -f1)
+# The dividers must also be PRESENTED copy, not literals: an inline uppercase string is a divider only
+# the Portuguese edition can read, which is exactly how the English shell ended up with Portuguese
+# signposts over English destinations.
+copy_presented "$AGENT_TSX" agent section.modes pt 'Modos' \
+  && ok "the Modos divider is presented copy, per edition" \
+  || fail "$AGENT_TSX must render the Modos divider from the copy catalogue, not a literal"
+copy_presented "$AGENT_TSX" agent section.resources pt 'Recursos' \
+  && ok "the Recursos divider is presented copy, per edition" \
+  || fail "$AGENT_TSX must render the Recursos divider from the copy catalogue, not a literal"
+
+# The order in source: Modos → the validation-journey divider → Recursos.
+MODIV=$(grep -n 'sidebarDivider(t("section.modes")' "$AGENT_TSX" | head -1 | cut -d: -f1)
 JDIV=$(grep -n 'sidebarDivider(t("section.validationJourney")' "$AGENT_TSX" | head -1 | cut -d: -f1)
-RDIV=$(grep -n 'sidebarDivider("RECURSOS")' "$AGENT_TSX" | head -1 | cut -d: -f1)
+RDIV=$(grep -n 'sidebarDivider(t("section.resources")' "$AGENT_TSX" | head -1 | cut -d: -f1)
 if [ -n "$MODIV" ] && [ -n "$JDIV" ] && [ -n "$RDIV" ] && [ "$MODIV" -lt "$JDIV" ] && [ "$JDIV" -lt "$RDIV" ]; then
   ok "order: Modos → validation-journey divider → Recursos"
 else
