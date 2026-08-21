@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { buildAskBody, mapAskResponse } from "./banzaiKb";
+import { buildAskBody, mapAskResponse, localeMatches } from "./banzaiKb";
 import { askStatus, sourcesLabel } from "./askStatusPresentation";
 import { LOCALES, type Locale } from "@/lib/i18n";
 
@@ -112,5 +112,77 @@ describe("the provenance line speaks the reader's language", () => {
     expect(en.status).toContain("Safe fallback");
     expect(en.status).toContain("model unavailable");
     expect(en.status).not.toMatch(/Fallback seguro|indisponível/);
+  });
+});
+
+describe("the response declares its own locale, and the client checks it", () => {
+  // The API's canonical provenance field arrives in the wire representation ("pt-PT" / "en") while the
+  // reader's locale is this app's own ("pt" / "en"). Neither side has to know the other's spelling.
+  it("accepts a response composed for the edition that asked", () => {
+    expect(localeMatches({ answer_locale: "en" }, "en")).toBe(true);
+    expect(localeMatches({ answer_locale: "pt-PT" }, "pt")).toBe(true);
+    expect(localeMatches({ answer_locale: "pt" }, "pt")).toBe(true);
+  });
+
+  it("refuses a response composed for the other edition — the exact production defect", () => {
+    // An English request answered in Portuguese. The text may read perfectly well; only the declaration
+    // says whether anyone intended it, which is why the check is on the declaration and not on the words.
+    expect(localeMatches({ answer_locale: "pt-PT" }, "en")).toBe(false); // probe
+    expect(localeMatches({ answer_locale: "en" }, "pt")).toBe(false);
+  });
+
+  it("does not detect language from the answer text", () => {
+    // A Portuguese answer that correctly declares itself Portuguese is accepted by a Portuguese reader,
+    // and an English one that declares English is accepted by an English reader — regardless of what the
+    // prose looks like. Lexical detection would be the wrong instrument and is deliberately absent.
+    expect(localeMatches({ answer_locale: "en", answer: "O L2 é o perfil…" }, "en")).toBe(true);
+    expect(localeMatches({ answer_locale: "pt-PT", answer: "L2 is the profile…" }, "pt")).toBe(true);
+  });
+
+  it("accepts an undeclared locale rather than withholding a working answer", () => {
+    // Composers that leave no provenance are a separate, already-owned problem. Refusing those answers
+    // would take working replies away from readers for a reason they cannot act on.
+    expect(localeMatches({}, "en")).toBe(true);
+    expect(localeMatches({ answer_locale: "" }, "en")).toBe(true);
+    expect(localeMatches(null, "en")).toBe(true);
+  });
+
+  it("closes the L2 case end to end", () => {
+    // reader locale EN → request states EN → response declares EN → English answer and English provenance.
+    const body = buildAskBody("What is L2", [], undefined, null, "en");
+    expect(body.locale).toBe("en");
+    const response = {
+      answer_locale: "en",
+      grounded: true,
+      answer: "**L2** is the **Payment Initiation Capability** profile.",
+      sources: [{ title: "a" }, { title: "b" }],
+      sources_count: 2,
+      meta: { llm_called: false, deterministic: true },
+    };
+    expect(localeMatches(response, "en")).toBe(true);
+    const mapped = mapAskResponse(response, "en");
+    expect(mapped.status).toContain("Deterministic answer");
+    expect(mapped.status).toContain("2 sources");
+    expect(mapped.status).not.toContain("fontes");
+  });
+
+  it("keeps the PT-only case honest: the declaration describes what was DELIVERED", () => {
+    // An entry with no English realization is answered with the explicit English unavailable state. That
+    // state was composed for an English reader, so it declares EN — the field describes the presentation
+    // delivered, not the language of the underlying source entry.
+    const unavailable = {
+      answer_locale: "en",
+      grounded: true,
+      answer: "A deterministic answer is not yet available in English for this question.",
+      sources: [{ title: "a" }],
+      sources_count: 1,
+      meta: { llm_called: false, deterministic: true },
+    };
+    expect(localeMatches(unavailable, "en")).toBe(true);
+    expect(mapAskResponse(unavailable, "en").status).toContain("Deterministic answer");
+  });
+
+  it("keeps the legacy omitted-locale caller on Portuguese, declared", () => {
+    expect(localeMatches({ answer_locale: "pt-PT" }, "pt")).toBe(true);
   });
 });

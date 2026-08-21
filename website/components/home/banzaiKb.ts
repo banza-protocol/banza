@@ -10,7 +10,7 @@
 
 import { selectSuggestions, type SuggestionContext, type SuggestionSelection } from "@/components/banzai/suggestions";
 import { askStatus, sourcesLabel, degradedStatus } from "@/components/home/askStatusPresentation";
-import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n";
+import { DEFAULT_LOCALE, HTML_LANG, type Locale } from "@/lib/i18n";
 
 export type CiteLink = { label: string; href: string };
 
@@ -946,6 +946,21 @@ export function buildAskBody(
   return body;
 }
 
+/**
+ * Does the response declare that it was composed for the edition that asked?
+ *
+ * `answer_locale` is the API's canonical provenance field and arrives in the wire representation
+ * ("pt-PT" / "en"), while the reader's locale is this app's own ("pt" / "en"). The two are compared
+ * through the shared mapping rather than by string equality, so neither side has to know the other's
+ * spelling. An absent declaration is accepted — see the call site.
+ */
+export function localeMatches(payload: unknown, requested: Locale): boolean {
+  const o = payload && typeof payload === "object" ? (payload as Record<string, unknown>) : {};
+  const declared = o.answer_locale;
+  if (typeof declared !== "string" || !declared) return true;
+  return declared === HTML_LANG[requested] || declared === requested;
+}
+
 export async function banzaiKb(
   raw: string,
   history: ChatTurn[] = [],
@@ -981,6 +996,18 @@ export async function banzaiKb(
       return outage("unavailable", publicMessage);
     }
     const data = await res.json();
+    // Verify the answer was composed for the edition that asked, and fail closed when it was not.
+    //
+    // This is a check, never a correction: the response declares its own provenance and the client either
+    // accepts it or refuses it. Detecting the language of the text would be the wrong instrument — a
+    // Portuguese sentence served to an English request looks Portuguese either way, and only the
+    // declaration says whether anyone intended it. Rewriting the field would erase the very evidence that
+    // something went wrong.
+    //
+    // A null declaration is not treated as a mismatch: composers that leave no provenance are a separate,
+    // already-owned problem, and refusing those answers would take working replies away from readers for
+    // a reason they cannot act on.
+    if (!localeMatches(data, locale)) return outage("unavailable");
     return mapAskResponse(data, locale);
   } catch {
     return unavailable();
