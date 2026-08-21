@@ -67,6 +67,35 @@ fn is_canonicalization_phrase(nq: &str) -> bool {
     )
 }
 
+/// The question asks for the EVIDENCE behind the previous answer, not about a subject.
+///
+/// "Which sources support that?" refers to what was just said. A pro-form in such a question stands for
+/// the prior ANSWER, and substituting the prior SUBJECT into it produces a different question — measured,
+/// it turned a SOURCE_FOLLOWUP into a STANDALONE and broke a working path.
+pub fn asks_for_evidence(nq: &str) -> bool {
+    has(
+        nq,
+        &[
+            "que fonte",
+            "que fontes",
+            "quais fontes",
+            "qual a fonte",
+            "fonte normativa",
+            "fontes suportam",
+            "fontes que suportam",
+            "which source",
+            "which sources",
+            "what source",
+            "what sources",
+            "source says",
+            "sources support",
+            "show the source",
+            "evidencia",
+            "evidence for",
+        ],
+    )
+}
+
 /// A COMPARISON frame — "qual a diferença entre A e B", "what is the difference between A and B".
 ///
 /// A comparison names TWO subjects, and the term table names one. So the arms below, which match the

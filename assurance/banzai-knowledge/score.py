@@ -62,6 +62,20 @@ RULES = {
  "M-PT-06": ([r"[Pp]ostgre|estado de protocolo|qualquer linguagem"], [r"não existe uma resposta determinística"]),
  "M-EN-06": ([r"[Pp]ostgre|protocol state"], [r"not yet available in English"]),
  "M-EN-14": ([r"\bNo\b|not.*authoris"], [r"not yet available in English"]),
+ # ── multi-turn journeys, per TURN ──────────────────────────────────────────────────────────────────
+ # These were scored by the generic invariants alone, because the per-question rules were applied only
+ # to single-turn questions. A journey turn is where anaphora lives, and anaphora is where the subject
+ # is most likely to be lost — so it is the last place that should have been left unchecked.
+ "J-EN-LEDGER#2": ([r"double|invariant|ledger|INV-"], [r"does not require one because it is a specification"]),
+ "J-PT-LEDGER#2": ([r"invariante|dupla|ledger"], [r"não exige um ledger específico"]),
+ "J-PT-LEDGER#3": ([r"derivad|ledger"], []),
+ "J-PT-TRUST#3": ([r"tr[êe]s|3\b"], []),
+ "J-PT-TRUST#4": ([r"2|duas|dois"], []),
+ "J-EN-PROFILES#2": ([r"L3"], []),
+ "J-EN-PROFILES#4": ([r"[Nn]o\b|not a certificate"], []),
+ "J-PT-PROFILES#4": ([r"[Nn]ão"], []),
+ "J-PT-READY#1": ([r"PRE-PRODUCTION|pré-produção"], []),
+ "J-EN-READY#1": ([r"PRE-PRODUCTION|pre-production"], []),
 }
 
 def is_pt(t):
@@ -94,7 +108,10 @@ for d in rows:
         if r.get("local_model_called") and not r["sources"]:
             why.append("model answer with zero sources")
         # ── per-question rules (first turn only for journeys) ──
-        must, mustnt = RULES.get(tag, RULES.get(qid, ([], [])) if len(d["records"])==1 else ([], []))
+        # The tagged rule for THIS turn, else the question-level rule for a single-turn question. A
+        # journey turn used to fall through to nothing at all, which is how a confabulated follow-up
+        # scored as a pass.
+        must, mustnt = RULES.get(tag, RULES.get(qid, ([], [])) if len(d["records"]) == 1 else ([], []))
         for rx in must:
             if not re.search(rx, a, re.I): why.append(f"missing required: /{rx}/")
         for rx in mustnt:

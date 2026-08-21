@@ -591,6 +591,47 @@ fn ellipsis_subject(raw: &str, nq: &str) -> Option<String> {
     Some(subject)
 }
 
+/// Replace a PRO-FORM standing for the prior concept with that concept, or return None.
+///
+/// Deliberately narrow. A pro-form is only read when it is the LAST word of the question, which is
+/// where a referring "one"/"it"/"isso" actually sits ("does BANZA require one?", "o BANZA exige-o?").
+/// "one" is an ordinary English word — "which one of the operators", "one of the profiles" — and a
+/// substitution in the middle of a sentence would rewrite questions nobody asked. The last position is
+/// the one shape that cannot be anything else.
+///
+/// The question keeps its own words. Only the pro-form is swapped, so the routing, gating and grounding
+/// that follow see the reader's question with its subject restored — this decides what is being ASKED
+/// ABOUT, never what is true about it.
+fn substitute_pro_form(question: &str, subject: &str) -> Option<String> {
+    // `isso` / `isto` were here and are now deliberately absent. In Portuguese they refer to the prior
+    // ANSWER at least as often as to its subject — "Que fontes é que respondem a isto?" is a request for
+    // the evidence behind what was just said, and the source-follow-up machinery already resolves it.
+    // Substituting the subject there rewrote the question into a different one and broke a working path.
+    // Measured: it turned a SOURCE_FOLLOWUP into a STANDALONE.
+    //
+    // What remains is the shape the defect was actually measured in, and the shape that cannot be
+    // anything else in final position.
+    const PRO_FORMS: &[&str] = &["one", "it", "them"];
+    let trimmed = question.trim().trim_end_matches(['?', '.', '!', ' ']);
+    let lower = crate::normalize(trimmed);
+    let last = lower.split_whitespace().last()?;
+    if !PRO_FORMS.contains(&last) {
+        return None;
+    }
+    // An evidence request refers to the previous answer, not to its subject. Never substitute into one.
+    if crate::glossary::asks_for_evidence(&lower) {
+        return None;
+    }
+    // Rebuild from the ORIGINAL words so casing and accents survive; only the final token is replaced.
+    let mut words: Vec<&str> = trimmed.split_whitespace().collect();
+    if words.len() < 2 {
+        return None; // a bare pro-form carries no question to resolve
+    }
+    words.pop();
+    let head = words.join(" ");
+    Some(format!("{head} {subject}?"))
+}
+
 /// Honest, request-oriented PT clarification (0 guessed referents) when an anaphor cannot be bound.
 fn clarification_for(a: Anaphor) -> String {
     let what = match a {
@@ -641,6 +682,57 @@ pub fn resolve_references(question: &str, prior: &PriorContext) -> ResolvedConte
     //    the subject; it fires only with a prior conceptual/documentary context to inherit from (so a genuine
     //    first-turn ellipsis is left untouched). The rewrite is a benign concept question grounded downstream.
     if anaphor == Anaphor::None {
+        // PRO-FORM anaphora on the prior CONCEPT, resolved before the ellipsis path below.
+        //
+        // The ellipsis path handles a follow-up that SUPPLIES a new subject ("e L3?") and inherits the
+        // intent. A pro-form does the opposite: it supplies no subject and refers back to the one already
+        // established. Both are follow-ups; only one was handled.
+        //
+        // Measured against production at `src-4238558`, after "What is a ledger?":
+        //
+        //     "Does BANZA require one?" → NO_ANAPHORA → no subject resolved → the generic protocol
+        //     entry → "BANZA does not require one because it is a specification, not a service."
+        //
+        // which is the same false claim about the same invariants that the standalone form used to
+        // produce, arriving through a door the standalone fix does not cover. INV-LEDGER-001…005 and
+        // INV-WALLET-001 say otherwise, and `financial-invariants` states it correctly.
+        //
+        // The rewrite only substitutes: the pro-form is replaced by the subject the previous turn
+        // established, and the rest of the question is left exactly as the reader wrote it. So
+        // "Does BANZA require one?" becomes "Does BANZA require ledger?" and is then routed, gated and
+        // grounded by the ordinary path — this decides WHAT is being asked about, never what is true.
+        if prior.last_subject_kind == "concept" && !prior.last_subject.is_empty() {
+            if let Some(resolved_query) = substitute_pro_form(question, &prior.last_subject) {
+                // Defense in depth: a substitution must never produce a query that trips the boundary.
+                if !crate::boundary::evaluate(&resolved_query).boundary_detected {
+                    return ResolvedContext {
+                        schema_version: 1,
+                        original_query: question.to_string(),
+                        resolved_query,
+                        has_anaphora: true,
+                        has_prior_context: true,
+                        referent_kind: "concept".into(),
+                        resolved_intent: "explain_concept".into(),
+                        execution_id: String::new(),
+                        comparison_targets: Vec::new(),
+                        artifact: String::new(),
+                        operator_id: prior.operator_id.clone(),
+                        implementation_id: prior.implementation_id.clone(),
+                        profile: prior.profile.clone(),
+                        environment: prior.environment.clone(),
+                        protocol_version: prior.protocol_version.clone(),
+                        resolution_state: "RESOLVED".into(),
+                        requires_clarification: false,
+                        clarification: String::new(),
+                        boundary_detected: false,
+                        turn_type: "PRONOMINAL_FOLLOWUP".into(),
+                        resolved_subject: prior.last_subject.clone(),
+                        inherited_intent: prior.last_intent.clone(),
+                        slot_ops: vec!["subject:RESOLVE_PRO_FORM".to_string()],
+                    };
+                }
+            }
+        }
         if (prior.has_concept_context() || prior.has_any())
             && !crate::normalize(question).is_empty()
         {
