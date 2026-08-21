@@ -514,7 +514,7 @@ normal merge commit. All 307 GitHub contexts were SUCCESS at the merged head; th
 triggered on `main` all succeeded. Post-merge on `main`: guard gate 192 PASS · 0 FAIL · 1 NOT_RUN_LOCALLY,
 route registry 22 / 0 / 1, production build exit 0, no generated-file drift, tree clean.
 
-Production serves `93be456`. Two services were rebuilt — `website` and `banzai-api` — and the second needs
+Production served `93be456` at the time of this record (2026-08-20). Two services were rebuilt — `website` and `banzai-api` — and the second needs
 its reason recorded: PR #32 changed 29 files under `services/banzai-api`, including the bilingual
 realization and the compiled KB, so deploying only the website would have served English routes backed by
 a Portuguese-only agent. Nothing else was touched: postgres, verification-api, the fetcher, llama-local and
@@ -938,22 +938,61 @@ The corrections above are deliberately not tidied away now that the result is gr
 The ledger is worth keeping because it records where assurance was **falsified** and then strengthened. A
 version of this document containing only the successes would be a weaker artefact, and a misleading one.
 
-## 12. Final status
+## 12. What happened after this record
+
+Sections 1–11 are the PR #32 ledger and are left exactly as they were written on 2026-08-20. They are
+accurate about that day. They are **not** a description of the current system, and the section that used
+to sit here said they were — it declared Website Phase 2 frozen and named `93be456` as the production
+SHA. Four merges and three deployments later that was simply untrue, and a record that quietly ages into
+a falsehood is worse than no record: it is read as current precisely because it is written down.
+
+What followed, in order:
+
+| PR | what it closed | merged as |
+|---|---|---|
+| #34 | PT/EN structural parity — 22 pairs consolidated into shared views, `KNOWN_DIVERGENT` 0 | `f86e6d9` |
+| #35 | home metadata + the 404 boundary between editions | — |
+| #36 | an awk portability defect that only failed on the Linux runner | `178db95` |
+| #37 | the BanzAI English answer-locale regression | `4dc03d0` |
+| #38 | EN presentation parity: shell chrome, runtime card, document composer, footer gate, HomeAsk debt | `14df955` |
+
+Two things in that list correct claims made above. §"Both now answer, in English, with the Portuguese
+slug still unaddressable under `/en`" was superseded by PR #34, which consolidated every bilingual pair
+into one shared view per surface. And the English BanzAI answers this record vouched for were, at the
+time it was written, being served in Portuguese to English readers — the request never carried the
+reader's locale and the envelope never declared one. PR #37 closed the contract; PR #38 closed the
+presentation around it.
+
+## 13. Current status
 
 | | |
 |---|---|
-| Website Phase 2 | **COMPLETE AND FROZEN** |
-| Block E2 | **COMPLETE AND FROZEN** |
-| Block E | **COMPLETE AND FROZEN** |
-| PR #32 | **MERGED** |
-| `main` | **VERIFIED** |
-| production | **DEPLOYED AND VERIFIED** |
-| production SHA | `93be4566265b6d3b8dece84de22ef24e73682283` |
+| PR #32 | **MERGED** (`93be456`) |
+| production SHA | **`14df955b3e0e47bda429f4cf6e0e89ff73e94365`** |
+| production website | `banza-website:src-14df955` |
+| production BanzAI API | `banzai-api:src-14df955` |
+| BanzAI EN locale contract | **LIVE AND VERIFIED** |
+| EN presentation parity | **LIVE AND VERIFIED** |
 | AG-10 | **NOT_RUN** |
+| Website Phase 2 | **NOT FROZEN** — see below |
+
+**Website Phase 2 is deliberately not declared frozen, and this document is not final either.**
+
+Two things are outstanding.
+
+The global unmatched-path 404: `app/not-found.tsx` is absent at the root, so a top-level URL matching no
+route falls to Next.js's default in both editions. That work was paused to close the BanzAI locale
+regression and has not been resumed.
+
+And the documentation itself is still being worked on — this record included. A phase is frozen when
+nothing known is outstanding, not when the interesting parts are done, and freezing a document while it
+is still being edited is how a record starts disagreeing with the system it describes.
+
+This section is therefore the current state as of the last update above, not a closing statement. It is
+expected to change again.
 
 **A boundary that must not be blurred.** "The website is deployed in production" is a statement about a
 website. It is **not** a statement that the BANZA protocol is production-ready. AG-10, the release and
 freeze gate, is NOT_RUN — its evidence has not been produced, and the gate treats absence as NOT_RUN and
 never as PASS. The public surface continues to say what it has always said: the protocol is in
 pre-production, the registry is empty, and no operator is certified.
-
