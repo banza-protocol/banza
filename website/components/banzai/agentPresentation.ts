@@ -105,6 +105,13 @@ export const AGENT_COPY = {
   // ── modes and tabs (labels only; mode/icon/key/group stay in banzai-agent.ts) ──────────────────
   "mode.ask": L("Perguntar ao BanzAI", "Ask BanzAI"),
   "mode.validation": L("Validar operador", "Validate operator"),
+
+  // Shell chrome that had no owner at all and rendered Portuguese on the English surface, beside English
+  // suggestions and an English composer. Small labels, but a reader reads them.
+  "shell.hideInspector": L("Ocultar inspetor", "Hide inspector"),
+  "shell.showInspector": L("Mostrar inspetor", "Show inspector"),
+  "shell.continue": L("CONTINUAR", "CONTINUE"),
+  "shell.clearConversation": L("Limpar conversa", "Clear conversation"),
   "mode.onboarding": L("Onboarding de operador", "Operator onboarding"),
   "tab.assistente": L("Perguntar ao BanzAI", "Ask BanzAI"),
   "tab.guia": L("Guia", "Guide"),

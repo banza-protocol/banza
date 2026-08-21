@@ -25,6 +25,7 @@ describe("resolved BanzAI copy — derived, current, and bilingual", () => {
   it("publishes every id of every catalogue it claims to cover", () => {
     expect(Object.keys(resolved.catalogues).sort()).toEqual([
       "agent",
+      "askStatus",
       "decisions",
       "glossary",
       "onboarding",

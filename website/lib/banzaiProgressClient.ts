@@ -18,7 +18,9 @@
 // The DECISION logic is Rust (the backend + progressContract.js) and the envelope→answer mapping is
 // banzaiKb.ts; this file only transports + orchestrates. banzai-api/website UI glue, not a new engine.
 
-import { mapAskResponse, buildAskBody, type KbAnswer, type ChatTurn, type AskJourney, type ConversationState } from "@/components/home/banzaiKb";
+import { mapAskResponse, buildAskBody, localeMatches, type KbAnswer, type ChatTurn, type AskJourney, type ConversationState } from "@/components/home/banzaiKb";
+import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n";
+import { askStatus } from "@/components/home/askStatusPresentation";
 import {
   PROGRESS_SCHEMA_TOKEN,
   isProgressKind,
@@ -74,6 +76,9 @@ type StreamOpts = {
   // BZCI-6 (§2) — the typed conversational state carried from the PREVIOUS turn, threaded into buildAskBody so
   // the streamed request body is byte-identical to the non-stream one (both carry conversation_context).
   convState?: ConversationState | null;
+  // The reader's edition. This is the PRIMARY ask path — the non-stream one is only the escape hatch — so a
+  // locale threaded there and not here is a locale production never actually sends.
+  locale?: Locale;
 };
 
 /**
@@ -93,7 +98,7 @@ export async function* streamBanzaiAsk(
   if (typeof doFetch !== "function") throw new StreamUnavailableError("fetch unavailable");
   if (typeof ReadableStream === "undefined") throw new StreamUnavailableError("ReadableStream unsupported");
 
-  const body = buildAskBody(q, history, journey, opts.convState);
+  const body = buildAskBody(q, history, journey, opts.convState, opts.locale);
   let res: Response;
   res = await doFetch(STREAM_URL, {
     method: "POST",
@@ -162,20 +167,22 @@ type AskViaStreamOpts = {
   now?: () => number;
   // BZCI-6 (§2) — the typed conversational state from the previous turn, forwarded into the streamed request.
   convState?: ConversationState | null;
+  // The reader's edition, forwarded into the streamed request and verified against what comes back.
+  locale?: Locale;
 };
 
 // Build the honest, non-technical "temporarily unavailable" answer from an in-band ERROR terminal's safe
 // `final` payload (a public message only — never a stack trace or secret). Mirrors banzaiKb's outage shape.
-function errorAnswer(final: Record<string, unknown> | null | undefined): KbAnswer {
+function errorAnswer(final: Record<string, unknown> | null | undefined, locale: Locale): KbAnswer {
   const pm = final && typeof final.public_message === "string" ? final.public_message.trim() : "";
   return {
     intent: "unavailable",
     kind: "unavailable",
-    text: pm || "O BanzAI está temporariamente indisponível. Tenta novamente dentro de instantes.",
+    text: pm || askStatus("outage.unavailable.text", locale),
     cites: [],
     links: [],
     sources: [],
-    status: "Temporariamente indisponível",
+    status: askStatus("outage.unavailable.status", locale),
   };
 }
 
@@ -193,6 +200,7 @@ export async function askViaStream(
   opts: AskViaStreamOpts,
 ): Promise<StreamOutcome> {
   const now = opts.now || (() => Date.now());
+  const locale = opts.locale || DEFAULT_LOCALE;
   const startMs = now();
   const receipts: ProgressReceipt[] = [];
   let ttfbAbs: number | null = null;
@@ -211,6 +219,7 @@ export async function askViaStream(
 
   try {
     const gen = streamBanzaiAsk(question, history, journey, {
+      locale,
       signal,
       fetchImpl: opts.fetchImpl,
       convState: opts.convState,
@@ -257,12 +266,18 @@ export async function askViaStream(
     return finish({ answer: null, cancelled: true, usedFallback: false, terminalKind: tk, disposition });
   }
   if (tk === "ERROR") {
-    return finish({ answer: errorAnswer(terminal.final), cancelled: false, usedFallback: false, terminalKind: tk, disposition });
+    return finish({ answer: errorAnswer(terminal.final, locale), cancelled: false, usedFallback: false, terminalKind: tk, disposition });
   }
 
   // FINAL_VALIDATED / HONEST_FALLBACK / REFUSED — the ONLY place prose is read: the terminal `.final` is the
   // exact `/ask` envelope, mapped by the ONE shared mapper the non-stream path uses.
-  let answer = mapAskResponse(terminal.final || {});
+  // The terminal `.final` IS the `/ask` envelope, so it carries the same `answer_locale` provenance and gets
+  // the same verification the non-stream path performs. Without this the check would guard only the escape
+  // hatch and leave the path production actually takes unchecked — the shape of the original regression.
+  if (!localeMatches(terminal.final, locale)) {
+    return finish({ answer: await opts.fallback(), cancelled: false, usedFallback: true, terminalKind: tk, disposition });
+  }
+  let answer = mapAskResponse(terminal.final || {}, locale);
   // React to the typed response_disposition + boundary_context (NOT `grounded`): a REFUSED terminal / a
   // refused boundary is a refusal, so it gets the RECUSA SEGURA badge + only-safe reframes.
   const refusedByDisposition = tk === "REFUSED" || disposition === "REFUSED" || Boolean(terminal.boundary_context && terminal.boundary_context.refused);

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { type Locale } from "@/lib/i18n";
 import { banzaiKb, type ChatTurn, type ConversationState } from "./banzaiKb";
 import { SafeMarkdown } from "@/components/banzai/SafeMarkdown";
 import { BanzaiMark } from "@/components/BanzaiMark";
@@ -50,7 +51,11 @@ const CHIPS: { label: string; q: string; icon: React.ReactNode }[] = [
   },
 ];
 
-export function HomeAsk() {
+// The reader's edition is a REQUIRED prop, deliberately without a default. This widget currently has no
+// mount — the home was rebuilt around a different composition and left it behind — and a defaulted locale
+// would mean a future mount silently inherits Portuguese, which is the regression this branch exists to
+// close. Requiring it makes any remount state the edition it is serving.
+export function HomeAsk({ locale }: { locale: Locale }) {
   const askRef = useRef<HTMLTextAreaElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inFlight = useRef(false); // synchronous double-submit lock (set before React commits `busy`)
@@ -71,7 +76,7 @@ export function HomeAsk() {
     setMsgs((prev) => [...prev, { role: "user", text: q }]);
     setBusy(true);
     try {
-      const ans = await banzaiKb(q, history, undefined, convState);
+      const ans = await banzaiKb(q, history, undefined, convState, locale);
       // BZCI-6 (§2) — carry the backend's SAFE conversation_context to the next turn (only when present).
       if (ans.conversationContext) setConvState(ans.conversationContext);
       setMsgs((prev) => [...prev, { role: "ai", text: ans.text, cites: ans.cites, status: ans.status }]);

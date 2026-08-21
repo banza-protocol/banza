@@ -9,6 +9,8 @@
 // nothing leaves the host (external_model_called=false). No WASM, no client-side model.
 
 import { selectSuggestions, type SuggestionContext, type SuggestionSelection } from "@/components/banzai/suggestions";
+import { askStatus, sourcesLabel, degradedStatus } from "@/components/home/askStatusPresentation";
+import { DEFAULT_LOCALE, HTML_LANG, type Locale } from "@/lib/i18n";
 
 export type CiteLink = { label: string; href: string };
 
@@ -273,18 +275,6 @@ const ASK_TIMEOUT_MS = 65000; // slightly above the backend's 60s local-inferenc
 // returns a `public_message` (Rust single source of truth); we prefer it when present and fall back
 // to these constants when there is no response body (network error / abort). Kept phrase-free and in
 // sync with engines/banzai-api-kb/queue_policy.rs.
-const PUBLIC_MESSAGES: Record<string, string> = {
-  busy: "O BanzAI está a processar muitos pedidos neste momento. Tenta novamente dentro de alguns segundos.",
-  timeout: "A resposta demorou mais do que o esperado. Tenta novamente ou reformula a pergunta.",
-  rate_limited: "Muitos pedidos em pouco tempo. Aguarda alguns segundos e tenta novamente.",
-  unavailable: "O BanzAI está temporariamente indisponível. Tenta novamente dentro de instantes.",
-};
-const STATUS_LABEL: Record<string, string> = {
-  busy: "BanzAI ocupado · muitos pedidos",
-  timeout: "Tempo de resposta excedido",
-  rate_limited: "Demasiados pedidos",
-  unavailable: "Temporariamente indisponível",
-};
 type OutageKind = "busy" | "timeout" | "rate_limited" | "unavailable";
 
 // M2.18B.6 — a degraded (safe-fallback) answer must state its REAL cause, never a blanket
@@ -321,20 +311,20 @@ const DEGRADED_LIMIT_DEFAULT =
 // backend degraded to the deterministic grounding. The reject reason is a stable enum in the
 // `post_validation_*` FAMILY (authority/leak rule, unsupported-claim, or contradiction), so a single
 // faithful label covers the whole family — never the generic "erro temporário" default.
-const POST_VALIDATION_STATUS =
-  "Fallback seguro — resposta não validada (limite de autoridade) — sem chamada externa";
-const POST_VALIDATION_LIMIT =
-  "Resposta em modo degradado: a resposta do modelo não passou a validação de autoridade (ADR-036); resposta determinística a partir das fontes do protocolo.";
+
 
 // ADR-036 — an operational duration question with NO comparable data (or telemetry disabled). This is a
 // distinct, honest outcome (backend meta.terminal_kind/fallback_reason === "insufficient_measurements"):
 // it must NEVER borrow the generic "Evidência insuficiente" wording. The answer body is an honest
 // request-oriented paragraph (backend-provided); this is only the short per-answer status line.
-const INSUFFICIENT_MEASUREMENTS_STATUS = "Sem medições suficientes · sem chamada ao modelo";
+
 
 // A safe, non-technical availability answer — never a stack trace, never internal architecture.
-function outage(kind: OutageKind, publicMessage?: string): KbAnswer {
-  const text = (publicMessage && publicMessage.trim()) || PUBLIC_MESSAGES[kind] || PUBLIC_MESSAGES.unavailable;
+function outage(kind: OutageKind, locale: Locale, publicMessage?: string): KbAnswer {
+  // `text` IS the answer the reader sees, so it is composed for their edition like any other answer. The
+  // backend's own `public_message` wins when present: it is already safe, reader-facing prose and this
+  // layer does not translate what another layer wrote.
+  const text = (publicMessage && publicMessage.trim()) || askStatus(`outage.${kind}.text`, locale);
   return {
     intent: "unavailable",
     kind: "unavailable",
@@ -342,13 +332,13 @@ function outage(kind: OutageKind, publicMessage?: string): KbAnswer {
     cites: [],
     links: [],
     sources: [],
-    status: STATUS_LABEL[kind] || STATUS_LABEL.unavailable,
+    status: askStatus(`outage.${kind}.status`, locale),
   };
 }
 
 // Generic outage (network error / abort / no body).
-function unavailable(): KbAnswer {
-  return outage("unavailable");
+function unavailable(locale: Locale): KbAnswer {
+  return outage("unavailable", locale);
 }
 
 // ── Increment 9 (§24) — build the per-answer transparency projection from the /ask envelope ──────────
@@ -540,7 +530,7 @@ export function buildTransparency(
 }
 
 // Map the banzai-api /ask JSON to the KbAnswer shape the UI already renders.
-export function mapAskResponse(d: unknown): KbAnswer {
+export function mapAskResponse(d: unknown, locale: Locale = DEFAULT_LOCALE): KbAnswer {
   const o = (d && typeof d === "object" ? (d as Record<string, unknown>) : {}) as Record<string, unknown>;
   const sources = Array.isArray(o.sources) ? (o.sources as Array<Record<string, unknown>>) : [];
   const grounded = Boolean(o.grounded);
@@ -655,7 +645,7 @@ export function mapAskResponse(d: unknown): KbAnswer {
   if (degraded) {
     limits.push(
       fallbackReason.startsWith("post_validation")
-        ? POST_VALIDATION_LIMIT
+        ? askStatus("answer.postValidationLimit", locale)
         : DEGRADED_LIMIT[fallbackReason] || DEGRADED_LIMIT_DEFAULT,
     );
   }
@@ -669,8 +659,8 @@ export function mapAskResponse(d: unknown): KbAnswer {
   const srcN = Number(o.sources_count) || cites.length;
   const ms = Number(o.latency_ms ?? o.elapsed_ms) || 0;
   const secs = ms >= 100 ? `${(ms / 1000).toFixed(1)}s` : null;
-  const fontes = `${srcN} font${srcN === 1 ? "e" : "es"}`;
-  const ctx = contextUsed ? " · com contexto" : "";
+  const fontes = sourcesLabel(srcN, locale);
+  const ctx = contextUsed ? ` · ${askStatus("status.withContext", locale)}` : "";
   // M2.10A — documentary resolution. `doc` is set only when a named protocol document was actually
   // found; `docNotFound` marks a document the operator named that does not exist.
   const docNotFound = Boolean(o.document_not_found);
@@ -691,27 +681,27 @@ export function mapAskResponse(d: unknown): KbAnswer {
   let status: string;
   if (docNotFound) {
     // The document does not exist, so no model ran — the label must not claim otherwise.
-    status = "Documento não encontrado · sem chamada ao modelo";
+    status = askStatus("status.documentNotFound", locale);
   } else if (localCalled) {
-    status = `Gerado por Qwen local${docTag} · chamadas externas: 0 · ${fontes}${secs ? ` · ${secs}` : ""}${ctx}`;
+    status = `${askStatus("status.localModel", locale)}${docTag} · ${askStatus("status.externalCalls", locale)} · ${fontes}${secs ? ` · ${secs}` : ""}${ctx}`;
   } else if (degraded) {
     status = fallbackReason.startsWith("post_validation")
-      ? POST_VALIDATION_STATUS
-      : DEGRADED_STATUS[fallbackReason] || DEGRADED_STATUS_DEFAULT;
+      ? askStatus("status.postValidationLimit", locale)
+      : degradedStatus(fallbackReason, locale);
   } else if (cachedLocal) {
     // A previously Qwen-generated answer served from cache — honest that no NEW call was made.
-    status = `Resposta em cache (Qwen local)${docTag} · sem nova chamada ao modelo · ${fontes}`;
+    status = `${askStatus("status.cachedLocal", locale)}${docTag} · ${fontes}`;
   } else if (postValidation) {
     // The model was called but its output failed the safety validator and was replaced.
-    status = `Resposta determinística · resposta do modelo substituída pela validação · ${fontes}`;
+    status = `${askStatus("status.postValidation", locale)} · ${fontes}`;
   } else if (isInsufficientMeasurements) {
     // ADR-036 — honest, distinct from "Evidência insuficiente": there simply is no comparable
     // telemetry (or it is disabled), which is a truthful statement about operational data, not sources.
-    status = INSUFFICIENT_MEASUREMENTS_STATUS;
+    status = askStatus("status.insufficientMeasurements", locale);
   } else if (!grounded) {
-    status = "Evidência insuficiente · sem chamada ao modelo";
+    status = askStatus("status.insufficientEvidence", locale);
   } else {
-    status = `Resposta determinística · sem chamada ao modelo · ${fontes}`;
+    status = `${askStatus("status.deterministic", locale)} · ${fontes}`;
   }
 
   // M2.9A: the backend's fine operational intent + contextual suggestions (only for grounded answers).
@@ -902,6 +892,7 @@ export function buildAskBody(
   history: ChatTurn[] = [],
   journey?: AskJourney,
   convState?: ConversationState | null,
+  locale: Locale = DEFAULT_LOCALE,
 ): Record<string, unknown> {
   const q = (raw || "").trim();
   // Send at most the last 4 turns (the backend caps to the last 2 user questions).
@@ -909,7 +900,16 @@ export function buildAskBody(
     .filter((t) => t && typeof t.text === "string" && t.text.trim())
     .slice(-4)
     .map((t) => ({ role: t.role === "user" ? "user" : "ai", text: String(t.text).slice(0, 400) }));
-  const body: Record<string, unknown> = { question: q };
+  // The reader's locale, always sent explicitly. Omitting it is not neutral: the API applies its legacy
+  // default of pt-PT, which is right for old callers and wrong for a reader on the English surface — they
+  // got a Portuguese answer under English chrome, and nothing in the request had said otherwise. The
+  // question's own language is never used to infer this; the reader's edition decides.
+  // Sent in the API's own spelling. Its accepted set is ["pt-PT", "en"], so a bare "pt" falls outside it
+  // and is recorded as `legacy-default` — the Portuguese edition would be declaring an edition and being
+  // filed as a caller that declared nothing. The served text is identical today only because the legacy
+  // default happens to be Portuguese, which makes the PT edition's explicit path untested in production
+  // and leaves it depending on that default never changing.
+  const body: Record<string, unknown> = { question: q, locale: HTML_LANG[locale] };
   if (context.length) body.context = context;
   // BZCI-2/6 (§2) — carry the typed conversational state forward so the Rust reference resolver can inherit
   // the prior subject/intent/referent. Only sent when non-empty (a first turn carries nothing), so first-turn
@@ -939,15 +939,31 @@ export function buildAskBody(
   return body;
 }
 
+/**
+ * Does the response declare that it was composed for the edition that asked?
+ *
+ * `answer_locale` is the API's canonical provenance field and arrives in the wire representation
+ * ("pt-PT" / "en"), while the reader's locale is this app's own ("pt" / "en"). The two are compared
+ * through the shared mapping rather than by string equality, so neither side has to know the other's
+ * spelling. An absent declaration is accepted — see the call site.
+ */
+export function localeMatches(payload: unknown, requested: Locale): boolean {
+  const o = payload && typeof payload === "object" ? (payload as Record<string, unknown>) : {};
+  const declared = o.answer_locale;
+  if (typeof declared !== "string" || !declared) return true;
+  return declared === HTML_LANG[requested] || declared === requested;
+}
+
 export async function banzaiKb(
   raw: string,
   history: ChatTurn[] = [],
   journey?: AskJourney,
   convState?: ConversationState | null,
+  locale: Locale = DEFAULT_LOCALE,
 ): Promise<KbAnswer> {
   const q = (raw || "").trim();
-  if (!q) return unavailable();
-  const body = buildAskBody(q, history, journey, convState);
+  if (!q) return unavailable(locale);
+  const body = buildAskBody(q, history, journey, convState, locale);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), ASK_TIMEOUT_MS);
   try {
@@ -967,15 +983,27 @@ export async function banzaiKb(
       } catch {
         /* non-JSON body (e.g. an upstream 502/503 HTML) — fall back to the safe constant */
       }
-      if (res.status === 429) return outage("rate_limited", publicMessage);
-      if (res.status === 503) return outage("busy", publicMessage);
-      if (res.status === 504) return outage("timeout", publicMessage);
-      return outage("unavailable", publicMessage);
+      if (res.status === 429) return outage("rate_limited", locale, publicMessage);
+      if (res.status === 503) return outage("busy", locale, publicMessage);
+      if (res.status === 504) return outage("timeout", locale, publicMessage);
+      return outage("unavailable", locale, publicMessage);
     }
     const data = await res.json();
-    return mapAskResponse(data);
+    // Verify the answer was composed for the edition that asked, and fail closed when it was not.
+    //
+    // This is a check, never a correction: the response declares its own provenance and the client either
+    // accepts it or refuses it. Detecting the language of the text would be the wrong instrument — a
+    // Portuguese sentence served to an English request looks Portuguese either way, and only the
+    // declaration says whether anyone intended it. Rewriting the field would erase the very evidence that
+    // something went wrong.
+    //
+    // A null declaration is not treated as a mismatch: composers that leave no provenance are a separate,
+    // already-owned problem, and refusing those answers would take working replies away from readers for
+    // a reason they cannot act on.
+    if (!localeMatches(data, locale)) return outage("unavailable", locale);
+    return mapAskResponse(data, locale);
   } catch {
-    return unavailable();
+    return unavailable(locale);
   } finally {
     clearTimeout(timer);
   }
