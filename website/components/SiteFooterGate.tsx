@@ -12,7 +12,12 @@ import type { Locale } from "@/lib/i18n";
 // in the DOM on these routes.
 export function SiteFooterGate({ locale = "pt" }: { locale?: Locale }) {
   const pathname = usePathname();
-  if (pathname === "/banzai" || pathname.startsWith("/banzai/")) return null;
+  // Compared on the edition-independent path. Being chromeless is a property of the SURFACE, not of the
+  // language it is read in: the English edition serves the same single-page app at /en/banzai, and a gate
+  // written against the Portuguese spelling alone let the institutional footer through underneath it —
+  // editorial chrome below an app that is meant to fill the viewport.
+  const surface = pathname.startsWith("/en/") ? pathname.slice(3) : pathname === "/en" ? "/" : pathname;
+  if (surface === "/banzai" || surface.startsWith("/banzai/")) return null;
   // Operador Zero standalone surface: gated by the internal /oz path (SSR, via the rewrite) and by the
   // subdomain host (client, where the browser path is "/"). Both yield null → hydration-safe.
   const onZeroSurface =
