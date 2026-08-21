@@ -27,10 +27,32 @@ cd "$(dirname "$0")/.."
 pt_surface() {
   case "$1" in
     website/components/pages/*Content.ts*)
-      awk '/^  pt: \{/{p=1} /^  en: \{/{p=0} p' "$1"
+      # `[{]` and not `\{`. An escaped brace is undefined in POSIX ERE: BSD awk reads it as a literal
+      # brace, mawk — which is what Ubuntu ships, and therefore what CI runs — does not. The pattern
+      # silently failed to match there, the extractor emitted nothing, and the guard reported that the
+      # Portuguese term was missing from a file that contains it three times. A bracket expression is a
+      # literal brace in every awk.
+      awk '/^  pt: [{]/{p=1} /^  en: [{]/{p=0} p' "$1"
       ;;
     *) cat "$1" ;;
   esac
+}
+
+# An extractor that returns nothing must say so, rather than let every check built on it read as a content
+# violation. That is exactly how the portability defect presented: "must use the PT term 'Registo Técnico'"
+# on a file that uses it, because the slice was empty. An empty slice is a broken guard, not a broken page.
+# Returns the Portuguese surface in PT_SURFACE rather than on stdout. Piping a shell builtin into
+# `grep -q` looks harmless and is not: grep exits at the first match and closes the pipe, the builtin gets
+# EPIPE, and under `pipefail` the whole pipeline reports failure — so every check would have read as a
+# content violation whether or not the term was there. Matching is done in the shell instead, with no pipe.
+PT_SURFACE=""
+read_pt_surface() {
+  PT_SURFACE="$(pt_surface "$1")"
+  if [ -z "$PT_SURFACE" ]; then
+    echo "GUARD BROKEN: the Portuguese-edition extractor produced nothing for $1" >&2
+    return 2
+  fi
+  return 0
 }
 
 PAGES=(
@@ -69,7 +91,8 @@ printf '18:// (Technical Registry) dev note\n'             | strip_allowed | gre
 echo "== [1/3] no EN 'Technical Registry' / 'Public Protocol Registry' in PT rendered strings =="
 for f in "${PAGES[@]}"; do
   [ -f "$f" ] || { fl "missing page: $f"; continue; }
-  hits="$(pt_surface "$f" | grep -nE "$EN_RX" 2>/dev/null | strip_allowed || true)"
+  read_pt_surface "$f" || exit 2
+  hits="$(printf '%s\n' "$PT_SURFACE" | grep -nE "$EN_RX" 2>/dev/null | strip_allowed || true)"
   if [ -n "$hits" ]; then fl "EN registry string in a PT rendered surface: $f"; echo "$hits" | sed 's/^/      /'; fi
 done
 [ "$fail" -eq 0 ] && ok "no EN 'Technical Registry' / 'Public Protocol Registry' in any PT rendered string"
@@ -89,7 +112,13 @@ for f in "website/app/(pt)/registo-tecnico/page.tsx" "website/app/(pt)/glossario
     copy_id_is glossary technical-registry.name pt 'Registo Técnico' \
       && ok "the glossary realizes 'Registo Técnico' for the Portuguese reader" \
       || fl "the glossary must realize the PT term 'Registo Técnico'"
-  elif pt_surface "$f" | grep -qF 'Registo Técnico'; then ok "$f uses 'Registo Técnico'"; else fl "$f must use the PT term 'Registo Técnico'"; fi
+  else
+    read_pt_surface "$f" || exit 2
+    case "$PT_SURFACE" in
+      *"Registo Técnico"*) ok "$f uses 'Registo Técnico'" ;;
+      *) fl "$f must use the PT term 'Registo Técnico'" ;;
+    esac
+  fi
 done
 # The glossary mapping is the canonical pt→en source of truth.
 if copy_id_is glossary technical-registry.name pt "Registo Técnico" \
