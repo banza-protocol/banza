@@ -904,7 +904,12 @@ export function buildAskBody(
   // default of pt-PT, which is right for old callers and wrong for a reader on the English surface — they
   // got a Portuguese answer under English chrome, and nothing in the request had said otherwise. The
   // question's own language is never used to infer this; the reader's edition decides.
-  const body: Record<string, unknown> = { question: q, locale };
+  // Sent in the API's own spelling. Its accepted set is ["pt-PT", "en"], so a bare "pt" falls outside it
+  // and is recorded as `legacy-default` — the Portuguese edition would be declaring an edition and being
+  // filed as a caller that declared nothing. The served text is identical today only because the legacy
+  // default happens to be Portuguese, which makes the PT edition's explicit path untested in production
+  // and leaves it depending on that default never changing.
+  const body: Record<string, unknown> = { question: q, locale: HTML_LANG[locale] };
   if (context.length) body.context = context;
   // BZCI-2/6 (§2) — carry the typed conversational state forward so the Rust reference resolver can inherit
   // the prior subject/intent/referent. Only sent when non-empty (a first turn carries nothing), so first-turn

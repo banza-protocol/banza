@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { buildAskBody, mapAskResponse, localeMatches, banzaiKb } from "./banzaiKb";
 import { askStatus, sourcesLabel } from "./askStatusPresentation";
-import { LOCALES, type Locale } from "@/lib/i18n";
+import { LOCALES, HTML_LANG, type Locale } from "@/lib/i18n";
 
 // The production regression this file exists to prevent.
 //
@@ -20,11 +20,17 @@ import { LOCALES, type Locale } from "@/lib/i18n";
 const editions = LOCALES as readonly Locale[];
 
 describe("the reader's locale travels with every ask request", () => {
-  it("sends an explicit locale from both editions", () => {
+  it("sends an explicit locale from both editions, in the API's own spelling", () => {
+    // The API accepts ["pt-PT", "en"] and treats anything else as a caller that declared nothing. A bare
+    // "pt" is therefore not a Portuguese request — it is an undeclared one that the legacy default happens
+    // to answer in Portuguese, which is a different thing and stops being the same thing the day that
+    // default moves.
     for (const locale of editions) {
       const body = buildAskBody("What is L2", [], undefined, null, locale);
-      expect(body.locale, `${locale} request must state its locale`).toBe(locale);
+      expect(body.locale, `${locale} request must state its locale`).toBe(HTML_LANG[locale]);
     }
+    expect(buildAskBody("q", [], undefined, null, "pt").locale).toBe("pt-PT");
+    expect(buildAskBody("q", [], undefined, null, "en").locale).toBe("en");
   });
 
   it("never omits the locale — an omitted locale is answered in Portuguese by the API", () => {
@@ -41,7 +47,7 @@ describe("the reader's locale travels with every ask request", () => {
     expect(enFromPtQuestion.locale).toBe("en");
     // And the reverse.
     const ptFromEnQuestion = buildAskBody("What is L2", [], undefined, null, "pt");
-    expect(ptFromEnQuestion.locale).toBe("pt");
+    expect(ptFromEnQuestion.locale).toBe("pt-PT");
   });
 });
 
