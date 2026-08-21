@@ -104,6 +104,19 @@ struct Entry {
 ///
 /// Deliberately NOT "every word in the documentation": that would freeze the corpus and disable recovery
 /// wherever a misspelling coincides with prose. Only vocabulary a resolver actually matches on.
+/// Technical terms the engine knows that are too short for the fuzzy vocabulary's five-character floor.
+///
+/// See the comment at the use site in `registered_surface_forms`. Every member must be resolvable by
+/// the glossary on its own — enforced by `tests/known_word_is_not_a_typo.rs`.
+const SHORT_DECLARED_TERMS: &[&str] = &[
+    "rust", "wasm", "adr", "rfc", "bcj", "qr", "kyc", "kyb", "psp",
+];
+
+/// The short declared terms, for the guard that pins each of them to a word the glossary resolves.
+pub fn short_declared_terms() -> &'static [&'static str] {
+    SHORT_DECLARED_TERMS
+}
+
 fn registered_surface_forms() -> &'static std::collections::HashSet<String> {
     static V: OnceLock<std::collections::HashSet<String>> = OnceLock::new();
     V.get_or_init(|| {
@@ -122,6 +135,29 @@ fn registered_surface_forms() -> &'static std::collections::HashSet<String> {
             if n.chars().count() > 2 {
                 set.insert(n);
             }
+        }
+        // Declared technical terms SHORTER than the fuzzy vocabulary's floor.
+        //
+        // Two different questions were being answered by one set: which words a typo may be corrected
+        // TO, and which words are KNOWN and must never be corrected FROM. `fuzzy::vocabulary` answers
+        // the first, and admits only tokens of five characters or more — a sensible rule for correction
+        // targets, which then silently decided that every shorter declared term was an unknown word.
+        //
+        // `rust` is four characters. It is a concept this engine answers (`def-rust`), and ADR-038 makes
+        // it the language of every official BANZA engine. Recovery rewrote it to `trust` — one edit
+        // away, five characters, in the target set — at high confidence, in every phrasing, before any
+        // router saw the question. Production then answered "não é necessário usar trust para
+        // implementar BANZA".
+        //
+        // This list is deliberately NOT the concept-alias table. That table is matched by SUBSTRING, so
+        // an alias `rust` there matches inside `trust` and sends every trust question to ADR-038 —
+        // measured, and caught by the golden-answer guard before it shipped. These terms are for
+        // known-word protection only: never a correction target, never a concept alias.
+        //
+        // `short_declared_terms_are_resolvable` pins every member to something the glossary actually
+        // resolves, so this cannot drift into a list of words the engine does not know.
+        for w in SHORT_DECLARED_TERMS {
+            set.insert(normalize(w));
         }
         for p in crate::canonical_profiles::CANONICAL_PROFILES.iter() {
             set.insert(normalize(p.level));

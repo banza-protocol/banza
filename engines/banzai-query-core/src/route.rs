@@ -5423,6 +5423,37 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     ) {
         return Some("who-implements-protocol");
     }
+    // The same question with the IMPLEMENTATION as its subject, and no mention of BANZA at all.
+    //
+    // "Uma implementação pode usar PostgreSQL?" reached `banza-limits` — the right entry, which states
+    // that PostgreSQL holds protocol state and not financial value — and was routed to synthesis, where
+    // no subject resolved, so the settled entry was discarded and the reader was told there was not
+    // enough public evidence. The entry was found and then thrown away.
+    //
+    // Anchored on an explicit implementation/operator subject paired with a technology-choice modal, so
+    // it cannot capture a general "posso usar" question about something else.
+    if any(
+        nq,
+        &[
+            "implementacao pode usar",
+            "implementacao podem usar",
+            "implementacoes podem usar",
+            "implementation use",
+            "implementation can use",
+            "implementations can use",
+            "implementacao pode escolher",
+            "implementation can choose",
+            "posso usar postgresql",
+            "posso usar postgres",
+            "can i use postgresql",
+            "can i use postgres",
+            "outra tecnologia",
+            "another technology",
+            "different technology",
+        ],
+    ) {
+        return Some("banza-limits");
+    }
     // Which CI validates BanzAI?
     if is_banzai
         && any(
