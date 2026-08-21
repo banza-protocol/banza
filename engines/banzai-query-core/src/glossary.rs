@@ -37,6 +37,19 @@ fn starts_definition_lead(nq: &str) -> bool {
         "o significado de",
         "define ",
         "definicao de",
+        // "Explain X" asks for the same thing "what is X" asks for, and was missing here while
+        // `is_r2s2_acronym` — twenty lines down, in this file — already read both leads. So
+        // "Explica BCJ/1." resolved (two tokens, through the bare-term gate) and "Explica BCJ/1 de
+        // forma simples." did not, which is the phrasing a reader actually uses.
+        "explica ",
+        "explica-me ",
+        "explique ",
+        "explicar ",
+        "podes explicar ",
+        "pode explicar ",
+        "explain ",
+        "explain me ",
+        "can you explain ",
         "what is ",
         "what are ",
         "what does ",
@@ -45,6 +58,52 @@ fn starts_definition_lead(nq: &str) -> bool {
     ]
     .iter()
     .any(|l| nq.starts_with(l))
+}
+
+/// The query with a trailing request about STYLE removed.
+///
+/// "de forma simples", "in simple terms", "para um iniciante" say how the answer should read; they say
+/// nothing about what is being asked. They were nevertheless counted against the six-token definition
+/// gate, so asking politely for a simpler answer made the question unanswerable: `Explica BCJ/1.`
+/// resolved and `Explica BCJ/1 de forma simples.` was refused.
+///
+/// Stripping is a no-op for every query that does not end in one of these phrases, so nothing else moves.
+fn without_style_qualifier(nq: &str) -> &str {
+    const QUALIFIERS: &[&str] = &[
+        " de forma simples",
+        " de forma clara",
+        " de forma resumida",
+        " de maneira simples",
+        " em termos simples",
+        " de modo simples",
+        " por favor",
+        " para um iniciante",
+        " para leigos",
+        " simplesmente",
+        " in simple terms",
+        " in plain terms",
+        " in plain english",
+        " simply",
+        " briefly",
+        " please",
+        " for a beginner",
+        " like i am five",
+    ];
+    let mut out = nq.trim_end_matches('?').trim();
+    // Repeat so a doubled qualifier ("explain X simply please") is fully removed; each pass removes at
+    // most one, and the loop ends when none matches.
+    loop {
+        let before = out;
+        for q in QUALIFIERS {
+            if let Some(stripped) = out.strip_suffix(*q) {
+                out = stripped.trim_end();
+                break;
+            }
+        }
+        if out == before {
+            return out;
+        }
+    }
 }
 
 /// An operational how-to — let grounding handle it, do NOT hijack with a definition.
@@ -136,14 +195,35 @@ fn is_r2s2_acronym(nq: &str) -> bool {
     if has(nq, &["r2s2", "r²s²"]) {
         return true;
     }
-    let subject = [
+    let subject = definition_subject(nq);
+    subject == "r s" || subject == "o r s" || subject == "the r s"
+}
+
+/// What a definition question is ASKING ABOUT — the query with its definition lead removed.
+///
+/// Factored out of `is_r2s2_acronym`, which needed it first and had it inline. A second predicate now
+/// needs the same test, and the reason it needs it is worth stating: a term that is PRESENT in a
+/// question is not the term the question is ABOUT. "o que é seguro" asks about `seguro`; "o que é um
+/// canal seguro" asks about a channel. A `has()` test cannot tell those apart, and answering the second
+/// one from the first one's table is a wrong answer served with a deterministic terminal's confidence.
+///
+/// Returns the trimmed remainder with the leading article dropped, so `o`/`a`/`the`/`um`/`uma`/`an` do
+/// not have to be enumerated by every caller. A query with no recognised lead returns itself, which
+/// makes the equality test fail closed for the callers that compare against a fixed name.
+fn definition_subject(nq: &str) -> &str {
+    let rest = [
         "o que e ",
         "o que sao ",
+        "o que significa ",
+        "o que quer dizer ",
         "what is ",
         "what are ",
+        "what does ",
         "define ",
         "explica ",
         "explain ",
+        "meaning of ",
+        "significado de ",
     ]
     .iter()
     .find_map(|lead| nq.strip_prefix(*lead))
@@ -151,7 +231,12 @@ fn is_r2s2_acronym(nq: &str) -> bool {
     .trim()
     .trim_end_matches('?')
     .trim();
-    subject == "r s" || subject == "o r s" || subject == "the r s"
+    for article in ["o ", "a ", "os ", "as ", "um ", "uma ", "the ", "an "] {
+        if let Some(stripped) = rest.strip_prefix(article) {
+            return stripped.trim();
+        }
+    }
+    rest
 }
 
 /// M2.14C SEC-FIX — a MULTI-WORD governance/documentation phrase (e.g. PT "relatório de auditoria",
@@ -453,21 +538,25 @@ fn is_named_principle_query(nq: &str) -> bool {
     if !names_one {
         return false;
     }
-    has(
-        nq,
-        &[
-            "o que e ",
-            "o que significa",
-            "o que quer dizer",
-            "significa o principio",
-            "principio",
-            "principios",
-            "what does",
-            "what is the",
-            "meaning of",
-            "principle",
-        ],
-    )
+    // The word `princípio`/`principle` is what turns an ordinary adjective into the NAME of one of the
+    // four. When the reader supplies it, the name may sit anywhere in the sentence — "o que significa o
+    // princípio robusto", "the simple principle" — because the framing has already fixed what is being
+    // asked about.
+    if has(nq, &["principio", "principios", "principle", "principles"]) {
+        return true;
+    }
+    // Without that framing the principle must BE the subject, not merely a word inside it.
+    //
+    // `robusto`, `seguro`, `simples`, `resiliente` and their English twins are ordinary vocabulary in
+    // both languages, and the earlier `has(nq, ["o que e ", ...])` test only asked whether the query was
+    // a definition question AT ALL. So every definition question containing one of those adjectives was
+    // answered with the four Fundamental Principles — measured in production: "o que é um canal seguro",
+    // "o que é transporte seguro", "what is the secure boot" and "o que é um ledger simples" all
+    // resolved to `def-r2s2`, deterministically and with `grounded: true`. A reader asking about a
+    // secure channel was told about R²S² as though that were the answer.
+    //
+    // Same subject test as `is_r2s2_acronym`, from the same helper, for the same reason.
+    NAMES.contains(&definition_subject(nq))
 }
 
 /// Critical subjects whose aliases open the gate AND resolve the term — ONE table, read by both.
@@ -1543,6 +1632,11 @@ fn term_of(nq: &str) -> Option<&'static str> {
 /// It never fires for operational how-tos, onboarding, or long mechanics questions — those stay
 /// grounded. A more-specific critical arm always wins first (this runs last in critical_entry).
 pub fn glossary_entry(nq: &str) -> Option<&'static str> {
+    // A trailing request about STYLE is not part of the subject, and counting it against the token gate
+    // is what made "Explica BCJ/1 de forma simples." unanswerable while "Explica BCJ/1." resolved. The
+    // stripped form is used for the WHOLE decision below — gate and term alike — so the two cannot
+    // disagree about what the question is, which is the failure this file documents repeatedly.
+    let nq = without_style_qualifier(nq);
     let toks = count(nq);
     let boundary = is_boundary_query(nq);
     // M2.14C SEC-FIX — an unambiguous multi-word governance/dev phrase bypasses the token gate (e.g. PT
