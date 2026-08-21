@@ -16,6 +16,8 @@ FORBIDDEN_GLOBAL = [
     (re.compile(r"\bBANZA (is|está) (production[- ]ready|pronto para produção)\b(?!.*(not|não))", re.I),
      "false production-readiness claim"),
     (re.compile(r"BanzAI (emite|issues|can issue) (um )?certificad", re.I), "BanzAI issues certificates"),
+    (re.compile(r"(usar|use) trust para implementar|need trust to implement", re.I),
+     "the Rust/trust substitution"),
     (re.compile(r"(certificação|certification) (dá|gives|grants|confers?) (autorização|authorisation|authorization)", re.I),
      "certification conflated with authorisation"),
 ]
@@ -49,6 +51,17 @@ RULES = {
  "A-PT-02": ([r"pré-produção|pre-produção|pre-producao|PRE-PRODUCTION"], []),
  "A-PT-01": ([], [r"está certificado\b(?!.*não)"]),
  "A-EN-01": ([], [r"is certified\b(?!.*not)"]),
+ # Comparisons. A two-sided question answered with one side is a wrong answer, not a partial one, so
+ # the ORACLE asks for both sides to be present rather than merely for the absence of a refusal.
+ "M-PT-12": ([r"L2", r"L3"], [r"^\*\*L2\*\*.{0,400}$"]),
+ "M-EN-12": ([r"L2", r"L3"], [r"level of abstraction", r"lineage that ties keys"]),
+ "M-PT-04": ([], [r"centraliz.{0,80}distribu.{0,80}(BANZA (define|exige))"]),
+ "X-PT-10": ([r"operador"], []),
+ "X-EN-09": ([r"start|begin|onboarding|primeiro"], [r"not yet available in English"]),
+ "X-PT-08": ([r"qualquer|any language|linguagem"], [r"[Nn]ão encontrei"]),
+ "M-PT-06": ([r"[Pp]ostgre|estado de protocolo|qualquer linguagem"], [r"não existe uma resposta determinística"]),
+ "M-EN-06": ([r"[Pp]ostgre|protocol state"], [r"not yet available in English"]),
+ "M-EN-14": ([r"\bNo\b|not.*authoris"], [r"not yet available in English"]),
 }
 
 def is_pt(t):
