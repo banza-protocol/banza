@@ -316,3 +316,8 @@ export function parityOf(pair: { id: string; pt: string; en: string }): ParityVe
   cmp("destinations", a.destinations, b.destinations);
   return out;
 }
+
+/** Exposed so a live smoke can resolve served pathnames the same way this file does. */
+export function __semantic(pathname: string): string {
+  return semanticDestination(pathname);
+}

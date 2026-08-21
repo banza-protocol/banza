@@ -2,50 +2,40 @@ import type { Metadata } from "next";
 import { serif, sans, mono, display } from "../fonts";
 import { SiteShell } from "@/components/SiteShell";
 import { HTML_LANG } from "@/lib/i18n";
+import { SITE_METADATA, OG_IMAGE, OG_IMAGE_SIZE } from "@/lib/siteMetadata";
 import "../globals.css";
 
 const SITE_URL = "https://banza.network";
 
-const TITLE = "BANZA — An open financial interoperability protocol";
-const DESCRIPTION =
-  "BANZA defines public rules, versioned profiles, conformance tests, interoperability verification and technical certification so that independent implementations can interoperate without rebuilding a bilateral technical integration for every pair.";
+
+// Site metadata comes from lib/siteMetadata.ts, which owns both editions under one shape. It used to be
+// written twice, and the English half was not a translation: it carried the headline of the independent
+// English homepage that has since been removed, and dropped "Angola" from the title, the description and
+// the keywords while Portuguese kept it. A share card in English claimed something different from the
+// same card in Portuguese.
+const META = SITE_METADATA["en"];
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: TITLE, template: "%s · BANZA" },
-  description: DESCRIPTION,
+  title: { default: META.title, template: "%s · BANZA" },
+  description: META.description,
   applicationName: "BANZA",
-  keywords: [
-    "BANZA",
-    "protocol",
-    "open financial protocol",
-    "interoperability",
-    "conformance",
-    "verifiable evidence",
-    "federation",
-  ],
+  keywords: META.keywords,
   authors: [{ name: "BANZA Protocol" }],
   openGraph: {
     type: "website",
-    locale: "en",
+    locale: META.ogLocale,
     url: `${SITE_URL}/en`,
     siteName: "BANZA",
-    title: TITLE,
-    description: DESCRIPTION,
-    images: [
-      {
-        url: "/og-card.png",
-        width: 1200,
-        height: 630,
-        alt: "BANZA — an open protocol for interoperability between independent implementations. Public rules, versioned profiles, conformance tests and technical certification, without rebuilding a bilateral technical integration for every pair.",
-      },
-    ],
+    title: META.title,
+    description: META.description,
+    images: [{ url: OG_IMAGE, ...OG_IMAGE_SIZE, alt: META.imageAlt }],
   },
   twitter: {
     card: "summary_large_image",
-    title: TITLE,
-    description: DESCRIPTION,
-    images: ["/og-card.png"],
+    title: META.title,
+    description: META.description,
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
   icons: { icon: "/banza-mark-bordo.png", apple: "/banza-mark-bordo.png" },
