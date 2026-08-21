@@ -159,3 +159,22 @@ fn canonicalization_is_reachable_by_its_own_name() {
     assert_eq!(entry("o que e canonicalizacao"), "def-bcj");
     assert_eq!(entry("what is canonicalization"), "def-bcj");
 }
+
+#[test]
+fn the_threshold_names_its_own_subject() {
+    // Measured across the canonical corpus, every occurrence of "limiar" is the root authority
+    // threshold; there is no competing threshold in BANZA. So the word names its subject unqualified.
+    //
+    // In production at `src-acfba64`, turn 3 of the trust journey answered "três autoridades de
+    // assinatura independentes [...] quaisquer duas das três", and turn 4 — "Qual é o limiar?" — was
+    // told no public source supports the request. The engine held the answer and declined to give it
+    // because the question named its subject in one fewer word.
+    assert_eq!(entry("qual e o limiar"), "def-root-authorization");
+    assert_eq!(entry("what is the threshold"), "def-root-authorization");
+    // The qualified forms, unchanged.
+    assert_eq!(entry("qual e o limiar da raiz"), "def-root-authorization");
+    assert_eq!(
+        entry("quantas autoridades raiz existem"),
+        "def-root-authorization"
+    );
+}
