@@ -73,7 +73,7 @@ export default async function ReferenciaCapituloPage({ params }: { params: Promi
             <div className="min-w-0">
               <article className="max-w-[820px]">
                 <ReferenceMarkdown markdown={chapter.content} />
-                {chapter.slug === "banzai" && <BanzaiRuntimeStrip />}
+                {chapter.slug === "banzai" && <BanzaiRuntimeStrip locale="pt" />}
               </article>
               <p className="mt-8 max-w-[80ch] text-[12.5px] leading-[1.6] text-ink-5">
                 Referências internas a outros capítulos (§) resolvem na{" "}

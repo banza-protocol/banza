@@ -109,6 +109,18 @@ export const AGENT_COPY = {
   // Shell chrome that had no owner at all and rendered Portuguese on the English surface, beside English
   // suggestions and an English composer. Small labels, but a reader reads them.
   "shell.hideInspector": L("Ocultar inspetor", "Hide inspector"),
+  "shell.send": L("Enviar", "Send"),
+
+  // Sidebar and inspector section dividers. These were uppercase Portuguese literals inline in the shell,
+  // so the English reader navigated an English app through Portuguese signposts — MODOS above "Ask BanzAI",
+  // RECURSOS above "Guide". They are rendered uppercase by the component; the copy is written normally so
+  // each edition can be read on its own.
+  "section.modes": L("Modos", "Modes"),
+  "section.results": L("Resultados", "Results"),
+  "section.resources": L("Recursos", "Resources"),
+  "section.sourcesAndContext": L("Fontes e contexto", "Sources and context"),
+  "section.boundary": L("Fronteira", "Boundary"),
+  "section.state": L("Estado", "State"),
   "shell.showInspector": L("Mostrar inspetor", "Show inspector"),
   "shell.continue": L("CONTINUAR", "CONTINUE"),
   "shell.clearConversation": L("Limpar conversa", "Clear conversation"),

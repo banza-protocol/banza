@@ -12,7 +12,7 @@ export default function BanzaiEnLayout({ children }: { children: React.ReactNode
   return (
     <>
       <h1 className="sr-only">BanzAI — the BANZA protocol&rsquo;s primary human-operator interface</h1>
-      <BanzaiWorkspaceProvider locale="en" runtimeStrip={<BanzaiRuntimeStrip variant="agent" />}>
+      <BanzaiWorkspaceProvider locale="en" runtimeStrip={<BanzaiRuntimeStrip variant="agent" locale="en" />}>
         {children}
       </BanzaiWorkspaceProvider>
     </>

@@ -95,17 +95,77 @@
     "banzai-rule-provenance.svg"
   ],
   "authority_matrix": {
-    "columns": ["Função", "BanzAI", "Modelo local", "Motores BANZA", "Actor competente"],
+    "columns": [
+      "Função",
+      "BanzAI",
+      "Modelo local",
+      "Motores BANZA",
+      "Actor competente"
+    ],
     "rows": [
-      ["Resolver intenção", "Sim", "Não", "Não", "Utilizador formula"],
-      ["Seleccionar fontes", "Sim", "Não", "Não", "—"],
-      ["Redigir explicação", "Organiza", "Sim", "Não", "Utilizador interpreta"],
-      ["Decidir veredicto", "Não", "Não", "Sim", "—"],
-      ["Produzir evidência formal", "Não", "Não", "Sim", "Operador publica artefactos"],
-      ["Publicar no Registo Técnico", "Não automaticamente", "Não", "Não automaticamente", "Processo autorizado"],
-      ["Decidir interoperabilidade", "Não", "Não", "Não", "Par"],
-      ["Admitir num esquema", "Não", "Não", "Não", "Esquema"],
-      ["Autorizar actividade", "Não", "Não", "Não", "Regulador"]
+      [
+        "Resolver intenção",
+        "Sim",
+        "Não",
+        "Não",
+        "Utilizador formula"
+      ],
+      [
+        "Seleccionar fontes",
+        "Sim",
+        "Não",
+        "Não",
+        "—"
+      ],
+      [
+        "Redigir explicação",
+        "Organiza",
+        "Sim",
+        "Não",
+        "Utilizador interpreta"
+      ],
+      [
+        "Decidir veredicto",
+        "Não",
+        "Não",
+        "Sim",
+        "—"
+      ],
+      [
+        "Produzir evidência formal",
+        "Não",
+        "Não",
+        "Sim",
+        "Operador publica artefactos"
+      ],
+      [
+        "Publicar no Registo Técnico",
+        "Não automaticamente",
+        "Não",
+        "Não automaticamente",
+        "Processo autorizado"
+      ],
+      [
+        "Decidir interoperabilidade",
+        "Não",
+        "Não",
+        "Não",
+        "Par"
+      ],
+      [
+        "Admitir num esquema",
+        "Não",
+        "Não",
+        "Não",
+        "Esquema"
+      ],
+      [
+        "Autorizar actividade",
+        "Não",
+        "Não",
+        "Não",
+        "Regulador"
+      ]
     ]
   },
   "provenance_levels": [
@@ -167,9 +227,22 @@
       "authoritative"
     ],
     "enums": {
-      "status": ["ok", "degraded", "unknown"],
-      "mode": ["local_qwen", "external_hosted", "mock", "degraded"],
-      "inference_location": ["local", "external", "none"]
+      "status": [
+        "ok",
+        "degraded",
+        "unknown"
+      ],
+      "mode": [
+        "local_qwen",
+        "external_hosted",
+        "mock",
+        "degraded"
+      ],
+      "inference_location": [
+        "local",
+        "external",
+        "none"
+      ]
     },
     "fetch": {
       "origin_env": "BANZA_RUNTIME_ORIGIN",
@@ -182,46 +255,206 @@
       "provenance_pt": "Fonte: estado público do runtime",
       "verified_prefix_pt": "Verificado em:",
       "fallback_pt": "Estado do runtime não confirmado.",
-      "fallback_detail_pt": "A origem não respondeu — consulte a rota máquina acima ou a página /estado."
+      "fallback_detail_pt": "A origem não respondeu — consulte a rota máquina acima ou a página /estado.",
+      "provenance_en": "Source: the runtime's public state",
+      "verified_prefix_en": "Checked at:",
+      "fallback_en": "Runtime state not confirmed.",
+      "fallback_detail_en": "The origin did not answer — consult the machine route above, or the status page."
     },
-    "rule_pt": "A rota é a fonte única que todas as páginas consomem; a página /estado é a explicação humana e, onde divergirem, a rota máquina ganha."
+    "rule_pt": "A rota é a fonte única que todas as páginas consomem; a página /estado é a explicação humana e, onde divergirem, a rota máquina ganha.",
+    "rule_en": "The route is the single source every page consumes; the status page is the human explanation and, where they disagree, the machine route wins.",
+    "field_labels": {
+      "status": {
+        "pt": "Estado",
+        "en": "State"
+      },
+      "mode": {
+        "pt": "Modo",
+        "en": "Mode"
+      },
+      "model_available": {
+        "pt": "Modelo disponível",
+        "en": "Model available"
+      },
+      "inference_location": {
+        "pt": "Inferência",
+        "en": "Inference"
+      },
+      "external_calls": {
+        "pt": "Chamadas externas",
+        "en": "External calls"
+      },
+      "deterministic_engines_available": {
+        "pt": "Motores determinísticos",
+        "en": "Deterministic engines"
+      },
+      "service": {
+        "pt": "Serviço",
+        "en": "Service"
+      },
+      "release": {
+        "pt": "Release",
+        "en": "Release"
+      },
+      "authoritative": {
+        "pt": "Autoritativo",
+        "en": "Authoritative"
+      }
+    },
+    "value_labels": {
+      "yes": {
+        "pt": "Sim",
+        "en": "Yes"
+      },
+      "no": {
+        "pt": "Não",
+        "en": "No"
+      },
+      "inference.local": {
+        "pt": "local (on-host)",
+        "en": "local (on-host)"
+      },
+      "inference.external": {
+        "pt": "externa",
+        "en": "external"
+      },
+      "inference.none": {
+        "pt": "sem inferência",
+        "en": "no inference"
+      }
+    },
+    "section_label": {
+      "pt": "Estado do runtime · agora",
+      "en": "Runtime state · now"
+    },
+    "aria_label": {
+      "pt": "Estado verificável do runtime do BanzAI",
+      "en": "Verifiable runtime state of BanzAI"
+    }
   },
   "official_links": [
-    { "label": "banza.network", "href": "https://banza.network" },
-    { "label": "Referência", "href": "/referencia" },
-    { "label": "estado verificável", "href": "/estado" },
-    { "label": "BanzAI", "href": "/banzai" },
-    { "label": "Registo Técnico", "href": "/registo-tecnico" },
-    { "label": "contratos públicos", "href": "contracts/" }
+    {
+      "label": "banza.network",
+      "href": "https://banza.network"
+    },
+    {
+      "label": "Referência",
+      "href": "/referencia"
+    },
+    {
+      "label": "estado verificável",
+      "href": "/estado"
+    },
+    {
+      "label": "BanzAI",
+      "href": "/banzai"
+    },
+    {
+      "label": "Registo Técnico",
+      "href": "/registo-tecnico"
+    },
+    {
+      "label": "contratos públicos",
+      "href": "contracts/"
+    }
   ],
   "terms": [
-    { "pt": "Registo Técnico", "en": "Technical Registry", "canonical_in_chapter": "pt" },
-    { "pt": "obtenção segura", "en": "secure fetch" },
-    { "pt": "contrato tipado", "en": "typed contract" },
-    { "pt": "motor cognitivo", "en": "cognitive engine" },
-    { "pt": "modelo local", "en": "local model" },
-    { "pt": "verificação final", "en": "final validation" },
-    { "pt": "FactualPackage", "en": "FactualPackage" },
-    { "pt": "não autoritativo", "en": "non-authoritative" }
+    {
+      "pt": "Registo Técnico",
+      "en": "Technical Registry",
+      "canonical_in_chapter": "pt"
+    },
+    {
+      "pt": "obtenção segura",
+      "en": "secure fetch"
+    },
+    {
+      "pt": "contrato tipado",
+      "en": "typed contract"
+    },
+    {
+      "pt": "motor cognitivo",
+      "en": "cognitive engine"
+    },
+    {
+      "pt": "modelo local",
+      "en": "local model"
+    },
+    {
+      "pt": "verificação final",
+      "en": "final validation"
+    },
+    {
+      "pt": "FactualPackage",
+      "en": "FactualPackage"
+    },
+    {
+      "pt": "não autoritativo",
+      "en": "non-authoritative"
+    }
   ],
   "forbidden_strings": [
-    { "value": "quarta camada", "unless": "negated (e.g. «não é uma quarta camada»)" },
-    { "value": "interface passiva" },
-    { "value": "wrapper do modelo" },
-    { "value": "simples chat" },
-    { "value": "encaminhador de pedidos" },
-    { "value": "ponto de passagem obrigatório", "unless": "negated (e.g. «nunca um ponto de passagem obrigatório»)" },
-    { "value": "Technical Registry", "scope": "bare EN inside §12 (PT «Registo Técnico» is canonical there)" }
+    {
+      "value": "quarta camada",
+      "unless": "negated (e.g. «não é uma quarta camada»)"
+    },
+    {
+      "value": "interface passiva"
+    },
+    {
+      "value": "wrapper do modelo"
+    },
+    {
+      "value": "simples chat"
+    },
+    {
+      "value": "encaminhador de pedidos"
+    },
+    {
+      "value": "ponto de passagem obrigatório",
+      "unless": "negated (e.g. «nunca um ponto de passagem obrigatório»)"
+    },
+    {
+      "value": "Technical Registry",
+      "scope": "bare EN inside §12 (PT «Registo Técnico» is canonical there)"
+    }
   ],
   "adrs": [
-    { "id": "ADR-036", "subject": "BanzAI as primary human-operator interface" },
-    { "id": "ADR-036", "subject": "Single-pass grounded synthesis" },
-    { "id": "ADR-004", "subject": "Three-layer architecture" },
-    { "id": "ADR-035", "subject": "Endpoint-originated operator validation / nine-step journey" },
-    { "id": "ADR-034", "subject": "Endpoint-originated validation + operator↔implementation model" },
-    { "id": "ADR-036", "subject": "BanzAI canonical runtime + reference correction" },
-    { "id": "ADR-036", "subject": "Runtime SSOT route (banzai-runtime/1)" },
-    { "id": "ADR-036", "subject": "Mandatory post-synthesis validator" },
-    { "id": "ADR-036", "subject": "SimB retirement from active surfaces" }
+    {
+      "id": "ADR-036",
+      "subject": "BanzAI as primary human-operator interface"
+    },
+    {
+      "id": "ADR-036",
+      "subject": "Single-pass grounded synthesis"
+    },
+    {
+      "id": "ADR-004",
+      "subject": "Three-layer architecture"
+    },
+    {
+      "id": "ADR-035",
+      "subject": "Endpoint-originated operator validation / nine-step journey"
+    },
+    {
+      "id": "ADR-034",
+      "subject": "Endpoint-originated validation + operator↔implementation model"
+    },
+    {
+      "id": "ADR-036",
+      "subject": "BanzAI canonical runtime + reference correction"
+    },
+    {
+      "id": "ADR-036",
+      "subject": "Runtime SSOT route (banzai-runtime/1)"
+    },
+    {
+      "id": "ADR-036",
+      "subject": "Mandatory post-synthesis validator"
+    },
+    {
+      "id": "ADR-036",
+      "subject": "SimB retirement from active surfaces"
+    }
   ]
 }

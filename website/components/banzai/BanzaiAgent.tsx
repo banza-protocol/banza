@@ -895,7 +895,7 @@ export function BanzaiAgent({
         <button
           type="button"
           onClick={() => setInspectorOpen((v) => !v)}
-          aria-label={inspectorOpen ? "Fechar inspetor" : "Abrir inspetor"}
+          aria-label={inspectorOpen ? t("shell.hideInspector") : t("shell.showInspector")}
           aria-controls="banzai-inspector"
           aria-expanded={inspectorOpen}
           className="ml-auto flex h-9 flex-none items-center gap-1.5 rounded-[9px] border border-black/10 bg-white px-3 text-[12.5px] font-medium text-ink-3 transition-colors hover:border-bordo/30 hover:text-bordo focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40"
@@ -966,7 +966,7 @@ export function BanzaiAgent({
         {/* Modos (ask/validation/onboarding) · Jornada de validação (active session only) · Resultados
             (ONE entry) · Recursos (Guia · Referência · Programadores). */}
         <nav className={cx("flex flex-1 flex-col gap-[3px] pb-4", railCollapsed ? "px-[8px]" : "px-[10px]")} aria-label={t("nav.label")}>
-          {sidebarDivider("MODOS")}
+          {sidebarDivider(t("section.modes"))}
           {MODES.map((m) => renderMode(m, railCollapsed))}
 
           {/* ADR-036 — the 9-step journey group appears only when a validation is ACTIVE (an operator +
@@ -980,10 +980,10 @@ export function BanzaiAgent({
             </>
           )}
 
-          {sidebarDivider("RESULTADOS")}
+          {sidebarDivider(t("section.results"))}
           {TABS.filter((t) => t.group === "resultados").map((t) => renderTab(t, railCollapsed))}
 
-          {sidebarDivider("RECURSOS")}
+          {sidebarDivider(t("section.resources"))}
           {TABS.filter((t) => t.group === "recursos").map((t) => renderTab(t, railCollapsed))}
         </nav>
 
@@ -1203,8 +1203,8 @@ export function BanzaiAgent({
             <div className="mx-auto max-w-[760px]">
               <div className="flex items-end gap-[10px] rounded-[14px] border border-black/10 bg-white py-[10px] pl-3 pr-[10px] shadow-[0_1px_2px_rgba(16,19,30,0.04)] transition-shadow focus-within:border-bordo/40 focus-within:shadow-[0_0_0_3px_rgba(142,19,38,0.08)]">
                 <span className="flex h-[38px] w-[38px] flex-none items-center justify-center rounded-[10px] bg-tint-bordo text-bordo"><Ico name="sparkle" size={17} sw={1.4} /></span>
-                <textarea ref={inputRef} onKeyDown={onKey} rows={1} placeholder={agent.assistantPlaceholder} aria-label="Pergunte ao BanzAI" className="max-h-[120px] flex-1 resize-none bg-transparent py-[9px] text-[15px] leading-[1.5] text-ink outline-none placeholder:text-ink-5" />
-                <button onClick={send} aria-label="Enviar" className="flex h-[38px] w-[38px] flex-none items-center justify-center rounded-[10px] bg-bordo text-creme-high shadow-[0_2px_8px_rgba(142,19,38,0.25)] transition-colors hover:bg-[#7a0f20]"><Ico name="send" size={17} sw={1.6} /></button>
+                <textarea ref={inputRef} onKeyDown={onKey} rows={1} placeholder={agent.assistantPlaceholder} aria-label={t("tab.assistente")} className="max-h-[120px] flex-1 resize-none bg-transparent py-[9px] text-[15px] leading-[1.5] text-ink outline-none placeholder:text-ink-5" />
+                <button onClick={send} aria-label={t("shell.send")} className="flex h-[38px] w-[38px] flex-none items-center justify-center rounded-[10px] bg-bordo text-creme-high shadow-[0_2px_8px_rgba(142,19,38,0.25)] transition-colors hover:bg-[#7a0f20]"><Ico name="send" size={17} sw={1.6} /></button>
               </div>
               <div className="mt-[10px] flex flex-wrap justify-between gap-3 px-1">
                 <span className="font-mono text-[11px] text-ink-5">{t("input.hint")}</span>
@@ -1249,13 +1249,13 @@ export function BanzaiAgent({
       >
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 font-mono text-[11px] tracking-[0.16em] text-ink-4">
-            <Ico name="book" size={15} className="text-bordo-soft" /> {isValidation ? t("section.validationContext") : "FONTES E CONTEXTO"}
+            <Ico name="book" size={15} className="text-bordo-soft" /> {isValidation ? t("section.validationContext") : t("section.sourcesAndContext").toUpperCase()}
           </div>
           <button
             type="button"
             onClick={() => setInspectorOpen(false)}
-            aria-label="Fechar inspetor"
-            title="Fechar inspetor"
+            aria-label={t("shell.hideInspector")}
+            title={t("shell.hideInspector")}
             className="flex h-7 w-7 flex-none items-center justify-center rounded-[7px] border border-black/10 bg-white text-ink-4 transition-colors hover:border-bordo/30 hover:text-bordo focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40"
           >
             <Ico name="x" size={15} />
@@ -1315,7 +1315,7 @@ export function BanzaiAgent({
         )}
 
         <section>
-          <div className="mb-[10px] flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-ink-5"><Ico name="scale" size={13} className="text-ink-5" /> FRONTEIRA</div>
+          <div className="mb-[10px] flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-ink-5"><Ico name="scale" size={13} className="text-ink-5" /> {t("section.boundary").toUpperCase()}</div>
           <div className={`flex flex-col gap-[11px] p-[16px] ${CARD}`}>
             <p className="m-0 text-[12px] leading-[1.55] text-ink-3">{t("agent.whatItIs")}</p>
             <p className="m-0 text-[12px] leading-[1.55] text-ink-3">{t("agent.noCentralApproval")}</p>
@@ -1328,7 +1328,7 @@ export function BanzaiAgent({
             presents last-known state as current. Replaces the former hardcoded BADGES + "Pré-produção…". */}
         {runtimeStrip && (
           <section>
-            <div className="mb-[10px] flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-ink-5"><Ico name="shield" size={13} className="text-ink-5" /> ESTADO</div>
+            <div className="mb-[10px] flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-ink-5"><Ico name="shield" size={13} className="text-ink-5" /> {t("section.state").toUpperCase()}</div>
             {runtimeStrip}
           </section>
         )}
