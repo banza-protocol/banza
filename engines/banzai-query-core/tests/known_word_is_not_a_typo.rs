@@ -75,3 +75,34 @@ fn genuine_typos_are_still_repaired() {
         );
     }
 }
+
+#[test]
+fn every_short_declared_term_is_a_word_the_engine_actually_resolves() {
+    // The protection list is hand-written, so it is pinned to something that can contradict it: each
+    // member must be resolvable by the glossary on its own. A term that stops being known — or one added
+    // that never was — fails here rather than quietly widening what recovery refuses to repair.
+    for t in banzai_query_core::short_declared_terms() {
+        assert!(
+            banzai_query_core::glossary::glossary_entry(t).is_some(),
+            "{t:?} is protected from correction but the glossary does not resolve it"
+        );
+    }
+}
+
+#[test]
+fn protecting_rust_does_not_move_trust() {
+    // The first fix declared `rust` as a concept ALIAS, and the alias table is matched by substring — so
+    // `rust` matched inside `trust` and every trust question resolved to ADR-038, the Rust-first policy.
+    // The golden-answer guard caught it. Pinned here so the shortcut is not taken again.
+    for q in [
+        "como funciona trust",
+        "modelo de trust",
+        "porque existe trust",
+    ] {
+        assert_ne!(
+            banzai_query_core::concept::resolve_concept(q),
+            Some("ADR-038"),
+            "{q:?} is a question about trust, not about the Rust-first policy"
+        );
+    }
+}

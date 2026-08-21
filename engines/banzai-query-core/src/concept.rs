@@ -19,27 +19,6 @@ use crate::normalize;
 /// (canonical_doc_id, aliases). Aliases are normalized substrings (accent-free, lowercase) matched against
 /// the normalized query. Ordered most-specific first so a multi-word alias wins over a bare token.
 const CONCEPTS: &[(&str, &[&str])] = &[
-    // ADR-038 — the Rust-first policy for the official engines. `rust` is declared here because it is a
-    // concept this engine answers (`def-rust`), and because the fuzzy layer reads this table as its
-    // single source of concept vocabulary.
-    //
-    // It was in neither the fuzzy vocabulary nor `registered_surface_forms`, so recovery treated it as an
-    // unknown word and corrected it to its nearest neighbour — `trust`, one edit away — at HIGH
-    // CONFIDENCE, in every phrasing. "Tenho de usar Rust para implementar o BANZA?" became a question
-    // about TRUST before any router saw it, and production answered "Não é necessário usar trust para
-    // implementar BANZA". Two unrelated protocol concepts, silently swapped, with nothing on the wire to
-    // show the substitution.
-    (
-        "ADR-038",
-        &[
-            "rust",
-            "rust first",
-            "rust-first",
-            "linguagem rust",
-            "rust language",
-            "motores em rust",
-        ],
-    ),
     (
         "ADR-012",
         &[
