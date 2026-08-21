@@ -567,7 +567,6 @@ async function ask(req, signal, onProgress) {
         grounded: groundedPublishable,
         sources: contract.sources,
         sources_count: Array.isArray(contract.sources) ? contract.sources.length : 0,
-        answer_locale: result.answer_locale ?? null,
         // The locale the answer was COMPOSED for, carried out to the reader's client.
         //
         // It already existed internally — the pipeline stamps it at composition, and for the knowledge
@@ -578,7 +577,7 @@ async function ask(req, signal, onProgress) {
         // This boundary EXPOSES provenance; it does not create it. Stamping the request locale onto
         // whatever text arrived would make every check green while attesting to a composition this layer
         // did not perform. When a composer left no provenance the honest wire value is null.
-
+        answer_locale: result.answer_locale ?? null,
         mode: result.mode,
         provider: result.provider,
         engine_state: engineState,                       // mock | local_qwen | degraded | external_hosted

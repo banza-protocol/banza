@@ -18,10 +18,9 @@ export const ASK_STATUS_COPY = {
   // Counted units, joined into the line below.
   "unit.source": L("fonte", "source"),
   "unit.sources": L("fontes", "sources"),
-  "unit.context.one": L("1 turno de contexto", "1 context turn"),
-  "unit.context.many": L("{n} turnos de contexto", "{n} context turns"),
 
   // The provenance line itself.
+  "status.withContext": L("com contexto", "with context"),
   "status.deterministic": L("Resposta determinística · sem chamada ao modelo", "Deterministic answer · no model call"),
   "status.postValidation": L(
     "Resposta determinística · resposta do modelo substituída pela validação",

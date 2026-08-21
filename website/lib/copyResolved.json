@@ -2857,13 +2857,9 @@
           "pt": "fontes",
           "en": "sources"
         },
-        "unit.context.one": {
-          "pt": "1 turno de contexto",
-          "en": "1 context turn"
-        },
-        "unit.context.many": {
-          "pt": "{n} turnos de contexto",
-          "en": "{n} context turns"
+        "status.withContext": {
+          "pt": "com contexto",
+          "en": "with context"
         },
         "status.deterministic": {
           "pt": "Resposta determinística · sem chamada ao modelo",

@@ -672,7 +672,7 @@ export function mapAskResponse(d: unknown, locale: Locale = DEFAULT_LOCALE): KbA
   const ms = Number(o.latency_ms ?? o.elapsed_ms) || 0;
   const secs = ms >= 100 ? `${(ms / 1000).toFixed(1)}s` : null;
   const fontes = sourcesLabel(srcN, locale);
-  const ctx = contextUsed ? (locale === "en" ? " · with context" : " · com contexto") : "";
+  const ctx = contextUsed ? ` · ${askStatus("status.withContext", locale)}` : "";
   // M2.10A — documentary resolution. `doc` is set only when a named protocol document was actually
   // found; `docNotFound` marks a document the operator named that does not exist.
   const docNotFound = Boolean(o.document_not_found);
