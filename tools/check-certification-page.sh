@@ -19,7 +19,17 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-PAGE="website/app/(pt)/certificacao/page.tsx"
+# Block F — this page became ONE view rendering both editions, with its text in a per-edition content
+# module. That module is where these sentences live now, and reading it checks both editions at once
+# instead of only the Portuguese one.
+
+# Three files now: the route, the view that owns the structure and the ADR citations, and the content
+# module that owns the words. The page is all three.
+PAGE="$(mktemp)"
+cat "website/app/(pt)/certificacao/page.tsx" \
+    website/components/pages/CertificationView.tsx \
+    website/components/pages/certificationContent.ts > "$PAGE"
+trap 'rm -f "$PAGE"' EXIT
 SITE="website/lib/site.ts"
 SITEMAP="website/app/sitemap.ts"
 

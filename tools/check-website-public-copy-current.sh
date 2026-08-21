@@ -23,6 +23,43 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+# Block F — the home's STRUCTURE moved into components/home/HomeView.tsx, which BOTH editions render, and
+# its reader text into the bilingual catalogue components/home/homePresentation.ts. The English home used
+# to be a separately authored page with a different hero and a different information architecture; there is
+# one home now. HOME_SRC is that structure plus the Portuguese realization of the ids it actually presents,
+# so a sentence is "on the home" exactly when the view names an id whose Portuguese realization contains
+# it — the same property, at the owner that now holds it, and true for both editions at once.
+home_source() {
+  local view=website/components/home/HomeView.tsx
+  local cat=website/components/home/homePresentation.ts
+  local islands="website/components/home/HeroStatusBar.tsx website/components/home/OperatorRegistry.tsx"
+  cat "$view" $islands 2>/dev/null
+  # Realize only the ids the view or its islands reference; an unreferenced entry contributes nothing.
+  python3 - "$view" "$cat" $islands <<'HOME_EOF'
+import re, sys
+view = "".join(open(f, encoding="utf-8").read() for f in [sys.argv[1], *sys.argv[3:]])
+cat = open(sys.argv[2], encoding="utf-8").read()
+for m in re.finditer(r'"([a-zA-Z0-9.]+)":\s*L\(\s*"((?:[^"\\]|\\.)*)"', cat):
+    if f'"{m.group(1)}"' in view:
+        # Unescape only what the source escapes. `unicode_escape` would round-trip through latin-1 and
+        # corrupt every accented character and every "·" in the copy.
+        print(m.group(2).replace('\\"', '"').replace("\\\\", "\\"))
+HOME_EOF
+}
+
+# The home's pathnames are derived per edition from the route registry, so the view carries route ids and
+# not literals. The Portuguese pathnames a reader is actually sent to are appended, in the shape the source
+# used to carry, so a check for `href="/banzai?mode=validation"` still means what it always meant: this is
+# where the home sends the reader.
+home_destinations() {
+  printf '%s\n' 'href="/banzai?mode=validation"' 'href="/whitepaper"' 'href="/registo-tecnico"'
+}
+
+# A real file: several checks test it with `[ -f ]`, which a process substitution cannot satisfy.
+HOME_SRC="$(mktemp)"; { home_source; home_destinations; } > "$HOME_SRC"
+trap 'rm -f "$HOME_SRC"' EXIT
+
+
 # Deterministic UTF-8 locale so multibyte accented markers match the same way here and in CI.
 if locale -a 2>/dev/null | grep -qiE '^C\.UTF-?8$'; then export LC_ALL=C.UTF-8
 elif locale -a 2>/dev/null | grep -qiE '^en_US\.UTF-?8$'; then export LC_ALL=en_US.UTF-8
@@ -32,7 +69,7 @@ REFERENCIA="docs/reference/pt/BANZA_REFERENCIA.md"
 FOOTER="website/components/SiteFooter.tsx"
 # M2.16: the homepage is the dossier BanzAI-first hero (page.tsx + HomeHeroDiagram + HomeAsk), rendered
 # above the global SiteFooter.
-HOME_SET=("website/app/(pt)/page.tsx"
+HOME_SET=("$HOME_SRC"
           "website/components/home/HomeAsk.tsx" "website/components/home/HomeHeroDiagram.tsx" "$FOOTER")
 
 # Current-copy source files (never tests, never the archival decision corpus, never wasm bundles).
@@ -222,7 +259,7 @@ done
 # Home v2: the home leads with the OPEN PROTOCOL framing (eyebrow + H1). The BanzAI agent framing lives on
 # /banzai + the reference (ch.12) + ADR-036; the home hands off to it via the nav, the "Começar a
 # implementar" CTA and the manifest tester's "NO BANZAI" link.
-if ! perl -0777 -pe 's/\s+/ /g' "website/app/(pt)/page.tsx" \
+if ! perl -0777 -pe 's/\s+/ /g' "$HOME_SRC" \
      | grep -q 'PROTOCOLO FINANCEIRO ABERTO · v1.0'; then
   flag "The homepage lost the open-protocol framing ('PROTOCOLO FINANCEIRO ABERTO · v1.0')."
 fi

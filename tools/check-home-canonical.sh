@@ -19,18 +19,59 @@
 #   - the three-layer copy (L1/L2/L3 + BanzAI transversal) is present;
 #   - the institutional phrase "Aberto. Auditável. Verificável." is present.
 #
-# Scope: "website/app/(pt)/page.tsx" · components/home/{OperatorRegistry,HeroStatusBar}.tsx ·
+# Scope: "$HOME_SRC" · components/home/{OperatorRegistry,HeroStatusBar}.tsx ·
 # lib/protocolStatus.ts · app/(pt)/layout.tsx · components/{SiteShell,SiteFooterGate}.tsx.
 # Exit 1 on NEEDS_FIX, 2 on self-test failure.
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
+
+# Block F — the home's STRUCTURE moved into components/home/HomeView.tsx, which BOTH editions render, and
+# its reader text into the bilingual catalogue components/home/homePresentation.ts. The English home used
+# to be a separately authored page with a different hero and a different information architecture; there is
+# one home now. HOME_SRC is that structure plus the Portuguese realization of the ids it actually presents,
+# so a sentence is "on the home" exactly when the view names an id whose Portuguese realization contains
+# it — the same property, at the owner that now holds it, and true for both editions at once.
+home_source() {
+  local view=website/components/home/HomeView.tsx
+  local cat=website/components/home/homePresentation.ts
+  local islands="website/components/home/HeroStatusBar.tsx website/components/home/OperatorRegistry.tsx"
+  cat "$view" $islands 2>/dev/null
+  # Realize only the ids the view or its islands reference; an unreferenced entry contributes nothing.
+  python3 - "$view" "$cat" $islands <<'HOME_EOF'
+import re, sys
+view = "".join(open(f, encoding="utf-8").read() for f in [sys.argv[1], *sys.argv[3:]])
+cat = open(sys.argv[2], encoding="utf-8").read()
+for m in re.finditer(r'"([a-zA-Z0-9.]+)":\s*L\(\s*"((?:[^"\\]|\\.)*)"', cat):
+    if f'"{m.group(1)}"' in view:
+        # Unescape only what the source escapes. `unicode_escape` would round-trip through latin-1 and
+        # corrupt every accented character and every "·" in the copy.
+        print(m.group(2).replace('\\"', '"').replace("\\\\", "\\"))
+HOME_EOF
+}
+
+# The home's pathnames are derived per edition from the route registry, so the view carries route ids and
+# not literals. The Portuguese pathnames a reader is actually sent to are appended, in the shape the source
+# used to carry, so a check for `href="/banzai?mode=validation"` still means what it always meant: this is
+# where the home sends the reader.
+home_destinations() {
+  printf '%s\n' 'href="/banzai?mode=validation"' 'href="/whitepaper"' 'href="/registo-tecnico"'
+}
+
+# A real file: several checks test it with `[ -f ]`, which a process substitution cannot satisfy.
+HOME_SRC="$(mktemp)"; { home_source; home_destinations; } > "$HOME_SRC"
+trap 'rm -f "$HOME_SRC"' EXIT
+
 if locale -a 2>/dev/null | grep -qiE '^C\.UTF-?8$'; then export LC_ALL=C.UTF-8
 elif locale -a 2>/dev/null | grep -qiE '^en_US\.UTF-?8$'; then export LC_ALL=en_US.UTF-8
 fi
 
-PAGE="website/app/(pt)/page.tsx"
+PAGE="$HOME_SRC"
 REGISTRY="website/components/home/OperatorRegistry.tsx"
+# The registry island names catalogue ids, so its realized Portuguese copy is materialized alongside it:
+# a counter is "shown" exactly when the island presents an id whose Portuguese realization names it.
+REGISTRY_SRC="$(mktemp)"; { cat "$REGISTRY"; home_source; } > "$REGISTRY_SRC"
+trap 'rm -f "$HOME_SRC" "$REGISTRY_SRC"' EXIT
 STATUSBAR="website/components/home/HeroStatusBar.tsx"
 STATUS_LIB="website/lib/protocolStatus.ts"
 LAYOUT="website/app/(pt)/layout.tsx"
@@ -47,7 +88,7 @@ L3_NAME_PT="Esquema Operacional Banza""mi"
 fail=0
 flag() { echo "  NEEDS_FIX: $1"; fail=1; }
 # line number of the first line containing a fixed string (empty if absent).
-line_of() { grep -nF "$1" "$PAGE" | head -1 | cut -d: -f1; }
+line_of() { grep -nF "$1" "$PAGE" | head -1 | cut -d: -f1 || true; }
 # visible(): strip block + line comments (protect https://) — what the file RENDERS.
 vis() { perl -0777 -pe 's{/\*.*?\*/}{}gs; s{(^|[^:])//[^\n]*}{$1}g' "$1"; }
 
@@ -67,8 +108,9 @@ done
 
 # ── 1. Section order: Hero → institutional/status → Registo técnico → Três camadas; layers section LAST. ──
 H="$(line_of 'aria-labelledby="hero-title"')"
-S="$(line_of 'aria-label="Estado público"')"
-R="$(line_of 'aria-label="Registo técnico"')"
+# The two middle bands name their catalogue id; the outer two are labelled by their heading ids.
+S="$(line_of 't("status.aria")')"
+R="$(line_of 't("registry.aria")')"
 L="$(line_of 'aria-labelledby="layers-title"')"
 [ -n "$H" ] || flag "Hero section (aria-labelledby=\"hero-title\") missing — $PAGE"
 [ -n "$S" ] || flag "institutional-phrase/public-status section (aria-label=\"Estado público\") missing — $PAGE"
@@ -129,9 +171,9 @@ bad_status="$(grep -niE 'PROTOCOLO ACTIVO|[0-9]+ nós|certificados emitidos|rede
 [ -z "$bad_status" ] || { flag "status bar carries retired/decorative vocabulary — $STATUSBAR:"; printf '%s\n' "$bad_status" | sed 's/^/      /'; }
 
 # ── 7. Registry counters (restored M2.19G.2B operator marquee): Certificados / Em conformidade / Operadores registados. ──
-grep -qF "Certificados" "$REGISTRY" || flag "registry must show the 'Certificados' counter — $REGISTRY"
-grep -qF "Em conformidade" "$REGISTRY" || flag "registry must show the 'Em conformidade' counter — $REGISTRY"
-grep -qF "Operadores registados" "$REGISTRY" || flag "registry must show the 'Operadores registados' counter — $REGISTRY"
+grep -qF "Certificados" "$REGISTRY_SRC" || flag "registry must show the 'Certificados' counter — $REGISTRY"
+grep -qF "Em conformidade" "$REGISTRY_SRC" || flag "registry must show the 'Em conformidade' counter — $REGISTRY"
+grep -qF "Operadores registados" "$REGISTRY_SRC" || flag "registry must show the 'Operadores registados' counter — $REGISTRY"
 # The registry-summary counts (protocolStatus) stay sourced and pre-production honest.
 grep -qE 'productionOperators:[[:space:]]*0' "$STATUS_LIB" || flag "REGISTRY_SUMMARY.productionOperators must be 0 (pre-production) — $STATUS_LIB"
 grep -qE 'referenceImplementations:[[:space:]]*1' "$STATUS_LIB" || flag "REGISTRY_SUMMARY.referenceImplementations must be 1 (Operador Zero) — $STATUS_LIB"
@@ -140,12 +182,12 @@ grep -qE 'activeCertifications:[[:space:]]*0' "$STATUS_LIB" || flag "REGISTRY_SU
 # ── 8. Operador Zero is NEVER counted as a registered operator. ──
 # The registry count derives from the live public list (GET /operators); Operador Zero is a fallback card,
 # shown as a reference implementation ("não certificado") and never added to that count.
-grep -qE 'registryCount' "$REGISTRY" || flag "the registry count must derive from the public /operators list (OZ excluded) — $REGISTRY"
+grep -qE 'registryCount' "$REGISTRY_SRC" || flag "the registry count must derive from the public /operators list (OZ excluded) — $REGISTRY"
 grep -qiF "não certificado" "$REGISTRY" || flag "the Operador Zero card must be shown as não certificado — $REGISTRY"
 
 # ── 9. The animated operator marquee is restored (M2.19G.2B) + the honest registry note. ──
 grep -q "data-marquee" "$REGISTRY" || flag "the registry must carry the animated operator marquee — $REGISTRY"
-grep -qF "Nenhum operador está certificado hoje" "$REGISTRY" || flag "the registry must carry the honest note 'Nenhum operador está certificado hoje …' — $REGISTRY"
+grep -qF "Nenhum operador está certificado hoje" "$REGISTRY_SRC" || flag "the registry must carry the honest note 'Nenhum operador está certificado hoje …' — $REGISTRY"
 
 # ── 10. Three-layer copy present (Camada 1/2/3 titles + BanzAI transversal). ──
 grep -qF "BANZA · Protocolo" "$PAGE" || flag "Camada 1 'BANZA · Protocolo' missing — $PAGE"

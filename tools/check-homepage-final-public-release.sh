@@ -11,18 +11,55 @@
 # retired-model vocabulary (BANZA CA, operadores certificados, payment processing) or commercial operator
 # brand. Comment-aware; negation-aware; self-tests on every run.
 #
-# Scope: website/app/(pt)/page.tsx, website/components/home/{OperatorRegistry,HeroStatusBar}.tsx.
+# Scope: "$HOME_SRC", website/components/home/{OperatorRegistry,HeroStatusBar}.tsx.
 # Exit 1 on NEEDS_FIX, 2 on self-test.
 
 # NOTE: no `pipefail` — a no-match grep inside `x="$(… | grep … | wc -l)"` is EXPECTED, not an error.
 set -eu
 cd "$(dirname "$0")/.."
 
+# Block F — the home's STRUCTURE moved into components/home/HomeView.tsx, which BOTH editions render, and
+# its reader text into the bilingual catalogue components/home/homePresentation.ts. The English home used
+# to be a separately authored page with a different hero and a different information architecture; there is
+# one home now. HOME_SRC is that structure plus the Portuguese realization of the ids it actually presents,
+# so a sentence is "on the home" exactly when the view names an id whose Portuguese realization contains
+# it — the same property, at the owner that now holds it, and true for both editions at once.
+home_source() {
+  local view=website/components/home/HomeView.tsx
+  local cat=website/components/home/homePresentation.ts
+  local islands="website/components/home/HeroStatusBar.tsx website/components/home/OperatorRegistry.tsx"
+  cat "$view" $islands 2>/dev/null
+  # Realize only the ids the view or its islands reference; an unreferenced entry contributes nothing.
+  python3 - "$view" "$cat" $islands <<'HOME_EOF'
+import re, sys
+view = "".join(open(f, encoding="utf-8").read() for f in [sys.argv[1], *sys.argv[3:]])
+cat = open(sys.argv[2], encoding="utf-8").read()
+for m in re.finditer(r'"([a-zA-Z0-9.]+)":\s*L\(\s*"((?:[^"\\]|\\.)*)"', cat):
+    if f'"{m.group(1)}"' in view:
+        # Unescape only what the source escapes. `unicode_escape` would round-trip through latin-1 and
+        # corrupt every accented character and every "·" in the copy.
+        print(m.group(2).replace('\\"', '"').replace("\\\\", "\\"))
+HOME_EOF
+}
+
+# The home's pathnames are derived per edition from the route registry, so the view carries route ids and
+# not literals. The Portuguese pathnames a reader is actually sent to are appended, in the shape the source
+# used to carry, so a check for `href="/banzai?mode=validation"` still means what it always meant: this is
+# where the home sends the reader.
+home_destinations() {
+  printf '%s\n' 'href="/banzai?mode=validation"' 'href="/whitepaper"' 'href="/registo-tecnico"'
+}
+
+# A real file: several checks test it with `[ -f ]`, which a process substitution cannot satisfy.
+HOME_SRC="$(mktemp)"; { home_source; home_destinations; } > "$HOME_SRC"
+trap 'rm -f "$HOME_SRC"' EXIT
+
+
 if locale -a 2>/dev/null | grep -qiE '^C\.UTF-?8$'; then export LC_ALL=C.UTF-8
 elif locale -a 2>/dev/null | grep -qiE '^en_US\.UTF-?8$'; then export LC_ALL=en_US.UTF-8
 fi
 
-PAGE="website/app/(pt)/page.tsx"
+PAGE="$HOME_SRC"
 REGISTRY="website/components/home/OperatorRegistry.tsx"
 STATUSBAR="website/components/home/HeroStatusBar.tsx"
 
@@ -104,7 +141,9 @@ printf '%s' "$pv" | grep -qF "Certificação de Conformidade e Interoperabilidad
 printf '%s' "$pv" | grep -qF "interface transversal" || flag "the BanzAI transversal band is missing — $PAGE"
 
 # ── 7. The honest status bar (HeroStatusBar): the four sourced lines present; the retired counters absent. ──
-sv="$(vis "$STATUSBAR")"
+# The status bar names catalogue ids now, so its realized Portuguese copy is appended — a line is "in
+# the status bar" exactly when it presents an id whose Portuguese realization contains it.
+sv="$(vis "$STATUSBAR"; home_source)"
 printf '%s' "$sv" | grep -qF "PROTOCOLO v" || flag "status bar missing the 'PROTOCOLO v… · PRÉ-PRODUÇÃO' line — $STATUSBAR"
 printf '%s' "$sv" | grep -qF "última verificação pública há" || flag "status bar missing 'última verificação pública há …' — $STATUSBAR"
 printf '%s' "$sv" | grep -qF "implementação de referência publicada" && flag "status bar must not carry the reference-implementation counter (removed M2.19G.2B) — $STATUSBAR" || true

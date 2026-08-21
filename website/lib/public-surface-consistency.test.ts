@@ -14,6 +14,9 @@ import { getReferenceChapters } from "./reference";
 const root = join(__dirname, "..");
 const read = (p: string) => readFileSync(join(root, p), "utf8");
 
+// Block F — the status page's structure and copy moved into one shared view plus a per-edition content
+// module, which is why the route file no longer carries this text. Reading the content module is the
+// same property at its new owner, and it now covers both editions at once.
 describe("every published decision record resolves and has a body", () => {
   // A property, not a list. Pinning specific ADR ids made this test assert a numbering rather than a
   // behaviour, and it broke the moment the tree was renumbered — which is precisely when a website
@@ -41,7 +44,7 @@ describe("M2.14J — primary human-operator interface is the leading definition"
     expect(layout).toMatch(/interface primária humano-operador/i); // sr-only H1 (shared layout)
   });
   it("the /estado page carries the complete 4-clause phrase + primary interface", () => {
-    const estado = read("app/(pt)/estado/page.tsx");
+    const estado = read("components/pages/statusContent.tsx");
     expect(estado).toContain("BanzAI guia; os motores verificam; a evidência prova; a autoridade competente decide.");
     expect(estado).toMatch(/interface humana primária e transversal/i);
     // the pre-M2.14J 3-clause phrase must be gone.
@@ -86,7 +89,7 @@ describe("M2.14J — operador-zero copy matches the live (active) subdomain", ()
 describe("M2.14J — no POSITIVE forbidden BanzAI-authority claim in key public copy", () => {
   const files = [
     "app/(pt)/banzai/page.tsx",
-    "app/(pt)/estado/page.tsx",
+    "components/pages/statusContent.tsx",
     "components/banzai/agentPresentation.ts",
     // M2.15A: the home architecture section was removed from the homepage; the reference/ADRs/SVGs
     // carry the canonical architecture. The remaining files still guard the positive-claim rule.

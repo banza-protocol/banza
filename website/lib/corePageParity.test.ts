@@ -355,9 +355,17 @@ describe("core page pairs — source level", () => {
   for (const page of IMPLEMENTED) {
     it(`${page.id}: declares its own canonical and reciprocal alternates`, () => {
       const src = source(page.enSource);
-      expect(src).toContain(`canonical: "${page.en}"`);
-      expect(src).toContain(`"pt-PT": "${page.pt}"`);
-      expect(src).toContain(`en: "${page.en}"`);
+      // A page that delegates its structure to a shared view declares its alternates through
+      // `alternatesFor`, which emits exactly this canonical/hreflang pair for the path it is given. Both
+      // shapes are accepted, and both are checked at the path — the property is that the English page
+      // names ITSELF as canonical and names the Portuguese edition reciprocally.
+      if (src.includes("alternatesFor(")) {
+        expect(src).toContain(`alternatesFor("${page.en}")`);
+      } else {
+        expect(src).toContain(`canonical: "${page.en}"`);
+        expect(src).toContain(`"pt-PT": "${page.pt}"`);
+        expect(src).toContain(`en: "${page.en}"`);
+      }
     });
 
     it(`${page.id}: the EN source contains no Portuguese route that HAS an English edition`, () => {

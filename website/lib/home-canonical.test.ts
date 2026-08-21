@@ -1,4 +1,6 @@
 import { describe, it, expect } from "vitest";
+import { routeHref } from "@/lib/routeRegistry";
+import { homeCopy, homeCopyIds } from "@/components/home/homePresentation";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { navPrimary, footerColumns } from "./site";
@@ -16,8 +18,31 @@ const strip = (s: string) => s.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:]
 const raw = (p: string) => readFileSync(join(root, p), "utf8");
 const flat = (p: string) => strip(raw(p)).replace(/\s+/g, " ");
 
-const page = flat("app/(pt)/page.tsx");
-const registry = flat("components/home/OperatorRegistry.tsx");
+// Block F — the home page structure moved into components/home/HomeView.tsx, which BOTH editions render.
+// Reading it here is the same property at its new owner, and it is now stronger: what this file asserts
+// about the canonical structure is asserted for the English edition too, because there is only one
+// structure left to assert. The route files own metadata and the locale they ask for, nothing else.
+
+// Block F — the home's reader text moved into the bilingual catalogue, so the view names ids rather than
+// carrying sentences. `page` is therefore the view's source PLUS the Portuguese realization of every id
+// the view actually references. A string is "on the page" exactly when the view presents an id whose
+// Portuguese realization contains it — the same property as before, checked through the mechanism that
+// now produces it. An id the view does not reference contributes nothing, so this cannot pass on copy
+// that no longer renders.
+function withRealizedCopy(source: string): string {
+  // The two client islands the home mounts are part of the home a reader sees, so their source and their
+  // realized copy count as being "on the page" — the view delegates those bands to them.
+  const islands = ["components/home/HeroStatusBar.tsx", "components/home/OperatorRegistry.tsx"].map(flat);
+  const all = [source, ...islands].join("  ");
+  const referenced = homeCopyIds().filter((id) => all.includes(`"${id}"`));
+  // Pathnames are derived per edition from the route registry now, so the literals a reader is sent to
+  // are added from the registry rather than read out of the source.
+  const routes = ["BANZAI", "WHITEPAPER", "TECHNICAL_REGISTRY"].map((id) => routeHref(id, "pt"));
+  return [all, ...referenced.map((id) => homeCopy(id, "pt")), ...routes].join("  ");
+}
+
+const page = withRealizedCopy(flat("components/home/HomeView.tsx"));
+const registry = withRealizedCopy(flat("components/home/OperatorRegistry.tsx"));
 const statusbar = flat("components/home/HeroStatusBar.tsx");
 const layout = flat("app/(pt)/layout.tsx");
 // Both root layouts compose <body> through one shared shell, so document order is asserted where it
@@ -26,20 +51,23 @@ const shell = flat("components/SiteShell.tsx");
 const siteSrc = strip(raw("lib/site.ts"));
 const sitemapSrc = strip(raw("app/sitemap.ts"));
 
+// The CTA pathname is derived per edition now, so the source carries the route id rather than the
+// literal. Counting the id is the same property — one primary validation CTA — and it holds for both
+// editions at once, which counting a Portuguese literal never could.
 describe("M2.19G.2 §10 — hero CTAs: primary validation + additive whitepaper (WP1-FINAL)", () => {
   it("has exactly one primary CTA to /banzai?mode=validation with the canonical label", () => {
-    expect((page.match(/href="\/banzai\?mode=validation"/g) || []).length).toBe(1);
+    expect((page.match(/routeHref\("BANZAI", locale\)\}\?mode=validation/g) || []).length).toBe(1);
     expect(page).toContain("Validar operador no BanzAI");
     // no OZ pre-set / target / query / manifest carried on the hero CTA
     expect(page).not.toContain("/banzai?q=");
     expect(page).not.toMatch(/href="\/banzai\?[^"]*mode=validation[^"]*(operator|target|q=)/);
   });
   it("has exactly one additive /whitepaper CTA, after the primary (WP1-FINAL)", () => {
-    expect((page.match(/href="\/whitepaper"/g) || []).length).toBe(1);
+    expect((page.match(/routeHref\("WHITEPAPER", locale\)/g) || []).length).toBe(1);
     expect(page).toContain("Ler o Whitepaper");
     // order: the primary validation CTA precedes the additive whitepaper CTA
-    expect(page.indexOf('href="/banzai?mode=validation"')).toBeLessThan(
-      page.indexOf('href="/whitepaper"'),
+    expect(page.indexOf('routeHref("BANZAI", locale)}?mode=validation')).toBeLessThan(
+      page.indexOf('routeHref("WHITEPAPER", locale)'),
     );
   });
 });
@@ -71,12 +99,20 @@ describe("M2.19G.2 §13 — honest, sourced public status bar", () => {
   it("carries the honest sourced status lines", () => {
     // Version + phase are SOURCED from protocolStatus (rendered as {PROTOCOL_VERSION}/{PROTOCOL_PHASE}),
     // never hardcoded decorative strings.
-    expect(statusbar).toContain("PROTOCOLO v{PROTOCOL_VERSION}");
+        // The status bar names catalogue ids now; assert the ids it presents AND that they realize the
+    // honest wording in BOTH editions — an English reader must get the same sourced status line.
+    expect(statusbar).toContain('t("statusbar.protocol")');
+    expect(homeCopy("statusbar.protocol", "pt")).toBe("PROTOCOLO");
+    expect(homeCopy("statusbar.protocol", "en").trim().length).toBeGreaterThan(0);
     expect(statusbar).toContain("{PROTOCOL_PHASE}");
     expect(PROTOCOL_VERSION).toBe("1.0");
     expect(PROTOCOL_PHASE).toBe("PRÉ-PRODUÇÃO");
-    expect(statusbar).toContain("última verificação pública há");
-    expect(statusbar).toContain("certificações técnicas activas");
+    expect(statusbar).toContain('t("statusbar.lastVerified")');
+    expect(homeCopy("statusbar.lastVerified", "pt")).toContain("última verificação pública");
+    expect(homeCopy("statusbar.lastVerified", "en").trim().length).toBeGreaterThan(0);
+    expect(statusbar).toContain('t("statusbar.activeCertifications")');
+    expect(homeCopy("statusbar.activeCertifications", "pt")).toContain("certificações técnicas activas");
+    expect(homeCopy("statusbar.activeCertifications", "en").trim().length).toBeGreaterThan(0);
     // M2.19G.2B — the reference-implementation counter was removed from the status bar.
     expect(statusbar).not.toContain("implementação de referência publicada");
   });
@@ -91,10 +127,13 @@ describe("M2.19G.2 §13 — honest, sourced public status bar", () => {
 
 describe("M2.19G.2 §6 — home band order (registo before três-camadas, journey absent, footer last)", () => {
   it("orders hero → institutional/status → registo técnico → três camadas", () => {
-    const iHero = page.indexOf('id="hero-title"');
-    const iPhrase = page.indexOf("Aberto. Auditável. Verificável.");
-    const iRegisto = page.indexOf('aria-label="Registo técnico"');
-    const iLayers = page.indexOf('id="layers-title"');
+    // Order is read from the VIEW SOURCE, not from the blob that appends realized copy after it: the
+    // appended text has no position on the page, so ordering against it would be meaningless.
+    const view = flat("components/home/HomeView.tsx");
+    const iHero = view.indexOf('id="hero-title"');
+    const iPhrase = view.indexOf('t("status.aria")');
+    const iRegisto = view.indexOf('t("registry.aria")');
+    const iLayers = view.indexOf('id="layers-title"');
     for (const [name, i] of [["hero", iHero], ["phrase", iPhrase], ["registo", iRegisto], ["layers", iLayers]] as const) {
       expect(i, `${name} band not found`).toBeGreaterThan(-1);
     }

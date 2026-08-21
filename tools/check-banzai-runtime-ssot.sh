@@ -13,7 +13,7 @@
 #      prompt / chain-of-thought / concurrency-queue internals / GGUF·model-filename·quantisation /
 #      answer content may appear in the handler.
 #   3. the projection carries schema_version and authoritative:false.
-#   4. "website/app/(pt)/estado/page.tsx" CONSUMES /banzai/runtime (fetch) and NEVER hardcodes a
+#   4. "website/components/pages/statusContent.tsx" CONSUMES /banzai/runtime (fetch) and NEVER hardcodes a
 #      "Qwen local activo" engine claim in a static panel constant or in prose — that string may appear
 #      only inside the route-derived branch (parts.push).
 #   5. the machine-routes-win contract note is present on /estado.
@@ -23,8 +23,16 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+# Block F — this page became ONE view rendering both editions, with its text in a per-edition content
+# module. That module is where these sentences live now, and reading it checks both editions at once
+# instead of only the Portuguese one.
+
 SERVER="services/banzai-api/src/server.js"
-ESTADO="website/app/(pt)/estado/page.tsx"
+# The route owns the DERIVATION, the content module owns the WORDS. Both are read: a clause about
+# fetching the SSOT belongs to the route, a clause about what the page says belongs to the content.
+ESTADO_ROUTE="website/app/(pt)/estado/page.tsx"
+ESTADO="$(mktemp)"; cat "$ESTADO_ROUTE" website/components/pages/statusContent.tsx website/components/pages/StatusView.tsx > "$ESTADO"
+trap 'rm -f "$ESTADO"' EXIT
 
 fail=0
 ok() { printf 'PASS  %s\n' "$1"; }

@@ -16,8 +16,25 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+# Block F — this page became ONE view rendering both editions, with its text in a per-edition content
+# module. That module is where these sentences live now, and reading it checks both editions at once
+# instead of only the Portuguese one.
+
+
+# A per-edition content module holds BOTH editions in one file, so scanning it whole reports the English
+# edition's own correct term as a Portuguese-surface violation. Only the Portuguese entry is a Portuguese
+# surface; the English entry answers to the English naming rules, not to these.
+pt_surface() {
+  case "$1" in
+    website/components/pages/*Content.ts*)
+      awk '/^  pt: \{/{p=1} /^  en: \{/{p=0} p' "$1"
+      ;;
+    *) cat "$1" ;;
+  esac
+}
+
 PAGES=(
-  "website/app/(pt)/estado/page.tsx"
+  "website/components/pages/statusContent.tsx"
   "website/app/(pt)/registo-tecnico/page.tsx"
   # website/app/roteiro/page.tsx retired — permanent redirect to §14 /referencia/roteiro (no page to scan)
   "website/app/(pt)/operadores/page.tsx"
@@ -52,7 +69,7 @@ printf '18:// (Technical Registry) dev note\n'             | strip_allowed | gre
 echo "== [1/3] no EN 'Technical Registry' / 'Public Protocol Registry' in PT rendered strings =="
 for f in "${PAGES[@]}"; do
   [ -f "$f" ] || { fl "missing page: $f"; continue; }
-  hits="$(grep -nE "$EN_RX" "$f" 2>/dev/null | strip_allowed || true)"
+  hits="$(pt_surface "$f" | grep -nE "$EN_RX" 2>/dev/null | strip_allowed || true)"
   if [ -n "$hits" ]; then fl "EN registry string in a PT rendered surface: $f"; echo "$hits" | sed 's/^/      /'; fi
 done
 [ "$fail" -eq 0 ] && ok "no EN 'Technical Registry' / 'Public Protocol Registry' in any PT rendered string"
@@ -66,13 +83,13 @@ else
 fi
 
 echo "== [3/3] PT surfaces use 'Registo Técnico' (glossary is the source of truth) =="
-for f in "website/app/(pt)/registo-tecnico/page.tsx" "website/app/(pt)/glossario/page.tsx" "website/app/(pt)/estado/page.tsx" "website/app/(pt)/operadores/page.tsx"; do
+for f in "website/app/(pt)/registo-tecnico/page.tsx" "website/app/(pt)/glossario/page.tsx" "website/components/pages/statusContent.tsx" "website/app/(pt)/operadores/page.tsx"; do
   # The glossary page renders its terms from the bilingual records, so the wording is not in the page.
   if [ "$f" = "website/app/(pt)/glossario/page.tsx" ]; then
     copy_id_is glossary technical-registry.name pt 'Registo Técnico' \
       && ok "the glossary realizes 'Registo Técnico' for the Portuguese reader" \
       || fl "the glossary must realize the PT term 'Registo Técnico'"
-  elif grep -qF 'Registo Técnico' "$f"; then ok "$f uses 'Registo Técnico'"; else fl "$f must use the PT term 'Registo Técnico'"; fi
+  elif pt_surface "$f" | grep -qF 'Registo Técnico'; then ok "$f uses 'Registo Técnico'"; else fl "$f must use the PT term 'Registo Técnico'"; fi
 done
 # The glossary mapping is the canonical pt→en source of truth.
 if copy_id_is glossary technical-registry.name pt "Registo Técnico" \

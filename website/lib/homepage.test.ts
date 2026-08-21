@@ -1,4 +1,6 @@
 import { describe, it, expect } from "vitest";
+import { routeHref } from "@/lib/routeRegistry";
+import { homeCopy, homeCopyIds } from "@/components/home/homePresentation";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { navPrimary, footerColumns, CHROME_TEXT } from "./site";
@@ -12,7 +14,30 @@ const root = join(__dirname, "..");
 const strip = (s: string) => s.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1");
 const flat = (p: string) => strip(readFileSync(join(root, p), "utf8")).replace(/\s+/g, " ");
 
-const page = flat("app/(pt)/page.tsx");
+// Block F — the home page structure moved into components/home/HomeView.tsx, which BOTH editions render.
+// Reading it here is the same property at its new owner, and it is now stronger: what this file asserts
+// about the canonical structure is asserted for the English edition too, because there is only one
+// structure left to assert. The route files own metadata and the locale they ask for, nothing else.
+
+// Block F — the home's reader text moved into the bilingual catalogue, so the view names ids rather than
+// carrying sentences. `page` is therefore the view's source PLUS the Portuguese realization of every id
+// the view actually references. A string is "on the page" exactly when the view presents an id whose
+// Portuguese realization contains it — the same property as before, checked through the mechanism that
+// now produces it. An id the view does not reference contributes nothing, so this cannot pass on copy
+// that no longer renders.
+function withRealizedCopy(source: string): string {
+  // The two client islands the home mounts are part of the home a reader sees, so their source and their
+  // realized copy count as being "on the page" — the view delegates those bands to them.
+  const islands = ["components/home/HeroStatusBar.tsx", "components/home/OperatorRegistry.tsx"].map(flat);
+  const all = [source, ...islands].join("  ");
+  const referenced = homeCopyIds().filter((id) => all.includes(`"${id}"`));
+  // Pathnames are derived per edition from the route registry now, so the literals a reader is sent to
+  // are added from the registry rather than read out of the source.
+  const routes = ["BANZAI", "WHITEPAPER", "TECHNICAL_REGISTRY"].map((id) => routeHref(id, "pt"));
+  return [all, ...referenced.map((id) => homeCopy(id, "pt")), ...routes].join("  ");
+}
+
+const page = withRealizedCopy(flat("components/home/HomeView.tsx"));
 const nav = flat("components/SiteNav.tsx");
 const footer = flat("components/SiteFooter.tsx");
 const layout = flat("app/(pt)/layout.tsx");
@@ -57,9 +82,10 @@ describe("M2.17 — hero copy (canonical copy per M2.19G.2 §8-10)", () => {
 
 describe("M2.17 — CTAs (single hero CTA per M2.19G.2 §10)", () => {
   it("has exactly one hero CTA → /banzai?mode=validation and the registry section CTA → /registo-tecnico", () => {
-    expect((page.match(/href="\/banzai\?mode=validation"/g) || []).length).toBe(1);
+    expect((page.match(/routeHref\("BANZAI", locale\)\}\?mode=validation/g) || []).length).toBe(1);
     expect(page).toContain("Validar operador no BanzAI");
-    expect(page).toMatch(/href="\/registo-tecnico"/);
+    // Derived per edition from the registry; the id is what the source carries.
+    expect(page).toContain('routeHref("TECHNICAL_REGISTRY", locale)');
     expect(page).toContain("Consultar o Registo Técnico");
     // The retired routes / labels never resurface on the home.
     expect(page).not.toMatch(/href="\/o-que-e"/);

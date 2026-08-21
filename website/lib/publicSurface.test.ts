@@ -141,6 +141,11 @@ describe("M2.5 — active-model only (no milestone / certification / CA surface)
     // dead code, so the vocabulary it protects was never actually public through that route. It now reads
     // the surfaces where the vocabulary really is published, in both editions.
     const trustText = [
+      // The trust page's structure and copy moved into one shared view plus a bilingual catalogue, which
+      // is why the route files no longer carry this vocabulary. Reading the view and the catalogue is the
+      // same property at its new owner — and it now covers both editions, since there is one page.
+      readFileSync(new URL("../components/pages/TrustView.tsx", import.meta.url), "utf8"),
+      readFileSync(new URL("../components/pages/editorialPresentation.ts", import.meta.url), "utf8"),
       readFileSync(new URL("../app/(pt)/confianca/page.tsx", import.meta.url), "utf8"),
       readFileSync(new URL("../app/(pt)/layout.tsx", import.meta.url), "utf8"),
       readFileSync(new URL("../app/en/trust/page.tsx", import.meta.url), "utf8"),

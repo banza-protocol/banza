@@ -14,7 +14,10 @@ const strip = (s: string) => s.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:]
 const raw = (p: string) => readFileSync(join(root, p), "utf8");
 const flat = (p: string) => strip(raw(p)).replace(/\s+/g, " ");
 
-const CERT = "app/(pt)/certificacao/page.tsx";
+// Block F — the certification page became ONE view rendering both editions, with its text in a
+// per-edition content module. That module is where these mandatory sentences live now, and reading it
+// checks both editions at once rather than only the Portuguese one.
+const CERT = "components/pages/certificationContent.ts";
 const REG = "app/(pt)/registo-tecnico/page.tsx";
 // The glossary's semantic content moved to lib/glossaryTerms.ts so PT and EN could share one set of
 // records. Reading the page source would now find only markup, so these assertions follow the content

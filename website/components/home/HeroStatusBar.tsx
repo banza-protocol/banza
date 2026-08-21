@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { PROTOCOL_VERSION, PROTOCOL_PHASE, REGISTRY_SUMMARY } from "@/lib/protocolStatus";
+import { homeCopy } from "@/components/home/homePresentation";
+import type { Locale } from "@/lib/i18n";
 
 // M2.19G.2 (§13) — honest public status bar. Every value is sourced, none is decorative:
 //   1. PROTOCOLO v1.0 · PRÉ-PRODUÇÃO      ← canonical protocol version (protocolStatus)
@@ -28,7 +30,8 @@ function relTime(fromIso: string, now: number): string {
 
 const Dot = () => <span aria-hidden="true" style={{ width: 3, height: 3, borderRadius: "50%", background: "#C9BEAB", flex: "none" }} />;
 
-export function HeroStatusBar({ lastVerifiedAt }: { lastVerifiedAt: string }) {
+export function HeroStatusBar({ lastVerifiedAt, locale }: { lastVerifiedAt: string; locale: Locale }) {
+  const t = (id: Parameters<typeof homeCopy>[0]) => homeCopy(id, locale);
   // Base the elapsed label on the real timestamp. Before mount, render the base value so SSR and the first
   // client paint agree; after mount, refresh from Date.now() each minute (still a real elapsed time).
   const base = Date.parse(lastVerifiedAt) || 0;
@@ -44,11 +47,11 @@ export function HeroStatusBar({ lastVerifiedAt }: { lastVerifiedAt: string }) {
   return (
     <div data-rise style={{ marginTop: "clamp(12px,1.4vw,18px)" }}>
       <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "10px clamp(18px,2.4vw,34px)", paddingTop: "clamp(10px,1.2vw,16px)", borderTop: "1px solid rgba(184,152,96,0.28)", fontFamily: F_MONO, fontSize: 12, letterSpacing: "0.04em", color: "#7A7263" }}>
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 9 }}><span aria-hidden="true" style={{ width: 7, height: 7, borderRadius: "50%", background: "#B8985F", flex: "none" }} />PROTOCOLO v{PROTOCOL_VERSION} · {PROTOCOL_PHASE}</span>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 9 }}><span aria-hidden="true" style={{ width: 7, height: 7, borderRadius: "50%", background: "#B8985F", flex: "none" }} />{t("statusbar.protocol")} v{PROTOCOL_VERSION} · {PROTOCOL_PHASE}</span>
         <Dot />
-        <span>última verificação pública há <span suppressHydrationWarning>{relTime(lastVerifiedAt, now)}</span></span>
+        <span>{t("statusbar.lastVerified")} <span suppressHydrationWarning>{relTime(lastVerifiedAt, now)}</span>{t("statusbar.lastVerified.suffix")}</span>
         <Dot />
-        <span>{activeCerts} certificações técnicas activas</span>
+        <span>{activeCerts} {t("statusbar.activeCertifications")}</span>
       </div>
     </div>
   );
