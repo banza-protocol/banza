@@ -27,7 +27,9 @@ ROUTE="engines/banzai-query-core/src/route.rs"
 KB="services/banzai-api/src/knowledge.js"
 DECISIONS="website/lib/decisions.ts"
 BANZAI_PAGE="website/app/(pt)/banzai/page.tsx"
-ESTADO="website/app/(pt)/estado/page.tsx"
+# Block F — the status page is a route plus a shared view plus a per-edition content module. The phrase
+# this clause looks for lives in the content module now, and reading it covers both editions.
+ESTADO="website/components/pages/statusContent.tsx"
 REFLIB="website/lib/reference.ts"
 
 echo "== banzai-public-surface-final-consistency-check (M2.14J · ADR-036) =="

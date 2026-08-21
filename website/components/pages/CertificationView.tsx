@@ -6,6 +6,13 @@ import type { Locale } from "@/lib/i18n";
 
 // The certification page — ONE structure, realized per edition.
 //
+// This is the REAL owning page for BANZA Conformance & Interoperability Certification (Layer 2,
+// ADR-032/065/066). It presents the L2 model exactly as the canonical architecture defines it: a
+// per-implementation, evidence-based, Rust-decided, reproducible, hash-bound, scoped and time-limited
+// determination against a public, versioned profile. It certifies an implementation, never an entity, and
+// confers no licence, admission or authorisation. Rust decides; Qwen (BanzAI) explains. No central
+// certifying authority, no public certification tiers, no score, no human step.
+//
 // It states, in both editions, what a BANZA certification is and is not: a technical certification of a
 // specific implementation, bound to a profile, version, environment, scope and validity — and never a
 // licence, a scheme admission or a regulatory authorisation. The lifecycle is a closed state machine

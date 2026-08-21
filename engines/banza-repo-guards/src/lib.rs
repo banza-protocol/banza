@@ -441,6 +441,14 @@ fn banzami_attribution_allowed(path: &str) -> bool {
         // illegitimate claim WITHIN an admitted page. That limit is the gate's design, not this
         // admission's — recorded in docs/website/phase2-pr32-guard-regressions.json under open_findings.
         || path == "website/lib/glossaryTerms.ts"
+        // Block F — the same admitted text, moved. The home and the editorial pages stopped holding their
+        // own copy when the two editions were consolidated into one view each: the words that name the
+        // Layer-3 designated scheme now live in these catalogues and views instead of in the page files
+        // that were already admitted. Nothing new is said; it is said somewhere else.
+        || path == "website/components/home/homePresentation.ts"
+        || path == "website/components/pages/editorialPresentation.ts"
+        || path == "website/components/pages/ArchitectureView.tsx"
+        || path == "website/components/pages/statusContent.tsx"
         // GENERATED from glossaryTerms.ts, which is admitted immediately above: the resolved copy exists so
         // guards can read a term's wording without grepping the component that renders it. It is derived
         // and regenerated (`make website-copy-resolved`), never authored, so admitting it adds no surface a
