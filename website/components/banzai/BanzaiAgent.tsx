@@ -699,6 +699,7 @@ export function BanzaiAgent({
     setProgressStart(Date.now());
     try {
       const outcome = await askViaStream(q, history, journey, {
+        locale,
         signal: controller.signal,
         // Each REAL Channel-A event drives the live processing line + safe fact cards (never prose).
         onEvent: (evt) => setProgressEvents((prev) => [...prev, evt]),
