@@ -477,6 +477,50 @@
           "pt": "Ver consequências",
           "en": "View consequences"
         },
+        "inspector.sourcesAndContext": {
+          "pt": "Inspetor · fontes e contexto",
+          "en": "Inspector · sources and context"
+        },
+        "doc.impactForOperators": {
+          "pt": "Impacto para operadores",
+          "en": "Impact for operators"
+        },
+        "doc.summarize": {
+          "pt": "Resumir",
+          "en": "Summarize"
+        },
+        "docq.decision": {
+          "pt": "Qual foi a decisão do {id}?",
+          "en": "What did {id} decide?"
+        },
+        "docq.consequences": {
+          "pt": "Quais foram as consequências do {id}?",
+          "en": "What were the consequences of {id}?"
+        },
+        "docq.impact": {
+          "pt": "Como o {id} afecta implementadores?",
+          "en": "How does {id} affect implementers?"
+        },
+        "docq.summarize": {
+          "pt": "Resume o {id}",
+          "en": "Summarize {id}"
+        },
+        "answer.interpretedAs": {
+          "pt": "Interpretado como",
+          "en": "Interpreted as"
+        },
+        "answer.cancelledText": {
+          "pt": "Pedido cancelado.",
+          "en": "Request cancelled."
+        },
+        "answer.cancelledStatus": {
+          "pt": "Cancelado",
+          "en": "Cancelled"
+        },
+        "a11y.preparingAnswer": {
+          "pt": "A preparar a resposta…",
+          "en": "Preparing the answer…"
+        },
         "inspector.validationContext": {
           "pt": "Inspetor · contexto da validação",
           "en": "Inspector · validation context"

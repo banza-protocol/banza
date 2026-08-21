@@ -782,8 +782,8 @@ pub fn tasked_answer_json(question: &str, seeded_entity_id: &str) -> String {
 /// structured id from the "Explicar com BanzAI" button; empty means "detect from the question".
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
-pub fn document_lookup_card_json(question: &str, document_id: &str) -> String {
-    match docref::document_lookup_card(question, document_id) {
+pub fn document_lookup_card_json(question: &str, document_id: &str, locale: &str) -> String {
+    match docref::document_lookup_card(question, document_id, locale) {
         Some(c) => serde_json::to_string(&c).unwrap_or_else(|_| "{\"matched\":false}".to_string()),
         None => "{\"matched\":false}".to_string(),
     }

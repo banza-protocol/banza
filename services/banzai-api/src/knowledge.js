@@ -2769,10 +2769,12 @@ export function taskedAnswer(question, seed = "") {
 // reference ("ADR-001", "RFC-0006"). Returns null when the question is not a lookup (an explain/impact/
 // summary request escalates to the grounded trunk) or the document does not resolve. `documentId` is the
 // optional structured id from the "Explicar com BanzAI" button; "" means "detect from the question".
-export function documentLookup(question, documentId = "") {
+export function documentLookup(question, documentId = "", locale = DEFAULT_LOCALE) {
   if (typeof kb.document_lookup_card_json !== "function") return null;
   try {
-    const c = JSON.parse(kb.document_lookup_card_json(String(question || ""), String(documentId || "")));
+    const c = JSON.parse(
+      kb.document_lookup_card_json(String(question || ""), String(documentId || ""), String(locale)),
+    );
     return c && c.matched ? c : null;
   } catch {
     return null;

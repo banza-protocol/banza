@@ -687,22 +687,25 @@ exports.detect_doc_refs_json = detect_doc_refs_json;
  * structured id from the "Explicar com BanzAI" button; empty means "detect from the question".
  * @param {string} question
  * @param {string} document_id
+ * @param {string} locale
  * @returns {string}
  */
-function document_lookup_card_json(question, document_id) {
-    let deferred3_0;
-    let deferred3_1;
+function document_lookup_card_json(question, document_id, locale) {
+    let deferred4_0;
+    let deferred4_1;
     try {
         const ptr0 = passStringToWasm0(question, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         const len0 = WASM_VECTOR_LEN;
         const ptr1 = passStringToWasm0(document_id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         const len1 = WASM_VECTOR_LEN;
-        const ret = wasm.document_lookup_card_json(ptr0, len0, ptr1, len1);
-        deferred3_0 = ret[0];
-        deferred3_1 = ret[1];
+        const ptr2 = passStringToWasm0(locale, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len2 = WASM_VECTOR_LEN;
+        const ret = wasm.document_lookup_card_json(ptr0, len0, ptr1, len1, ptr2, len2);
+        deferred4_0 = ret[0];
+        deferred4_1 = ret[1];
         return getStringFromWasm0(ret[0], ret[1]);
     } finally {
-        wasm.__wbindgen_free(deferred3_0, deferred3_1, 1);
+        wasm.__wbindgen_free(deferred4_0, deferred4_1, 1);
     }
 }
 exports.document_lookup_card_json = document_lookup_card_json;

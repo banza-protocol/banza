@@ -35,6 +35,20 @@ describe("the BanzAI shell chrome realizes in both editions", () => {
     "shell.clearConversation",
     "shell.continue",
     "tab.assistente",
+    // Accessibility names and composer-adjacent copy. An interface that looks English and speaks
+    // Portuguese to a screen reader is localized for some readers and not for others, so the accessible
+    // names are in the same property as the visible text, not a softer one.
+    "inspector.sourcesAndContext",
+    "a11y.preparingAnswer",
+    "answer.interpretedAs",
+    "answer.cancelledText",
+    "answer.cancelledStatus",
+    "doc.impactForOperators",
+    "doc.summarize",
+    "docq.decision",
+    "docq.consequences",
+    "docq.impact",
+    "docq.summarize",
   ];
 
   it("gives every shell id a non-empty realization in each edition", () => {
@@ -109,5 +123,29 @@ describe("the runtime card speaks the reader's language", () => {
     // or the component would render the sentence with no link at all.
     expect(RT.rule_en.split("the status page").length, "EN rule must name 'the status page'").toBe(2);
     expect(RT.rule_pt.split("/estado").length, "PT rule must name '/estado'").toBe(2);
+  });
+});
+
+describe("a follow-up question carries the document's identity, not a translation of it", () => {
+  // The buttons under a resolved document send a question. The reader sees their own click echoed back as
+  // their message, so a Portuguese question from an English button reads as if they typed it. The document
+  // id inside the sentence is data — "ADR-025" is "ADR-025" in every language — so only the sentence is
+  // realized, and the placeholder must survive into both editions or the id would vanish from the question.
+  const DOC_QUESTIONS = ["docq.decision", "docq.consequences", "docq.impact", "docq.summarize"] as const;
+
+  it("keeps the {id} placeholder in both editions", () => {
+    for (const id of DOC_QUESTIONS) {
+      for (const locale of editions) {
+        expect(agentCopy(id, locale), `${id} / ${locale}`).toContain("{id}");
+      }
+    }
+  });
+
+  it("fills the canonical id in unchanged", () => {
+    for (const id of DOC_QUESTIONS) {
+      for (const locale of editions) {
+        expect(agentCopy(id, locale).replace("{id}", "ADR-025")).toContain("ADR-025");
+      }
+    }
   });
 });

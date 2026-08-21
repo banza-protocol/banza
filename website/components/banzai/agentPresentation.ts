@@ -409,6 +409,25 @@ export const AGENT_COPY = {
     "Ver consequências",
     "View consequences",
   ),
+  "inspector.sourcesAndContext": L("Inspetor · fontes e contexto", "Inspector · sources and context"),
+  "doc.impactForOperators": L("Impacto para operadores", "Impact for operators"),
+  "doc.summarize": L("Resumir", "Summarize"),
+
+  // The follow-up questions these buttons SEND. The reader sees their own click echoed back as their
+  // message, so a Portuguese question from an English button reads as if they typed it.
+  "docq.decision": L("Qual foi a decisão do {id}?", "What did {id} decide?"),
+  "docq.consequences": L("Quais foram as consequências do {id}?", "What were the consequences of {id}?"),
+  "docq.impact": L("Como o {id} afecta implementadores?", "How does {id} affect implementers?"),
+  "docq.summarize": L("Resume o {id}", "Summarize {id}"),
+
+  // Interpreted-input notice, the cancelled state, and the screen-reader progress line. The last one is
+  // announced only to assistive technology: an interface that looks English and speaks Portuguese to a
+  // screen reader is localized for some readers and not others.
+  "answer.interpretedAs": L("Interpretado como", "Interpreted as"),
+  "answer.cancelledText": L("Pedido cancelado.", "Request cancelled."),
+  "answer.cancelledStatus": L("Cancelado", "Cancelled"),
+  "a11y.preparingAnswer": L("A preparar a resposta…", "Preparing the answer…"),
+
   "inspector.validationContext": L(
     "Inspetor · contexto da validação",
     "Inspector · validation context",
