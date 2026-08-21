@@ -83,3 +83,26 @@ fn none_of_these_is_answered_from_the_protocol_summary() {
         assert_ne!(entry(q), "what-is-banza", "{q:?}");
     }
 }
+
+#[test]
+fn a_causal_question_reaches_the_rule_it_asks_about() {
+    // The BCJ/1 rule, asked without naming BCJ/1. In production the Portuguese form was composed by the
+    // model citing two production schemas that do not discuss canonicalization, while the English form
+    // happened to cite ADR-011 — the same question, two different evidence sets, one of them wrong.
+    assert_eq!(
+        entry("por que nao posso normalizar unicode antes de verificar"),
+        "def-bcj",
+    );
+    assert_eq!(
+        entry("why can i not normalize unicode before verifying"),
+        "def-bcj",
+    );
+}
+
+#[test]
+fn canonicalization_is_reachable_by_its_own_name() {
+    // The acronym resolved and the concept did not, so a reader who did not already know the acronym
+    // could not reach the rule it names.
+    assert_eq!(entry("o que e canonicalizacao"), "def-bcj");
+    assert_eq!(entry("what is canonicalization"), "def-bcj");
+}

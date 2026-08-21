@@ -27,6 +27,26 @@ fn count(nq: &str) -> usize {
 /// A definition question STARTS with a definition lead (PT + EN). A starts-with test (not substring)
 /// keeps "Como funciona a federação entre operadores na BANZA?" — an operational/mechanics question —
 /// out of the definition class.
+/// A CAUSAL question — "porque é que…?", "why can I not…?".
+///
+/// "Why is X the way it is" is a question about X, and every gate closed on it. `Por que não posso
+/// normalizar Unicode antes de verificar?` — a BCJ/1 rule, and one of the protocol's sharper ones —
+/// reached no concept at all. Measured in production, the Portuguese form was then composed by the
+/// model citing `federation-trust-evaluation.production.schema.json` and
+/// `public-protocol-registry.production.schema.json`, neither of which discusses canonicalization,
+/// while the English form happened to cite ADR-011. A citation that is right by coin-flip is not a
+/// derivation, and the difference is invisible to a reader.
+///
+/// It also lets a false premise reach the entry that corrects it: `Porque é que o BanzAI é a autoridade
+/// de certificação?` was refused rather than answered with the boundary that denies the premise.
+fn is_causal_query(nq: &str) -> bool {
+    nq.starts_with("porque")
+        || nq.starts_with("por que")
+        || nq.starts_with("porquê")
+        || nq.starts_with("why ")
+        || has(nq, &["porque e que", "por que e que", "why is ", "why can", "why does", "why must"])
+}
+
 /// A LOCATIVE question — "onde ficam os saldos?", "where do balances live?".
 ///
 /// It asks about a concept as much as "o que é um saldo?" does, and the answer is the same fact:
@@ -1338,6 +1358,31 @@ fn term_of(nq: &str) -> Option<&'static str> {
             "banza canonical json",
             "canonical json",
             "json canonico",
+            // The canonicalization RULES, asked without the acronym. "Por que não posso normalizar
+            // Unicode antes de verificar?" is a question about BCJ/1 — the profile fixes the byte form
+            // and the verifier applies no Unicode normalization — and it did not name it, so it reached
+            // no concept. Measured in production, the Portuguese form was answered by the model citing
+            // `federation-trust-evaluation.production.schema.json` and
+            // `public-protocol-registry.production.schema.json`, neither of which discusses
+            // canonicalization; the English form happened to cite ADR-011. A citation that is right by
+            // coin-flip is not a derivation.
+            "normalizar unicode",
+            "normalizacao unicode",
+            "normalize unicode",
+            "unicode normalization",
+            "unicode normalisation",
+            "normalizacao de unicode",
+            "canonicalizacao",
+            "canonicalization",
+            "canonicalisation",
+            "forma canonica",
+            "canonical form",
+            "chaves duplicadas",
+            "membros duplicados",
+            "duplicate keys",
+            "duplicate members",
+            "rfc 8785",
+            "jcs",
         ],
     ) {
         return Some("def-bcj");
@@ -1882,6 +1927,8 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
         || is_banza_relation_query(nq)
         // "Where does X live?" asks about X. See `is_locative_query`.
         || is_locative_query(nq)
+        // "Why is X the way it is?" asks about X. See `is_causal_query`.
+        || is_causal_query(nq)
         // Read from the SAME table the term resolver reads — the structural fix for "the gate opens and
         // nothing is behind it", which is how the Root threshold became unanswerable while looking handled.
         || critical_subject(nq).is_some();
