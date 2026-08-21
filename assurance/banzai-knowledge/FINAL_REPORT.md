@@ -10,10 +10,26 @@ deployment. Every number here is recomputable from the runs beside this file.
 | `src-14df955` *(before)* | 62 | 18 | **9 of 18** | **18 of 18** | 29% | 1039 ms | 19605 ms |
 | `src-2a01974` | 115 | 15 | 4 of 15 | 0 | 19% | 1136 ms | 18048 ms |
 | `src-4238558` | 115 | 14 | 3 of 14 | 0 | 13% | 72 ms | 16798 ms |
-| `src-acfba64` *(definitive)* | 115 | 12 | 2 of 12 | **0** | 13% | **61 ms** | 18028 ms |
+| `src-acfba64` | 115 | 12 | 2 of 12 | 0 | 13% | 61 ms | 18028 ms |
+| `src-ef21f43` *(release)* | 115 | 11 | **1 of 11** | **0** | **11%** | **60 ms** | 17735 ms |
 
-Final latency by path: deterministic p50 59 ms / p95 126 ms (n=103); model p50 18.0 s / p95 22.5 s
-(n=12). Model-use rate 10%. Non-200 responses: 0.
+## The release run
+
+`src-ef21f43`, run from zero after deployment, scored under the strengthened oracle:
+
+**P0 100% (54/54) · P1 100% (44/44) · P2 100% (17/17) — 0 failures.**
+
+89 questions, 115 requests, both locales, seven multi-turn journeys. 0 non-200 responses. 0 locale
+mismatches — every terminal declared the locale that was asked for.
+
+Latency by path: deterministic p50 59 ms / p95 204 ms (n=104); model p50 17.7 s / p95 18.8 s (n=11).
+Model-use rate 10%.
+
+**What that 100% is and is not.** It is 100% against *this* corpus and *this* oracle, both of which
+are in this directory and both of which were strengthened twice during the work — once when the
+comparison rules were added, once when journey turns started being scored at all. Each strengthening
+lowered the score on an already-recorded run, which is the only evidence that the oracle was worth
+anything. It is not a claim that BanzAI answers every question correctly.
 
 ## What the before-state actually was
 
@@ -49,6 +65,9 @@ suite had not.
 | P0 | `4238558` | **the ledger claim survived in its follow-up form** — "Does BANZA require one?" |
 | P0 | `acfba64` | `Qual é o limiar?` refused, one turn after the engine stated the 2-of-3 rule |
 
+Every one of these was found by running against production, and none by the local suite — which was
+green at 768 tests when the last of them was still live.
+
 ## Three things worth recording about the method
 
 **A guard that could not fail.** The first version of the locale guard passed a context shape the
@@ -75,9 +94,8 @@ exact restore.
 
 ## Status
 
-**BanzAI knowledge & reasoning: production-verified** at `src-acfba64` for the corpus in this
-directory, at P0 98.1% · P1 100% · P2 100%, with the one remaining P0 closed by the change that
-accompanies this report.
+**BanzAI knowledge & reasoning: production-verified** at `src-ef21f43` for the corpus in this
+directory, at P0 100% · P1 100% · P2 100%, 0 failures, on a fresh run after deployment.
 
 **BANZA protocol: PRE-PRODUCTION.** `protocol_frozen: false`, `l0_frozen: false`,
 `independent_implementation_demonstrated: false`, `independent_trial_started: false`,
