@@ -123,6 +123,24 @@ fn registered_surface_forms() -> &'static std::collections::HashSet<String> {
                 set.insert(n);
             }
         }
+        // The DECLARED concept and catalogue vocabulary. Two different questions were being answered by
+        // one set: which words a typo may be corrected TO, and which words are known and must never be
+        // corrected FROM. `fuzzy::vocabulary` answers the first, and it admits only tokens of five
+        // characters or more — a rule written for correction targets, which then silently decided that
+        // every shorter declared term was an unknown word.
+        //
+        // `rust` is four characters. It is a concept this engine answers, and recovery rewrote it to
+        // `trust` — one edit away, five characters, in the target set — at high confidence, in every
+        // phrasing, before any router saw the question.
+        for (_, aliases) in crate::concept::concept_entries() {
+            for a in *aliases {
+                for w in normalize(a).split(' ') {
+                    if w.chars().count() > 2 {
+                        set.insert(w.to_string());
+                    }
+                }
+            }
+        }
         for p in crate::canonical_profiles::CANONICAL_PROFILES.iter() {
             set.insert(normalize(p.level));
         }
