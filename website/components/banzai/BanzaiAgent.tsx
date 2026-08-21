@@ -706,7 +706,7 @@ export function BanzaiAgent({
         // non-stream fallback (the fallback closure is bound to the same convState).
         convState,
         // The escape hatch — the existing non-stream fetch, bound to the same query.
-        fallback: () => banzaiKb(q, history, journey, convState),
+        fallback: () => banzaiKb(q, history, journey, convState, locale),
       });
       setLastMetrics(outcome.metrics); // §12 — surfaced in the inspector
       if (outcome.cancelled) {
@@ -717,7 +717,7 @@ export function BanzaiAgent({
       }
     } catch {
       // Ultimate safety net — never leave the user without an honest reply.
-      const ans = await banzaiKb(q, history, journey, convState);
+      const ans = await banzaiKb(q, history, journey, convState, locale);
       applyAnswer(ans);
     } finally {
       setBusy(false);
@@ -1009,12 +1009,12 @@ export function BanzaiAgent({
           ref={inspectorToggleRef}
           type="button"
           onClick={() => setInspectorOpen((v) => !v)}
-          aria-label={inspectorOpen ? "Ocultar inspetor" : "Mostrar inspetor"}
+          aria-label={inspectorOpen ? t("shell.hideInspector") : t("shell.showInspector")}
           aria-controls="banzai-inspector"
           aria-expanded={inspectorOpen}
           className="flex flex-none items-center gap-1.5 rounded-[8px] border border-black/10 bg-white px-[11px] py-[5px] font-mono text-[11px] text-ink-4 transition-colors hover:border-bordo/30 hover:text-bordo focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40"
         >
-          <Ico name="panel" size={14} /> {inspectorOpen ? "Ocultar inspetor" : "Mostrar inspetor"}
+          <Ico name="panel" size={14} /> {inspectorOpen ? t("shell.hideInspector") : t("shell.showInspector")}
         </button>
       </div>
       {isValidation ? (
@@ -1165,7 +1165,7 @@ export function BanzaiAgent({
                         )}
                         {ai && m.followUps && m.followUps.length > 0 && (
                           <div className="mt-[11px]" data-quick-prompts="1">
-                            <div className="mb-[6px] font-mono text-[10px] tracking-[0.14em] text-ink-4">CONTINUAR</div>
+                            <div className="mb-[6px] font-mono text-[10px] tracking-[0.14em] text-ink-4">{t("shell.continue")}</div>
                             <div className="flex flex-wrap gap-[7px]">
                               {m.followUps.map((f) => (
                                 <button key={f} type="button" onClick={() => askInChat(f)} className="rounded-full border border-line-2 bg-white px-[12px] py-[5px] text-[12px] text-ink-3 transition-colors hover:border-bordo/40 hover:text-bordo focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bordo/40">{f}</button>
@@ -1208,7 +1208,7 @@ export function BanzaiAgent({
               <div className="mt-[10px] flex flex-wrap justify-between gap-3 px-1">
                 <span className="font-mono text-[11px] text-ink-5">{t("input.hint")}</span>
                 {msgs.length > 0 && (
-                  <button type="button" onClick={clearConversation} className="font-mono text-[11px] text-bordo transition-colors hover:underline">Limpar conversa</button>
+                  <button type="button" onClick={clearConversation} className="font-mono text-[11px] text-bordo transition-colors hover:underline">{t("shell.clearConversation")}</button>
                 )}
               </div>
             </div>

@@ -31,6 +31,7 @@ const CATALOGUES = [
   { name: "progress", entry: "components/banzai/progressPresentation.ts", table: "PROGRESS_COPY" },
   { name: "suggestions", entry: "components/banzai/suggestions.ts", table: "SUGGESTION_COPY" },
   { name: "decisions", entry: "components/decisoes/decisionsPresentation.ts", table: "DECISIONS_COPY" },
+  { name: "askStatus", entry: "components/home/askStatusPresentation.ts", table: "ASK_STATUS_COPY" },
 ];
 
 const catalogues = {};

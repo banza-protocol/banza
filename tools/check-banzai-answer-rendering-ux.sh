@@ -57,7 +57,8 @@ grep -Eq 'Fontes\?' "$ADAPTER" && grep -Eq 'Sources\?' "$ADAPTER" && grep -qF 'c
 grep -q 'data-sources-block' "$SRCBLK" && grep -q '<SourceBlock ' "$AGENT" && ok "(3) sources render in a dedicated SourceBlock" || fail "(3) SourceBlock missing or not used"
 
 # 4 — sources and quick prompts are structurally distinct.
-grep -q 'data-quick-prompts' "$AGENT" && grep -q 'CONTINUAR' "$AGENT" \
+# The heading is realized from the catalogue now, so the shell names its id rather than the word.
+grep -q 'data-quick-prompts' "$AGENT" && grep -q 'shell.continue' "$AGENT" \
   && grep -Eq 'LICEN|CÓDIGO|CODIGO|RELAT|SEGURAN' "$SRCBLK" \
   && ok "(4) quick prompts (data-quick-prompts/CONTINUAR) are distinct from sources (category labels)" \
   || fail "(4) sources and quick prompts are not structurally distinct"

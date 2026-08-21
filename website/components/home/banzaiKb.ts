@@ -9,6 +9,8 @@
 // nothing leaves the host (external_model_called=false). No WASM, no client-side model.
 
 import { selectSuggestions, type SuggestionContext, type SuggestionSelection } from "@/components/banzai/suggestions";
+import { askStatus, sourcesLabel, degradedStatus } from "@/components/home/askStatusPresentation";
+import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n";
 
 export type CiteLink = { label: string; href: string };
 
@@ -540,7 +542,7 @@ export function buildTransparency(
 }
 
 // Map the banzai-api /ask JSON to the KbAnswer shape the UI already renders.
-export function mapAskResponse(d: unknown): KbAnswer {
+export function mapAskResponse(d: unknown, locale: Locale = DEFAULT_LOCALE): KbAnswer {
   const o = (d && typeof d === "object" ? (d as Record<string, unknown>) : {}) as Record<string, unknown>;
   const sources = Array.isArray(o.sources) ? (o.sources as Array<Record<string, unknown>>) : [];
   const grounded = Boolean(o.grounded);
@@ -669,8 +671,8 @@ export function mapAskResponse(d: unknown): KbAnswer {
   const srcN = Number(o.sources_count) || cites.length;
   const ms = Number(o.latency_ms ?? o.elapsed_ms) || 0;
   const secs = ms >= 100 ? `${(ms / 1000).toFixed(1)}s` : null;
-  const fontes = `${srcN} font${srcN === 1 ? "e" : "es"}`;
-  const ctx = contextUsed ? " · com contexto" : "";
+  const fontes = sourcesLabel(srcN, locale);
+  const ctx = contextUsed ? (locale === "en" ? " · with context" : " · com contexto") : "";
   // M2.10A — documentary resolution. `doc` is set only when a named protocol document was actually
   // found; `docNotFound` marks a document the operator named that does not exist.
   const docNotFound = Boolean(o.document_not_found);
@@ -691,27 +693,27 @@ export function mapAskResponse(d: unknown): KbAnswer {
   let status: string;
   if (docNotFound) {
     // The document does not exist, so no model ran — the label must not claim otherwise.
-    status = "Documento não encontrado · sem chamada ao modelo";
+    status = askStatus("status.documentNotFound", locale);
   } else if (localCalled) {
-    status = `Gerado por Qwen local${docTag} · chamadas externas: 0 · ${fontes}${secs ? ` · ${secs}` : ""}${ctx}`;
+    status = `${askStatus("status.localModel", locale)}${docTag} · ${askStatus("status.externalCalls", locale)} · ${fontes}${secs ? ` · ${secs}` : ""}${ctx}`;
   } else if (degraded) {
     status = fallbackReason.startsWith("post_validation")
       ? POST_VALIDATION_STATUS
-      : DEGRADED_STATUS[fallbackReason] || DEGRADED_STATUS_DEFAULT;
+      : degradedStatus(fallbackReason, locale);
   } else if (cachedLocal) {
     // A previously Qwen-generated answer served from cache — honest that no NEW call was made.
-    status = `Resposta em cache (Qwen local)${docTag} · sem nova chamada ao modelo · ${fontes}`;
+    status = `${askStatus("status.cachedLocal", locale)}${docTag} · ${fontes}`;
   } else if (postValidation) {
     // The model was called but its output failed the safety validator and was replaced.
-    status = `Resposta determinística · resposta do modelo substituída pela validação · ${fontes}`;
+    status = `${askStatus("status.postValidation", locale)} · ${fontes}`;
   } else if (isInsufficientMeasurements) {
     // ADR-036 — honest, distinct from "Evidência insuficiente": there simply is no comparable
     // telemetry (or it is disabled), which is a truthful statement about operational data, not sources.
     status = INSUFFICIENT_MEASUREMENTS_STATUS;
   } else if (!grounded) {
-    status = "Evidência insuficiente · sem chamada ao modelo";
+    status = askStatus("status.insufficientEvidence", locale);
   } else {
-    status = `Resposta determinística · sem chamada ao modelo · ${fontes}`;
+    status = `${askStatus("status.deterministic", locale)} · ${fontes}`;
   }
 
   // M2.9A: the backend's fine operational intent + contextual suggestions (only for grounded answers).
@@ -902,6 +904,7 @@ export function buildAskBody(
   history: ChatTurn[] = [],
   journey?: AskJourney,
   convState?: ConversationState | null,
+  locale: Locale = DEFAULT_LOCALE,
 ): Record<string, unknown> {
   const q = (raw || "").trim();
   // Send at most the last 4 turns (the backend caps to the last 2 user questions).
@@ -909,7 +912,11 @@ export function buildAskBody(
     .filter((t) => t && typeof t.text === "string" && t.text.trim())
     .slice(-4)
     .map((t) => ({ role: t.role === "user" ? "user" : "ai", text: String(t.text).slice(0, 400) }));
-  const body: Record<string, unknown> = { question: q };
+  // The reader's locale, always sent explicitly. Omitting it is not neutral: the API applies its legacy
+  // default of pt-PT, which is right for old callers and wrong for a reader on the English surface — they
+  // got a Portuguese answer under English chrome, and nothing in the request had said otherwise. The
+  // question's own language is never used to infer this; the reader's edition decides.
+  const body: Record<string, unknown> = { question: q, locale };
   if (context.length) body.context = context;
   // BZCI-2/6 (§2) — carry the typed conversational state forward so the Rust reference resolver can inherit
   // the prior subject/intent/referent. Only sent when non-empty (a first turn carries nothing), so first-turn
@@ -944,10 +951,11 @@ export async function banzaiKb(
   history: ChatTurn[] = [],
   journey?: AskJourney,
   convState?: ConversationState | null,
+  locale: Locale = DEFAULT_LOCALE,
 ): Promise<KbAnswer> {
   const q = (raw || "").trim();
   if (!q) return unavailable();
-  const body = buildAskBody(q, history, journey, convState);
+  const body = buildAskBody(q, history, journey, convState, locale);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), ASK_TIMEOUT_MS);
   try {
@@ -973,7 +981,7 @@ export async function banzaiKb(
       return outage("unavailable", publicMessage);
     }
     const data = await res.json();
-    return mapAskResponse(data);
+    return mapAskResponse(data, locale);
   } catch {
     return unavailable();
   } finally {
