@@ -85,7 +85,7 @@ fn none_of_these_is_answered_from_the_protocol_summary() {
 }
 
 #[test]
-fn a_causal_question_reaches_the_rule_it_asks_about() {
+fn a_canonicalization_rule_is_reachable_without_naming_the_acronym() {
     // The BCJ/1 rule, asked without naming BCJ/1. In production the Portuguese form was composed by the
     // model citing two production schemas that do not discuss canonicalization, while the English form
     // happened to cite ADR-011 — the same question, two different evidence sets, one of them wrong.
@@ -97,6 +97,36 @@ fn a_causal_question_reaches_the_rule_it_asks_about() {
         entry("why can i not normalize unicode before verifying"),
         "def-bcj",
     );
+}
+
+#[test]
+fn none_of_these_gates_takes_a_question_from_a_route_it_already_had() {
+    // Each of these was captured by a first, broader version of the gates above, and each has its own
+    // route that is the right one. They are pinned because the failure mode of a rescue gate is not
+    // refusing too much — it is answering questions that were already being answered elsewhere.
+
+    // An explanatory question about a fact SHOULD ground: the deterministic entry states the fact, and
+    // the reader asked for the reason. A general "why" gate pre-empted that with the definition.
+    assert_ne!(
+        route("porque e que os saldos das carteiras sao sempre derivados do ledger").action,
+        "deterministic",
+        "an explanatory question must still reach the model with evidence",
+    );
+
+    // Operator mechanics, not a claim about the protocol. "banza processa" appears as a substring and
+    // is not the frame "BANZA processes X".
+    assert_ne!(
+        route("como um operador na rede banza processa pagamentos").action,
+        "deterministic",
+        "how an operator works is grounded mechanics",
+    );
+
+    // Onboarding, not a locative question about a concept.
+    assert_eq!(
+        entry("i want to run a banza operator where do i start"),
+        "operator-onboarding",
+    );
+    assert_eq!(entry("where do i start"), "operator-onboarding");
 }
 
 #[test]

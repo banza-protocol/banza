@@ -48,5 +48,8 @@ fn a_style_qualifier_is_not_read_as_a_subject() {
     // The stripping must remove the qualifier, never the subject. `def-r2s2` is the specific wrong
     // answer this question used to receive, because `simples` is also the name of a Fundamental
     // Principle — so it is the assertion worth pinning.
-    assert_eq!(entry("explica o que e um ledger de forma simples"), "def-ledger");
+    assert_eq!(
+        entry("explica o que e um ledger de forma simples"),
+        "def-ledger"
+    );
 }

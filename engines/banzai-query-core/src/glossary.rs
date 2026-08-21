@@ -27,24 +27,44 @@ fn count(nq: &str) -> usize {
 /// A definition question STARTS with a definition lead (PT + EN). A starts-with test (not substring)
 /// keeps "Como funciona a federação entre operadores na BANZA?" — an operational/mechanics question —
 /// out of the definition class.
-/// A CAUSAL question — "porque é que…?", "why can I not…?".
+/// The CANONICALIZATION rules, asked without naming BCJ/1.
 ///
-/// "Why is X the way it is" is a question about X, and every gate closed on it. `Por que não posso
-/// normalizar Unicode antes de verificar?` — a BCJ/1 rule, and one of the protocol's sharper ones —
-/// reached no concept at all. Measured in production, the Portuguese form was then composed by the
-/// model citing `federation-trust-evaluation.production.schema.json` and
-/// `public-protocol-registry.production.schema.json`, neither of which discusses canonicalization,
-/// while the English form happened to cite ADR-011. A citation that is right by coin-flip is not a
-/// derivation, and the difference is invisible to a reader.
+/// `Por que não posso normalizar Unicode antes de verificar?` is a question about BCJ/1 — the profile
+/// fixes the byte form and the verifier applies no Unicode normalization — and it never names it, so it
+/// reached no concept at all. Measured in production, the Portuguese form was then composed by the model
+/// citing `federation-trust-evaluation.production.schema.json` and
+/// `public-protocol-registry.production.schema.json`, neither of which discusses canonicalization, while
+/// the English form happened to cite ADR-011. A citation right by coin-flip is not a derivation, and the
+/// two are indistinguishable to a reader.
 ///
-/// It also lets a false premise reach the entry that corrects it: `Porque é que o BanzAI é a autoridade
-/// de certificação?` was refused rather than answered with the boundary that denies the premise.
-fn is_causal_query(nq: &str) -> bool {
-    nq.starts_with("porque")
-        || nq.starts_with("por que")
-        || nq.starts_with("porquê")
-        || nq.starts_with("why ")
-        || has(nq, &["porque e que", "por que e que", "why is ", "why can", "why does", "why must"])
+/// A general "why" gate was tried first and was wrong. It also captured `Porque é que os saldos das
+/// carteiras são sempre derivados do ledger?` — an explanatory question that SHOULD ground, because the
+/// deterministic entry states the fact and the reader asked for the reason. Pre-empting grounding with a
+/// definition is a different failure, not a fix.
+///
+/// So these are unambiguous multi-word phrases that bypass the token gate, exactly like
+/// `is_governance_phrase` and `is_trust_guarantee_phrase` above, and for the same reason: they name
+/// their subject wherever they appear.
+fn is_canonicalization_phrase(nq: &str) -> bool {
+    has(
+        nq,
+        &[
+            "normalizar unicode",
+            "normalizacao unicode",
+            "normalizacao de unicode",
+            "normalize unicode",
+            "unicode normalization",
+            "unicode normalisation",
+            "canonicalizacao",
+            "canonicalization",
+            "canonicalisation",
+            "chaves duplicadas",
+            "membros duplicados",
+            "duplicate keys",
+            "duplicate members",
+            "rfc 8785",
+        ],
+    )
 }
 
 /// A LOCATIVE question — "onde ficam os saldos?", "where do balances live?".
@@ -58,25 +78,42 @@ fn is_causal_query(nq: &str) -> bool {
 ///
 /// The gate opens; `term_of` still has to recognise the concept, and where it does not, nothing changes.
 fn is_locative_query(nq: &str) -> bool {
-    nq.starts_with("onde ")
-        || nq.starts_with("where ")
+    // START of the question only, and never an onboarding one.
+    //
+    // A mid-sentence "where do" is not a locative question about a concept: "I want to run a BANZA
+    // operator, where do I start?" is onboarding, and capturing it took a question with its own route
+    // away from that route. The Portuguese forms are anchored the same way.
+    if is_onboarding(nq)
         || has(
             nq,
             &[
-                "onde e que",
-                "onde fica",
-                "onde ficam",
-                "onde esta",
-                "onde estao",
-                "onde vivem",
-                "onde sao guardados",
-                "onde e guardado",
-                "where do ",
-                "where is ",
-                "where are ",
-                "where does ",
+                "por onde comeco",
+                "where do i start",
+                "where should i start",
             ],
         )
+    {
+        return false;
+    }
+    // A leading discourse connector is dropped first: "Então onde ficam os saldos?" is the follow-up
+    // form, and it is the exact phrasing the baseline recorded as refused.
+    let q = {
+        let mut q = nq;
+        for lead in [
+            "entao ", "e entao ", "mas ", "so ", "then ", "and ", "but ", "ok ",
+        ] {
+            if let Some(rest) = q.strip_prefix(lead) {
+                q = rest.trim_start();
+                break;
+            }
+        }
+        q
+    };
+    q.starts_with("onde ")
+        || q.starts_with("where is ")
+        || q.starts_with("where are ")
+        || q.starts_with("where do ")
+        || q.starts_with("where does ")
 }
 
 fn starts_definition_lead(nq: &str) -> bool {
@@ -353,6 +390,32 @@ fn definition_subject(nq: &str) -> &str {
 /// it does not this returns to the behaviour it had. What it stops is a specific question about a
 /// specific concept being answered from the one document that is always retrievable.
 fn is_banza_relation_query(nq: &str) -> bool {
+    // BANZA must be the SUBJECT of the frame, not a word the sentence passes through.
+    //
+    // "como um operador na rede BANZA processa pagamentos?" contains "banza processa" as a substring,
+    // and it is a question about how an OPERATOR works — grounded mechanics, which has its own route.
+    // Reading it as a claim about the protocol took a question away from the path written for it.
+    //
+    // Two exclusions, both narrow: a "como/how" opener is asking about mechanics rather than about what
+    // the protocol requires, and a sentence whose acting subject is an operator is not a sentence about
+    // the protocol. Neither touches "o BANZA exige um ledger" or "does BANZA require a ledger", which
+    // are what this frame exists for.
+    if nq.starts_with("como ") || nq.starts_with("how ") {
+        return false;
+    }
+    if has(
+        nq,
+        &[
+            "um operador",
+            "o operador",
+            "an operator",
+            "the operator",
+            "operador na",
+            "operator on",
+        ],
+    ) {
+        return false;
+    }
     has(
         nq,
         &[
@@ -1927,8 +1990,8 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
         || is_banza_relation_query(nq)
         // "Where does X live?" asks about X. See `is_locative_query`.
         || is_locative_query(nq)
-        // "Why is X the way it is?" asks about X. See `is_causal_query`.
-        || is_causal_query(nq)
+        // The canonicalization rules, asked without the acronym. See `is_canonicalization_phrase`.
+        || is_canonicalization_phrase(nq)
         // Read from the SAME table the term resolver reads — the structural fix for "the gate opens and
         // nothing is behind it", which is how the Root threshold became unanswerable while looking handled.
         || critical_subject(nq).is_some();
