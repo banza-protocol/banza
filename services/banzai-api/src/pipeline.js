@@ -421,6 +421,33 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
           "Não consegui determinar com precisão o que pretende. Reformule o pedido indicando a operação ou o artefacto a que se refere.",
         en: "I could not determine precisely what you are asking for. Rephrase the request naming the operation or the artifact you mean.",
       },
+      // The engine emits five kinds and this table realized two. The other three fell through to
+      // `unavailableRealization`, whose sentence says the answer "is not yet available in your
+      // language" and ends "The sources that support it are still listed below."
+      //
+      // Both halves were false. `Uma implementação pode usar PostgreSQL?` — asked in Portuguese, the
+      // canonical locale, where no realization is missing — was answered with that sentence and
+      // `sources: []`. It blamed a translation gap for a retrieval outcome, and promised evidence that
+      // was not there.
+      //
+      // These three say what actually happened. They do not name the subject: the engine's own message
+      // interpolates it, and that message is diagnostics here by design, so composing a phrase from it
+      // would reintroduce the coupling this table exists to remove.
+      insufficient_source: {
+        "pt-PT":
+          "Não encontrei evidência pública suficiente para responder com segurança a este pedido. Prefiro não adivinhar: indique o identificador do documento ou da decisão, ou reformule, para eu localizar a fonte canónica.",
+        en: "I did not find enough public evidence to answer this safely. I would rather not guess: name the document or decision identifier, or rephrase, so I can locate the canonical source.",
+      },
+      understood_data_missing: {
+        "pt-PT":
+          "Percebi o pedido, mas não existem dados públicos comparáveis para lhe responder com segurança — por exemplo execuções concluídas no mesmo perfil, ambiente e versão do protocolo. Não invento um valor: assim que existir a medição ou o artefacto correspondente, mostro-o.",
+        en: "I understood the request, but there is no comparable public data to answer it safely — completed runs on the same profile, environment and protocol version, for example. I will not invent a figure: as soon as the measurement or the artifact exists, I will show it.",
+      },
+      tool_unavailable: {
+        "pt-PT":
+          "O motor que responde a este pedido não está disponível neste momento. Não respondo por estimativa: tente novamente dentro de instantes.",
+        en: "The engine that answers this request is not available right now. I do not answer by estimate: try again shortly.",
+      },
     },
   };
 
@@ -752,6 +779,17 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         model_called: true,
         model_name: (meta && meta.synthesis && meta.synthesis.model) || "",
         inference_location: provider.inferenceLocation || null,
+        // The locale belongs on the RESULT, because that is where `/ask` reads it from
+        // (server.js: `answer_locale: result.answer_locale ?? null`). The caller already passes it —
+        // into `meta`, which is a different channel — so this terminal declared its locale to nobody
+        // and the envelope published `null` for every model answer ever served.
+        //
+        // Measured across the baseline: `answer_locale` was present on 31/31 deterministic terminals
+        // and absent on 9/9 `explanatory_trunk` terminals, in both locales. The website accepts an
+        // absent declaration by design (banzaiKb.ts: `localeMatches`), so the locale gate was enforced
+        // on every path whose text is fixed and reviewed, and silent on the one path that generates
+        // free prose. The check held where it could not matter.
+        answer_locale: (meta && meta.answer_locale) || null,
       },
       meta: { deterministic: false, cache: null, llm_called: true, ...meta },
     };
