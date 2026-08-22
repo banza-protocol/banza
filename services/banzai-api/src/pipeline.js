@@ -1029,11 +1029,17 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
   // PASSED by the Inc.4 claim/citation verifier. No model (llm_called:false). `sources` come only from the
   // package's cited ids (never authored). The family + tool-result provenance + the compact factual_package
   // ride in the meta so the /ask envelope proves the answer was grounded before any prose.
-  function familyAnswer(fam, meta) {
+  function familyAnswer(fam, meta, answerLocale) {
     return {
       result: {
         grounded: true,
         answer: fam.answer,
+        // Every other terminal declares the locale it composed for; this one did not, and nothing
+        // noticed because no probe reached it. Measured across the 572-item V2 baseline, 58 answers
+        // came back with `answer_locale: null` — all of them question-family terminals, 57 of them
+        // Portuguese. An answer that does not say which language it is in cannot be checked for
+        // serving the wrong one, so the locale contract simply did not apply here.
+        answer_locale: answerLocale,
         sources: Array.isArray(fam.sources) ? fam.sources : [],
         entry_id: `family-${fam.family}`,
         provider: provider.name,
@@ -2402,7 +2408,16 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         // concept (federação/revogação/operador). This keeps the PUBLIC trace honest (§31) — "Definição
         // canónica confirmada por Rust", not "Limite de segurança aplicado por Rust" — which matters now
         // that typo recovery routes a corrected concept ("fedaração"→"federação") to these definitions.
-        const isDefinition = String(decision.entry_id || "").startsWith("def-");
+        // The same mislabel, reaching a new id shape. Keying "is this a definition?" on the `def-`
+        // PREFIX means every future family of canonical ids inherits the bug: invariant records are
+        // `inv-*`/`mon-*`, carry the historical `critical_boundary` intent, and were served correctly
+        // while the public trace announced "Limite de segurança aplicado por Rust" over a statement
+        // about integer minor units. A reader is told a security boundary fired when nothing was
+        // refused.
+        //
+        // So the question is asked of the ENTRY, which knows what it is, rather than of its name.
+        const isDefinition =
+          String(decision.entry_id || "").startsWith("def-") || Boolean(entry.invariant);
         const isBoundary = !isDefinition && (intent === "critical_boundary" || intent === "action_boundary");
         const kind = isBoundary ? "safety_refusal" : "canonical_definition";
         const trace_label = isBoundary ? "Limite de segurança aplicado por Rust" : "Definição canónica confirmada por Rust";
@@ -2629,7 +2644,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
           documentary_sources: Array.isArray(fs.documentary_sources) ? fs.documentary_sources : [],
           package_checksum: fs.package_checksum || null,
         });
-        return familyAnswer(fam, { answer_mode: mode, ...ctxMeta, ...docMeta });
+        return familyAnswer(fam, { answer_mode: mode, ...ctxMeta, ...docMeta }, locale);
       }
       if (fam && fam.kind === "clarification") {
         return stated(fam.answer, {

@@ -42,6 +42,7 @@ import { profilePurpose } from "./profilePurposeLocale.js";
 // separately is a copy that will one day disagree. AG-10 is deliberately absent — no tracked artifact
 // records its run state, so there is nothing to derive.
 const LIFECYCLE = createRequire(import.meta.url)("./lifecycleFacts.generated.json").facts;
+const invariantFacts = createRequire(import.meta.url)("./invariantFacts.generated.json");
 
 // Canonical source references (path + title). These are the citations BanzAI returns.
 /// The DOCUMENT CLASS of a source — what kind of document it is, which is a different question from what
@@ -3417,8 +3418,57 @@ export function isCriticalSubject(id) {
   );
 }
 
+// The invariant registry, served as entries WITHOUT being copied into the catalogue.
+//
+// `contracts/invariants.json` holds 74 records and the Rust router now reaches each one by its
+// identifier. Pasting 74 hand-written entries into ENTRIES would mean two lists that must agree, and
+// the one that goes stale is always the one the reader hits — the same reason the domain aliases are
+// generated rather than duplicated.
+//
+// So the record is composed from the generated registry at lookup time. The normative STATEMENT is
+// quoted verbatim in both locales and labelled as the normative text: rendering a normative statement
+// into Portuguese would create a second wording competing with the registry for authority, which is a
+// governance decision and not one to take by writing a paraphrase into a serving path. The frame
+// around it is localized; the binding text is not.
+const INVARIANT_FACTS = new Map((invariantFacts.facts || []).map((f) => [f.id.toLowerCase(), f]));
+const INVARIANT_SEVERITY = { critical: ["crítica", "critical"], high: ["alta", "high"], medium: ["média", "medium"] };
+
+function invariantEntry(id) {
+  const f = INVARIANT_FACTS.get(String(id).toLowerCase());
+  if (!f) return null;
+  const [sevPt, sevEn] = INVARIANT_SEVERITY[f.severity] || [f.severity, f.severity];
+  return {
+    id: String(id).toLowerCase(),
+    critical: f.severity === "critical",
+    deterministic: true,
+    keywords: [],
+    invariant: true,
+    realizations: {
+      "pt-PT": [
+        `**${f.id}** — *${f.title}* (família ${f.family}, severidade ${sevPt}).`,
+        `O registo normativo do **BANZA** exige, no texto que vincula qualquer implementação:`,
+        `> ${f.statement}`,
+        "Fonte normativa: `contracts/invariants.json`.",
+      ].join("\n\n"),
+      en: [
+        `**${f.id}** — *${f.title}* (family ${f.family}, severity ${sevEn}).`,
+        `The **BANZA** normative registry requires, in the text that binds any implementation:`,
+        `> ${f.statement}`,
+        "Normative source: `contracts/invariants.json`.",
+      ].join("\n\n"),
+    },
+    sources: [SOURCES.invariants],
+  };
+}
+
+// Every invariant id the runtime can serve. The closure guard uses it to prove the runtime and the
+// Rust engine carry the SAME registry, rather than each carrying a subset the other does not.
+export function invariantIds() {
+  return [...INVARIANT_FACTS.values()].map((f) => f.id);
+}
+
 export function getEntry(id) {
-  return ENTRIES_BY_ID.get(id) || null;
+  return ENTRIES_BY_ID.get(id) || invariantEntry(id);
 }
 
 // M2.8G routing policy (ADR-036): the Rust engine decides how to answer — { action, entry_id, intent,

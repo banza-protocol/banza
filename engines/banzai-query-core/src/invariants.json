@@ -1,0 +1,375 @@
+{
+  "_generated_by": "tools/gen-banzai-invariants.mjs",
+  "invariants": [
+    {
+      "id": "INV-COLLECTION-001",
+      "key": "inv collection 001",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-COLLECTION-002",
+      "key": "inv collection 002",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-COLLECTION-003",
+      "key": "inv collection 003",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-COLLECTION-004",
+      "key": "inv collection 004",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-COLLECTION-005",
+      "key": "inv collection 005",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-COLLECTION-006",
+      "key": "inv collection 006",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-COLLECTION-007",
+      "key": "inv collection 007",
+      "severity": "high"
+    },
+    {
+      "id": "INV-COLLECTION-008",
+      "key": "inv collection 008",
+      "severity": "high"
+    },
+    {
+      "id": "INV-FED-LEDGER-001",
+      "key": "inv fed ledger 001",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-FED-LEDGER-002",
+      "key": "inv fed ledger 002",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-FED-RECON-001",
+      "key": "inv fed recon 001",
+      "severity": "high"
+    },
+    {
+      "id": "INV-FED-IDEM-001",
+      "key": "inv fed idem 001",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-FEDEVAL-001",
+      "key": "inv fedeval 001",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-FEDEVAL-002",
+      "key": "inv fedeval 002",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-FEDEVAL-003",
+      "key": "inv fedeval 003",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-FEDEVAL-004",
+      "key": "inv fedeval 004",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-FEDEVAL-005",
+      "key": "inv fedeval 005",
+      "severity": "high"
+    },
+    {
+      "id": "INV-FEDEVAL-006",
+      "key": "inv fedeval 006",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-FEDEVAL-007",
+      "key": "inv fedeval 007",
+      "severity": "high"
+    },
+    {
+      "id": "INV-FEDEVAL-008",
+      "key": "inv fedeval 008",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-FEDEVAL-009",
+      "key": "inv fedeval 009",
+      "severity": "high"
+    },
+    {
+      "id": "INV-FEDEVAL-010",
+      "key": "inv fedeval 010",
+      "severity": "high"
+    },
+    {
+      "id": "INV-QR-SIGN-001",
+      "key": "inv qr sign 001",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-LEDGER-001",
+      "key": "inv ledger 001",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-LEDGER-002",
+      "key": "inv ledger 002",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-LEDGER-003",
+      "key": "inv ledger 003",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-LEDGER-004",
+      "key": "inv ledger 004",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-LEDGER-005",
+      "key": "inv ledger 005",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-QR-ENV-001",
+      "key": "inv qr env 001",
+      "severity": "high"
+    },
+    {
+      "id": "INV-WALLET-001",
+      "key": "inv wallet 001",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-EVENT-001",
+      "key": "inv event 001",
+      "severity": "high"
+    },
+    {
+      "id": "INV-EVENT-002",
+      "key": "inv event 002",
+      "severity": "medium"
+    },
+    {
+      "id": "INV-IDENT-001",
+      "key": "inv ident 001",
+      "severity": "high"
+    },
+    {
+      "id": "INV-TRACE-001",
+      "key": "inv trace 001",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-IDEM-001",
+      "key": "inv idem 001",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-ROOT-001",
+      "key": "inv root 001",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-ROOT-002",
+      "key": "inv root 002",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-ROOT-003",
+      "key": "inv root 003",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-ROOT-004",
+      "key": "inv root 004",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-ROOT-005",
+      "key": "inv root 005",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-ROOT-006",
+      "key": "inv root 006",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-ROOT-007",
+      "key": "inv root 007",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-ROOT-008",
+      "key": "inv root 008",
+      "severity": "high"
+    },
+    {
+      "id": "INV-ROOT-009",
+      "key": "inv root 009",
+      "severity": "high"
+    },
+    {
+      "id": "INV-ROOT-010",
+      "key": "inv root 010",
+      "severity": "high"
+    },
+    {
+      "id": "INV-ROOT-011",
+      "key": "inv root 011",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-ROOT-012",
+      "key": "inv root 012",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-ROOT-013",
+      "key": "inv root 013",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-ROOT-014",
+      "key": "inv root 014",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-FED-001",
+      "key": "inv fed 001",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-FED-002",
+      "key": "inv fed 002",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-FED-003",
+      "key": "inv fed 003",
+      "severity": "high"
+    },
+    {
+      "id": "INV-FED-004",
+      "key": "inv fed 004",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-FED-005",
+      "key": "inv fed 005",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-FED-006",
+      "key": "inv fed 006",
+      "severity": "high"
+    },
+    {
+      "id": "INV-FED-007",
+      "key": "inv fed 007",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-OTE-001",
+      "key": "inv ote 001",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-OTE-002",
+      "key": "inv ote 002",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-OTE-003",
+      "key": "inv ote 003",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-OTE-004",
+      "key": "inv ote 004",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-OTE-005",
+      "key": "inv ote 005",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-OTE-006",
+      "key": "inv ote 006",
+      "severity": "high"
+    },
+    {
+      "id": "INV-OTE-007",
+      "key": "inv ote 007",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-OTE-008",
+      "key": "inv ote 008",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-OTE-009",
+      "key": "inv ote 009",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-OTE-010",
+      "key": "inv ote 010",
+      "severity": "high"
+    },
+    {
+      "id": "INV-STL-001",
+      "key": "inv stl 001",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-STL-002",
+      "key": "inv stl 002",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-STL-003",
+      "key": "inv stl 003",
+      "severity": "high"
+    },
+    {
+      "id": "INV-QR-001",
+      "key": "inv qr 001",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-QR-002",
+      "key": "inv qr 002",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-QR-003",
+      "key": "inv qr 003",
+      "severity": "critical"
+    },
+    {
+      "id": "INV-QR-004",
+      "key": "inv qr 004",
+      "severity": "critical"
+    },
+    {
+      "id": "MON-001",
+      "key": "mon 001",
+      "severity": "critical"
+    }
+  ]
+}

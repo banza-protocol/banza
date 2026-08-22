@@ -4338,6 +4338,15 @@ fn action_boundary(nq: &str) -> Option<&'static str> {
                 "traces do historico",
                 "todos os traces",
                 "os traces",
+                // The INVARIANT REGISTRY is a protocol record like any other, and the noun was
+                // missing: "apaga o documento" and "apaga o ADR-001" were refused while "apaga a
+                // invariante" fell through to grounding. Found by the ordering test for the invariant
+                // resolver, which asserted that naming an invariant cannot buy a way past a refusal
+                // and discovered there was no refusal to get past.
+                "invariante",
+                "invariantes",
+                "invariant",
+                "invariants",
             ],
         )
     {
@@ -7464,6 +7473,29 @@ pub fn route(question: &str) -> Route {
             reason: "workbench technical tool routing — deterministic artefact analysis",
         };
     }
+    // EXACT-INVARIANT RESOLVER. An invariant id names ONE record in `contracts/invariants.json`, and
+    // the same rule the numbered-document resolver enforces applies here: a specific identifier must
+    // never be swallowed by the generic thing it belongs to. Measured against production at
+    // `src-ef21f43`, "O que exige a invariante INV-COLLECTION-001 do BANZA?" was answered with the
+    // definition of BANZA — the id was discarded and the reader got the protocol summary.
+    //
+    // It sits with the document resolver deliberately: AFTER every action/safety/compound/tool
+    // boundary, so naming an invariant cannot buy a way past a refusal, and BEFORE the family
+    // classifier that was catching these and answering from generic canonical sources.
+    //
+    // A COMPARISON of two invariants is not this: "qual é a diferença entre INV-LEDGER-002 e
+    // INV-LEDGER-003" names two subjects and belongs to the comparison engine, which would otherwise
+    // lose its left side to whichever id matched first.
+    if !crate::compare::is_comparison(&nq) {
+        if let Some(inv) = crate::invariant::lookup(&nq) {
+            return Route {
+                action: "deterministic",
+                entry_id: Some(inv.id.to_lowercase()),
+                intent: "critical_boundary",
+                reason: "an invariant named by its identifier is served from the registry",
+            };
+        }
+    }
     // M2.18 — EXACT-DOCUMENT RESOLVER (resolver-first; architecture doc §1 rule R1). A NUMBERED
     // document reference — "ADR 002" / "adr-2" / "adr002" / "RFC 14" — names a SPECIFIC canonical
     // record. The generic glossary DEFINITION ("def-adr": *what is an ADR*) must never swallow it:
@@ -7793,6 +7825,15 @@ pub fn is_verbatim_entry(entry_id: &str) -> bool {
             // edge, which is the failure `def-resilience-boundary` is already here to prevent.
             | "def-trust-guarantees"
     ) || corrects_a_prohibited_relation(entry_id)
+        // An INVARIANT is served verbatim from the registry. It is normative text that binds every
+        // implementation, and "what does X REQUIRE" is an explanatory cue — so the English form
+        // escalated into the trunk while the Portuguese form did not, and the same invariant came back
+        // as model prose in one locale and as the registry text in the other.
+        //
+        // Recomposing a normative statement is the failure `def-trust-guarantees` is already here to
+        // prevent, and it is sharper here: a paraphrase of "integers in minor units, never floating
+        // point" that drifts is a wrong answer about a financial invariant.
+        || crate::invariant::lookup(&entry_id.replace('-', " ")).is_some()
 }
 
 pub fn route_json(question: &str) -> String {

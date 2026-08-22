@@ -46,6 +46,7 @@ pub mod fuzzy;
 pub mod glossary;
 pub mod hybrid;
 pub mod intent;
+pub mod invariant;
 pub mod obligations;
 pub mod operational;
 pub mod prompt;
