@@ -197,6 +197,13 @@ fn is_locative_query(nq: &str) -> bool {
         || q.starts_with("where are ")
         || q.starts_with("where do ")
         || q.starts_with("where does ")
+        // The CONDITIONAL forms. "Where would balances live?" asks the same question as "where do
+        // balances live?" and reached nothing, while its Portuguese conditional ("onde ficariam…")
+        // resolved through the `onde ` prefix. A locative question must not depend on its mood.
+        || q.starts_with("where would ")
+        || q.starts_with("where should ")
+        || q.starts_with("where can ")
+        || q.starts_with("where could ")
 }
 
 /// A query shaped like a request for a DOMAIN definition.
@@ -640,6 +647,16 @@ fn is_trust_guarantee_phrase(nq: &str) -> bool {
         &[
             "transparencia global",
             "global transparency",
+            // Global CONSENSUS is the same guarantee question in the shape readers actually ask it,
+            // and it reached nothing. `def-trust-guarantees` states precisely which guarantees the
+            // protocol provides and which it does not — freshness and local monotonicity yes, set
+            // consistency and cross-observer consistency no — which is the honest answer to "does that
+            // imply global consensus?". Measured in the trust journey: turn 5 refused in both locales.
+            "implica consenso global",
+            "imply global consensus",
+            "implies global consensus",
+            "significa consenso global",
+            "mean global consensus",
             "split-view",
             "split view",
             "consistencia de conjunto",
@@ -846,8 +863,8 @@ fn is_local_execution_phrase(nq: &str) -> bool {
         &[
             "consenso global",
             "global consensus",
-            "consenso distribuido",
-            "distributed consensus",
+            "usa consenso global",
+            "uses global consensus",
             "processador central",
             "central processor",
             "central transaction",
@@ -1587,6 +1604,15 @@ fn term_of(nq: &str) -> Option<&'static str> {
         nq,
         &[
             "transparencia global",
+            // The same guarantee question in the shape readers ask it. This is the TERM arm; the gate
+            // predicate `is_trust_guarantee_phrase` carries the same phrases. Adding them there alone
+            // opened the gate with nothing behind it — the exact failure this file documents twice —
+            // and "consenso global" resolved to nothing while looking handled.
+            "implica consenso global",
+            "imply global consensus",
+            "implies global consensus",
+            "significa consenso global",
+            "mean global consensus",
             "global transparency",
             "split-view",
             "split view",

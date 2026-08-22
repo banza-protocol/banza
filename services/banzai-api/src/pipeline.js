@@ -176,6 +176,35 @@ export function buildForwardContext(prior, scope, resolution, references, hints 
     last_subject_kind,
     last_document_id,
     last_metric,
+    // ── SEMANTIC REFERENTS (structured identity, not prose) ────────────────────────────────────────
+    //
+    // `last_subject` above is a human LABEL — "ledger", "federação". It reads well in a trace and it is
+    // the wrong thing to resolve a follow-up against: two entries can share a label, a label can be
+    // truncated, and recovering an identity from it means guessing. These carry the IDENTITY the
+    // previous turn actually resolved, so the next turn consumes what routing decided rather than
+    // re-deriving it from the answer's wording.
+    //
+    // They are populated by the tiers that establish them — the comparison tier knows both of its
+    // sides, the hybrid tier knows its subject and relation — and carried forward otherwise. A turn
+    // that establishes nothing leaves the previous identity in place, which is what makes a chain of
+    // follow-ups work.
+    last_subject_id: safeCtxId(h.subject_id || p.last_subject_id),
+    // The subject BEFORE this one. A comparison follow-up — "compare them", "what is the difference
+    // between them?" — names neither side, and both are in the conversation rather than in the
+    // question. Keeping only the most recent identity makes that follow-up unanswerable, which is what
+    // "What is L2?" → "And L3?" → "Compare them." was measured doing.
+    //
+    // Shifted only when the subject actually CHANGES, so a turn that re-resolves the same concept does
+    // not push the real previous subject out of reach.
+    previous_subject_id: safeCtxId(
+      h.subject_id && p.last_subject_id && h.subject_id !== p.last_subject_id
+        ? p.last_subject_id
+        : p.previous_subject_id,
+    ),
+    comparison_left: safeCtxId(h.comparison_left || p.comparison_left),
+    comparison_right: safeCtxId(h.comparison_right || p.comparison_right),
+    hybrid_subject_id: safeCtxId(h.hybrid_subject_id || p.hybrid_subject_id),
+    hybrid_relation: safeCtxId(h.hybrid_relation || p.hybrid_relation),
     ...(p.observed_at ? { observed_at: safeCtxId(p.observed_at, 32) } : {}),
   };
 }
@@ -874,7 +903,8 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         grounded: true,
         answer: frame(subjectText, banzaText),
         sources,
-        entry_id: null,
+        // The relation's subject is the record a follow-up resolves against. See `comparisonAnswer`.
+        entry_id: plan.subject_id || null,
         provider: provider.name,
         mode: isReal ? "real" : "mock",
         guardrails: GUARDRAILS,
@@ -898,7 +928,12 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         grounded: true,
         answer: body,
         sources,
-        entry_id: null,
+        // The composite's PRIMARY record. `null` here meant the evidence-continuity wrapper had no
+        // target to carry forward, and the next turn's "which source says that?" found nothing to point
+        // at — measured, the source follow-up failed after every comparison and every relation. Both
+        // sides travel in `comparison_left`/`comparison_right`; this is the record a follow-up resolves
+        // against.
+        entry_id: plan.left.semantic_id || null,
         provider: provider.name,
         mode: isReal ? "real" : "mock",
         guardrails: GUARDRAILS,
@@ -1397,9 +1432,17 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // that the taxonomy classifier reports as "unsupported"; hint the forward-context builder so the NEXT turn
     // inherits the right intent+subject (the ADR→RFC chain). Derived from the route decision, never invented.
     const fwdEntryId = String((decisionEffective && decisionEffective.entry_id) || decision.entry_id || "");
+    // The SEMANTIC ID of whatever this turn resolved, alongside the human label. The label is for a
+    // reader; the id is what the next turn resolves against.
     const fwdHints = fwdEntryId.startsWith("def-")
-      ? { intent: "explain_concept", subject: fwdEntryId.replace(/^def-/, "").replace(/-/g, " ") }
-      : {};
+      ? {
+          intent: "explain_concept",
+          subject: fwdEntryId.replace(/^def-/, "").replace(/-/g, " "),
+          subject_id: fwdEntryId,
+        }
+      : fwdEntryId
+        ? { subject_id: fwdEntryId }
+        : {};
     const conversationContextForward = buildForwardContext(priorContext, resolveScope(rq), resolveQuery(rq), references, fwdHints);
     // Safe conversation-context telemetry (booleans/counts only — never the conversation content).
     // BZCI-6 (§36) — drive the "context used" telemetry from BOTH channels: the structured Inc.6 resolver
@@ -1986,6 +2029,233 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // concepts from the corpus. Neither of their sides is a concept, so requiring one keeps this tier
     // to conceptual comparisons and leaves the operational path exactly as it was. Measured: without
     // this, the execution-comparison family started receiving "name the second concept".
+    // Tier 1-REFERENT — follow-ups whose subject is in the CONVERSATION, not in the question.
+    //
+    // These consume the structured identities the previous turns established. They do not re-read the
+    // previous answer's prose: the identity is what routing decided, and recovering it from wording
+    // would mean guessing at something already known exactly.
+    //
+    // Conservative by construction. Each shape requires the specific state it needs to be present — a
+    // comparison follow-up needs two identities, a document follow-up needs a document — and falls
+    // through when it is not. Nothing here picks "the most recent noun" and hopes.
+    // Gated on HAVING structured context, not on the anaphora resolver having bound something.
+    //
+    // `contextActive` means "the reference resolver found and bound an anaphor". These follow-ups
+    // frequently contain no anaphor for it to bind — "Compara-os." names nothing, "Is it normative?"
+    // has an `it` the resolver reports as NO_ANAPHORA — so gating on it meant the tier never ran on
+    // exactly the turns it exists for. Measured: the conversation carried `previous_subject_id` and
+    // `last_document_id` correctly and nothing read them.
+    const referentCtx = priorContext && typeof priorContext === "object" ? priorContext : {};
+    const hasStructuredReferents = Boolean(
+      referentCtx.last_subject_id ||
+        referentCtx.previous_subject_id ||
+        referentCtx.comparison_left ||
+        referentCtx.last_document_id ||
+        referentCtx.hybrid_subject_id,
+    );
+    if (hasStructuredReferents && !references.boundary_detected && !rawRefusalSignal && !journeyOwnsTurn) {
+      const cc = referentCtx;
+      const nq = normalize(correctedQuestion);
+
+      // SOURCE FOLLOW-UP resolved from STRUCTURED STATE, not from a pronoun list.
+      //
+      // The frame recogniser requires an explicit referential TOKEN — `isto`, `isso`, `essa decisão` —
+      // so "Que fonte o diz?", "Which source says so?" and "Que fonte prova essa distinção?" were not
+      // recognised as evidence requests at all. Extending that token list is the bag-of-pronouns
+      // approach this architecture is meant to replace: there is always another phrasing.
+      //
+      // When the conversation carries a prior target and its evidence, an evidence request HAS a
+      // referent structurally, whatever words it used. That is what is read here. The requirement is
+      // strict — both the target and its source identities must be present — so a bare "which source?"
+      // with no conversation behind it is still an underspecified first turn, exactly as before.
+      if (cc.previous_semantic_target && Array.isArray(cc.previous_source_ids) && cc.previous_source_ids.length) {
+        const asksEvidence =
+          /(^|\s)(que|qual|quais|which|what)\s+(fonte|fontes|source|sources)/.test(nq) ||
+          /(fonte|fontes|source|sources)\s+(o diz|diz|says|say|prova|provam|proves|support|supports|sustenta|sustentam)/.test(nq) ||
+          /(mostra|mostrar|show)\s+(me\s+)?(a\s+|the\s+)?(fonte|source)/.test(nq);
+        // …and only when this turn names no subject of its own. "Quem controla os operadores?" after a
+        // certification turn is a NEW topic that happens to contain an evidence word; serving the
+        // previous answer's sources for it would answer the wrong question with right-looking citations.
+        // Measured: it broke the "an unrelated new topic breaks the evidence pair" property.
+        // An EXPLICIT target wins over the inherited one, always.
+        //
+        // "Que fontes explicam a Root?" asks for evidence about Root, not for the previous answer's
+        // evidence — source-followup context is not sticky, and serving the prior sources there would
+        // answer a different question with right-looking citations.
+        //
+        // The test is subtractive and strict: remove the evidence words, the interrogatives, the
+        // articles and the ANAPHORIC nouns that stand in for the previous answer ("essa distinção",
+        // "that claim"), and a genuine follow-up has nothing left. Anything that survives is a subject
+        // this turn brought with it. "root" survives, so that turn is not a follow-up — and it does not
+        // matter that `root` alone happens not to resolve to an entry, which is what an earlier
+        // route-based version of this check got wrong.
+        const FILLER = /\b(que|qual|quais|which|what|me|a|o|as|os|um|uma|the|de|do|da|dos|das|of|for|about|sobre|e|and|is|are|it|so|isso|isto|essa|esse|esta|este|that|this|them|eles|elas)\b/g;
+        const EVIDENCE_WORDS = /\b(fonte|fontes|source|sources|diz|dizem|says|say|prova|provam|proves|proven|explicam|explica|explain|explains|support|supports|sustenta|sustentam|mostra|mostrar|show|documenta|documents)\b/g;
+        const ANAPHORIC_NOUN = /\b(distincao|distinction|diferenca|difference|separacao|separation|afirmacao|claim|ponto|point|resposta|answer|conclusao|conclusion)\b/g;
+        const remainder = nq
+          .replace(EVIDENCE_WORDS, " ")
+          .replace(ANAPHORIC_NOUN, " ")
+          .replace(FILLER, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+        const namesOwnSubject = remainder.length > 0;
+        if (asksEvidence && !namesOwnSubject) {
+          const prior = getEntry(cc.previous_semantic_target);
+          const priorSources = prior ? publicSourcesOnly(prior.sources || []) : [];
+          const kept = priorSources.filter((x) => cc.previous_source_ids.includes(String(x.id)));
+          const serve = kept.length ? kept : priorSources;
+          if (serve.length) {
+            const lead = TERMINAL_TEXT.source_evidence[locale] || TERMINAL_TEXT.source_evidence[DEFAULT_LOCALE];
+            return {
+              result: {
+                grounded: true,
+                answer: lead,
+                sources: serve,
+                entry_id: prior ? prior.id : null,
+                provider: provider.name,
+                mode: isReal ? "real" : "mock",
+                guardrails: GUARDRAILS,
+                model_called: false,
+                model_name: "",
+                inference_location: provider.inferenceLocation || null,
+                answer_locale: locale,
+              },
+              meta: {
+                deterministic: true,
+                cache: null,
+                llm_called: false,
+                answer_mode: mode,
+                fallback_reason: null,
+                intent: "source_followup",
+                terminal_kind: "source_evidence",
+                referent_source: "conversation",
+                ...ctxMeta,
+                ...routerTrace,
+              },
+            };
+          }
+        }
+      }
+
+      // DOCUMENT + AUTHORITY FOLLOW-UP — "is it normative?", "what has higher authority?".
+      //
+      // After "What does ADR-025 say?" the conversation holds a DOCUMENT identity, and the follow-up
+      // asks about that document's standing rather than about a new subject. Answering it needs the
+      // normative hierarchy, not the document's contents again.
+      //
+      // Requires `last_document_id` to be present: without a document in the conversation these
+      // phrasings are not document follow-ups at all, and the tier falls through.
+      if (cc.last_document_id) {
+        const asksAuthority =
+          /(^|\s)(e|é|is|are)?\s*(normativ|normative)/.test(nq) ||
+          /(autoridade superior|higher authority|mais autoridade|maior autoridade|autoridade normativa|normative authority)/.test(nq);
+        if (asksAuthority) {
+          // `def-reference` states the hierarchy exactly: the Reference is descriptive, normative
+          // authority belongs to the Normative Manifest and the artifacts it indexes, and where the two
+          // diverge the normative artifact prevails. That is the answer to both phrasings.
+          const authority = getEntry("def-reference");
+          const kindEntry = /^RFC/i.test(cc.last_document_id) ? getEntry("def-rfc") : getEntry("def-adr");
+          if (authority && kindEntry) {
+            const a = answerFor(kindEntry, locale);
+            const b = answerFor(authority, locale);
+            if (a.available && b.available) {
+              const seen = new Set();
+              const sources = publicSourcesOnly([
+                ...(kindEntry.sources || []),
+                ...(authority.sources || []),
+              ]).filter((x) => {
+                const id = String((x && x.id) || "");
+                if (!id || seen.has(id)) return false;
+                seen.add(id);
+                return true;
+              });
+              return {
+                result: {
+                  grounded: true,
+                  answer: `${a.text}\n\n${b.text}`,
+                  sources,
+                  entry_id: authority.id,
+                  provider: provider.name,
+                  mode: isReal ? "real" : "mock",
+                  guardrails: GUARDRAILS,
+                  model_called: false,
+                  model_name: "",
+                  inference_location: provider.inferenceLocation || null,
+                  answer_locale: locale,
+                },
+                meta: {
+                  deterministic: true,
+                  cache: null,
+                  llm_called: false,
+                  answer_mode: mode,
+                  fallback_reason: null,
+                  intent: "authority_followup",
+                  terminal_kind: "authority_followup",
+                  referent_source: "conversation",
+                  referent_document: cc.last_document_id,
+                  ...ctxMeta,
+                  ...routerTrace,
+                },
+              };
+            }
+          }
+        }
+      }
+
+      // COMPARISON FOLLOW-UP — "compare them", "what is the difference between them?", "compara-os".
+      // Both sides come from context: either an explicit comparison the previous turn planned, or the
+      // last two DIFFERENT subjects the conversation established.
+      // `normalize` strips the hyphen, so "Compara-os" arrives as "compara os" — the enclitic form has
+      // to be matched after normalization, not before it. Measured: the English "Compare them." worked
+      // and its Portuguese twin did not, for that reason alone.
+      const wantsComparison =
+        /(^|\s)(compare|compara|comparar|compare-as)(\s+(them|os|as|eles|elas|os dois|as duas))?(\s|$)/.test(nq) ||
+        /(diferenca|difference).{0,24}(entre eles|entre elas|entre os dois|between them|them)/.test(nq);
+      if (wantsComparison) {
+        const l = cc.comparison_left || cc.previous_subject_id || "";
+        const r = cc.comparison_right || cc.last_subject_id || "";
+        if (l && r && l !== r) {
+          const left = getEntry(l);
+          const right = getEntry(r);
+          if (left && right) {
+            const a = answerFor(left, locale);
+            const b = answerFor(right, locale);
+            if (a.available && b.available) {
+              const seen = new Set();
+              const sources = publicSourcesOnly([...(left.sources || []), ...(right.sources || [])]).filter(
+                (x) => {
+                  const id = String((x && x.id) || "");
+                  if (!id || seen.has(id)) return false;
+                  seen.add(id);
+                  return true;
+                },
+              );
+              const plan = {
+                left: { phrase: left.id.replace(/^def-(dom-)?/, "").replace(/-/g, " "), semantic_id: left.id },
+                right: { phrase: right.id.replace(/^def-(dom-)?/, "").replace(/-/g, " "), semantic_id: right.id },
+              };
+              return comparisonAnswer(plan, a.text, b.text, sources, {
+                answer_mode: mode,
+                fallback_reason: null,
+                intent: "comparison",
+                terminal_kind: "comparison",
+                comparison_left: left.id,
+                comparison_right: right.id,
+                referent_source: "conversation",
+                ...ctxMeta,
+                conversation_context: {
+                  ...(ctxMeta.conversation_context || {}),
+                  comparison_left: left.id,
+                  comparison_right: right.id,
+                },
+                ...routerTrace,
+              }, locale);
+            }
+          }
+        }
+      }
+    }
+
     // Tier 1-HYBRID — a DOMAIN subject plus a request about BANZA's relation to it.
     //
     // This is NOT a comparison, and conflating the two is what left "settlement vs what BANZA
@@ -2032,6 +2302,16 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
             hybrid_relation: hybrid.relation,
             hybrid_subject_class: hybrid.subject_class,
             ...ctxMeta,
+            // The relation stays active for the next turn. "What is settlement and how does it relate
+            // to BANZA?" then "does BANZA perform it?" must not collapse to the generic protocol entry:
+            // the subject and the fact that a BANZA relation is under discussion both travel.
+            conversation_context: {
+              ...(ctxMeta.conversation_context || {}),
+              hybrid_subject_id: subject.id,
+              hybrid_relation: hybrid.relation,
+              last_subject_id: subject.id,
+              last_subject_kind: "concept",
+            },
             ...routerTrace,
           }, locale);
         }
@@ -2095,6 +2375,16 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
             comparison_right: right.id,
             comparison_class: comparison.class,
             ...ctxMeta,
+            // BOTH sides travel forward, not whichever was mentioned last. "Compare clearing and
+            // settlement" then "which one does BANZA perform?" needs both identities available; a
+            // context that kept only the most recent noun would answer about settlement every time.
+            conversation_context: {
+              ...(ctxMeta.conversation_context || {}),
+              comparison_left: left.id,
+              comparison_right: right.id,
+              last_subject_id: left.id,
+              last_subject_kind: "concept",
+            },
             ...routerTrace,
           }, locale);
         }

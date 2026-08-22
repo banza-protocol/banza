@@ -5445,6 +5445,12 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
             "implementation can choose",
             "posso usar postgresql",
             "posso usar postgres",
+            "todas as implementacoes tem de usar",
+            "todas as implementacoes precisam de usar",
+            "toda a implementacao tem de usar",
+            "must every implementation use",
+            "does every implementation have to use",
+            "do all implementations use",
             "can i use postgresql",
             "can i use postgres",
             "outra tecnologia",
@@ -7780,6 +7786,12 @@ pub fn is_verbatim_entry(entry_id: &str) -> bool {
             | "def-r2s2"
             | "def-l0-regulatory-boundary"
             | "def-profiles"
+            // `def-trust-guarantees` is a DENIAL, and the sharpest one the trust model states: BANZA
+            // does NOT provide global transparency and does NOT detect split-view. "Isso implica
+            // consenso global?" carries an explanatory cue, escalated into the trunk, and came back
+            // degraded — a bounded non-guarantee recomposed by a model is a non-guarantee with a softer
+            // edge, which is the failure `def-resilience-boundary` is already here to prevent.
+            | "def-trust-guarantees"
     ) || corrects_a_prohibited_relation(entry_id)
 }
 

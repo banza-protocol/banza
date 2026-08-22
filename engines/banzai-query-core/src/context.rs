@@ -279,6 +279,24 @@ pub struct PriorContext {
     /// Client-carried ISO-8601 timestamp of the prior turn (freshness; never trusted as a fact source).
     #[serde(default)]
     pub observed_at: String,
+    // ── SEMANTIC REFERENTS ────────────────────────────────────────────────────────────────────────
+    //
+    // `last_subject` above is a human LABEL. These are the IDENTITIES the previous turn resolved, so a
+    // follow-up consumes what routing decided instead of guessing from a label that two entries can
+    // share. All `serde(default)`, so a client that carries none behaves exactly as before.
+    /// The semantic id of the previous turn's subject (e.g. `def-ledger`), or "".
+    #[serde(default)]
+    pub last_subject_id: String,
+    /// Both sides of an active comparison — preserved so a follow-up can reach either.
+    #[serde(default)]
+    pub comparison_left: String,
+    #[serde(default)]
+    pub comparison_right: String,
+    /// An active DOMAIN↔BANZA relation: the subject, and which relation was asked about.
+    #[serde(default)]
+    pub hybrid_subject_id: String,
+    #[serde(default)]
+    pub hybrid_relation: String,
 }
 
 impl PriorContext {
@@ -299,6 +317,11 @@ impl PriorContext {
         !self.last_intent.is_empty()
             || !self.last_subject.is_empty()
             || !self.last_document_id.is_empty()
+            // A turn that established only IDENTITIES — a comparison, a relation — still carries a
+            // conversation. Reading the labels alone would make those turns look like first turns.
+            || !self.last_subject_id.is_empty()
+            || !self.comparison_left.is_empty()
+            || !self.hybrid_subject_id.is_empty()
     }
     /// The prior operator/implementation entity id (implementation preferred — it is the artifact publisher).
     fn entity_id(&self) -> &str {
