@@ -805,6 +805,32 @@ function generate_candidates_json(question, max) {
 exports.generate_candidates_json = generate_candidates_json;
 
 /**
+ * Node WASM: the HYBRID RELATION PLAN — one subject, and the BANZA relation being asked about.
+ *
+ * Distinct from a comparison, which has two genuine semantic targets. "settlement vs what BANZA
+ * specifies" names ONE concept and asks for the protocol's position on it; "what BANZA specifies" is
+ * not a concept and is not forced into one. The authority split rides on this: DOMAIN evidence may say
+ * what the subject means, and only BANZA evidence may say what BANZA requires of it.
+ * @param {string} question
+ * @returns {string}
+ */
+function hybrid_plan_json(question) {
+    let deferred2_0;
+    let deferred2_1;
+    try {
+        const ptr0 = passStringToWasm0(question, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ret = wasm.hybrid_plan_json(ptr0, len0);
+        deferred2_0 = ret[0];
+        deferred2_1 = ret[1];
+        return getStringFromWasm0(ret[0], ret[1]);
+    } finally {
+        wasm.__wbindgen_free(deferred2_0, deferred2_1, 1);
+    }
+}
+exports.hybrid_plan_json = hybrid_plan_json;
+
+/**
  * Node WASM (M2.13C-A): the SOURCE-RANKING matrix for a question's intent. Returns
  * `{"intent":"...","primary":[..],"penalize":[..]}` — the repo-index categories to prioritise /
  * push down for that family's citations. Deterministic; no model, no network.

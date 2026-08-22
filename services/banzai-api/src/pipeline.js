@@ -27,7 +27,7 @@
 import { GUARDRAILS } from "./provider.js";
 import { operationalDomain } from "./operationalDomain.js";
 import { composeTasked } from "./taskedRealizations.js";
-import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, comparisonPlan, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims, answerFor, unavailableRealization, LOCALES, DEFAULT_LOCALE } from "./knowledge.js";
+import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, comparisonPlan, hybridPlan, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims, answerFor, unavailableRealization, LOCALES, DEFAULT_LOCALE } from "./knowledge.js";
 import { honestLiveFailureAnswer } from "./liveArtifact.js";
 import { isPublicSource } from "./answerContract.js";
 
@@ -837,6 +837,54 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
   function sideTitle(phrase) {
     const p = String(phrase || "").trim();
     return p ? p.charAt(0).toUpperCase() + p.slice(1) : "";
+  }
+
+  /**
+   * Reader prose for a HYBRID relation — what the subject means, then what BANZA says about it.
+   *
+   * The two halves are kept visibly apart, and that separation IS the property. A domain source may
+   * establish what settlement means; only BANZA authority may establish what BANZA does about it, and a
+   * reader has to be able to see which half rests on which. Running them together is how "BANZA
+   * settles" gets written from a source that only defines settlement.
+   *
+   * Both halves are the entries' OWN realizations. Nothing is paraphrased and nothing is composed by a
+   * model: each entry already states its own boundary, and those boundaries are exactly what a relation
+   * answer must not soften.
+   */
+  const HYBRID_FRAME = {
+    "pt-PT": {
+      specifies: (s, b) => `${s}\n\n**O que o BANZA especifica** — ${b}`,
+      relates: (s, b) => `${s}\n\n**Relação com o BANZA** — ${b}`,
+      performs: (s, b) => `${s}\n\n**O BANZA faz isto?** — ${b}`,
+      requires: (s, b) => `${s}\n\n**O BANZA exige isto?** — ${b}`,
+    },
+    en: {
+      specifies: (s, b) => `${s}\n\n**What BANZA specifies** — ${b}`,
+      relates: (s, b) => `${s}\n\n**Relationship to BANZA** — ${b}`,
+      performs: (s, b) => `${s}\n\n**Does BANZA do this?** — ${b}`,
+      requires: (s, b) => `${s}\n\n**Does BANZA require this?** — ${b}`,
+    },
+  };
+
+  function hybridAnswer(plan, subjectText, banzaText, sources, meta, locale) {
+    const table = HYBRID_FRAME[locale] || HYBRID_FRAME[DEFAULT_LOCALE];
+    const frame = table[plan.relation] || table.relates;
+    return {
+      result: {
+        grounded: true,
+        answer: frame(subjectText, banzaText),
+        sources,
+        entry_id: null,
+        provider: provider.name,
+        mode: isReal ? "real" : "mock",
+        guardrails: GUARDRAILS,
+        model_called: false,
+        model_name: "",
+        inference_location: provider.inferenceLocation || null,
+        answer_locale: locale,
+      },
+      meta: { deterministic: true, cache: null, llm_called: false, ...meta },
+    };
   }
 
   function comparisonAnswer(plan, leftText, rightText, sources, meta, locale) {
@@ -1938,6 +1986,58 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // concepts from the corpus. Neither of their sides is a concept, so requiring one keeps this tier
     // to conceptual comparisons and leaves the operational path exactly as it was. Measured: without
     // this, the execution-comparison family started receiving "name the second concept".
+    // Tier 1-HYBRID — a DOMAIN subject plus a request about BANZA's relation to it.
+    //
+    // This is NOT a comparison, and conflating the two is what left "settlement vs what BANZA
+    // specifies" looking permanently unsupported. A comparison has two genuine semantic targets. A
+    // hybrid has one subject and a RELATION request, and "what BANZA specifies" is not a concept —
+    // forcing it into a concept table to make a matrix read 22/22 would invent a concept nobody named.
+    //
+    // The authority split is enforced here rather than left to the composer. The subject half may rest
+    // on whatever layer owns the subject, including a DOMAIN source. The BANZA half must rest on BANZA
+    // authority: a domain source may say what settlement means and may never say what BANZA does about
+    // it. When no BANZA authority is available for the relation, this tier declines rather than letting
+    // the general definition stand in for the protocol's position.
+    const hybrid = hybridPlan(correctedQuestion);
+    if (hybrid && hybrid.is_hybrid && hybrid.resolved && !journeyOwnsTurn) {
+      const subject = getEntry(hybrid.subject_id);
+      // The BANZA half comes from the entry that states the protocol's position on this subject. Where
+      // the subject IS a BANZA entry, its own realization already carries that position.
+      // A DOMAIN subject needs a SPECIFIC BANZA authority for the relation half, and there is no generic
+      // one. Pairing any domain concept with a catch-all entry would be the same generic collapse this
+      // programme removed, in a different costume: it would let "BANZA's position on X" be written from
+      // an entry that says nothing about X. Where no specific authority exists this tier declines, and
+      // the ordinary paths answer the subject alone.
+      const banzaEntry = subject && subject.domain ? null : subject;
+      if (subject && banzaEntry) {
+        const sub = answerFor(subject, locale);
+        const ban = answerFor(banzaEntry, locale);
+        const banzaSources = publicSourcesOnly(banzaEntry.sources || []).filter((x) => x && x.class !== "domain");
+        if (sub.available && ban.available && banzaSources.length > 0) {
+          const seen = new Set();
+          const sources = publicSourcesOnly([...(subject.sources || []), ...(banzaEntry.sources || [])]).filter(
+            (x) => {
+              const id = String((x && x.id) || "");
+              if (!id || seen.has(id)) return false;
+              seen.add(id);
+              return true;
+            },
+          );
+          return hybridAnswer(hybrid, sub.text, ban.text, sources, {
+            answer_mode: mode,
+            fallback_reason: null,
+            intent: "hybrid_relation",
+            terminal_kind: "hybrid_relation",
+            hybrid_subject: subject.id,
+            hybrid_relation: hybrid.relation,
+            hybrid_subject_class: hybrid.subject_class,
+            ...ctxMeta,
+            ...routerTrace,
+          }, locale);
+        }
+      }
+    }
+
     // A HALF-COMPARISON the router already decided: exactly one side resolved and nothing else
     // answered. Served as an honest decline that NAMES the side it did not recognise — the difference
     // between a decline a reader can act on and a blanket "insufficient evidence". Without this the

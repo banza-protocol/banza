@@ -3733,6 +3733,21 @@ export function comparisonPlan(question) {
   }
 }
 
+/**
+ * The HYBRID RELATION PLAN — one subject and the BANZA relation asked about it.
+ *
+ * Rust owns the extraction and the resolution; this only transports. Null when the vendored engine
+ * predates the export, so an older WASM degrades to the previous behaviour rather than throwing.
+ */
+export function hybridPlan(question) {
+  if (typeof kb.hybrid_plan_json !== "function") return null;
+  try {
+    return JSON.parse(kb.hybrid_plan_json(String(question || "")));
+  } catch {
+    return null;
+  }
+}
+
 export function resolveQuery(question) {
   if (typeof kb.resolve_query_json !== "function") return { primary_intent: "", sub_intents: [] };
   try {

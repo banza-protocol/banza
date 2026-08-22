@@ -240,6 +240,16 @@ export function explain_reason_code_json(question: string): string;
 export function generate_candidates_json(question: string, max: number): string;
 
 /**
+ * Node WASM: the HYBRID RELATION PLAN — one subject, and the BANZA relation being asked about.
+ *
+ * Distinct from a comparison, which has two genuine semantic targets. "settlement vs what BANZA
+ * specifies" names ONE concept and asks for the protocol's position on it; "what BANZA specifies" is
+ * not a concept and is not forced into one. The authority split rides on this: DOMAIN evidence may say
+ * what the subject means, and only BANZA evidence may say what BANZA requires of it.
+ */
+export function hybrid_plan_json(question: string): string;
+
+/**
  * Node WASM (M2.13C-A): the SOURCE-RANKING matrix for a question's intent. Returns
  * `{"intent":"...","primary":[..],"penalize":[..]}` — the repo-index categories to prioritise /
  * push down for that family's citations. Deterministic; no model, no network.

@@ -44,6 +44,7 @@ pub mod factpack;
 pub mod frame;
 pub mod fuzzy;
 pub mod glossary;
+pub mod hybrid;
 pub mod intent;
 pub mod obligations;
 pub mod operational;
