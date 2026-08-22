@@ -4338,6 +4338,15 @@ fn action_boundary(nq: &str) -> Option<&'static str> {
                 "traces do historico",
                 "todos os traces",
                 "os traces",
+                // The INVARIANT REGISTRY is a protocol record like any other, and the noun was
+                // missing: "apaga o documento" and "apaga o ADR-001" were refused while "apaga a
+                // invariante" fell through to grounding. Found by the ordering test for the invariant
+                // resolver, which asserted that naming an invariant cannot buy a way past a refusal
+                // and discovered there was no refusal to get past.
+                "invariante",
+                "invariantes",
+                "invariant",
+                "invariants",
             ],
         )
     {
@@ -5445,6 +5454,12 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
             "implementation can choose",
             "posso usar postgresql",
             "posso usar postgres",
+            "todas as implementacoes tem de usar",
+            "todas as implementacoes precisam de usar",
+            "toda a implementacao tem de usar",
+            "must every implementation use",
+            "does every implementation have to use",
+            "do all implementations use",
             "can i use postgresql",
             "can i use postgres",
             "outra tecnologia",
@@ -5777,6 +5792,21 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     // (flaky, verb-vs-noun) grounded path or to no_source. Every more-specific arm above wins first.
     if let Some(id) = crate::glossary::glossary_entry(nq) {
         return Some(id);
+    }
+    // The declared DOMAIN vocabulary, after every BANZA arm above.
+    //
+    // Ordering is the whole point. A term BANZA defines is answered from BANZA authority; only a term
+    // BANZA does NOT define falls through to here, where the answer is a general definition with a
+    // domain authority behind it. So "idempotência" reaches the BANZA invariant and "nonce" reaches the
+    // domain definition, and neither borrows the other's standing.
+    //
+    // Gated on the same shapes the glossary gate accepts, and no more: a domain concept merely
+    // MENTIONED inside a longer operational question is not a request to define it, and answering it as
+    // one would take the question away from the path written for it.
+    if crate::glossary::is_domain_definition_shape(nq) {
+        if let Some(id) = crate::domain::resolve_domain(nq) {
+            return Some(id);
+        }
     }
     None
 }
@@ -7373,6 +7403,32 @@ pub fn route(question: &str) -> Route {
             reason: "prompt-injection / system-prompt / chain-of-thought / jailbreak",
         };
     }
+    // A HALF-COMPARISON must not be answered by a GENERIC entry.
+    //
+    // Exactly one side resolved, and the deterministic selectors have nothing specific for the pair. The
+    // distinction that matters is which entry would answer: `norm-vs-implementation` and
+    // `banzai-vs-engines` are hand-authored entries that answer their comparison whole and better than
+    // two definitions joined, and they must keep it. `what-is-banza` is the generic collapse — measured,
+    // "qual é a diferença entre settlement e o que o BANZA especifica", whose right side is a question
+    // fragment rather than a concept, matched it lexically and would have been answered with the
+    // protocol summary.
+    //
+    // So the guard asks `critical_entry` first. Something specific answers it, or nobody does and the
+    // reader is told which side was not recognised — never handed the half that was.
+    if crate::compare::is_comparison(&nq)
+        && crate::glossary::profiles_named_pub(&nq) < 2
+        && critical_entry(&nq).is_none()
+    {
+        let p = crate::compare::plan(&nq);
+        if p.left.resolved() != p.right.resolved() {
+            return Route {
+                action: "insufficient",
+                entry_id: None,
+                intent: "comparison_incomplete",
+                reason: "a comparison needs both sides; one did not resolve",
+            };
+        }
+    }
     // M2.14H SEC-FIX — compound command: a benign analyse-verb lead must not smuggle a dangerous clause
     // ("valida o manifesto **e** publica o operador no registry", "avalia o trust **e** transfere 100 kz")
     // past the boundary. Split on conjunctions and refuse if ANY clause independently trips the boundary,
@@ -7416,6 +7472,29 @@ pub fn route(question: &str) -> Route {
             intent: "tool_routing",
             reason: "workbench technical tool routing — deterministic artefact analysis",
         };
+    }
+    // EXACT-INVARIANT RESOLVER. An invariant id names ONE record in `contracts/invariants.json`, and
+    // the same rule the numbered-document resolver enforces applies here: a specific identifier must
+    // never be swallowed by the generic thing it belongs to. Measured against production at
+    // `src-ef21f43`, "O que exige a invariante INV-COLLECTION-001 do BANZA?" was answered with the
+    // definition of BANZA — the id was discarded and the reader got the protocol summary.
+    //
+    // It sits with the document resolver deliberately: AFTER every action/safety/compound/tool
+    // boundary, so naming an invariant cannot buy a way past a refusal, and BEFORE the family
+    // classifier that was catching these and answering from generic canonical sources.
+    //
+    // A COMPARISON of two invariants is not this: "qual é a diferença entre INV-LEDGER-002 e
+    // INV-LEDGER-003" names two subjects and belongs to the comparison engine, which would otherwise
+    // lose its left side to whichever id matched first.
+    if !crate::compare::is_comparison(&nq) {
+        if let Some(inv) = crate::invariant::lookup(&nq) {
+            return Route {
+                action: "deterministic",
+                entry_id: Some(inv.id.to_lowercase()),
+                intent: "critical_boundary",
+                reason: "an invariant named by its identifier is served from the registry",
+            };
+        }
     }
     // M2.18 — EXACT-DOCUMENT RESOLVER (resolver-first; architecture doc §1 rule R1). A NUMBERED
     // document reference — "ADR 002" / "adr-2" / "adr002" / "RFC 14" — names a SPECIFIC canonical
@@ -7739,7 +7818,22 @@ pub fn is_verbatim_entry(entry_id: &str) -> bool {
             | "def-r2s2"
             | "def-l0-regulatory-boundary"
             | "def-profiles"
+            // `def-trust-guarantees` is a DENIAL, and the sharpest one the trust model states: BANZA
+            // does NOT provide global transparency and does NOT detect split-view. "Isso implica
+            // consenso global?" carries an explanatory cue, escalated into the trunk, and came back
+            // degraded — a bounded non-guarantee recomposed by a model is a non-guarantee with a softer
+            // edge, which is the failure `def-resilience-boundary` is already here to prevent.
+            | "def-trust-guarantees"
     ) || corrects_a_prohibited_relation(entry_id)
+        // An INVARIANT is served verbatim from the registry. It is normative text that binds every
+        // implementation, and "what does X REQUIRE" is an explanatory cue — so the English form
+        // escalated into the trunk while the Portuguese form did not, and the same invariant came back
+        // as model prose in one locale and as the registry text in the other.
+        //
+        // Recomposing a normative statement is the failure `def-trust-guarantees` is already here to
+        // prevent, and it is sharper here: a paraphrase of "integers in minor units, never floating
+        // point" that drifts is a wrong answer about a financial invariant.
+        || crate::invariant::lookup(&entry_id.replace('-', " ")).is_some()
 }
 
 pub fn route_json(question: &str) -> String {

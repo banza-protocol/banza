@@ -12,7 +12,7 @@
 // `sources[]` (deduped; unknown ones dropped, never shown). It NEVER removes a source that is already
 // present, and never invents one.
 
-import { SOURCES } from "./knowledge.js";
+import { SOURCES, isDeclaredDomainSource } from "./knowledge.js";
 
 // A source-citation label that must never begin an in-body line.
 const LABEL =
@@ -266,6 +266,29 @@ export function isPublicSource(src) {
   if (cut >= 0) path = path.slice(0, cut);
   path = path.trim().replace(/^\.\//, "").replace(/\/+$/, "");
   if (!path) {
+    // A DECLARED DOMAIN source is citable without a repo path, because it does not have one: its
+    // provenance is an external public authority — NIST, the IETF, BIS/CPMI — named by publisher and
+    // reachable at an https URL.
+    //
+    // Measured before this existed: `def-dom-hash` cited NIST-CSRC, the filter dropped it for having no
+    // path, and the answer was served with NO source at all — while `def-dom-serialization` kept its
+    // sources purely because RFC-8259 happens to match the ADR/RFC id shape below. A domain answer whose
+    // citation survives by coincidence of naming is not sourced.
+    //
+    // It stays fail-closed: the class must be declared, the publisher must be named, and the URL must be
+    // https. An undeclared source with no path is still not citable.
+    if (src.class === "domain") {
+      // MEMBERSHIP of the canonical registry, not the shape of the object in hand.
+      //
+      // The first version of this asked whether the source LOOKED like a domain source — declared
+      // class, a publisher, an https URL — and any object carrying those three fields would have
+      // passed, including an id that arrived from retrieval and was declared nowhere. "No repository
+      // path" must not become "trusted by default".
+      //
+      // The registry is derived from the declared sources, so a source is eligible exactly when the
+      // corpus says it exists. Everything else fails closed, as it did before the domain layer.
+      return isDeclaredDomainSource(src.id);
+    }
     // No provenance path — citable only if the id is a known public doc form (ADR/RFC); por omissão,
     // não citável (fecho por omissão). The authoritative policy lives in Rust (source_policy.rs).
     const id = String(src.id || "").trim();

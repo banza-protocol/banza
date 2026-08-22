@@ -1,0 +1,252 @@
+{
+  "_note": "The DECLARED engine capabilities. Factual coverage can be complete while the engine is still unable to use the facts, so capabilities are units of the universe with their own owners. A capability whose owner is null is reported UNOWNED by the closed-world guard — never silently omitted.",
+  "_owner_kinds": {
+    "positive_owner": "a test proving the capability works",
+    "negative_owner": "a test proving the capability does NOT fire where it must not",
+    "mutation_owner": "a mutation that removes the capability and is proven to go RED for its own semantic reason"
+  },
+  "capabilities": [
+    {
+      "semantic_id": "capability.domain_source_registry_membership",
+      "criticality": "P0",
+      "owning_component": "services/banzai-api/src/answerContract.js",
+      "positive_owner": "domain-source-provenance.test.js :: a declared authority is eligible and retained",
+      "negative_owner": "domain-source-provenance.test.js :: an external source that is not in the registry is not eligible evidence",
+      "mutation_owner": "D1/D2 — undeclared id, and a declared source stripped of its class"
+    },
+    {
+      "semantic_id": "capability.authority_precedence",
+      "criticality": "P0",
+      "owning_component": "engines/banzai-query-core/src/route.rs",
+      "positive_owner": "domain-authority-precedence.test.js :: a term BANZA defines is answered from BANZA authority",
+      "negative_owner": "domain-authority-precedence.test.js :: a term BANZA does not define reaches the domain layer",
+      "mutation_owner": "inject a competing domain concept, then invert the arm order — recorded in the test file"
+    },
+    {
+      "semantic_id": "capability.answer_locale",
+      "criticality": "P0",
+      "owning_component": "services/banzai-api/src/pipeline.js",
+      "positive_owner": "model-terminal-declares-locale.test.js :: the model terminal declares its locale on the result",
+      "negative_owner": "model-terminal-declares-locale.test.js :: the composer stamps the locale it was given, and does not invent one",
+      "mutation_owner": "remove the field; stamp a constant"
+    },
+    {
+      "semantic_id": "capability.pt_en_semantic_realization",
+      "criticality": "P0",
+      "owning_component": "services/banzai-api/src/knowledge.js",
+      "positive_owner": "entry-realization-matrix.test.js :: every entry is realized in both locales",
+      "negative_owner": "entry-realization-matrix.test.js :: a missing English realization fails closed",
+      "mutation_owner": "B1 — remove a required EN realization"
+    },
+    {
+      "semantic_id": "capability.pt_en_semantic_parity",
+      "criticality": "P0",
+      "owning_component": "services/banzai-api/src/knowledge.js",
+      "positive_owner": "bilingual-semantic-parity.test.js :: critical facts assert the same thing in both locales",
+      "negative_owner": "bilingual-semantic-parity.test.js :: an inverted negation is not parity",
+      "mutation_owner": "B2/B3/B4/B5 — invert a negation, change the threshold, production/pre-production, reference-implementation authority"
+    },
+    {
+      "semantic_id": "capability.generic_comparison",
+      "criticality": "P0",
+      "owning_component": "engines/banzai-query-core/src/compare.rs",
+      "positive_owner": "comparison_names_two_subjects.rs :: comparing two profiles reaches both sides",
+      "negative_owner": "comparison_names_two_subjects.rs :: a comparison is never answered with one of its sides",
+      "mutation_owner": "C1/C2/C3 — drop a side, substitute an unrelated side, serve one side only"
+    },
+    {
+      "semantic_id": "capability.comparison_two_sidedness",
+      "criticality": "P0",
+      "owning_component": "services/banzai-api/src/pipeline.js",
+      "positive_owner": "comparison-is-not-recomposed.test.js :: served from both sides, model reachable and unused",
+      "negative_owner": "comparison_names_two_subjects.rs :: a comparison with no combined entry resolves to nothing rather than to one side",
+      "mutation_owner": "C3 — composer outputs only A"
+    },
+    {
+      "semantic_id": "capability.comparison_independent_resolution",
+      "criticality": "P0",
+      "owning_component": "engines/banzai-query-core/src/compare.rs",
+      "positive_owner": "compare.rs :: both sides resolve independently without a combined entry",
+      "negative_owner": "compare.rs :: an unresolved side is reported, not hidden",
+      "mutation_owner": "C5 — remove the combined entry; generic resolution must still succeed"
+    },
+    {
+      "semantic_id": "capability.hybrid_domain_banza_relation",
+      "criticality": "P0",
+      "owning_component": "engines/banzai-query-core/src/hybrid.rs",
+      "positive_owner": "hybrid-relation.test.js :: the reference case resolves as a hybrid relation",
+      "negative_owner": "hybrid-relation.test.js :: 'no BANZA' is a scope qualifier, not a request for a relation",
+      "mutation_owner": "H3 — composer drops the BANZA half"
+    },
+    {
+      "semantic_id": "capability.hybrid_authority_split",
+      "criticality": "P0",
+      "owning_component": "services/banzai-api/src/pipeline.js",
+      "positive_owner": "hybrid-relation.test.js :: the BANZA half is present and separated from the subject half",
+      "negative_owner": "hybrid-relation.test.js :: a pure DOMAIN subject with no specific BANZA authority is not served as a relation",
+      "mutation_owner": "PROPERTY — remove both guards; a relation answer with only a domain source goes RED"
+    },
+    {
+      "semantic_id": "capability.subject_referent",
+      "criticality": "P1",
+      "owning_component": "services/banzai-api/src/pipeline.js",
+      "positive_owner": "conversational-referents.test.js :: a resolved turn establishes a semantic identity",
+      "negative_owner": "conversational-referents.test.js :: a follow-up with no conversation behind it is an underspecified first turn",
+      "mutation_owner": "R1 — drop previous_subject_id",
+      "conversational": true
+    },
+    {
+      "semantic_id": "capability.proform_followup",
+      "criticality": "P0",
+      "owning_component": "engines/banzai-query-core/src/context.rs",
+      "positive_owner": "pronominal-followup.test.js :: a pro-form follow-up resolves to the subject the previous turn established",
+      "negative_owner": "pronominal-followup.test.js :: an evidence request is not a pro-form reference to its own subject",
+      "mutation_owner": "empty the pro-form set",
+      "conversational": true
+    },
+    {
+      "semantic_id": "capability.ellipsis_followup",
+      "criticality": "P1",
+      "owning_component": "engines/banzai-query-core/src/context.rs",
+      "positive_owner": "pronominal-followup.test.js :: the elliptical follow-up still works",
+      "negative_owner": "conversational-referents.test.js :: an explicitly named target beats the inherited one",
+      "mutation_owner": "R2 — substitute an unrelated previous subject",
+      "conversational": true
+    },
+    {
+      "semantic_id": "capability.property_followup",
+      "criticality": "P1",
+      "owning_component": "engines/banzai-query-core/src/glossary.rs",
+      "positive_owner": "question_reaches_its_subject.rs :: the threshold names its own subject",
+      "negative_owner": "question_reaches_its_subject.rs :: none of these gates takes a question from a route it already had",
+      "mutation_owner": "remove the threshold alias",
+      "conversational": true
+    },
+    {
+      "semantic_id": "capability.comparison_followup",
+      "criticality": "P1",
+      "owning_component": "services/banzai-api/src/pipeline.js",
+      "positive_owner": "conversational-referents.test.js :: a comparison establishes BOTH sides, and a follow-up consumes both",
+      "negative_owner": "conversational-referents.test.js :: the Portuguese enclitic form is the same follow-up",
+      "mutation_owner": "R1/R2 — drop previous_subject_id; substitute a wrong side",
+      "conversational": true
+    },
+    {
+      "semantic_id": "capability.hybrid_followup",
+      "criticality": "P1",
+      "owning_component": "services/banzai-api/src/pipeline.js",
+      "positive_owner": "conversational-referents.test.js :: a hybrid keeps its relation active for the next turn",
+      "negative_owner": "hybrid-relation.test.js :: a two-concept comparison is still a comparison",
+      "mutation_owner": "R6 — drop hybrid_subject_id/hybrid_relation from the forwarded context",
+      "conversational": true
+    },
+    {
+      "semantic_id": "capability.document_followup",
+      "criticality": "P1",
+      "owning_component": "services/banzai-api/src/pipeline.js",
+      "positive_owner": "conversational-referents.test.js :: a document follow-up asks about the document's standing",
+      "negative_owner": "conversational-referents.test.js :: an explicitly named target beats the inherited one",
+      "mutation_owner": "R7 — lose the document context",
+      "conversational": true
+    },
+    {
+      "semantic_id": "capability.source_followup",
+      "criticality": "P1",
+      "owning_component": "services/banzai-api/src/pipeline.js",
+      "positive_owner": "source-followup.test.js :: source follow-up preserves target and returns evidence",
+      "negative_owner": "conversational-referents.test.js :: a follow-up with no conversation behind it is an underspecified first turn",
+      "mutation_owner": "R3 — drop the explicit-target check",
+      "conversational": true
+    },
+    {
+      "semantic_id": "capability.source_followup_not_hijacked",
+      "criticality": "P0",
+      "owning_component": "services/banzai-api/src/pipeline.js",
+      "positive_owner": "conversational-referents.test.js :: an evidence request stays an evidence request",
+      "negative_owner": "conversational-referents.test.js :: an explicitly named target beats the inherited one",
+      "mutation_owner": "R3 — the source follow-up becomes a standalone subject query",
+      "conversational": true
+    },
+    {
+      "semantic_id": "capability.authority_followup",
+      "criticality": "P1",
+      "owning_component": "services/banzai-api/src/pipeline.js",
+      "positive_owner": "conversational-referents.test.js :: a document follow-up asks about the document's standing",
+      "negative_owner": "conversational-referents.test.js :: a follow-up with no conversation behind it",
+      "mutation_owner": "R7 — lose the document context",
+      "conversational": true
+    },
+    {
+      "semantic_id": "capability.ambiguous_clarification",
+      "criticality": "P1",
+      "owning_component": "engines/banzai-query-core/src/context.rs",
+      "positive_owner": "reference-clarification-locale.test.js :: an unbound reference is explained in the reader's language",
+      "negative_owner": "reference-clarification-locale.test.js :: the Portuguese reader still gets the Portuguese sentence",
+      "mutation_owner": "serve the engine's Portuguese prose to an English reader",
+      "conversational": true
+    },
+    {
+      "semantic_id": "capability.grounded_model_banza_claim",
+      "criticality": "P0",
+      "owning_component": "services/banzai-api/src/pipeline.js",
+      "positive_owner": "hybrid-relation.test.js :: PROPERTY — a relation answer always carries eligible BANZA authority",
+      "negative_owner": "hybrid-relation.test.js :: PROPERTY — no served answer makes a BANZA-specific claim without BANZA authority",
+      "mutation_owner": "PROPERTY — remove both hybrid guards"
+    },
+    {
+      "semantic_id": "capability.false_premise_correction",
+      "criticality": "P0",
+      "owning_component": "engines/banzai-query-core/src/route.rs",
+      "positive_owner": "false_premise.rs",
+      "negative_owner": "question_reaches_its_subject.rs :: none of these is answered from the protocol summary",
+      "mutation_owner": "remove the requirement-frame gate"
+    },
+    {
+      "semantic_id": "capability.implementation_vs_protocol_boundary",
+      "criticality": "P0",
+      "owning_component": "engines/banzai-query-core/src/route.rs",
+      "positive_owner": "question_reaches_its_subject.rs :: a technology-choice question reaches the rule about technology choice",
+      "negative_owner": "known_word_is_not_a_typo.rs :: the question still reaches the rule about language choice",
+      "mutation_owner": "remove the technology-choice arm"
+    },
+    {
+      "semantic_id": "capability.current_runtime_truth",
+      "criticality": "P0",
+      "owning_component": "engines/banzai-query-core/src/glossary.rs",
+      "positive_owner": "question_reaches_its_subject.rs :: a readiness question reaches the lifecycle facts",
+      "negative_owner": "question_reaches_its_subject.rs :: an instruction to assume readiness still reaches the lifecycle facts",
+      "mutation_owner": "remove the readiness phrases"
+    },
+    {
+      "semantic_id": "capability.action_boundary_refusal",
+      "criticality": "P0",
+      "owning_component": "engines/banzai-query-core/src/route.rs",
+      "positive_owner": "boundary.test.js :: boundary recall = 1.0 — every sensitive action is refused before any model call",
+      "negative_owner": "boundary.test.js :: informational precision — near-boundary questions are NOT over-blocked (rate <= threshold)",
+      "mutation_owner": "B1/B2 — a destructive request routed past the gate, and a refusal stripped of its safe_response_id",
+      "entry_ids": [
+        "refuse-delete-document",
+        "refuse-remove-guard-or-bypass-ci",
+        "refuse-modify-trust-root",
+        "refuse-expose-or-generate-secret",
+        "refuse-infra-destructive",
+        "how-banzai-refuses",
+        "action-boundary-location"
+      ],
+      "_why": "The engine's most safety-critical behaviour was not a declared capability at all. Every other capability here is about being RIGHT; this one is about refusing to act, and it was the one left undeclared."
+    },
+    {
+      "semantic_id": "capability.tool_intent_detection",
+      "criticality": "P1",
+      "owning_component": "services/banzai-api/src/pipeline.js",
+      "positive_owner": "workbench-tool-routing.test.js",
+      "negative_owner": "primary-interface-architecture.test.js",
+      "mutation_owner": "B3 — a validation request answered as prose instead of routed to the tool surface",
+      "entry_ids": [
+        "tool-validate-conformance",
+        "tool-validate-evidence-bundle"
+      ]
+    }
+  ],
+  "_conversational_note": "A capability flagged `conversational` is a claim about turn N resolving against turn N-1. It cannot be demonstrated by a single question, so the closed-world guard requires at least one multi-turn journey to exercise it in production — unit-test ownership alone leaves the behaviour unproven on the deployed system."
+}

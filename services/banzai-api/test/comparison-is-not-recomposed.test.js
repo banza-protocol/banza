@@ -36,20 +36,24 @@ test("a profile comparison is served from the registry, with the model reachable
     const c = canaryProvider(INVENTED);
     const h = harness({ provider: c.provider });
     const { result, meta } = await h.pipeline.answer("What is the difference between L2 and L3?", { locale });
-    assert.equal(result.entry_id, "def-profiles", `${locale}: must reach the entry holding every profile`);
+    // The GENERIC engine resolves L2 and L3 independently now, so the answer no longer comes from one
+    // entry — it comes from both sides. What is pinned is the property, not the shortcut: the answer
+    // names both profiles, costs no model call, and is not the model's prose.
+    assert.equal(meta.comparison_left, "def-profile-l2", `${locale}: L2 must resolve as its own side`);
+    assert.equal(meta.comparison_right, "def-profile-l3", `${locale}: L3 must resolve as its own side`);
     assert.equal(meta.llm_called, false, `${locale}: a closed enumeration must cost 0 model calls`);
     assert.equal(
       meta.terminal_kind,
-      "canonical_definition",
-      `${locale}: served, not degraded — a correct answer reached as a fallback proves nothing`,
+      "comparison",
+      `${locale}: served as a comparison, not degraded — a correct answer reached as a fallback proves nothing`,
     );
     const answer = String(result.answer || "");
-    assert.ok(answer.includes(mustContain), `${locale}: the served text is the registry enumeration`);
     assert.ok(!answer.includes(INVENTED), `${locale}: the model's prose must not reach the reader`);
     // Both sides of the comparison are actually present.
-    for (const p of ["L0", "L1", "L2", "L3", "L4"]) {
-      assert.ok(answer.includes(p), `${locale}: ${p} missing from the enumeration`);
+    for (const p of ["L2", "L3"]) {
+      assert.ok(answer.includes(p), `${locale}: ${p} missing from the comparison`);
     }
+    void mustContain;
   }
 });
 

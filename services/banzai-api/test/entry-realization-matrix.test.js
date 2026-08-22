@@ -19,27 +19,37 @@ const BILINGUAL = ENTRIES.filter((e) => realizedLocales(e).includes("en"));
 const PT_ONLY = ENTRIES.filter((e) => !realizedLocales(e).includes("en"));
 
 /**
- * The bilingual floor. It RATCHETS: raise it when English realizations are added, never lower it.
+ * CLOSED WORLD — every reader-facing entry is realized in BOTH locales.
  *
- * This was an exact equality at 15, and equality was the wrong instrument. The failure the comment
- * below names is a bilingual pair being LOST — a floor catches that. What equality also caught was a
- * pair being GAINED, so every English realization added to the corpus arrived as a red test, and the
- * corpus is 178 entries of which most still have no English. A guard that fails on the work it exists
- * to encourage gets read as noise, and then it gets weakened.
+ * This began as an exact count (178, of which 15 bilingual), then as a ratchet, and it is now the
+ * property those two were approximating: a knowledge entry is an answer served to a reader, and a
+ * reader asks in one of two languages. An entry realized in only one of them is an answer that exists
+ * for some readers and not others — which is the defect the whole locale programme started from,
+ * reproduced one entry at a time.
+ *
+ * There is no exclusion list, and that is deliberate. Every entry in this corpus is reader-facing
+ * prose: the definitions, the refusals, the tool analyses and the illustrative examples alike. An
+ * entry that genuinely did not require linguistic realization would have to be justified here
+ * explicitly and falsifiably, and none does.
  */
-const BILINGUAL_FLOOR = 38;
-
-test("the corpus is the size the locale migration measured, and the bilingual set has not shrunk", () => {
-  // Non-vacuity, and a drift alarm: if entries are added without realizations, or a bilingual pair is
-  // lost, the counts move and this says so before the per-entry rules run against a changed world.
-  assert.equal(ENTRIES.length, 178, "deterministic entry count changed");
-  assert.ok(
-    BILINGUAL.length >= BILINGUAL_FLOOR,
-    `bilingual entries fell to ${BILINGUAL.length}, below the floor of ${BILINGUAL_FLOOR} — a realization was lost`,
+test("every entry is realized in both locales — no reader loses an answer to their language", () => {
+  const missing = { "pt-PT": [], en: [] };
+  for (const e of ENTRIES) {
+    for (const locale of ["pt-PT", "en"]) {
+      const r = answerFor(e, locale);
+      if (!r.available || !r.text) missing[locale].push(e.id);
+    }
+  }
+  assert.deepEqual(
+    missing,
+    { "pt-PT": [], en: [] },
+    `entries missing a realization:\n  pt-PT: ${missing["pt-PT"].join(", ")}\n  en: ${missing.en.join(", ")}`,
   );
-  assert.equal(BILINGUAL.length + PT_ONLY.length, ENTRIES.length, "every entry must fall in exactly one class");
+  // Non-vacuity: the corpus is real and large enough that the assertion above means something.
+  assert.ok(ENTRIES.length >= 200, `expected the full corpus, saw ${ENTRIES.length}`);
+  assert.equal(BILINGUAL.length, ENTRIES.length, "every entry must be in the bilingual class");
+  assert.equal(PT_ONLY.length, 0, "no entry may be Portuguese-only");
 });
-
 test("every bilingual entry serves a real, distinct realization in both locales", () => {
   const failures = [];
   for (const e of BILINGUAL) {
@@ -60,34 +70,42 @@ test("every bilingual entry serves a real, distinct realization in both locales"
   assert.deepEqual(failures, [], `${failures.length} of ${BILINGUAL.length} bilingual entries are not truly bilingual`);
 });
 
-test("every Portuguese-only entry fails closed in English, and never falls back", () => {
-  // The rule that keeps the original defect from returning at scale: an English request for an entry
-  // with no English realization must be TOLD SO, in English. Serving the Portuguese text instead is the
-  // defect; serving a Portuguese "unavailable" message is the same defect with a shorter sentence.
-  const failures = [];
-  for (const e of PT_ONLY) {
-    const pt = answerFor(e, "pt-PT");
-    const en = answerFor(e, "en");
-    const why = [];
-    if (!pt.available || !pt.text) why.push("lost its Portuguese realization");
-    if (pt.locale !== "pt-PT") why.push(`Portuguese realization declares locale ${pt.locale}`);
-    if (en.available !== false) why.push("English reports AVAILABLE for an entry with no English realization");
-    if (en.locale !== "en") why.push(`English unavailable state declares locale ${en.locale}`);
-    if (!en.text) why.push("English unavailable state carries no text at all");
-    if (en.text && en.text === pt.text) why.push("English request was served the Portuguese text — cross-locale fallback");
-    if (why.length) failures.push(`${e.id}: ${why.join("; ")}`);
-  }
-  assert.deepEqual(failures, [], `${failures.length} of ${PT_ONLY.length} Portuguese-only entries mishandle an English request`);
+/**
+ * The FAIL-CLOSED mechanism, exercised on a synthetic entry rather than on the corpus.
+ *
+ * These two properties used to sample the Portuguese-only class. That class is now empty — every entry
+ * is realized in both locales — and a test that samples an empty class either passes vacuously or, as
+ * this one did, fails on its own non-vacuity assertion.
+ *
+ * Emptying the class is the goal, not a reason to delete the guard. The machinery still has to fail
+ * closed if a future entry arrives with one locale missing, so it is exercised directly, on an entry
+ * built here for the purpose. The property survives its own success.
+ */
+const SYNTHETIC_PT_ONLY = Object.freeze({
+  id: "synthetic-pt-only",
+  realizations: { "pt-PT": "Uma resposta que existe apenas em português." },
+});
+
+test("a missing English realization fails closed — never the Portuguese text", () => {
+  const pt = answerFor(SYNTHETIC_PT_ONLY, "pt-PT");
+  const en = answerFor(SYNTHETIC_PT_ONLY, "en");
+  assert.equal(pt.available, true, "the Portuguese realization is there");
+  assert.equal(pt.locale, "pt-PT");
+  assert.equal(en.available, false, "English must be reported as unavailable, not substituted");
+  assert.equal(en.locale, "en", "the unavailable state declares the locale that asked");
+  assert.ok(en.text, "the unavailable state must say something");
+  assert.notEqual(en.text, pt.text, "an English request must never be served the Portuguese text");
 });
 
 test("the unavailable state is itself localized, not one shared sentence", () => {
-  // A fail-closed path that answers in Portuguese is still answering in the wrong language. Sampled
-  // across the class because the property is about the SHAPE of the unavailable state, which is shared.
-  const sample = PT_ONLY.slice(0, 5);
-  assert.ok(sample.length >= 5, "sample too small to mean anything");
-  for (const e of sample) {
-    const en = answerFor(e, "en");
-    assert.equal(en.locale, "en");
-    assert.notEqual(en.text, answerFor(e, "pt-PT").text);
-  }
+  // A fail-closed path that answers in Portuguese is still answering in the wrong language.
+  const en = answerFor(SYNTHETIC_PT_ONLY, "en");
+  const ptMissing = answerFor({ id: "synthetic-en-only", realizations: { en: "An answer only in English." } }, "pt-PT");
+  assert.equal(ptMissing.available, false);
+  assert.equal(ptMissing.locale, "pt-PT");
+  assert.notEqual(
+    en.text,
+    ptMissing.text,
+    "the two unavailable states must be different sentences, one per locale",
+  );
 });

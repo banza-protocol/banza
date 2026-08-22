@@ -1,0 +1,487 @@
+{
+  "_note": "The DECLARED domain concept universe. `authority_class` records which layer answers the concept: a domain concept BANZA defines is answered from BANZA authority, and only one it does not define falls to the domain layer.",
+  "concepts": [
+    {
+      "id": "ledger",
+      "entry_id": "def-ledger",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "ADR-012",
+        "invariants"
+      ],
+      "hybrid": true
+    },
+    {
+      "id": "account",
+      "entry_id": "def-dom-account",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "BIS-CPMI"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "balance",
+      "entry_id": "def-balance",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "invariants",
+        "ADR-012"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "payment",
+      "entry_id": "def-payment",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "invariants",
+        "SPEC-OVERVIEW"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "transfer",
+      "entry_id": "def-dom-transfer",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "BIS-CPMI"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "payment-initiation",
+      "entry_id": "def-payment",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "invariants",
+        "SPEC-OVERVIEW"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "clearing",
+      "entry_id": "def-clearing",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "PROTOCOL-GLOSSARY",
+        "SPEC-OVERVIEW"
+      ],
+      "hybrid": true
+    },
+    {
+      "id": "settlement",
+      "entry_id": "def-settlement",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "invariants",
+        "SPEC-OVERVIEW",
+        "PROTOCOL-GLOSSARY"
+      ],
+      "hybrid": true
+    },
+    {
+      "id": "reconciliation",
+      "entry_id": "def-reconciliation",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "invariants",
+        "ADR-012"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "refund",
+      "entry_id": "def-refund",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "invariants",
+        "ADR-012"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "reversal",
+      "entry_id": "def-refund",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "invariants",
+        "ADR-012"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "merchant",
+      "entry_id": "def-dom-merchant",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "BIS-CPMI"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "issuer",
+      "entry_id": "def-dom-issuer",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "BIS-CPMI"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "acquirer",
+      "entry_id": "def-dom-acquirer",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "BIS-CPMI"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "psp",
+      "entry_id": "def-psp",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "ADR-001",
+        "ADR-001",
+        "PROTOCOL-GLOSSARY"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "wallet",
+      "entry_id": "def-wallet",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "invariants",
+        "SPEC-OVERVIEW"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "payment-rail",
+      "entry_id": "def-dom-payment-rail",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "BIS-PFMI",
+        "BIS-CPMI"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "payment-scheme",
+      "entry_id": "def-dom-payment-scheme",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "BIS-PFMI",
+        "BIS-CPMI"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "hash",
+      "entry_id": "def-dom-hash",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "NIST-CSRC"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "digital-signature",
+      "entry_id": "def-dom-digital-signature",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "NIST-FIPS-186",
+        "RFC-8032"
+      ],
+      "hybrid": true
+    },
+    {
+      "id": "keypair",
+      "entry_id": "def-dom-keypair",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "NIST-SP-800-57"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "ed25519",
+      "entry_id": "def-dom-ed25519",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "RFC-8032"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "trust-root",
+      "entry_id": "how-trust-works",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "ADR-025",
+        "ADR-025",
+        "ANNEX"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "key-rotation",
+      "entry_id": "def-dom-key-rotation",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "NIST-SP-800-57"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "revocation",
+      "entry_id": "def-revocation",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "SCHEMA-BRL",
+        "SPEC-FED-TRUST"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "canonicalization",
+      "entry_id": "def-bcj",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "SPEC",
+        "SPEC-OVERVIEW"
+      ],
+      "hybrid": true
+    },
+    {
+      "id": "replay",
+      "entry_id": "def-dom-replay",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "NIST-CSRC"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "nonce",
+      "entry_id": "def-dom-nonce",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "NIST-CSRC"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "authentication",
+      "entry_id": "def-dom-authentication",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "NIST-CSRC"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "integrity",
+      "entry_id": "def-dom-integrity",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "NIST-CSRC"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "idempotency",
+      "entry_id": "def-idempotency",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "invariants",
+        "GETTING-STARTED"
+      ],
+      "hybrid": true
+    },
+    {
+      "id": "retry",
+      "entry_id": "def-dom-retry",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "NIST-CSRC"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "timeout",
+      "entry_id": "def-dom-timeout",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "NIST-CSRC"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "state-machine",
+      "entry_id": "def-dom-state-machine",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "NIST-CSRC"
+      ],
+      "hybrid": true
+    },
+    {
+      "id": "determinism",
+      "entry_id": "def-dom-determinism",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "NIST-CSRC"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "consistency",
+      "entry_id": "def-dom-consistency",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "NIST-CSRC"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "fail-closed",
+      "entry_id": "how-trust-works",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "ADR-025",
+        "ADR-025",
+        "ANNEX"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "safe-degradation",
+      "entry_id": "def-dom-safe-degradation",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "NIST-CSRC"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "resilience",
+      "entry_id": "def-dom-resilience-general",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "NIST-CSRC"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "availability",
+      "entry_id": "def-dom-availability",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "NIST-CSRC"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "rollback",
+      "entry_id": "def-rollback",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "RUNBOOK",
+        "GOVERNANCE-GLOSSARY"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "api",
+      "entry_id": "def-api-schema",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "SCHEMA-OP-MANIFEST",
+        "SCHEMA-FED-MANIFEST",
+        "SPEC-OVERVIEW"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "http",
+      "entry_id": "def-dom-http",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "RFC-9110"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "json",
+      "entry_id": "def-json-format",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "README",
+        "ADR-038"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "schema",
+      "entry_id": "def-api-schema",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "SCHEMA-OP-MANIFEST",
+        "SCHEMA-FED-MANIFEST",
+        "SPEC-OVERVIEW"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "contract",
+      "entry_id": "def-api-schema",
+      "authority_class": "BANZA",
+      "source_ids": [
+        "SCHEMA-OP-MANIFEST",
+        "SCHEMA-FED-MANIFEST",
+        "SPEC-OVERVIEW"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "endpoint",
+      "entry_id": "def-dom-endpoint",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "RFC-9110"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "versioning",
+      "entry_id": "def-dom-versioning",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "JSON-SCHEMA"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "backward-compatibility",
+      "entry_id": "def-dom-backward-compatibility",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "JSON-SCHEMA"
+      ],
+      "hybrid": false
+    },
+    {
+      "id": "serialization",
+      "entry_id": "def-dom-serialization",
+      "authority_class": "DOMAIN",
+      "source_ids": [
+        "RFC-8259",
+        "RFC-8785"
+      ],
+      "hybrid": false
+    }
+  ]
+}

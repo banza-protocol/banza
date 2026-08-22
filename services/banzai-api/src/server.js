@@ -56,6 +56,17 @@ const CONVERSATION_CONTEXT_FIELDS = [
   // `observed_at` (an ISO timestamp) get their own looser-but-still-safe sanitizers below.
   "last_document_id",
   "last_metric",
+  // ── SEMANTIC REFERENTS ─────────────────────────────────────────────────────────────────────────
+  //
+  // The IDENTITIES the previous turn resolved, as opposed to `last_subject`, which is a human label.
+  // All id-shaped, so the strict token sanitizer already fits them: letters, digits and `._:-`, capped,
+  // never free text. They are hints like every other client-carried field — the server re-resolves what
+  // they name and never treats a carried id as authority.
+  "last_subject_id",
+  "comparison_left",
+  "comparison_right",
+  "hybrid_subject_id",
+  "hybrid_relation",
 ];
 function safeCtxToken(v, max = 80) {
   return typeof v === "string" ? v.replace(/[^A-Za-z0-9._:-]/g, "").slice(0, max) : "";

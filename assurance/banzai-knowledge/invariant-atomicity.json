@@ -1,0 +1,405 @@
+{
+  "_note": "ATOMICITY DECISION. The semantic-unit granularity is the INDEPENDENTLY FALSIFIABLE PROPOSITION — not the registry id, and not the registry family. Every critical member was read and asked: can this be true while a sibling in the same family is false? For all 55 the answer is yes, so all 55 become atomic units. The 12 family units are RETAINED for the explanatory question a reader actually asks (\"what are the ledger invariants?\"), which the atomic units do not replace.",
+  "reviewed": 55,
+  "families": {
+    "INV-COLLECTION": 6,
+    "INV-FED": 8,
+    "INV-FEDEVAL": 6,
+    "INV-IDEM": 1,
+    "INV-LEDGER": 5,
+    "INV-OTE": 8,
+    "INV-QR": 5,
+    "INV-ROOT": 11,
+    "INV-STL": 2,
+    "INV-TRACE": 1,
+    "INV-WALLET": 1,
+    "MON-001": 1
+  },
+  "members": [
+    {
+      "registry_member": "INV-LEDGER-001",
+      "family": "INV-LEDGER",
+      "semantic_proposition": "banza.invariant.inv-ledger-001",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-LEDGER-002",
+      "family": "INV-LEDGER",
+      "semantic_proposition": "banza.invariant.inv-ledger-002",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-LEDGER-003",
+      "family": "INV-LEDGER",
+      "semantic_proposition": "banza.invariant.inv-ledger-003",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable despite overlapping with MON-001 — the two state the same prohibition at DIFFERENT scopes (one wallet/total level, one ledger-entry level), and an implementation can hold one scope and break the other"
+    },
+    {
+      "registry_member": "INV-LEDGER-004",
+      "family": "INV-LEDGER",
+      "semantic_proposition": "banza.invariant.inv-ledger-004",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-LEDGER-005",
+      "family": "INV-LEDGER",
+      "semantic_proposition": "banza.invariant.inv-ledger-005",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-WALLET-001",
+      "family": "INV-WALLET",
+      "semantic_proposition": "banza.invariant.inv-wallet-001",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-STL-001",
+      "family": "INV-STL",
+      "semantic_proposition": "banza.invariant.inv-stl-001",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-STL-002",
+      "family": "INV-STL",
+      "semantic_proposition": "banza.invariant.inv-stl-002",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-IDEM-001",
+      "family": "INV-IDEM",
+      "semantic_proposition": "banza.invariant.inv-idem-001",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-TRACE-001",
+      "family": "INV-TRACE",
+      "semantic_proposition": "banza.invariant.inv-trace-001",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "MON-001",
+      "family": "MON-001",
+      "semantic_proposition": "banza.invariant.mon-001",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-QR-001",
+      "family": "INV-QR",
+      "semantic_proposition": "banza.invariant.inv-qr-001",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-QR-002",
+      "family": "INV-QR",
+      "semantic_proposition": "banza.invariant.inv-qr-002",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-QR-003",
+      "family": "INV-QR",
+      "semantic_proposition": "banza.invariant.inv-qr-003",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-QR-004",
+      "family": "INV-QR",
+      "semantic_proposition": "banza.invariant.inv-qr-004",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-QR-SIGN-001",
+      "family": "INV-QR",
+      "semantic_proposition": "banza.invariant.inv-qr-sign-001",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-OTE-001",
+      "family": "INV-OTE",
+      "semantic_proposition": "banza.invariant.inv-ote-001",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-OTE-002",
+      "family": "INV-OTE",
+      "semantic_proposition": "banza.invariant.inv-ote-002",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-OTE-003",
+      "family": "INV-OTE",
+      "semantic_proposition": "banza.invariant.inv-ote-003",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-OTE-004",
+      "family": "INV-OTE",
+      "semantic_proposition": "banza.invariant.inv-ote-004",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-OTE-005",
+      "family": "INV-OTE",
+      "semantic_proposition": "banza.invariant.inv-ote-005",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-OTE-007",
+      "family": "INV-OTE",
+      "semantic_proposition": "banza.invariant.inv-ote-007",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-OTE-008",
+      "family": "INV-OTE",
+      "semantic_proposition": "banza.invariant.inv-ote-008",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-OTE-009",
+      "family": "INV-OTE",
+      "semantic_proposition": "banza.invariant.inv-ote-009",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-FEDEVAL-001",
+      "family": "INV-FEDEVAL",
+      "semantic_proposition": "banza.invariant.inv-fedeval-001",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-FEDEVAL-002",
+      "family": "INV-FEDEVAL",
+      "semantic_proposition": "banza.invariant.inv-fedeval-002",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-FEDEVAL-003",
+      "family": "INV-FEDEVAL",
+      "semantic_proposition": "banza.invariant.inv-fedeval-003",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-FEDEVAL-004",
+      "family": "INV-FEDEVAL",
+      "semantic_proposition": "banza.invariant.inv-fedeval-004",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-FEDEVAL-006",
+      "family": "INV-FEDEVAL",
+      "semantic_proposition": "banza.invariant.inv-fedeval-006",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-FEDEVAL-008",
+      "family": "INV-FEDEVAL",
+      "semantic_proposition": "banza.invariant.inv-fedeval-008",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-ROOT-001",
+      "family": "INV-ROOT",
+      "semantic_proposition": "banza.invariant.inv-root-001",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-ROOT-002",
+      "family": "INV-ROOT",
+      "semantic_proposition": "banza.invariant.inv-root-002",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-ROOT-003",
+      "family": "INV-ROOT",
+      "semantic_proposition": "banza.invariant.inv-root-003",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-ROOT-004",
+      "family": "INV-ROOT",
+      "semantic_proposition": "banza.invariant.inv-root-004",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-ROOT-005",
+      "family": "INV-ROOT",
+      "semantic_proposition": "banza.invariant.inv-root-005",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-ROOT-006",
+      "family": "INV-ROOT",
+      "semantic_proposition": "banza.invariant.inv-root-006",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-ROOT-007",
+      "family": "INV-ROOT",
+      "semantic_proposition": "banza.invariant.inv-root-007",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-ROOT-011",
+      "family": "INV-ROOT",
+      "semantic_proposition": "banza.invariant.inv-root-011",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-ROOT-012",
+      "family": "INV-ROOT",
+      "semantic_proposition": "banza.invariant.inv-root-012",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-ROOT-013",
+      "family": "INV-ROOT",
+      "semantic_proposition": "banza.invariant.inv-root-013",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-ROOT-014",
+      "family": "INV-ROOT",
+      "semantic_proposition": "banza.invariant.inv-root-014",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-FED-001",
+      "family": "INV-FED",
+      "semantic_proposition": "banza.invariant.inv-fed-001",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-FED-002",
+      "family": "INV-FED",
+      "semantic_proposition": "banza.invariant.inv-fed-002",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-FED-004",
+      "family": "INV-FED",
+      "semantic_proposition": "banza.invariant.inv-fed-004",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-FED-005",
+      "family": "INV-FED",
+      "semantic_proposition": "banza.invariant.inv-fed-005",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-FED-007",
+      "family": "INV-FED",
+      "semantic_proposition": "banza.invariant.inv-fed-007",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-FED-LEDGER-001",
+      "family": "INV-FED",
+      "semantic_proposition": "banza.invariant.inv-fed-ledger-001",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable despite overlapping with INV-FED-005 — the two state the same prohibition at DIFFERENT scopes (one wallet/total level, one ledger-entry level), and an implementation can hold one scope and break the other"
+    },
+    {
+      "registry_member": "INV-FED-LEDGER-002",
+      "family": "INV-FED",
+      "semantic_proposition": "banza.invariant.inv-fed-ledger-002",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-FED-IDEM-001",
+      "family": "INV-FED",
+      "semantic_proposition": "banza.invariant.inv-fed-idem-001",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-COLLECTION-001",
+      "family": "INV-COLLECTION",
+      "semantic_proposition": "banza.invariant.inv-collection-001",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-COLLECTION-002",
+      "family": "INV-COLLECTION",
+      "semantic_proposition": "banza.invariant.inv-collection-002",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-COLLECTION-003",
+      "family": "INV-COLLECTION",
+      "semantic_proposition": "banza.invariant.inv-collection-003",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-COLLECTION-004",
+      "family": "INV-COLLECTION",
+      "semantic_proposition": "banza.invariant.inv-collection-004",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-COLLECTION-005",
+      "family": "INV-COLLECTION",
+      "semantic_proposition": "banza.invariant.inv-collection-005",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    },
+    {
+      "registry_member": "INV-COLLECTION-006",
+      "family": "INV-COLLECTION",
+      "semantic_proposition": "banza.invariant.inv-collection-006",
+      "merged_with_sibling": "NO",
+      "reason": "independently falsifiable — an implementation can satisfy every sibling in this family and violate this one"
+    }
+  ]
+}

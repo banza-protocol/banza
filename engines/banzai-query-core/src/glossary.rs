@@ -129,6 +129,11 @@ fn is_comparison_query(nq: &str) -> bool {
 ///
 /// Whole-token, so "l3" inside another token cannot inflate the count, and "level 3" is read as well as
 /// "L3" — the two spellings reach the same registry.
+/// Re-exported for the router's comparison guard, which must exempt the profile family.
+pub fn profiles_named_pub(nq: &str) -> usize {
+    profiles_named(nq)
+}
+
 fn profiles_named(nq: &str) -> usize {
     let mut seen = 0;
     for (short, long) in [
@@ -192,6 +197,23 @@ fn is_locative_query(nq: &str) -> bool {
         || q.starts_with("where are ")
         || q.starts_with("where do ")
         || q.starts_with("where does ")
+        // The CONDITIONAL forms. "Where would balances live?" asks the same question as "where do
+        // balances live?" and reached nothing, while its Portuguese conditional ("onde ficariam…")
+        // resolved through the `onde ` prefix. A locative question must not depend on its mood.
+        || q.starts_with("where would ")
+        || q.starts_with("where should ")
+        || q.starts_with("where can ")
+        || q.starts_with("where could ")
+}
+
+/// A query shaped like a request for a DOMAIN definition.
+///
+/// Deliberately the shapes this file's own gate accepts, and no more: a definition or explanatory lead
+/// (with any trailing style qualifier removed), or a bare term. A domain concept merely mentioned
+/// inside a longer operational question is not a request to define it.
+pub fn is_domain_definition_shape(nq: &str) -> bool {
+    let nq = without_style_qualifier(nq);
+    starts_definition_lead(nq) || count(nq) <= 2
 }
 
 fn starts_definition_lead(nq: &str) -> bool {
@@ -625,6 +647,16 @@ fn is_trust_guarantee_phrase(nq: &str) -> bool {
         &[
             "transparencia global",
             "global transparency",
+            // Global CONSENSUS is the same guarantee question in the shape readers actually ask it,
+            // and it reached nothing. `def-trust-guarantees` states precisely which guarantees the
+            // protocol provides and which it does not — freshness and local monotonicity yes, set
+            // consistency and cross-observer consistency no — which is the honest answer to "does that
+            // imply global consensus?". Measured in the trust journey: turn 5 refused in both locales.
+            "implica consenso global",
+            "imply global consensus",
+            "implies global consensus",
+            "significa consenso global",
+            "mean global consensus",
             "split-view",
             "split view",
             "consistencia de conjunto",
@@ -831,8 +863,8 @@ fn is_local_execution_phrase(nq: &str) -> bool {
         &[
             "consenso global",
             "global consensus",
-            "consenso distribuido",
-            "distributed consensus",
+            "usa consenso global",
+            "uses global consensus",
             "processador central",
             "central processor",
             "central transaction",
@@ -1123,6 +1155,29 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
             "legal supervision",
             "supervises an operator",
             "supervisiona um operador",
+        ],
+    ),
+    // "Quem controla a Root?" — the question that started this milestone. It must reach the Root
+    // authorisation model, and never the record about operator authority.
+    (
+        "def-root-authorization",
+        &[
+            "controla a root",
+            "controla a raiz",
+            "controls the root",
+            "quem controla a trust root",
+            "who controls the trust root",
+            // THE threshold. Measured across the canonical corpus, every occurrence of "limiar" is the
+            // root authority threshold — there is no competing threshold in BANZA — so the word names
+            // its subject unqualified, and a reader who asks for it after being told there are three
+            // authorities is asking about that one.
+            //
+            // "Qual é o limiar?" was refused in production at `src-acfba64`: turn 3 of the trust journey
+            // answered "três autoridades de assinatura independentes [...] quaisquer duas das três", and
+            // turn 4 was told no public source supports the request. The engine held the answer and
+            // declined to give it because the question named its subject in one fewer word.
+            "limiar",
+            "threshold",
         ],
     ),
     // "Quem controla a Root?" — the question that started this milestone. It must reach the Root
@@ -1549,6 +1604,15 @@ fn term_of(nq: &str) -> Option<&'static str> {
         nq,
         &[
             "transparencia global",
+            // The same guarantee question in the shape readers ask it. This is the TERM arm; the gate
+            // predicate `is_trust_guarantee_phrase` carries the same phrases. Adding them there alone
+            // opened the gate with nothing behind it — the exact failure this file documents twice —
+            // and "consenso global" resolved to nothing while looking handled.
+            "implica consenso global",
+            "imply global consensus",
+            "implies global consensus",
+            "significa consenso global",
+            "mean global consensus",
             "global transparency",
             "split-view",
             "split view",
@@ -2104,10 +2168,23 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
     // Any other comparison returns None rather than serving one side as though it were the answer. That
     // is not an improvement in what is known; it is the difference between an incomplete answer a reader
     // can see and a confident one they cannot.
-    if is_comparison_query(nq) {
+    if is_comparison_query(nq) || crate::compare::is_comparison(nq) {
+        // The profile family keeps its high-confidence shortcut: `def-profiles` carries all five with
+        // each profile's purpose and inheritance, derived from the canonical registry and realized in
+        // both locales, so it is a better answer than composing two definitions. It is an OPTIMIZATION
+        // now, not the mechanism — `compare::plan` resolves L2 and L3 independently without it, which
+        // is what mutation C5 proves.
         if profiles_named(nq) >= 2 {
             return Some("def-profiles");
         }
+        // Otherwise the generic engine plans the comparison. It resolves each side through the same
+        // resolvers a single-subject question uses, and both sides travel separately from here.
+        //
+        // Returning None on an incomplete plan is deliberate and is NOT the same as knowing nothing: a
+        // comparison with one side unresolved must reach the honest path, never a generic entry that
+        // happens to mention the resolved side. Measured before this: "qual a diferença entre settlement
+        // e o que o BANZA especifica" — whose right side is a question fragment, not a concept — routed
+        // to `what-is-banza` and would have been answered with the protocol summary.
         return None;
     }
     // "como se substitui uma autoridade da raiz?" reads as operational, and the operational arm would

@@ -532,6 +532,33 @@ function classify_query_intent_str(question) {
 exports.classify_query_intent_str = classify_query_intent_str;
 
 /**
+ * Node WASM: the COMPARISON PLAN for a question — two independently resolved targets, their knowledge
+ * classes and the authority the comparison requires.
+ *
+ * The plan is what the pipeline packages evidence from. It is never an answer: both sides must resolve
+ * before a comparison may be composed, and `both_resolved` is what says so. A comparison the engine
+ * cannot plan is one the reader is told it cannot plan, rather than one answered with whichever side
+ * happened to resolve.
+ * @param {string} question
+ * @returns {string}
+ */
+function comparison_plan_json(question) {
+    let deferred2_0;
+    let deferred2_1;
+    try {
+        const ptr0 = passStringToWasm0(question, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ret = wasm.comparison_plan_json(ptr0, len0);
+        deferred2_0 = ret[0];
+        deferred2_1 = ret[1];
+        return getStringFromWasm0(ret[0], ret[1]);
+    } finally {
+        wasm.__wbindgen_free(deferred2_0, deferred2_1, 1);
+    }
+}
+exports.comparison_plan_json = comparison_plan_json;
+
+/**
  * M2.18B.7 (TFG-3) — classify HOW conversation context resolved the current turn (typed trace) and the
  * question whose TASK governs the answer shape (the current turn always wins over a prior turn's verb).
  * Returns `{ context_used_for, task_question }`. Deterministic, no model.
@@ -776,6 +803,32 @@ function generate_candidates_json(question, max) {
     }
 }
 exports.generate_candidates_json = generate_candidates_json;
+
+/**
+ * Node WASM: the HYBRID RELATION PLAN — one subject, and the BANZA relation being asked about.
+ *
+ * Distinct from a comparison, which has two genuine semantic targets. "settlement vs what BANZA
+ * specifies" names ONE concept and asks for the protocol's position on it; "what BANZA specifies" is
+ * not a concept and is not forced into one. The authority split rides on this: DOMAIN evidence may say
+ * what the subject means, and only BANZA evidence may say what BANZA requires of it.
+ * @param {string} question
+ * @returns {string}
+ */
+function hybrid_plan_json(question) {
+    let deferred2_0;
+    let deferred2_1;
+    try {
+        const ptr0 = passStringToWasm0(question, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ret = wasm.hybrid_plan_json(ptr0, len0);
+        deferred2_0 = ret[0];
+        deferred2_1 = ret[1];
+        return getStringFromWasm0(ret[0], ret[1]);
+    } finally {
+        wasm.__wbindgen_free(deferred2_0, deferred2_1, 1);
+    }
+}
+exports.hybrid_plan_json = hybrid_plan_json;
 
 /**
  * Node WASM (M2.13C-A): the SOURCE-RANKING matrix for a question's intent. Returns

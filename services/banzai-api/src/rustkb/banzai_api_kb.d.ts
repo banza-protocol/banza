@@ -151,6 +151,17 @@ export function classify_diagnosis_json(input_json: string): string;
 export function classify_query_intent_str(question: string): string;
 
 /**
+ * Node WASM: the COMPARISON PLAN for a question — two independently resolved targets, their knowledge
+ * classes and the authority the comparison requires.
+ *
+ * The plan is what the pipeline packages evidence from. It is never an answer: both sides must resolve
+ * before a comparison may be composed, and `both_resolved` is what says so. A comparison the engine
+ * cannot plan is one the reader is told it cannot plan, rather than one answered with whichever side
+ * happened to resolve.
+ */
+export function comparison_plan_json(question: string): string;
+
+/**
  * M2.18B.7 (TFG-3) — classify HOW conversation context resolved the current turn (typed trace) and the
  * question whose TASK governs the answer shape (the current turn always wins over a prior turn's verb).
  * Returns `{ context_used_for, task_question }`. Deterministic, no model.
@@ -227,6 +238,16 @@ export function explain_reason_code_json(question: string): string;
  * may SELECT among — it never invents an id. Empty when nothing scores above the floor.
  */
 export function generate_candidates_json(question: string, max: number): string;
+
+/**
+ * Node WASM: the HYBRID RELATION PLAN — one subject, and the BANZA relation being asked about.
+ *
+ * Distinct from a comparison, which has two genuine semantic targets. "settlement vs what BANZA
+ * specifies" names ONE concept and asks for the protocol's position on it; "what BANZA specifies" is
+ * not a concept and is not forced into one. The authority split rides on this: DOMAIN evidence may say
+ * what the subject means, and only BANZA evidence may say what BANZA requires of it.
+ */
+export function hybrid_plan_json(question: string): string;
 
 /**
  * Node WASM (M2.13C-A): the SOURCE-RANKING matrix for a question's intent. Returns

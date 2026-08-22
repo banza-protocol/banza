@@ -1,0 +1,349 @@
+{
+  "_generated_by": "tools/gen-banzai-domain-terms.mjs",
+  "concepts": [
+    {
+      "id": "def-dom-account",
+      "aliases": [
+        "what is an account",
+        "o que e uma conta",
+        "o que e conta",
+        "account",
+        "conta"
+      ]
+    },
+    {
+      "id": "def-dom-accreditation",
+      "aliases": [
+        "what is accreditation",
+        "o que e acreditacao",
+        "accreditation",
+        "acreditacao",
+        "acreditar"
+      ]
+    },
+    {
+      "id": "def-dom-acquirer",
+      "aliases": [
+        "o que e um adquirente",
+        "what is an acquirer",
+        "adquirente",
+        "acquirer"
+      ]
+    },
+    {
+      "id": "def-dom-authentication",
+      "aliases": [
+        "what is authentication",
+        "o que e autenticacao",
+        "authentication",
+        "autenticacao",
+        "autenticar"
+      ]
+    },
+    {
+      "id": "def-dom-authorization",
+      "aliases": [
+        "what is authorization",
+        "o que e autorizacao",
+        "authorisation",
+        "authorization",
+        "autorizacao",
+        "autorizar"
+      ]
+    },
+    {
+      "id": "def-dom-availability",
+      "aliases": [
+        "o que e disponibilidade",
+        "what is availability",
+        "disponibilidade",
+        "availability",
+        "uptime"
+      ]
+    },
+    {
+      "id": "def-dom-backward-compatibility",
+      "aliases": [
+        "compativel com versoes anteriores",
+        "what is backward compatibility",
+        "compatibilidade retroativa",
+        "backward compatibility",
+        "retrocompatibilidade"
+      ]
+    },
+    {
+      "id": "def-dom-consistency",
+      "aliases": [
+        "o que e consistencia",
+        "what is consistency",
+        "consistencia",
+        "consistency",
+        "consistente"
+      ]
+    },
+    {
+      "id": "def-dom-database",
+      "aliases": [
+        "o que e uma base de dados",
+        "what is a database",
+        "banco de dados",
+        "base de dados",
+        "database"
+      ]
+    },
+    {
+      "id": "def-dom-determinism",
+      "aliases": [
+        "o que e determinismo",
+        "what is determinism",
+        "deterministico",
+        "determinismo",
+        "determinism"
+      ]
+    },
+    {
+      "id": "def-dom-digital-signature",
+      "aliases": [
+        "o que e uma assinatura digital",
+        "what is a digital signature",
+        "assinaturas digitais",
+        "assinatura digital",
+        "digital signature"
+      ]
+    },
+    {
+      "id": "def-dom-ed25519",
+      "aliases": [
+        "o que e ed25519",
+        "what is ed25519",
+        "curve25519",
+        "ed25519",
+        "eddsa"
+      ]
+    },
+    {
+      "id": "def-dom-endpoint",
+      "aliases": [
+        "o que e um endpoint",
+        "what is an endpoint",
+        "ponto final",
+        "url de api",
+        "endpoint"
+      ]
+    },
+    {
+      "id": "def-dom-hash",
+      "aliases": [
+        "o que e um hash",
+        "funcao de hash",
+        "what is a hash",
+        "hash function",
+        "digest",
+        "hash"
+      ]
+    },
+    {
+      "id": "def-dom-http",
+      "aliases": [
+        "protocolo http",
+        "o que e http",
+        "what is http",
+        "https",
+        "http"
+      ]
+    },
+    {
+      "id": "def-dom-integrity",
+      "aliases": [
+        "integridade dos dados",
+        "o que e integridade",
+        "what is integrity",
+        "integridade",
+        "integrity"
+      ]
+    },
+    {
+      "id": "def-dom-issuer",
+      "aliases": [
+        "o que e um emissor",
+        "what is an issuer",
+        "emissor",
+        "issuer"
+      ]
+    },
+    {
+      "id": "def-dom-key-rotation",
+      "aliases": [
+        "o que e rotacao de chaves",
+        "what is key rotation",
+        "rotacao de chaves",
+        "key rotation",
+        "rodar chaves"
+      ]
+    },
+    {
+      "id": "def-dom-keypair",
+      "aliases": [
+        "criptografia assimetrica",
+        "what is a public key",
+        "chave privada",
+        "chave publica",
+        "par de chaves",
+        "private key",
+        "asymmetric",
+        "public key",
+        "key pair"
+      ]
+    },
+    {
+      "id": "def-dom-merchant",
+      "aliases": [
+        "o que e um comerciante",
+        "what is a merchant",
+        "comerciante",
+        "aceitante",
+        "merchant"
+      ]
+    },
+    {
+      "id": "def-dom-nonce",
+      "aliases": [
+        "numero usado uma vez",
+        "o que e um nonce",
+        "what is a nonce",
+        "nonce"
+      ]
+    },
+    {
+      "id": "def-dom-payment-rail",
+      "aliases": [
+        "o que e um rail de pagamento",
+        "what is a payment rail",
+        "trilho de pagamento",
+        "rail de pagamento",
+        "payment rail"
+      ]
+    },
+    {
+      "id": "def-dom-payment-scheme",
+      "aliases": [
+        "what is a payment scheme",
+        "esquema de pagamento",
+        "scheme de pagamento",
+        "payment scheme"
+      ]
+    },
+    {
+      "id": "def-dom-replay",
+      "aliases": [
+        "ataque de replay",
+        "o que e replay",
+        "what is replay",
+        "replay attack",
+        "reenvio",
+        "replay"
+      ]
+    },
+    {
+      "id": "def-dom-resilience-general",
+      "aliases": [
+        "o que e resiliencia",
+        "what is resilience",
+        "resiliencia",
+        "resilience",
+        "resiliente"
+      ]
+    },
+    {
+      "id": "def-dom-retry",
+      "aliases": [
+        "reenviar pedido",
+        "o que e retry",
+        "what is retry",
+        "retentativa",
+        "retentar",
+        "retry"
+      ]
+    },
+    {
+      "id": "def-dom-safe-degradation",
+      "aliases": [
+        "o que e degradacao segura",
+        "what is safe degradation",
+        "degradar em seguranca",
+        "degradacao segura",
+        "safe degradation"
+      ]
+    },
+    {
+      "id": "def-dom-serialization",
+      "aliases": [
+        "what is serialization",
+        "o que e serializacao",
+        "serialization",
+        "serializacao",
+        "serializar"
+      ]
+    },
+    {
+      "id": "def-dom-state-machine",
+      "aliases": [
+        "o que e uma maquina de estados",
+        "what is a state machine",
+        "estados e transicoes",
+        "maquina de estados",
+        "maquina de estado",
+        "state machine"
+      ]
+    },
+    {
+      "id": "def-dom-timeout",
+      "aliases": [
+        "what is a timeout",
+        "o que e timeout",
+        "prazo de espera",
+        "tempo limite",
+        "timeout"
+      ]
+    },
+    {
+      "id": "def-dom-transfer",
+      "aliases": [
+        "o que e uma transferencia",
+        "what is a transfer",
+        "transferencia",
+        "transfer"
+      ]
+    },
+    {
+      "id": "def-dom-validation",
+      "aliases": [
+        "what is validation",
+        "o que e validacao",
+        "validation",
+        "validacao",
+        "validar"
+      ]
+    },
+    {
+      "id": "def-dom-verification",
+      "aliases": [
+        "what is verification",
+        "o que e verificacao",
+        "verification",
+        "verificacao",
+        "verificar"
+      ]
+    },
+    {
+      "id": "def-dom-versioning",
+      "aliases": [
+        "o que e versionamento",
+        "what is versioning",
+        "versao de api",
+        "versionamento",
+        "versioning"
+      ]
+    }
+  ]
+}

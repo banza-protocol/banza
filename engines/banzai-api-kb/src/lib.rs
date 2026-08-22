@@ -937,6 +937,31 @@ pub fn route_question_json(question: &str) -> String {
     route::route_json(question)
 }
 
+/// Node WASM: the COMPARISON PLAN for a question — two independently resolved targets, their knowledge
+/// classes and the authority the comparison requires.
+///
+/// The plan is what the pipeline packages evidence from. It is never an answer: both sides must resolve
+/// before a comparison may be composed, and `both_resolved` is what says so. A comparison the engine
+/// cannot plan is one the reader is told it cannot plan, rather than one answered with whichever side
+/// happened to resolve.
+#[cfg(target_arch = "wasm32")]
+#[wasm_bindgen]
+pub fn comparison_plan_json(question: &str) -> String {
+    banzai_query_core::compare::plan_json(&banzai_query_core::normalize(question))
+}
+
+/// Node WASM: the HYBRID RELATION PLAN — one subject, and the BANZA relation being asked about.
+///
+/// Distinct from a comparison, which has two genuine semantic targets. "settlement vs what BANZA
+/// specifies" names ONE concept and asks for the protocol's position on it; "what BANZA specifies" is
+/// not a concept and is not forced into one. The authority split rides on this: DOMAIN evidence may say
+/// what the subject means, and only BANZA evidence may say what BANZA requires of it.
+#[cfg(target_arch = "wasm32")]
+#[wasm_bindgen]
+pub fn hybrid_plan_json(question: &str) -> String {
+    banzai_query_core::hybrid::plan_json(&banzai_query_core::normalize(question))
+}
+
 /// Node WASM: is this entry a NORMATIVE DENIAL that must be served verbatim, even when the question
 /// carries an explanatory cue that would otherwise escalate a definition into the explanatory trunk?
 /// Rust owns the list; the pipeline asks and executes. See `route::is_verbatim_entry`.

@@ -196,6 +196,12 @@ function assertSafeContext(ctx) {
     // and a client cannot promote a file into a source card by naming it. Revalidated server-side on
     // arrival: these are hints, never evidence authority.
     "previous_semantic_target", "previous_source_ids",
+    // SEMANTIC REFERENTS. `last_subject` above is a human LABEL; these are the IDENTITIES the previous
+    // turn resolved, so a follow-up consumes what routing decided instead of guessing from a label two
+    // entries can share. All id-shaped and sanitized by the same strict token rule — never prose, never
+    // the model's wording — and hints on arrival exactly like every other field here.
+    "last_subject_id", "previous_subject_id", "comparison_left", "comparison_right",
+    "hybrid_subject_id", "hybrid_relation",
   ]);
   for (const [k, v] of Object.entries(ctx)) {
     assert.ok(allowed.has(k), `forward context field ${k} is whitelisted`);

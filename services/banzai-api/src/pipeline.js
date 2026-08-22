@@ -27,7 +27,7 @@
 import { GUARDRAILS } from "./provider.js";
 import { operationalDomain } from "./operationalDomain.js";
 import { composeTasked } from "./taskedRealizations.js";
-import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims, answerFor, unavailableRealization, LOCALES, DEFAULT_LOCALE } from "./knowledge.js";
+import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, comparisonPlan, hybridPlan, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims, answerFor, unavailableRealization, LOCALES, DEFAULT_LOCALE } from "./knowledge.js";
 import { honestLiveFailureAnswer } from "./liveArtifact.js";
 import { isPublicSource } from "./answerContract.js";
 
@@ -176,6 +176,35 @@ export function buildForwardContext(prior, scope, resolution, references, hints 
     last_subject_kind,
     last_document_id,
     last_metric,
+    // ── SEMANTIC REFERENTS (structured identity, not prose) ────────────────────────────────────────
+    //
+    // `last_subject` above is a human LABEL — "ledger", "federação". It reads well in a trace and it is
+    // the wrong thing to resolve a follow-up against: two entries can share a label, a label can be
+    // truncated, and recovering an identity from it means guessing. These carry the IDENTITY the
+    // previous turn actually resolved, so the next turn consumes what routing decided rather than
+    // re-deriving it from the answer's wording.
+    //
+    // They are populated by the tiers that establish them — the comparison tier knows both of its
+    // sides, the hybrid tier knows its subject and relation — and carried forward otherwise. A turn
+    // that establishes nothing leaves the previous identity in place, which is what makes a chain of
+    // follow-ups work.
+    last_subject_id: safeCtxId(h.subject_id || p.last_subject_id),
+    // The subject BEFORE this one. A comparison follow-up — "compare them", "what is the difference
+    // between them?" — names neither side, and both are in the conversation rather than in the
+    // question. Keeping only the most recent identity makes that follow-up unanswerable, which is what
+    // "What is L2?" → "And L3?" → "Compare them." was measured doing.
+    //
+    // Shifted only when the subject actually CHANGES, so a turn that re-resolves the same concept does
+    // not push the real previous subject out of reach.
+    previous_subject_id: safeCtxId(
+      h.subject_id && p.last_subject_id && h.subject_id !== p.last_subject_id
+        ? p.last_subject_id
+        : p.previous_subject_id,
+    ),
+    comparison_left: safeCtxId(h.comparison_left || p.comparison_left),
+    comparison_right: safeCtxId(h.comparison_right || p.comparison_right),
+    hybrid_subject_id: safeCtxId(h.hybrid_subject_id || p.hybrid_subject_id),
+    hybrid_relation: safeCtxId(h.hybrid_relation || p.hybrid_relation),
     ...(p.observed_at ? { observed_at: safeCtxId(p.observed_at, 32) } : {}),
   };
 }
@@ -820,6 +849,140 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
   // A GROUNDED answer: the model synthesised only from the Rust FactualPackage and the Rust factual
   // validator PASSED it. Sources are built from the package's facts for the ids the answer actually cited
   // (never authored). This is a genuine model answer (llm_called:true).
+  /**
+   * Reader prose for a two-sided comparison, per locale.
+   *
+   * The two sides are the entries' OWN realizations, joined by a frame — not a paraphrase of them, and
+   * not a model recomposition. Each side already states its own boundaries (that BANZA neither clears
+   * nor settles real funds, for instance), and those boundaries are exactly what a comparison must not
+   * blur. The frame says what is being compared; the sides say what they are.
+   */
+  const COMPARISON_FRAME = {
+    "pt-PT": (a, b) => `**${a.title}** — ${a.text}\n\n**${b.title}** — ${b.text}`,
+    en: (a, b) => `**${a.title}** — ${a.text}\n\n**${b.title}** — ${b.text}`,
+  };
+
+  /** The reader-facing label for one side: the phrase they used, capitalised. */
+  function sideTitle(phrase) {
+    const p = String(phrase || "").trim();
+    return p ? p.charAt(0).toUpperCase() + p.slice(1) : "";
+  }
+
+  /**
+   * Reader prose for a HYBRID relation — what the subject means, then what BANZA says about it.
+   *
+   * The two halves are kept visibly apart, and that separation IS the property. A domain source may
+   * establish what settlement means; only BANZA authority may establish what BANZA does about it, and a
+   * reader has to be able to see which half rests on which. Running them together is how "BANZA
+   * settles" gets written from a source that only defines settlement.
+   *
+   * Both halves are the entries' OWN realizations. Nothing is paraphrased and nothing is composed by a
+   * model: each entry already states its own boundary, and those boundaries are exactly what a relation
+   * answer must not soften.
+   */
+  const HYBRID_FRAME = {
+    "pt-PT": {
+      specifies: (s, b) => `${s}\n\n**O que o BANZA especifica** — ${b}`,
+      relates: (s, b) => `${s}\n\n**Relação com o BANZA** — ${b}`,
+      performs: (s, b) => `${s}\n\n**O BANZA faz isto?** — ${b}`,
+      requires: (s, b) => `${s}\n\n**O BANZA exige isto?** — ${b}`,
+    },
+    en: {
+      specifies: (s, b) => `${s}\n\n**What BANZA specifies** — ${b}`,
+      relates: (s, b) => `${s}\n\n**Relationship to BANZA** — ${b}`,
+      performs: (s, b) => `${s}\n\n**Does BANZA do this?** — ${b}`,
+      requires: (s, b) => `${s}\n\n**Does BANZA require this?** — ${b}`,
+    },
+  };
+
+  function hybridAnswer(plan, subjectText, banzaText, sources, meta, locale) {
+    const table = HYBRID_FRAME[locale] || HYBRID_FRAME[DEFAULT_LOCALE];
+    const frame = table[plan.relation] || table.relates;
+    return {
+      result: {
+        grounded: true,
+        answer: frame(subjectText, banzaText),
+        sources,
+        // The relation's subject is the record a follow-up resolves against. See `comparisonAnswer`.
+        entry_id: plan.subject_id || null,
+        provider: provider.name,
+        mode: isReal ? "real" : "mock",
+        guardrails: GUARDRAILS,
+        model_called: false,
+        model_name: "",
+        inference_location: provider.inferenceLocation || null,
+        answer_locale: locale,
+      },
+      meta: { deterministic: true, cache: null, llm_called: false, ...meta },
+    };
+  }
+
+  function comparisonAnswer(plan, leftText, rightText, sources, meta, locale) {
+    const frame = COMPARISON_FRAME[locale] || COMPARISON_FRAME[DEFAULT_LOCALE];
+    const body = frame(
+      { title: sideTitle(plan.left.phrase), text: leftText },
+      { title: sideTitle(plan.right.phrase), text: rightText },
+    );
+    return {
+      result: {
+        grounded: true,
+        answer: body,
+        sources,
+        // The composite's PRIMARY record. `null` here meant the evidence-continuity wrapper had no
+        // target to carry forward, and the next turn's "which source says that?" found nothing to point
+        // at — measured, the source follow-up failed after every comparison and every relation. Both
+        // sides travel in `comparison_left`/`comparison_right`; this is the record a follow-up resolves
+        // against.
+        entry_id: plan.left.semantic_id || null,
+        provider: provider.name,
+        mode: isReal ? "real" : "mock",
+        guardrails: GUARDRAILS,
+        model_called: false,
+        model_name: "",
+        inference_location: provider.inferenceLocation || null,
+        answer_locale: locale,
+      },
+      meta: { deterministic: true, cache: null, llm_called: false, ...meta },
+    };
+  }
+
+  /**
+   * A comparison the engine could not plan, said plainly.
+   *
+   * Naming the side that did not resolve is the difference between a decline a reader can act on and a
+   * blanket "insufficient evidence". They asked about two things; one of them was understood.
+   */
+  const COMPARISON_INCOMPLETE = {
+    "pt-PT": (side) =>
+      side === "both"
+        ? "Não reconheci nenhum dos dois termos desta comparação. Indique os dois conceitos que quer comparar e eu comparo-os."
+        : `Reconheci um dos lados desta comparação, mas não o outro (**${side}**). Uma comparação precisa dos dois lados: indique o segundo conceito e eu comparo-os. Não respondo por um só lado como se respondesse pela pergunta.`,
+    en: (side) =>
+      side === "both"
+        ? "I did not recognise either term in this comparison. Name the two concepts you want compared and I will compare them."
+        : `I recognised one side of this comparison but not the other (**${side}**). A comparison needs both sides: name the second concept and I will compare them. I will not answer for one side as though it answered the question.`,
+  };
+
+  function comparisonIncomplete(side, meta, locale) {
+    const frame = COMPARISON_INCOMPLETE[locale] || COMPARISON_INCOMPLETE[DEFAULT_LOCALE];
+    return {
+      result: {
+        grounded: false,
+        answer: frame(side),
+        sources: [],
+        entry_id: null,
+        provider: provider.name,
+        mode: isReal ? "real" : "mock",
+        guardrails: GUARDRAILS,
+        model_called: false,
+        model_name: "",
+        inference_location: provider.inferenceLocation || null,
+        answer_locale: locale,
+      },
+      meta: { deterministic: true, cache: null, llm_called: false, ...meta },
+    };
+  }
+
   function groundedAnswer(answerText, pkg, citedIds, meta) {
     const byId = new Map();
     for (const f of (pkg && Array.isArray(pkg.facts) ? pkg.facts : [])) {
@@ -866,11 +1029,17 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
   // PASSED by the Inc.4 claim/citation verifier. No model (llm_called:false). `sources` come only from the
   // package's cited ids (never authored). The family + tool-result provenance + the compact factual_package
   // ride in the meta so the /ask envelope proves the answer was grounded before any prose.
-  function familyAnswer(fam, meta) {
+  function familyAnswer(fam, meta, answerLocale) {
     return {
       result: {
         grounded: true,
         answer: fam.answer,
+        // Every other terminal declares the locale it composed for; this one did not, and nothing
+        // noticed because no probe reached it. Measured across the 572-item V2 baseline, 58 answers
+        // came back with `answer_locale: null` — all of them question-family terminals, 57 of them
+        // Portuguese. An answer that does not say which language it is in cannot be checked for
+        // serving the wrong one, so the locale contract simply did not apply here.
+        answer_locale: answerLocale,
         sources: Array.isArray(fam.sources) ? fam.sources : [],
         entry_id: `family-${fam.family}`,
         provider: provider.name,
@@ -1269,9 +1438,17 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // that the taxonomy classifier reports as "unsupported"; hint the forward-context builder so the NEXT turn
     // inherits the right intent+subject (the ADR→RFC chain). Derived from the route decision, never invented.
     const fwdEntryId = String((decisionEffective && decisionEffective.entry_id) || decision.entry_id || "");
+    // The SEMANTIC ID of whatever this turn resolved, alongside the human label. The label is for a
+    // reader; the id is what the next turn resolves against.
     const fwdHints = fwdEntryId.startsWith("def-")
-      ? { intent: "explain_concept", subject: fwdEntryId.replace(/^def-/, "").replace(/-/g, " ") }
-      : {};
+      ? {
+          intent: "explain_concept",
+          subject: fwdEntryId.replace(/^def-/, "").replace(/-/g, " "),
+          subject_id: fwdEntryId,
+        }
+      : fwdEntryId
+        ? { subject_id: fwdEntryId }
+        : {};
     const conversationContextForward = buildForwardContext(priorContext, resolveScope(rq), resolveQuery(rq), references, fwdHints);
     // Safe conversation-context telemetry (booleans/counts only — never the conversation content).
     // BZCI-6 (§36) — drive the "context used" telemetry from BOTH channels: the structured Inc.6 resolver
@@ -1833,6 +2010,393 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // honest outcome is to say so: no canned answer, and no model either. The check runs only on the
     // cue-escalation exemption, so the settled path for a question with no cue is byte-for-byte unchanged.
     const verbatimEntry = decision.entry_id ? isVerbatimEntry(decision.entry_id) : false;
+    // Tier 1-COMPARE — a comparison is served from BOTH sides, or not served as a comparison.
+    //
+    // Every selector in this pipeline names ONE subject. A two-sided question therefore used to be
+    // answered with whichever side matched first: `Qual é a diferença entre L2 e L3?` returned the L2
+    // definition alone with `degraded: true`, and its English twin fell to the model and invented "L3
+    // introduces a lineage that ties keys to a trusted set", citing reason-codes and root-authority
+    // ADRs. The first repair pointed profile comparisons at `def-profiles`, which works for exactly one
+    // family and needs a hand-authored combined entry for every other pair.
+    //
+    // Rust plans the comparison: it extracts the two sides and resolves each INDEPENDENTLY through the
+    // same resolvers a single-subject question uses. This serves that plan.
+    //
+    //   both sides resolved  → both entries' evidence, both realizations, one answer
+    //   either side missing  → an honest decline naming the side that did not resolve
+    //
+    // The second case is the point. A comparison with one side unresolved is not a comparison, and
+    // presenting the resolved half as though it answered the question is the defect this replaces.
+    const comparison = comparisonPlan(correctedQuestion);
+    // At least one side must resolve as a KNOWLEDGE concept for this tier to own the turn.
+    //
+    // "compara com a anterior" and "compara a execução X com a Y" are comparisons too, and they belong
+    // to the operational family, which resolves execution operands from the receipt store rather than
+    // concepts from the corpus. Neither of their sides is a concept, so requiring one keeps this tier
+    // to conceptual comparisons and leaves the operational path exactly as it was. Measured: without
+    // this, the execution-comparison family started receiving "name the second concept".
+    // Tier 1-REFERENT — follow-ups whose subject is in the CONVERSATION, not in the question.
+    //
+    // These consume the structured identities the previous turns established. They do not re-read the
+    // previous answer's prose: the identity is what routing decided, and recovering it from wording
+    // would mean guessing at something already known exactly.
+    //
+    // Conservative by construction. Each shape requires the specific state it needs to be present — a
+    // comparison follow-up needs two identities, a document follow-up needs a document — and falls
+    // through when it is not. Nothing here picks "the most recent noun" and hopes.
+    // Gated on HAVING structured context, not on the anaphora resolver having bound something.
+    //
+    // `contextActive` means "the reference resolver found and bound an anaphor". These follow-ups
+    // frequently contain no anaphor for it to bind — "Compara-os." names nothing, "Is it normative?"
+    // has an `it` the resolver reports as NO_ANAPHORA — so gating on it meant the tier never ran on
+    // exactly the turns it exists for. Measured: the conversation carried `previous_subject_id` and
+    // `last_document_id` correctly and nothing read them.
+    const referentCtx = priorContext && typeof priorContext === "object" ? priorContext : {};
+    const hasStructuredReferents = Boolean(
+      referentCtx.last_subject_id ||
+        referentCtx.previous_subject_id ||
+        referentCtx.comparison_left ||
+        referentCtx.last_document_id ||
+        referentCtx.hybrid_subject_id,
+    );
+    if (hasStructuredReferents && !references.boundary_detected && !rawRefusalSignal && !journeyOwnsTurn) {
+      const cc = referentCtx;
+      const nq = normalize(correctedQuestion);
+
+      // SOURCE FOLLOW-UP resolved from STRUCTURED STATE, not from a pronoun list.
+      //
+      // The frame recogniser requires an explicit referential TOKEN — `isto`, `isso`, `essa decisão` —
+      // so "Que fonte o diz?", "Which source says so?" and "Que fonte prova essa distinção?" were not
+      // recognised as evidence requests at all. Extending that token list is the bag-of-pronouns
+      // approach this architecture is meant to replace: there is always another phrasing.
+      //
+      // When the conversation carries a prior target and its evidence, an evidence request HAS a
+      // referent structurally, whatever words it used. That is what is read here. The requirement is
+      // strict — both the target and its source identities must be present — so a bare "which source?"
+      // with no conversation behind it is still an underspecified first turn, exactly as before.
+      if (cc.previous_semantic_target && Array.isArray(cc.previous_source_ids) && cc.previous_source_ids.length) {
+        const asksEvidence =
+          /(^|\s)(que|qual|quais|which|what)\s+(fonte|fontes|source|sources)/.test(nq) ||
+          /(fonte|fontes|source|sources)\s+(o diz|diz|says|say|prova|provam|proves|support|supports|sustenta|sustentam)/.test(nq) ||
+          /(mostra|mostrar|show)\s+(me\s+)?(a\s+|the\s+)?(fonte|source)/.test(nq);
+        // …and only when this turn names no subject of its own. "Quem controla os operadores?" after a
+        // certification turn is a NEW topic that happens to contain an evidence word; serving the
+        // previous answer's sources for it would answer the wrong question with right-looking citations.
+        // Measured: it broke the "an unrelated new topic breaks the evidence pair" property.
+        // An EXPLICIT target wins over the inherited one, always.
+        //
+        // "Que fontes explicam a Root?" asks for evidence about Root, not for the previous answer's
+        // evidence — source-followup context is not sticky, and serving the prior sources there would
+        // answer a different question with right-looking citations.
+        //
+        // The test is subtractive and strict: remove the evidence words, the interrogatives, the
+        // articles and the ANAPHORIC nouns that stand in for the previous answer ("essa distinção",
+        // "that claim"), and a genuine follow-up has nothing left. Anything that survives is a subject
+        // this turn brought with it. "root" survives, so that turn is not a follow-up — and it does not
+        // matter that `root` alone happens not to resolve to an entry, which is what an earlier
+        // route-based version of this check got wrong.
+        const FILLER = /\b(que|qual|quais|which|what|me|a|o|as|os|um|uma|the|de|do|da|dos|das|of|for|about|sobre|e|and|is|are|it|so|isso|isto|essa|esse|esta|este|that|this|them|eles|elas)\b/g;
+        const EVIDENCE_WORDS = /\b(fonte|fontes|source|sources|diz|dizem|says|say|prova|provam|proves|proven|explicam|explica|explain|explains|support|supports|sustenta|sustentam|mostra|mostrar|show|documenta|documents)\b/g;
+        const ANAPHORIC_NOUN = /\b(distincao|distinction|diferenca|difference|separacao|separation|afirmacao|claim|ponto|point|resposta|answer|conclusao|conclusion)\b/g;
+        const remainder = nq
+          .replace(EVIDENCE_WORDS, " ")
+          .replace(ANAPHORIC_NOUN, " ")
+          .replace(FILLER, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+        const namesOwnSubject = remainder.length > 0;
+        if (asksEvidence && !namesOwnSubject) {
+          const prior = getEntry(cc.previous_semantic_target);
+          const priorSources = prior ? publicSourcesOnly(prior.sources || []) : [];
+          const kept = priorSources.filter((x) => cc.previous_source_ids.includes(String(x.id)));
+          const serve = kept.length ? kept : priorSources;
+          if (serve.length) {
+            const lead = TERMINAL_TEXT.source_evidence[locale] || TERMINAL_TEXT.source_evidence[DEFAULT_LOCALE];
+            return {
+              result: {
+                grounded: true,
+                answer: lead,
+                sources: serve,
+                entry_id: prior ? prior.id : null,
+                provider: provider.name,
+                mode: isReal ? "real" : "mock",
+                guardrails: GUARDRAILS,
+                model_called: false,
+                model_name: "",
+                inference_location: provider.inferenceLocation || null,
+                answer_locale: locale,
+              },
+              meta: {
+                deterministic: true,
+                cache: null,
+                llm_called: false,
+                answer_mode: mode,
+                fallback_reason: null,
+                intent: "source_followup",
+                terminal_kind: "source_evidence",
+                referent_source: "conversation",
+                ...ctxMeta,
+                ...routerTrace,
+              },
+            };
+          }
+        }
+      }
+
+      // DOCUMENT + AUTHORITY FOLLOW-UP — "is it normative?", "what has higher authority?".
+      //
+      // After "What does ADR-025 say?" the conversation holds a DOCUMENT identity, and the follow-up
+      // asks about that document's standing rather than about a new subject. Answering it needs the
+      // normative hierarchy, not the document's contents again.
+      //
+      // Requires `last_document_id` to be present: without a document in the conversation these
+      // phrasings are not document follow-ups at all, and the tier falls through.
+      if (cc.last_document_id) {
+        const asksAuthority =
+          /(^|\s)(e|é|is|are)?\s*(normativ|normative)/.test(nq) ||
+          /(autoridade superior|higher authority|mais autoridade|maior autoridade|autoridade normativa|normative authority)/.test(nq);
+        if (asksAuthority) {
+          // `def-reference` states the hierarchy exactly: the Reference is descriptive, normative
+          // authority belongs to the Normative Manifest and the artifacts it indexes, and where the two
+          // diverge the normative artifact prevails. That is the answer to both phrasings.
+          const authority = getEntry("def-reference");
+          const kindEntry = /^RFC/i.test(cc.last_document_id) ? getEntry("def-rfc") : getEntry("def-adr");
+          if (authority && kindEntry) {
+            const a = answerFor(kindEntry, locale);
+            const b = answerFor(authority, locale);
+            if (a.available && b.available) {
+              const seen = new Set();
+              const sources = publicSourcesOnly([
+                ...(kindEntry.sources || []),
+                ...(authority.sources || []),
+              ]).filter((x) => {
+                const id = String((x && x.id) || "");
+                if (!id || seen.has(id)) return false;
+                seen.add(id);
+                return true;
+              });
+              return {
+                result: {
+                  grounded: true,
+                  answer: `${a.text}\n\n${b.text}`,
+                  sources,
+                  entry_id: authority.id,
+                  provider: provider.name,
+                  mode: isReal ? "real" : "mock",
+                  guardrails: GUARDRAILS,
+                  model_called: false,
+                  model_name: "",
+                  inference_location: provider.inferenceLocation || null,
+                  answer_locale: locale,
+                },
+                meta: {
+                  deterministic: true,
+                  cache: null,
+                  llm_called: false,
+                  answer_mode: mode,
+                  fallback_reason: null,
+                  intent: "authority_followup",
+                  terminal_kind: "authority_followup",
+                  referent_source: "conversation",
+                  referent_document: cc.last_document_id,
+                  ...ctxMeta,
+                  ...routerTrace,
+                },
+              };
+            }
+          }
+        }
+      }
+
+      // COMPARISON FOLLOW-UP — "compare them", "what is the difference between them?", "compara-os".
+      // Both sides come from context: either an explicit comparison the previous turn planned, or the
+      // last two DIFFERENT subjects the conversation established.
+      // `normalize` strips the hyphen, so "Compara-os" arrives as "compara os" — the enclitic form has
+      // to be matched after normalization, not before it. Measured: the English "Compare them." worked
+      // and its Portuguese twin did not, for that reason alone.
+      const wantsComparison =
+        /(^|\s)(compare|compara|comparar|compare-as)(\s+(them|os|as|eles|elas|os dois|as duas))?(\s|$)/.test(nq) ||
+        /(diferenca|difference).{0,24}(entre eles|entre elas|entre os dois|between them|them)/.test(nq);
+      if (wantsComparison) {
+        const l = cc.comparison_left || cc.previous_subject_id || "";
+        const r = cc.comparison_right || cc.last_subject_id || "";
+        if (l && r && l !== r) {
+          const left = getEntry(l);
+          const right = getEntry(r);
+          if (left && right) {
+            const a = answerFor(left, locale);
+            const b = answerFor(right, locale);
+            if (a.available && b.available) {
+              const seen = new Set();
+              const sources = publicSourcesOnly([...(left.sources || []), ...(right.sources || [])]).filter(
+                (x) => {
+                  const id = String((x && x.id) || "");
+                  if (!id || seen.has(id)) return false;
+                  seen.add(id);
+                  return true;
+                },
+              );
+              const plan = {
+                left: { phrase: left.id.replace(/^def-(dom-)?/, "").replace(/-/g, " "), semantic_id: left.id },
+                right: { phrase: right.id.replace(/^def-(dom-)?/, "").replace(/-/g, " "), semantic_id: right.id },
+              };
+              return comparisonAnswer(plan, a.text, b.text, sources, {
+                answer_mode: mode,
+                fallback_reason: null,
+                intent: "comparison",
+                terminal_kind: "comparison",
+                comparison_left: left.id,
+                comparison_right: right.id,
+                referent_source: "conversation",
+                ...ctxMeta,
+                conversation_context: {
+                  ...(ctxMeta.conversation_context || {}),
+                  comparison_left: left.id,
+                  comparison_right: right.id,
+                },
+                ...routerTrace,
+              }, locale);
+            }
+          }
+        }
+      }
+    }
+
+    // Tier 1-HYBRID — a DOMAIN subject plus a request about BANZA's relation to it.
+    //
+    // This is NOT a comparison, and conflating the two is what left "settlement vs what BANZA
+    // specifies" looking permanently unsupported. A comparison has two genuine semantic targets. A
+    // hybrid has one subject and a RELATION request, and "what BANZA specifies" is not a concept —
+    // forcing it into a concept table to make a matrix read 22/22 would invent a concept nobody named.
+    //
+    // The authority split is enforced here rather than left to the composer. The subject half may rest
+    // on whatever layer owns the subject, including a DOMAIN source. The BANZA half must rest on BANZA
+    // authority: a domain source may say what settlement means and may never say what BANZA does about
+    // it. When no BANZA authority is available for the relation, this tier declines rather than letting
+    // the general definition stand in for the protocol's position.
+    const hybrid = hybridPlan(correctedQuestion);
+    if (hybrid && hybrid.is_hybrid && hybrid.resolved && !journeyOwnsTurn) {
+      const subject = getEntry(hybrid.subject_id);
+      // The BANZA half comes from the entry that states the protocol's position on this subject. Where
+      // the subject IS a BANZA entry, its own realization already carries that position.
+      // A DOMAIN subject needs a SPECIFIC BANZA authority for the relation half, and there is no generic
+      // one. Pairing any domain concept with a catch-all entry would be the same generic collapse this
+      // programme removed, in a different costume: it would let "BANZA's position on X" be written from
+      // an entry that says nothing about X. Where no specific authority exists this tier declines, and
+      // the ordinary paths answer the subject alone.
+      const banzaEntry = subject && subject.domain ? null : subject;
+      if (subject && banzaEntry) {
+        const sub = answerFor(subject, locale);
+        const ban = answerFor(banzaEntry, locale);
+        const banzaSources = publicSourcesOnly(banzaEntry.sources || []).filter((x) => x && x.class !== "domain");
+        if (sub.available && ban.available && banzaSources.length > 0) {
+          const seen = new Set();
+          const sources = publicSourcesOnly([...(subject.sources || []), ...(banzaEntry.sources || [])]).filter(
+            (x) => {
+              const id = String((x && x.id) || "");
+              if (!id || seen.has(id)) return false;
+              seen.add(id);
+              return true;
+            },
+          );
+          return hybridAnswer(hybrid, sub.text, ban.text, sources, {
+            answer_mode: mode,
+            fallback_reason: null,
+            intent: "hybrid_relation",
+            terminal_kind: "hybrid_relation",
+            hybrid_subject: subject.id,
+            hybrid_relation: hybrid.relation,
+            hybrid_subject_class: hybrid.subject_class,
+            ...ctxMeta,
+            // The relation stays active for the next turn. "What is settlement and how does it relate
+            // to BANZA?" then "does BANZA perform it?" must not collapse to the generic protocol entry:
+            // the subject and the fact that a BANZA relation is under discussion both travel.
+            conversation_context: {
+              ...(ctxMeta.conversation_context || {}),
+              hybrid_subject_id: subject.id,
+              hybrid_relation: hybrid.relation,
+              last_subject_id: subject.id,
+              last_subject_kind: "concept",
+            },
+            ...routerTrace,
+          }, locale);
+        }
+      }
+    }
+
+    // A HALF-COMPARISON the router already decided: exactly one side resolved and nothing else
+    // answered. Served as an honest decline that NAMES the side it did not recognise — the difference
+    // between a decline a reader can act on and a blanket "insufficient evidence". Without this the
+    // verdict reached the model, which composed prose for a question it had one half of.
+    if (
+      decisionEffective.intent === "comparison_incomplete" &&
+      !journeyOwnsTurn &&
+      comparisonPlan(correctedQuestion)
+    ) {
+      const p = comparisonPlan(correctedQuestion);
+      const unresolved = !p.left.semantic_id ? p.left.phrase || "left" : p.right.phrase || "right";
+      return comparisonIncomplete(unresolved, {
+        answer_mode: mode,
+        fallback_reason: "comparison_incomplete",
+        intent: "comparison_incomplete",
+        terminal_kind: "insufficient_evidence",
+        comparison_left: p.left.semantic_id || null,
+        comparison_right: p.right.semantic_id || null,
+        ...ctxMeta,
+        ...routerTrace,
+      }, locale);
+    }
+
+    // This tier SERVES a comparison; it does not decline one. An incomplete comparison is decided one
+    // layer up, by the router, which returns `comparison_incomplete` when exactly one side resolved — a
+    // genuine half-comparison. When neither side resolves the query is not a conceptual comparison at
+    // all, and the paths that do own it are left alone.
+    if (comparison && comparison.is_comparison && comparison.both_resolved && !journeyOwnsTurn) {
+      const left = comparison.left && comparison.left.semantic_id ? getEntry(comparison.left.semantic_id) : null;
+      const right = comparison.right && comparison.right.semantic_id ? getEntry(comparison.right.semantic_id) : null;
+      if (!left || !right || left.id === right.id) {
+        // Both sides named the same subject, or an id the corpus no longer holds — not a comparison.
+        // Fall through rather than composing one side against itself.
+      } else {
+        const a = answerFor(left, locale);
+        const b = answerFor(right, locale);
+        if (a.available && b.available) {
+          // Both sides' sources, deduplicated by id: two entries frequently rest on the same document,
+          // and citing it twice tells a reader nothing except that the composer did not look.
+          const seen = new Set();
+          const sources = publicSourcesOnly([...(left.sources || []), ...(right.sources || [])]).filter(
+            (src) => {
+              const id = String((src && src.id) || "");
+              if (!id || seen.has(id)) return false;
+              seen.add(id);
+              return true;
+            },
+          );
+          return comparisonAnswer(comparison, a.text, b.text, sources, {
+            answer_mode: mode,
+            fallback_reason: null,
+            intent: "comparison",
+            terminal_kind: "comparison",
+            comparison_left: left.id,
+            comparison_right: right.id,
+            comparison_class: comparison.class,
+            ...ctxMeta,
+            // BOTH sides travel forward, not whichever was mentioned last. "Compare clearing and
+            // settlement" then "which one does BANZA perform?" needs both identities available; a
+            // context that kept only the most recent noun would answer about settlement every time.
+            conversation_context: {
+              ...(ctxMeta.conversation_context || {}),
+              comparison_left: left.id,
+              comparison_right: right.id,
+              last_subject_id: left.id,
+              last_subject_kind: "concept",
+            },
+            ...routerTrace,
+          }, locale);
+        }
+      }
+    }
+
     if (decisionEffective.action === "deterministic" && (!hasExplanatoryCue || verbatimEntry)) {
       const entry = decision.entry_id ? getEntry(decision.entry_id) : null;
       if (entry && hasExplanatoryCue && publicSourcesOnly(entry.sources).length === 0) {
@@ -1844,7 +2408,16 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         // concept (federação/revogação/operador). This keeps the PUBLIC trace honest (§31) — "Definição
         // canónica confirmada por Rust", not "Limite de segurança aplicado por Rust" — which matters now
         // that typo recovery routes a corrected concept ("fedaração"→"federação") to these definitions.
-        const isDefinition = String(decision.entry_id || "").startsWith("def-");
+        // The same mislabel, reaching a new id shape. Keying "is this a definition?" on the `def-`
+        // PREFIX means every future family of canonical ids inherits the bug: invariant records are
+        // `inv-*`/`mon-*`, carry the historical `critical_boundary` intent, and were served correctly
+        // while the public trace announced "Limite de segurança aplicado por Rust" over a statement
+        // about integer minor units. A reader is told a security boundary fired when nothing was
+        // refused.
+        //
+        // So the question is asked of the ENTRY, which knows what it is, rather than of its name.
+        const isDefinition =
+          String(decision.entry_id || "").startsWith("def-") || Boolean(entry.invariant);
         const isBoundary = !isDefinition && (intent === "critical_boundary" || intent === "action_boundary");
         const kind = isBoundary ? "safety_refusal" : "canonical_definition";
         const trace_label = isBoundary ? "Limite de segurança aplicado por Rust" : "Definição canónica confirmada por Rust";
@@ -2071,7 +2644,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
           documentary_sources: Array.isArray(fs.documentary_sources) ? fs.documentary_sources : [],
           package_checksum: fs.package_checksum || null,
         });
-        return familyAnswer(fam, { answer_mode: mode, ...ctxMeta, ...docMeta });
+        return familyAnswer(fam, { answer_mode: mode, ...ctxMeta, ...docMeta }, locale);
       }
       if (fam && fam.kind === "clarification") {
         return stated(fam.answer, {
