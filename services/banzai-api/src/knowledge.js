@@ -201,16 +201,16 @@ for (const s of Object.values(SOURCES)) {
 // this corpus, with the authority named so a reader can go and check it. That is deliberate: ingesting
 // restricted standards wholesale is neither necessary to answer the question nor ours to do.
 Object.assign(SOURCES, {
-  domNistGlossary: { id: "NIST-CSRC", class: "domain", publisher: "NIST", authority: "standards body", title: "NIST Computer Security Resource Center glossary", url: "https://csrc.nist.gov/glossary" },
-  domNistFips186: { id: "NIST-FIPS-186", class: "domain", publisher: "NIST", authority: "standards body", title: "FIPS 186 — Digital Signature Standard", url: "https://csrc.nist.gov/pubs/fips/186-5/final" },
-  domNistSp80057: { id: "NIST-SP-800-57", class: "domain", publisher: "NIST", authority: "standards body", title: "NIST SP 800-57 — Key management recommendations", url: "https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final" },
-  domIetfHttp: { id: "RFC-9110", class: "domain", publisher: "IETF", authority: "standards body", title: "RFC 9110 — HTTP Semantics", url: "https://www.rfc-editor.org/rfc/rfc9110" },
-  domIetfJson: { id: "RFC-8259", class: "domain", publisher: "IETF", authority: "standards body", title: "RFC 8259 — The JavaScript Object Notation (JSON) Data Interchange Format", url: "https://www.rfc-editor.org/rfc/rfc8259" },
-  domIetfEddsa: { id: "RFC-8032", class: "domain", publisher: "IETF", authority: "standards body", title: "RFC 8032 — Edwards-Curve Digital Signature Algorithm (EdDSA)", url: "https://www.rfc-editor.org/rfc/rfc8032" },
-  domIetfJcs: { id: "RFC-8785", class: "domain", publisher: "IETF", authority: "standards body", title: "RFC 8785 — JSON Canonicalization Scheme (JCS)", url: "https://www.rfc-editor.org/rfc/rfc8785" },
-  domW3cJsonSchema: { id: "JSON-SCHEMA", class: "domain", publisher: "JSON Schema", authority: "open specification", title: "JSON Schema — core and validation vocabulary", url: "https://json-schema.org/specification" },
-  domBisCpmiGlossary: { id: "BIS-CPMI", class: "domain", publisher: "BIS / CPMI", authority: "international standard-setter", title: "CPMI glossary of payments and market infrastructure terminology", url: "https://www.bis.org/cpmi/publ/d00b.htm" },
-  domBisPfmi: { id: "BIS-PFMI", class: "domain", publisher: "BIS / IOSCO", authority: "international standard-setter", title: "Principles for Financial Market Infrastructures", url: "https://www.bis.org/cpmi/publ/d101.htm" },
+  "NIST-CSRC": { id: "NIST-CSRC", class: "domain", publisher: "NIST", authority: "standards body", title: "NIST Computer Security Resource Center glossary", url: "https://csrc.nist.gov/glossary" },
+  "NIST-FIPS-186": { id: "NIST-FIPS-186", class: "domain", publisher: "NIST", authority: "standards body", title: "FIPS 186 — Digital Signature Standard", url: "https://csrc.nist.gov/pubs/fips/186-5/final" },
+  "NIST-SP-800-57": { id: "NIST-SP-800-57", class: "domain", publisher: "NIST", authority: "standards body", title: "NIST SP 800-57 — Key management recommendations", url: "https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final" },
+  "RFC-9110": { id: "RFC-9110", class: "domain", publisher: "IETF", authority: "standards body", title: "RFC 9110 — HTTP Semantics", url: "https://www.rfc-editor.org/rfc/rfc9110" },
+  "RFC-8259": { id: "RFC-8259", class: "domain", publisher: "IETF", authority: "standards body", title: "RFC 8259 — The JavaScript Object Notation (JSON) Data Interchange Format", url: "https://www.rfc-editor.org/rfc/rfc8259" },
+  "RFC-8032": { id: "RFC-8032", class: "domain", publisher: "IETF", authority: "standards body", title: "RFC 8032 — Edwards-Curve Digital Signature Algorithm (EdDSA)", url: "https://www.rfc-editor.org/rfc/rfc8032" },
+  "RFC-8785": { id: "RFC-8785", class: "domain", publisher: "IETF", authority: "standards body", title: "RFC 8785 — JSON Canonicalization Scheme (JCS)", url: "https://www.rfc-editor.org/rfc/rfc8785" },
+  "JSON-SCHEMA": { id: "JSON-SCHEMA", class: "domain", publisher: "JSON Schema", authority: "open specification", title: "JSON Schema — core and validation vocabulary", url: "https://json-schema.org/specification" },
+  "BIS-CPMI": { id: "BIS-CPMI", class: "domain", publisher: "BIS / CPMI", authority: "international standard-setter", title: "CPMI glossary of payments and market infrastructure terminology", url: "https://www.bis.org/cpmi/publ/d00b.htm" },
+  "BIS-PFMI": { id: "BIS-PFMI", class: "domain", publisher: "BIS / IOSCO", authority: "international standard-setter", title: "Principles for Financial Market Infrastructures", url: "https://www.bis.org/cpmi/publ/d101.htm" },
 });
 
 const s = (...keys) => keys.map((k) => SOURCES[k]);
@@ -2790,7 +2790,7 @@ export const ENTRIES = [
       en:
         "An **account** is the record that movements are posted to, and whose balance results from those movements. It is a finance-domain concept. In **BANZA**, accounts and balances belong to the operator: the protocol defines the rules that govern them and **holds no real accounts**.",
     },
-    sources: s("domBisCpmiGlossary"),
+    sources: s("BIS-CPMI"),
   },
   {
     id: "def-dom-transfer",
@@ -2803,7 +2803,7 @@ export const ENTRIES = [
       en:
         "A **transfer** is the movement of value from one account to another. In the finance domain it is the elementary operation that payments and settlement are built on.",
     },
-    sources: s("domBisCpmiGlossary"),
+    sources: s("BIS-CPMI"),
   },
   {
     id: "def-dom-merchant",
@@ -2816,7 +2816,7 @@ export const ENTRIES = [
       en:
         "A **merchant** is the party that accepts a payment in exchange for goods or services. It is a payments-domain role, not a role the **BANZA** protocol defines.",
     },
-    sources: s("domBisCpmiGlossary"),
+    sources: s("BIS-CPMI"),
   },
   {
     id: "def-dom-issuer",
@@ -2829,7 +2829,7 @@ export const ENTRIES = [
       en:
         "An **issuer** is the institution that issues the payment instrument to the payer and holds the relationship with them. It is a payments-domain role.",
     },
-    sources: s("domBisCpmiGlossary"),
+    sources: s("BIS-CPMI"),
   },
   {
     id: "def-dom-acquirer",
@@ -2842,7 +2842,7 @@ export const ENTRIES = [
       en:
         "An **acquirer** is the institution that contracts with the merchant and receives the transactions it accepts. It is the issuer's counterpart in the payments domain.",
     },
-    sources: s("domBisCpmiGlossary"),
+    sources: s("BIS-CPMI"),
   },
   {
     id: "def-dom-payment-rail",
@@ -2855,7 +2855,7 @@ export const ENTRIES = [
       en:
         "A **payment rail** is the infrastructure over which payment orders travel and settle between institutions. It is finance-domain infrastructure; **BANZA** is not a rail — it is an open protocol and interoperability layer, and it **moves no funds**.",
     },
-    sources: s("domBisPfmi", "domBisCpmiGlossary"),
+    sources: s("BIS-PFMI", "BIS-CPMI"),
   },
   {
     id: "def-dom-payment-scheme",
@@ -2868,7 +2868,7 @@ export const ENTRIES = [
       en:
         "A **payment scheme** is the set of rules, roles and contractual obligations governing who may participate in a payment system and on what terms. It is a domain concept, and it is distinct from a **protocol**, which fixes technical rules without conferring status.",
     },
-    sources: s("domBisPfmi", "domBisCpmiGlossary"),
+    sources: s("BIS-PFMI", "BIS-CPMI"),
   },
   {
     id: "def-dom-hash",
@@ -2881,7 +2881,7 @@ export const ENTRIES = [
       en:
         "A **hash** is the output of a function that reduces data of any size to a fixed-length value, such that the same input always yields the same value and finding two inputs with the same value is computationally infeasible. It proves **integrity**, not authorship.",
     },
-    sources: s("domNistGlossary"),
+    sources: s("NIST-CSRC"),
   },
   {
     id: "def-dom-digital-signature",
@@ -2894,7 +2894,7 @@ export const ENTRIES = [
       en:
         "A **digital signature** binds a document to a private key such that anyone holding the matching public key can verify the document has not changed and was signed by the holder of that key. It proves **integrity and authorship** — more than a hash, which proves integrity alone.",
     },
-    sources: s("domNistFips186", "domIetfEddsa"),
+    sources: s("NIST-FIPS-186", "RFC-8032"),
   },
   {
     id: "def-dom-keypair",
@@ -2907,7 +2907,7 @@ export const ENTRIES = [
       en:
         "A **key pair** is a private key, kept secret, and its matching public key, which may be distributed. What is signed with the private key verifies with the public one, and knowing the public key does not let anyone derive the private one.",
     },
-    sources: s("domNistSp80057"),
+    sources: s("NIST-SP-800-57"),
   },
   {
     id: "def-dom-ed25519",
@@ -2920,7 +2920,7 @@ export const ENTRIES = [
       en:
         "**Ed25519** is a digital signature scheme over Edwards curves (EdDSA), specified in **RFC** 8032. It is deterministic — the same message and key always produce the same signature — and it is the scheme **BANZA** adopts for the protocol's signed metadata.",
     },
-    sources: s("domIetfEddsa"),
+    sources: s("RFC-8032"),
   },
   {
     id: "def-dom-key-rotation",
@@ -2933,7 +2933,7 @@ export const ENTRIES = [
       en:
         "**Key rotation** is the planned replacement of one key by another, so that the old material stops authorising and the new material starts, without invalidating what was validly signed before. It bounds how long any single key is exposed.",
     },
-    sources: s("domNistSp80057"),
+    sources: s("NIST-SP-800-57"),
   },
   {
     id: "def-dom-replay",
@@ -2946,7 +2946,7 @@ export const ENTRIES = [
       en:
         "A **replay** is the re-submission of a legitimate message that has already been used, in the hope that it takes effect again. It is defended against with material that is good only once — a **nonce**, an expiry, or an **idempotency key** that recognises the repeated request.",
     },
-    sources: s("domNistGlossary"),
+    sources: s("NIST-CSRC"),
   },
   {
     id: "def-dom-nonce",
@@ -2959,7 +2959,7 @@ export const ENTRIES = [
       en:
         "A **nonce** is a value used only once in a given context, so that a repeated message stops being accepted. It is the elementary defence against **replay**.",
     },
-    sources: s("domNistGlossary"),
+    sources: s("NIST-CSRC"),
   },
   {
     id: "def-dom-authentication",
@@ -2972,7 +2972,7 @@ export const ENTRIES = [
       en:
         "**Authentication** establishes **who** the presenting party is. It answers a different question from **authorization**, which establishes **what** that party may do: authenticating does not authorise.",
     },
-    sources: s("domNistGlossary"),
+    sources: s("NIST-CSRC"),
   },
   {
     id: "def-dom-integrity",
@@ -2985,7 +2985,7 @@ export const ENTRIES = [
       en:
         "**Integrity** is the property that data has not been altered undetectably. It is proven by comparing bytes against a value derived from them — a **hash** or a **digital signature**.",
     },
-    sources: s("domNistGlossary"),
+    sources: s("NIST-CSRC"),
   },
   {
     id: "def-dom-retry",
@@ -2998,7 +2998,7 @@ export const ENTRIES = [
       en:
         "A **retry** is the repetition of a request whose outcome was not observed — through a timeout, a network failure or a transient error. A retry is only safe when the operation is **idempotent**: without that, repeating the request can repeat the effect.",
     },
-    sources: s("domNistGlossary"),
+    sources: s("NIST-CSRC"),
   },
   {
     id: "def-dom-timeout",
@@ -3011,7 +3011,7 @@ export const ENTRIES = [
       en:
         "A **timeout** is the time limit after which the waiting side stops expecting a response. A timeout does not say the operation failed — only that its outcome was not observed, which is why safe repetition requires idempotency.",
     },
-    sources: s("domNistGlossary"),
+    sources: s("NIST-CSRC"),
   },
   {
     id: "def-dom-state-machine",
@@ -3024,7 +3024,7 @@ export const ENTRIES = [
       en:
         "A **state machine** is a model in which something is always in exactly one state from a closed set, and changes only through declared transitions. Its value is in what it excludes: a state not in the set is unreachable, and a transition not declared does not happen.",
     },
-    sources: s("domNistGlossary"),
+    sources: s("NIST-CSRC"),
   },
   {
     id: "def-dom-determinism",
@@ -3037,7 +3037,7 @@ export const ENTRIES = [
       en:
         "**Determinism** is the property that the same input always produces exactly the same output. It is what makes a result reproducible by a third party — and it is why verification over signed bytes requires it.",
     },
-    sources: s("domNistGlossary"),
+    sources: s("NIST-CSRC"),
   },
   {
     id: "def-dom-consistency",
@@ -3050,7 +3050,7 @@ export const ENTRIES = [
       en:
         "**Consistency** is the property that different observers do not see states that contradict one another. In distributed systems it is a guarantee that has to be stated precisely, because its scope is always bounded.",
     },
-    sources: s("domNistGlossary"),
+    sources: s("NIST-CSRC"),
   },
   {
     id: "def-dom-safe-degradation",
@@ -3063,7 +3063,7 @@ export const ENTRIES = [
       en:
         "**Safe degradation** is reducing function without reducing guarantees: when a component fails, the system does less, and what it still does stays correct. It differs from **fail-closed** in keeping service rather than stopping it.",
     },
-    sources: s("domNistGlossary"),
+    sources: s("NIST-CSRC"),
   },
   {
     id: "def-dom-availability",
@@ -3076,7 +3076,7 @@ export const ENTRIES = [
       en:
         "**Availability** is the fraction of time a system responds to what is asked of it. It is a property separate from **security**, and where the two collide **BANZA** resolves the collision in favour of security.",
     },
-    sources: s("domNistGlossary"),
+    sources: s("NIST-CSRC"),
   },
   {
     id: "def-dom-http",
@@ -3089,7 +3089,7 @@ export const ENTRIES = [
       en:
         "**HTTP** is the Web's request/response protocol, defined by **RFC** 9110. It fixes methods, status codes and header semantics — including which methods are safe and which are idempotent.",
     },
-    sources: s("domIetfHttp"),
+    sources: s("RFC-9110"),
   },
   {
     id: "def-dom-endpoint",
@@ -3102,7 +3102,7 @@ export const ENTRIES = [
       en:
         "An **endpoint** is the concrete address at which an API operation is invoked. The **contract** says what that operation accepts and returns; the endpoint only says where to reach it.",
     },
-    sources: s("domIetfHttp"),
+    sources: s("RFC-9110"),
   },
   {
     id: "def-dom-versioning",
@@ -3115,7 +3115,7 @@ export const ENTRIES = [
       en:
         "**Versioning** is the explicit identification of which variant of a contract is in force, so that a change can be introduced without whoever depends on the previous one discovering the difference in production.",
     },
-    sources: s("domW3cJsonSchema"),
+    sources: s("JSON-SCHEMA"),
   },
   {
     id: "def-dom-backward-compatibility",
@@ -3128,7 +3128,7 @@ export const ENTRIES = [
       en:
         "**Backward compatibility** is the property that a new version keeps accepting what the previous one accepted, and means the same by it. Adding optional fields preserves it; making a field required, or changing what a value means, breaks it.",
     },
-    sources: s("domW3cJsonSchema"),
+    sources: s("JSON-SCHEMA"),
   },
   {
     id: "def-dom-serialization",
@@ -3141,7 +3141,7 @@ export const ENTRIES = [
       en:
         "**Serialization** is the conversion of a structure into bytes for transmission or storage. When those bytes are going to be signed, the conversion has to be **canonical** — exactly one possible form — or two correct implementations produce different signatures for the same document.",
     },
-    sources: s("domIetfJson", "domIetfJcs"),
+    sources: s("RFC-8259", "RFC-8785"),
   },
   {
     id: "def-dom-resilience-general",
@@ -3154,7 +3154,7 @@ export const ENTRIES = [
       en:
         "**Resilience** is a system's capacity to keep meeting its purpose in the face of failures, and to recover from them. It is not the absence of downtime, and in **BANZA** it never overrides security.",
     },
-    sources: s("domNistGlossary"),
+    sources: s("NIST-CSRC"),
   },
   {
     id: "def-dom-database",
@@ -3167,7 +3167,7 @@ export const ENTRIES = [
       en:
         "A **database** is a storage system that holds **current state** and lets it be read and changed. It differs from a **ledger** in what it keeps: a database stores the value as of now and may overwrite it, while a ledger stores the **movements** and derives the value from them, append-only.",
     },
-    sources: s("domNistGlossary"),
+    sources: s("NIST-CSRC"),
   },
   {
     id: "def-dom-authorization",
@@ -3180,7 +3180,7 @@ export const ENTRIES = [
       en:
         "**Authorization** establishes **what** an already-identified party may do. It is distinct from **authentication**, which establishes **who** that party is: authenticating does not authorise, and the two decisions are taken separately.",
     },
-    sources: s("domNistGlossary"),
+    sources: s("NIST-CSRC"),
   },
   {
     id: "def-dom-validation",
@@ -3193,7 +3193,7 @@ export const ENTRIES = [
       en:
         "**Validation** checks that something conforms to a declared specification — that a document has the shape the schema requires, for instance. It answers \"is it well formed?\", and is distinct from **verification**, which answers \"is it true?\".",
     },
-    sources: s("domW3cJsonSchema"),
+    sources: s("JSON-SCHEMA"),
   },
   {
     id: "def-dom-verification",
@@ -3206,7 +3206,7 @@ export const ENTRIES = [
       en:
         "**Verification** establishes that a claim is true against evidence — that a signature matches a key and a set of bytes, for instance. It answers \"is it true?\", and is distinct from **validation**, which answers \"is it well formed?\". A document can be valid and its signature still fail to verify.",
     },
-    sources: s("domNistGlossary"),
+    sources: s("NIST-CSRC"),
   },
   {
     id: "def-dom-accreditation",
@@ -3219,7 +3219,7 @@ export const ENTRIES = [
       en:
         "**Accreditation** is the formal recognition, by an authority, that a body is competent to assess or certify third parties. It sits one level above **certification**: an object or an implementation is certified, and the certifier is accredited. **BANZA** neither accredits nor is accredited — participation is demonstrated by verifiable evidence.",
     },
-    sources: s("domBisPfmi"),
+    sources: s("BIS-PFMI"),
   },
   {
     id: "def-protocol",

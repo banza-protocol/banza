@@ -8,9 +8,17 @@
 #
 # Two properties:
 #
-#   RESOLVE   Every path in the registry exists (globs must match at least one file).
+#   RESOLVE   Every source RESOLVES somewhere checkable. For a repository source that is a path that
+#             exists (globs must match at least one file). For an EXTERNAL authority — NIST, IETF, BIS —
+#             there is no file in this repository to point at, and inventing one would be a citation
+#             that links to the wrong thing. It resolves to an absolute https URL instead, and must
+#             name the publisher that stands behind it.
 #   SHAPE     A path is a path. No parenthetical label, no trailing prose, no whitespace — those are how
-#             a display string ends up in the field a link is built from.
+#             a display string ends up in the field a link is built from. A URL is likewise a URL.
+#
+# A source that resolves to NEITHER still fails. The domain layer added ten external authorities with a
+# `url` and no `path`, and this guard — written when every source was a repository file — had been
+# failing on all ten since they landed.
 #
 # Nothing here is excluded by filename magic: if an entry is unreachable it fails, and the fix is to
 # correct the path or remove the entry.
@@ -33,10 +41,24 @@ const problems = [];
 // a link is built from, and the space is what gives it away.
 const SHAPE = /^\S+$/;
 
+const URL_SHAPE = /^https:\/\/\S+$/;
+
 for (const [key, src] of Object.entries(SOURCES)) {
   const p = src && src.path;
+  // An EXTERNAL authority resolves by URL. The bar is not lower: it must be absolute https with no
+  // whitespace, and it must name a publisher, so the card says who stands behind the claim.
+  if ((typeof p !== "string" || !p) && src && src.class === "domain") {
+    const u = src.url;
+    if (typeof u !== "string" || !URL_SHAPE.test(u)) {
+      problems.push(`${key}: external authority with no absolute https url — ${JSON.stringify(u)}`);
+    }
+    if (!String(src.publisher || "").trim()) {
+      problems.push(`${key}: external authority with no publisher named`);
+    }
+    continue;
+  }
   if (typeof p !== "string" || !p) {
-    problems.push(`${key}: no path`);
+    problems.push(`${key}: no path and not a declared external authority`);
     continue;
   }
   if (!SHAPE.test(p)) {
