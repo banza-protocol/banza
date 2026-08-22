@@ -1,0 +1,2043 @@
+{
+  "_note": "Question forms per semantic unit. Declared here so the benchmark generator walks the UNIVERSE rather than a hand-picked list; a unit with no probe is reported by the closed-world guard, never silently skipped.",
+  "probes": {
+    "domain.ledger.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é ledger?",
+        "paraphrase": "Explica ledger de forma simples."
+      },
+      "en": {
+        "direct": "What is a ledger?",
+        "paraphrase": "Explain a ledger simply."
+      }
+    },
+    "domain.account.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é uma conta?",
+        "paraphrase": "Explica uma conta de forma simples."
+      },
+      "en": {
+        "direct": "What is an account?",
+        "paraphrase": "Explain an account simply."
+      }
+    },
+    "domain.balance.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é um saldo?",
+        "paraphrase": "Explica um saldo de forma simples."
+      },
+      "en": {
+        "direct": "What is a balance?",
+        "paraphrase": "Explain a balance simply."
+      }
+    },
+    "domain.payment.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é um pagamento?",
+        "paraphrase": "Explica um pagamento de forma simples."
+      },
+      "en": {
+        "direct": "What is a payment?",
+        "paraphrase": "Explain a payment simply."
+      }
+    },
+    "domain.transfer.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é uma transferência?",
+        "paraphrase": "Explica uma transferência de forma simples."
+      },
+      "en": {
+        "direct": "What is a transfer?",
+        "paraphrase": "Explain a transfer simply."
+      }
+    },
+    "domain.payment-initiation.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é iniciação de pagamento?",
+        "paraphrase": "Explica iniciação de pagamento de forma simples."
+      },
+      "en": {
+        "direct": "What is payment initiation?",
+        "paraphrase": "Explain payment initiation simply."
+      }
+    },
+    "domain.clearing.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é clearing?",
+        "paraphrase": "Explica clearing de forma simples."
+      },
+      "en": {
+        "direct": "What is clearing?",
+        "paraphrase": "Explain clearing simply."
+      }
+    },
+    "domain.settlement.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é settlement?",
+        "paraphrase": "Explica settlement de forma simples."
+      },
+      "en": {
+        "direct": "What is settlement?",
+        "paraphrase": "Explain settlement simply."
+      }
+    },
+    "domain.reconciliation.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é reconciliação?",
+        "paraphrase": "Explica reconciliação de forma simples."
+      },
+      "en": {
+        "direct": "What is reconciliation?",
+        "paraphrase": "Explain reconciliation simply."
+      }
+    },
+    "domain.refund.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é um reembolso?",
+        "paraphrase": "Explica um reembolso de forma simples."
+      },
+      "en": {
+        "direct": "What is a refund?",
+        "paraphrase": "Explain a refund simply."
+      }
+    },
+    "domain.reversal.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é um estorno?",
+        "paraphrase": "Explica um estorno de forma simples."
+      },
+      "en": {
+        "direct": "What is a reversal?",
+        "paraphrase": "Explain a reversal simply."
+      }
+    },
+    "domain.merchant.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é um comerciante?",
+        "paraphrase": "Explica um comerciante de forma simples."
+      },
+      "en": {
+        "direct": "What is a merchant?",
+        "paraphrase": "Explain a merchant simply."
+      }
+    },
+    "domain.issuer.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é um emissor?",
+        "paraphrase": "Explica um emissor de forma simples."
+      },
+      "en": {
+        "direct": "What is an issuer?",
+        "paraphrase": "Explain an issuer simply."
+      }
+    },
+    "domain.acquirer.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é um adquirente?",
+        "paraphrase": "Explica um adquirente de forma simples."
+      },
+      "en": {
+        "direct": "What is an acquirer?",
+        "paraphrase": "Explain an acquirer simply."
+      }
+    },
+    "domain.psp.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é um PSP?",
+        "paraphrase": "Explica um PSP de forma simples."
+      },
+      "en": {
+        "direct": "What is a PSP?",
+        "paraphrase": "Explain a PSP simply."
+      }
+    },
+    "domain.wallet.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é uma carteira?",
+        "paraphrase": "Explica uma carteira de forma simples."
+      },
+      "en": {
+        "direct": "What is a wallet?",
+        "paraphrase": "Explain a wallet simply."
+      }
+    },
+    "domain.payment-rail.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é um rail de pagamento?",
+        "paraphrase": "Explica um rail de pagamento de forma simples."
+      },
+      "en": {
+        "direct": "What is a payment rail?",
+        "paraphrase": "Explain a payment rail simply."
+      }
+    },
+    "domain.payment-scheme.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é um scheme de pagamento?",
+        "paraphrase": "Explica um scheme de pagamento de forma simples."
+      },
+      "en": {
+        "direct": "What is a payment scheme?",
+        "paraphrase": "Explain a payment scheme simply."
+      }
+    },
+    "domain.hash.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é um hash?",
+        "paraphrase": "Explica um hash de forma simples."
+      },
+      "en": {
+        "direct": "What is a hash?",
+        "paraphrase": "Explain a hash simply."
+      }
+    },
+    "domain.digital-signature.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é uma assinatura digital?",
+        "paraphrase": "Explica uma assinatura digital de forma simples."
+      },
+      "en": {
+        "direct": "What is a digital signature?",
+        "paraphrase": "Explain a digital signature simply."
+      }
+    },
+    "domain.keypair.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é uma chave pública?",
+        "paraphrase": "Explica uma chave pública de forma simples."
+      },
+      "en": {
+        "direct": "What is a public key?",
+        "paraphrase": "Explain a public key simply."
+      }
+    },
+    "domain.ed25519.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é Ed25519?",
+        "paraphrase": "Explica Ed25519 de forma simples."
+      },
+      "en": {
+        "direct": "What is Ed25519?",
+        "paraphrase": "Explain Ed25519 simply."
+      }
+    },
+    "domain.trust-root.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é uma raiz de confiança?",
+        "paraphrase": "Explica uma raiz de confiança de forma simples."
+      },
+      "en": {
+        "direct": "What is a trust root?",
+        "paraphrase": "Explain a trust root simply."
+      }
+    },
+    "domain.key-rotation.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é rotação de chaves?",
+        "paraphrase": "Explica rotação de chaves de forma simples."
+      },
+      "en": {
+        "direct": "What is key rotation?",
+        "paraphrase": "Explain key rotation simply."
+      }
+    },
+    "domain.revocation.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é revogação?",
+        "paraphrase": "Explica revogação de forma simples."
+      },
+      "en": {
+        "direct": "What is revocation?",
+        "paraphrase": "Explain revocation simply."
+      }
+    },
+    "domain.canonicalization.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é canonicalização?",
+        "paraphrase": "Explica canonicalização de forma simples."
+      },
+      "en": {
+        "direct": "What is canonicalization?",
+        "paraphrase": "Explain canonicalization simply."
+      }
+    },
+    "domain.replay.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é replay?",
+        "paraphrase": "Explica replay de forma simples."
+      },
+      "en": {
+        "direct": "What is replay?",
+        "paraphrase": "Explain replay simply."
+      }
+    },
+    "domain.nonce.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é um nonce?",
+        "paraphrase": "Explica um nonce de forma simples."
+      },
+      "en": {
+        "direct": "What is a nonce?",
+        "paraphrase": "Explain a nonce simply."
+      }
+    },
+    "domain.authentication.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é autenticação?",
+        "paraphrase": "Explica autenticação de forma simples."
+      },
+      "en": {
+        "direct": "What is authentication?",
+        "paraphrase": "Explain authentication simply."
+      }
+    },
+    "domain.integrity.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é integridade?",
+        "paraphrase": "Explica integridade de forma simples."
+      },
+      "en": {
+        "direct": "What is integrity?",
+        "paraphrase": "Explain integrity simply."
+      }
+    },
+    "domain.idempotency.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é idempotência?",
+        "paraphrase": "Explica idempotência de forma simples."
+      },
+      "en": {
+        "direct": "What is idempotency?",
+        "paraphrase": "Explain idempotency simply."
+      }
+    },
+    "domain.retry.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é retry?",
+        "paraphrase": "Explica retry de forma simples."
+      },
+      "en": {
+        "direct": "What is retry?",
+        "paraphrase": "Explain retry simply."
+      }
+    },
+    "domain.timeout.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é timeout?",
+        "paraphrase": "Explica timeout de forma simples."
+      },
+      "en": {
+        "direct": "What is a timeout?",
+        "paraphrase": "Explain a timeout simply."
+      }
+    },
+    "domain.state-machine.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é uma máquina de estados?",
+        "paraphrase": "Explica uma máquina de estados de forma simples."
+      },
+      "en": {
+        "direct": "What is a state machine?",
+        "paraphrase": "Explain a state machine simply."
+      }
+    },
+    "domain.determinism.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é determinismo?",
+        "paraphrase": "Explica determinismo de forma simples."
+      },
+      "en": {
+        "direct": "What is determinism?",
+        "paraphrase": "Explain determinism simply."
+      }
+    },
+    "domain.consistency.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é consistência?",
+        "paraphrase": "Explica consistência de forma simples."
+      },
+      "en": {
+        "direct": "What is consistency?",
+        "paraphrase": "Explain consistency simply."
+      }
+    },
+    "domain.fail-closed.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é fail-closed?",
+        "paraphrase": "Explica fail-closed de forma simples."
+      },
+      "en": {
+        "direct": "What is fail-closed?",
+        "paraphrase": "Explain fail-closed simply."
+      }
+    },
+    "domain.safe-degradation.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é degradação segura?",
+        "paraphrase": "Explica degradação segura de forma simples."
+      },
+      "en": {
+        "direct": "What is safe degradation?",
+        "paraphrase": "Explain safe degradation simply."
+      }
+    },
+    "domain.resilience.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é resiliência?",
+        "paraphrase": "Explica resiliência de forma simples."
+      },
+      "en": {
+        "direct": "What is resilience?",
+        "paraphrase": "Explain resilience simply."
+      }
+    },
+    "domain.availability.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é disponibilidade?",
+        "paraphrase": "Explica disponibilidade de forma simples."
+      },
+      "en": {
+        "direct": "What is availability?",
+        "paraphrase": "Explain availability simply."
+      }
+    },
+    "domain.rollback.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é rollback?",
+        "paraphrase": "Explica rollback de forma simples."
+      },
+      "en": {
+        "direct": "What is rollback?",
+        "paraphrase": "Explain rollback simply."
+      }
+    },
+    "domain.api.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é uma API?",
+        "paraphrase": "Explica uma API de forma simples."
+      },
+      "en": {
+        "direct": "What is an API?",
+        "paraphrase": "Explain an API simply."
+      }
+    },
+    "domain.http.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é HTTP?",
+        "paraphrase": "Explica HTTP de forma simples."
+      },
+      "en": {
+        "direct": "What is HTTP?",
+        "paraphrase": "Explain HTTP simply."
+      }
+    },
+    "domain.json.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é JSON?",
+        "paraphrase": "Explica JSON de forma simples."
+      },
+      "en": {
+        "direct": "What is JSON?",
+        "paraphrase": "Explain JSON simply."
+      }
+    },
+    "domain.schema.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é um schema?",
+        "paraphrase": "Explica um schema de forma simples."
+      },
+      "en": {
+        "direct": "What is a schema?",
+        "paraphrase": "Explain a schema simply."
+      }
+    },
+    "domain.contract.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é um contrato?",
+        "paraphrase": "Explica um contrato de forma simples."
+      },
+      "en": {
+        "direct": "What is a contract?",
+        "paraphrase": "Explain a contract simply."
+      }
+    },
+    "domain.endpoint.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é um endpoint?",
+        "paraphrase": "Explica um endpoint de forma simples."
+      },
+      "en": {
+        "direct": "What is an endpoint?",
+        "paraphrase": "Explain an endpoint simply."
+      }
+    },
+    "domain.versioning.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é versionamento?",
+        "paraphrase": "Explica versionamento de forma simples."
+      },
+      "en": {
+        "direct": "What is versioning?",
+        "paraphrase": "Explain versioning simply."
+      }
+    },
+    "domain.backward-compatibility.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é retrocompatibilidade?",
+        "paraphrase": "Explica retrocompatibilidade de forma simples."
+      },
+      "en": {
+        "direct": "What is backward compatibility?",
+        "paraphrase": "Explain backward compatibility simply."
+      }
+    },
+    "domain.serialization.definition": {
+      "intent": "DOMAIN_EXPLANATION",
+      "capabilities": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "pt-PT": {
+        "direct": "O que é serialização?",
+        "paraphrase": "Explica serialização de forma simples."
+      },
+      "en": {
+        "direct": "What is serialization?",
+        "paraphrase": "Explain serialization simply."
+      }
+    },
+    "banza.certification.not_admission": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.authority_precedence"
+      ],
+      "pt-PT": {
+        "direct": "A certificação BANZA dá admissão automática?",
+        "paraphrase": "Estar certificado significa que fui admitido?"
+      },
+      "en": {
+        "direct": "Does BANZA certification grant admission?",
+        "paraphrase": "Does being certified mean I have been admitted?"
+      },
+      "must": {
+        "pt-PT": [
+          "[Nn]ão|admiss"
+        ],
+        "en": [
+          "\\bno\\b|admission"
+        ]
+      },
+      "must_not": {
+        "pt-PT": [
+          "sim, (dá|confere) admissão"
+        ],
+        "en": [
+          "yes, it grants admission"
+        ]
+      }
+    },
+    "banza.certification.not_regulatory_authorisation": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.authority_precedence"
+      ],
+      "pt-PT": {
+        "direct": "Se estiver certificado estou autorizado pelo regulador?",
+        "paraphrase": "A certificação BANZA vale como autorização regulatória?"
+      },
+      "en": {
+        "direct": "If I am certified am I authorised by the regulator?",
+        "paraphrase": "Does BANZA certification count as regulatory authorisation?"
+      },
+      "must": {
+        "pt-PT": [
+          "[Nn]ão"
+        ],
+        "en": [
+          "\\b[Nn]o\\b"
+        ]
+      },
+      "must_not": {
+        "pt-PT": [
+          "autoriza\\b(?!.*n[ãa]o)"
+        ],
+        "en": [
+          "\\bauthorises you\\b(?!.*not)"
+        ]
+      }
+    },
+    "banza.admission.not_authorisation": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P0",
+      "pt-PT": {
+        "direct": "O que é admissão operacional?",
+        "paraphrase": "Explica admissão no BANZA."
+      },
+      "en": {
+        "direct": "What is operational admission?",
+        "paraphrase": "Explain admission in BANZA."
+      },
+      "must": {
+        "pt-PT": [
+          "admiss"
+        ],
+        "en": [
+          "admission"
+        ]
+      }
+    },
+    "banza.banzai.non_authoritative": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P0",
+      "pt-PT": {
+        "direct": "O BanzAI pode certificar-me?",
+        "paraphrase": "O BanzAI é uma autoridade normativa?"
+      },
+      "en": {
+        "direct": "Can BanzAI certify me?",
+        "paraphrase": "Is BanzAI a normative authority?"
+      },
+      "must": {
+        "pt-PT": [
+          "[Nn]ão"
+        ],
+        "en": [
+          "\\b[Nn]o\\b"
+        ]
+      },
+      "must_not": {
+        "pt-PT": [
+          "posso certificar"
+        ],
+        "en": [
+          "I can certify"
+        ]
+      }
+    },
+    "banza.reference_implementation.does_not_define": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P0",
+      "pt-PT": {
+        "direct": "A implementação de referência é normativa?",
+        "paraphrase": "O Operador Zero define o protocolo?"
+      },
+      "en": {
+        "direct": "Is the reference implementation normative?",
+        "paraphrase": "Does Operator Zero define the protocol?"
+      },
+      "must": {
+        "pt-PT": [
+          "referência|refer[êe]ncia|implementa"
+        ],
+        "en": [
+          "reference|implement"
+        ]
+      }
+    },
+    "banza.bcj1.duplicate_keys_rejected": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "pt-PT": {
+        "direct": "O BCJ/1 aceita chaves duplicadas?",
+        "paraphrase": "O que acontece a membros duplicados no BCJ/1?"
+      },
+      "en": {
+        "direct": "Does BCJ/1 accept duplicate keys?",
+        "paraphrase": "What happens to duplicate members in BCJ/1?"
+      },
+      "must": {
+        "pt-PT": [
+          "duplicad|rejeit"
+        ],
+        "en": [
+          "duplicate|reject"
+        ]
+      }
+    },
+    "banza.bcj1.no_unicode_normalization": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "pt-PT": {
+        "direct": "Por que não posso normalizar Unicode antes de verificar?",
+        "paraphrase": "O verificador aplica normalização Unicode?"
+      },
+      "en": {
+        "direct": "Why can I not normalize Unicode before verifying?",
+        "paraphrase": "Does the verifier apply Unicode normalization?"
+      },
+      "must": {
+        "pt-PT": [
+          "[Uu]nicode|canónica|canonica"
+        ],
+        "en": [
+          "[Uu]nicode|canonical"
+        ]
+      }
+    },
+    "banza.bcj1.integer_domain": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "pt-PT": {
+        "direct": "Que inteiros o BCJ/1 permite?",
+        "paraphrase": "Qual é o domínio de inteiros do BCJ/1?"
+      },
+      "en": {
+        "direct": "Which integers does BCJ/1 allow?",
+        "paraphrase": "What is BCJ/1's integer domain?"
+      },
+      "must": {
+        "pt-PT": [
+          "BCJ|inteiro"
+        ],
+        "en": [
+          "BCJ|integer"
+        ]
+      }
+    },
+    "banza.idempotency.scope": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "pt-PT": {
+        "direct": "Qual o âmbito da idempotência?",
+        "paraphrase": "A que se aplica a chave de idempotência?"
+      },
+      "en": {
+        "direct": "What is the scope of idempotency?",
+        "paraphrase": "What does the idempotency key apply to?"
+      },
+      "must": {
+        "pt-PT": [
+          "idempot"
+        ],
+        "en": [
+          "idempot"
+        ]
+      }
+    },
+    "banza.trust.root.count": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P0",
+      "pt-PT": {
+        "direct": "Quantas autoridades raiz tem o BANZA?",
+        "paraphrase": "Quantas autoridades controlam a Trust Root?"
+      },
+      "en": {
+        "direct": "How many root authorities does BANZA have?",
+        "paraphrase": "How many authorities control the Trust Root?"
+      },
+      "must": {
+        "pt-PT": [
+          "tr[êe]s|3"
+        ],
+        "en": [
+          "three|3"
+        ]
+      }
+    },
+    "banza.trust.root.threshold": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P0",
+      "pt-PT": {
+        "direct": "Qual é o limiar da raiz?",
+        "paraphrase": "Quantas assinaturas raiz são necessárias?"
+      },
+      "en": {
+        "direct": "What is the root threshold?",
+        "paraphrase": "How many root signatures are required?"
+      },
+      "must": {
+        "pt-PT": [
+          "duas|2"
+        ],
+        "en": [
+          "two|2"
+        ]
+      },
+      "must_not": {
+        "pt-PT": [
+          "1-de-3|uma das tr[êe]s"
+        ],
+        "en": [
+          "1-of-3|one of the three"
+        ]
+      }
+    },
+    "banza.trust.no_global_transparency": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "pt-PT": {
+        "direct": "O BANZA fornece transparência global?",
+        "paraphrase": "Isso implica consenso global?"
+      },
+      "en": {
+        "direct": "Does BANZA provide global transparency?",
+        "paraphrase": "Does that imply global consensus?"
+      },
+      "must": {
+        "pt-PT": [
+          "[Nn]ão"
+        ],
+        "en": [
+          "\\b[Nn]o\\b"
+        ]
+      }
+    },
+    "banza.trust.fail_closed": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "pt-PT": {
+        "direct": "O que acontece se a validação de trust falhar?",
+        "paraphrase": "Trust inválido bloqueia?"
+      },
+      "en": {
+        "direct": "What happens if trust validation fails?",
+        "paraphrase": "Does invalid trust block?"
+      },
+      "must": {
+        "pt-PT": [
+          "trust|confian"
+        ],
+        "en": [
+          "trust"
+        ]
+      }
+    },
+    "banza.execution.local_no_central_processor": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P0",
+      "pt-PT": {
+        "direct": "O BANZA precisa de um processador central de transacções?",
+        "paraphrase": "Existe um servidor central no BANZA?"
+      },
+      "en": {
+        "direct": "Does BANZA require a central transaction processor?",
+        "paraphrase": "Is there a central server in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "[Nn]ão"
+        ],
+        "en": [
+          "\\b[Nn]o\\b"
+        ]
+      }
+    },
+    "banza.execution.no_global_consensus": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P0",
+      "pt-PT": {
+        "direct": "O BANZA usa consenso global?",
+        "paraphrase": "O BANZA é uma blockchain?"
+      },
+      "en": {
+        "direct": "Does BANZA use global consensus?",
+        "paraphrase": "Is BANZA a blockchain?"
+      },
+      "must": {
+        "pt-PT": [
+          "[Nn]ão"
+        ],
+        "en": [
+          "\\b[Nn]o\\b"
+        ]
+      }
+    },
+    "banza.implementation.technology_independent": {
+      "intent": "IMPLEMENTATION_GUIDANCE",
+      "criticality": "P1",
+      "pt-PT": {
+        "direct": "Posso implementar o BANZA em Go?",
+        "paraphrase": "Tenho de usar Rust para implementar o BANZA?"
+      },
+      "en": {
+        "direct": "Can I implement BANZA in Go?",
+        "paraphrase": "Must I use Rust to implement BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "qualquer|linguagem|implementa"
+        ],
+        "en": [
+          "any|language|implement"
+        ]
+      },
+      "must_not": {
+        "pt-PT": [
+          "usar trust para implementar"
+        ],
+        "en": [
+          "need trust to implement"
+        ]
+      }
+    },
+    "banza.protocol.holds_no_funds": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P0",
+      "pt-PT": {
+        "direct": "O BANZA movimenta fundos?",
+        "paraphrase": "O BANZA processa pagamentos?"
+      },
+      "en": {
+        "direct": "Does BANZA move funds?",
+        "paraphrase": "Does BANZA process payments?"
+      },
+      "must": {
+        "pt-PT": [
+          "[Nn]ão"
+        ],
+        "en": [
+          "\\b[Nn]o\\b"
+        ]
+      }
+    },
+    "banza.state_store.not_a_ledger": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "pt-PT": {
+        "direct": "O PostgreSQL do BANZA guarda saldos?",
+        "paraphrase": "O estado de protocolo é um ledger?"
+      },
+      "en": {
+        "direct": "Does BANZA's PostgreSQL hold balances?",
+        "paraphrase": "Is protocol state a ledger?"
+      },
+      "must": {
+        "pt-PT": [
+          "[Nn]ão|estado de protocolo"
+        ],
+        "en": [
+          "\\b[Nn]o\\b|protocol state"
+        ]
+      }
+    },
+    "banza.r2s2.four_principles": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "pt-PT": {
+        "direct": "Quais são os princípios fundamentais do BANZA?",
+        "paraphrase": "O que é o R2S2?"
+      },
+      "en": {
+        "direct": "What are BANZA's fundamental principles?",
+        "paraphrase": "What is R2S2?"
+      },
+      "must": {
+        "pt-PT": [
+          "Robusto",
+          "Resiliente",
+          "Seguro",
+          "Simples"
+        ],
+        "en": [
+          "Robust",
+          "Resilient",
+          "Secure",
+          "Simple"
+        ]
+      }
+    },
+    "banza.resilience.never_overrides_security": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P0",
+      "pt-PT": {
+        "direct": "A resiliência sobrepõe-se à segurança?",
+        "paraphrase": "Resiliência significa zero downtime?"
+      },
+      "en": {
+        "direct": "Does resilience override security?",
+        "paraphrase": "Does resilience mean zero downtime?"
+      },
+      "must": {
+        "pt-PT": [
+          "[Nn]ão"
+        ],
+        "en": [
+          "\\b[Nn]o\\b"
+        ]
+      }
+    },
+    "banza.profile.l0.definition": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que é L0?",
+        "paraphrase": "Explica o perfil L0."
+      },
+      "en": {
+        "direct": "What is L0?",
+        "paraphrase": "Explain the L0 profile."
+      },
+      "must": {
+        "pt-PT": [
+          "L0"
+        ],
+        "en": [
+          "L0"
+        ]
+      }
+    },
+    "banza.profile.l1.definition": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que é L1?",
+        "paraphrase": "Explica o perfil L1."
+      },
+      "en": {
+        "direct": "What is L1?",
+        "paraphrase": "Explain the L1 profile."
+      },
+      "must": {
+        "pt-PT": [
+          "L1"
+        ],
+        "en": [
+          "L1"
+        ]
+      }
+    },
+    "banza.profile.l2.definition": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que é L2?",
+        "paraphrase": "Explica o perfil L2."
+      },
+      "en": {
+        "direct": "What is L2?",
+        "paraphrase": "Explain the L2 profile."
+      },
+      "must": {
+        "pt-PT": [
+          "L2"
+        ],
+        "en": [
+          "L2"
+        ]
+      }
+    },
+    "banza.profile.l3.definition": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que é L3?",
+        "paraphrase": "Explica o perfil L3."
+      },
+      "en": {
+        "direct": "What is L3?",
+        "paraphrase": "Explain the L3 profile."
+      },
+      "must": {
+        "pt-PT": [
+          "L3"
+        ],
+        "en": [
+          "L3"
+        ]
+      }
+    },
+    "banza.profile.l4.definition": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que é L4?",
+        "paraphrase": "Explica o perfil L4."
+      },
+      "en": {
+        "direct": "What is L4?",
+        "paraphrase": "Explain the L4 profile."
+      },
+      "must": {
+        "pt-PT": [
+          "L4"
+        ],
+        "en": [
+          "L4"
+        ]
+      }
+    },
+    "banza.status.protocol_version": {
+      "intent": "STATUS_QUERY",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.current_runtime_truth"
+      ],
+      "pt-PT": {
+        "direct": "Qual é a versão do protocolo BANZA?",
+        "paraphrase": "Em que versão está o protocolo?"
+      },
+      "en": {
+        "direct": "What version is the BANZA protocol?",
+        "paraphrase": "Which protocol version is current?"
+      },
+      "must": {
+        "pt-PT": [
+          "1\\.0\\.0"
+        ],
+        "en": [
+          "1\\.0\\.0"
+        ]
+      },
+      "must_not": {
+        "pt-PT": [
+          "pronto para produção\\b(?!.*n[ãa]o)"
+        ],
+        "en": [
+          "is production ready\\b(?!.*not)"
+        ]
+      }
+    },
+    "banza.status.pre_production": {
+      "intent": "STATUS_QUERY",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.current_runtime_truth"
+      ],
+      "pt-PT": {
+        "direct": "O BANZA está pronto para produção?",
+        "paraphrase": "O BANZA já pode operar dinheiro real?"
+      },
+      "en": {
+        "direct": "Is BANZA production ready?",
+        "paraphrase": "Can BANZA operate real money yet?"
+      },
+      "must": {
+        "pt-PT": [
+          "PRE-PRODUCTION|pré-produção|pre-produ"
+        ],
+        "en": [
+          "PRE-PRODUCTION|pré-produção|pre-produ"
+        ]
+      },
+      "must_not": {
+        "pt-PT": [
+          "pronto para produção\\b(?!.*n[ãa]o)"
+        ],
+        "en": [
+          "is production ready\\b(?!.*not)"
+        ]
+      }
+    },
+    "banza.status.production_certificates": {
+      "intent": "STATUS_QUERY",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.current_runtime_truth"
+      ],
+      "pt-PT": {
+        "direct": "Existem certificados de produção?",
+        "paraphrase": "Já foi emitido algum certificado de produção?"
+      },
+      "en": {
+        "direct": "Are there production certificates?",
+        "paraphrase": "Has any production certificate been issued?"
+      },
+      "must": {
+        "pt-PT": [
+          "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
+        ],
+        "en": [
+          "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
+        ]
+      },
+      "must_not": {
+        "pt-PT": [
+          "pronto para produção\\b(?!.*n[ãa]o)"
+        ],
+        "en": [
+          "is production ready\\b(?!.*not)"
+        ]
+      }
+    },
+    "banza.status.protocol_frozen": {
+      "intent": "STATUS_QUERY",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.current_runtime_truth"
+      ],
+      "pt-PT": {
+        "direct": "O protocolo está congelado?",
+        "paraphrase": "O protocolo já foi congelado?"
+      },
+      "en": {
+        "direct": "Is the protocol frozen?",
+        "paraphrase": "Has the protocol been frozen?"
+      },
+      "must": {
+        "pt-PT": [
+          "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
+        ],
+        "en": [
+          "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
+        ]
+      },
+      "must_not": {
+        "pt-PT": [
+          "pronto para produção\\b(?!.*n[ãa]o)"
+        ],
+        "en": [
+          "is production ready\\b(?!.*not)"
+        ]
+      }
+    },
+    "banza.status.l0_frozen": {
+      "intent": "STATUS_QUERY",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.current_runtime_truth"
+      ],
+      "pt-PT": {
+        "direct": "O L0 está congelado?",
+        "paraphrase": "O perfil L0 já foi congelado?"
+      },
+      "en": {
+        "direct": "Is L0 frozen?",
+        "paraphrase": "Has the L0 profile been frozen?"
+      },
+      "must": {
+        "pt-PT": [
+          "[Nn]ão|\\b[Nn]o\\b|L0|PRE-PRODUCTION"
+        ],
+        "en": [
+          "[Nn]ão|\\b[Nn]o\\b|L0|PRE-PRODUCTION"
+        ]
+      },
+      "must_not": {
+        "pt-PT": [
+          "pronto para produção\\b(?!.*n[ãa]o)"
+        ],
+        "en": [
+          "is production ready\\b(?!.*not)"
+        ]
+      }
+    },
+    "banza.status.independent_implementation_demonstrated": {
+      "intent": "STATUS_QUERY",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.current_runtime_truth"
+      ],
+      "pt-PT": {
+        "direct": "Existe uma implementação independente demonstrada?",
+        "paraphrase": "Algum terceiro já demonstrou uma implementação?"
+      },
+      "en": {
+        "direct": "Has an independent implementation been demonstrated?",
+        "paraphrase": "Has a third party demonstrated an implementation?"
+      },
+      "must": {
+        "pt-PT": [
+          "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
+        ],
+        "en": [
+          "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
+        ]
+      },
+      "must_not": {
+        "pt-PT": [
+          "pronto para produção\\b(?!.*n[ãa]o)"
+        ],
+        "en": [
+          "is production ready\\b(?!.*not)"
+        ]
+      }
+    },
+    "banza.status.independent_trial_started": {
+      "intent": "STATUS_QUERY",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.current_runtime_truth"
+      ],
+      "pt-PT": {
+        "direct": "Começou um trial independente?",
+        "paraphrase": "Já arrancou algum ensaio independente?"
+      },
+      "en": {
+        "direct": "Has an independent trial started?",
+        "paraphrase": "Has any independent trial begun?"
+      },
+      "must": {
+        "pt-PT": [
+          "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
+        ],
+        "en": [
+          "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
+        ]
+      },
+      "must_not": {
+        "pt-PT": [
+          "pronto para produção\\b(?!.*n[ãa]o)"
+        ],
+        "en": [
+          "is production ready\\b(?!.*not)"
+        ]
+      }
+    },
+    "hybrid.ledger.banza_storage_boundary": {
+      "intent": "HYBRID_DOMAIN_BANZA",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.hybrid_domain_banza_relation",
+        "capability.hybrid_authority_split"
+      ],
+      "pt-PT": {
+        "direct": "Como é que ledger se relaciona com o BANZA?",
+        "paraphrase": "O que é que o BANZA especifica sobre ledger?"
+      },
+      "en": {
+        "direct": "How does ledger relate to BANZA?",
+        "paraphrase": "What does BANZA specify about ledger?"
+      },
+      "must": {
+        "pt-PT": [
+          "BANZA"
+        ],
+        "en": [
+          "BANZA"
+        ]
+      }
+    },
+    "hybrid.clearing.banza_operational_boundary": {
+      "intent": "HYBRID_DOMAIN_BANZA",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.hybrid_domain_banza_relation",
+        "capability.hybrid_authority_split"
+      ],
+      "pt-PT": {
+        "direct": "Como é que clearing se relaciona com o BANZA?",
+        "paraphrase": "O que é que o BANZA especifica sobre clearing?"
+      },
+      "en": {
+        "direct": "How does clearing relate to BANZA?",
+        "paraphrase": "What does BANZA specify about clearing?"
+      },
+      "must": {
+        "pt-PT": [
+          "BANZA"
+        ],
+        "en": [
+          "BANZA"
+        ]
+      }
+    },
+    "hybrid.settlement.banza_operational_boundary": {
+      "intent": "HYBRID_DOMAIN_BANZA",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.hybrid_domain_banza_relation",
+        "capability.hybrid_authority_split"
+      ],
+      "pt-PT": {
+        "direct": "Como é que settlement se relaciona com o BANZA?",
+        "paraphrase": "O que é que o BANZA especifica sobre settlement?"
+      },
+      "en": {
+        "direct": "How does settlement relate to BANZA?",
+        "paraphrase": "What does BANZA specify about settlement?"
+      },
+      "must": {
+        "pt-PT": [
+          "BANZA"
+        ],
+        "en": [
+          "BANZA"
+        ]
+      }
+    },
+    "hybrid.certification.banza_certification_semantics": {
+      "intent": "HYBRID_DOMAIN_BANZA",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.hybrid_domain_banza_relation",
+        "capability.hybrid_authority_split"
+      ],
+      "pt-PT": {
+        "direct": "Como é que certificação se relaciona com o BANZA?",
+        "paraphrase": "O que é que o BANZA especifica sobre certificação?"
+      },
+      "en": {
+        "direct": "How does certification relate to BANZA?",
+        "paraphrase": "What does BANZA specify about certification?"
+      },
+      "must": {
+        "pt-PT": [
+          "BANZA"
+        ],
+        "en": [
+          "BANZA"
+        ]
+      }
+    },
+    "hybrid.authorization.banza_regulatory_boundary": {
+      "intent": "HYBRID_DOMAIN_BANZA",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.hybrid_domain_banza_relation",
+        "capability.hybrid_authority_split"
+      ],
+      "pt-PT": {
+        "direct": "Como é que autorização se relaciona com o BANZA?",
+        "paraphrase": "O que é que o BANZA especifica sobre autorização?"
+      },
+      "en": {
+        "direct": "How does authorization relate to BANZA?",
+        "paraphrase": "What does BANZA specify about authorization?"
+      },
+      "must": {
+        "pt-PT": [
+          "BANZA"
+        ],
+        "en": [
+          "BANZA"
+        ]
+      }
+    },
+    "hybrid.digital-signature.banza_trust_usage": {
+      "intent": "HYBRID_DOMAIN_BANZA",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.hybrid_domain_banza_relation",
+        "capability.hybrid_authority_split"
+      ],
+      "pt-PT": {
+        "direct": "Como é que assinatura digital se relaciona com o BANZA?",
+        "paraphrase": "O que é que o BANZA especifica sobre assinatura digital?"
+      },
+      "en": {
+        "direct": "How does digital signature relate to BANZA?",
+        "paraphrase": "What does BANZA specify about digital signature?"
+      },
+      "must": {
+        "pt-PT": [
+          "BANZA"
+        ],
+        "en": [
+          "BANZA"
+        ]
+      }
+    },
+    "hybrid.idempotency.banza_normative_rule": {
+      "intent": "HYBRID_DOMAIN_BANZA",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.hybrid_domain_banza_relation",
+        "capability.hybrid_authority_split"
+      ],
+      "pt-PT": {
+        "direct": "Como é que idempotência se relaciona com o BANZA?",
+        "paraphrase": "O que é que o BANZA especifica sobre idempotência?"
+      },
+      "en": {
+        "direct": "How does idempotency relate to BANZA?",
+        "paraphrase": "What does BANZA specify about idempotency?"
+      },
+      "must": {
+        "pt-PT": [
+          "BANZA"
+        ],
+        "en": [
+          "BANZA"
+        ]
+      }
+    },
+    "hybrid.state-machine.banza_protocol_state_semantics": {
+      "intent": "HYBRID_DOMAIN_BANZA",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.hybrid_domain_banza_relation",
+        "capability.hybrid_authority_split"
+      ],
+      "pt-PT": {
+        "direct": "Como é que máquina de estados se relaciona com o BANZA?",
+        "paraphrase": "O que é que o BANZA especifica sobre máquina de estados?"
+      },
+      "en": {
+        "direct": "How does state machine relate to BANZA?",
+        "paraphrase": "What does BANZA specify about state machine?"
+      },
+      "must": {
+        "pt-PT": [
+          "BANZA"
+        ],
+        "en": [
+          "BANZA"
+        ]
+      }
+    },
+    "hybrid.canonicalization.banza_byte_form_rule": {
+      "intent": "HYBRID_DOMAIN_BANZA",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.hybrid_domain_banza_relation",
+        "capability.hybrid_authority_split"
+      ],
+      "pt-PT": {
+        "direct": "Como é que canonicalização se relaciona com o BANZA?",
+        "paraphrase": "O que é que o BANZA especifica sobre canonicalização?"
+      },
+      "en": {
+        "direct": "How does canonicalization relate to BANZA?",
+        "paraphrase": "What does BANZA specify about canonicalization?"
+      },
+      "must": {
+        "pt-PT": [
+          "BANZA"
+        ],
+        "en": [
+          "BANZA"
+        ]
+      }
+    },
+    "banza.invariant.inv-ledger": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "Quais são as invariantes do ledger do BANZA?",
+        "paraphrase": "Explica as invariantes do ledger."
+      },
+      "en": {
+        "direct": "What are the ledger invariants in BANZA?",
+        "paraphrase": "Explain the ledger invariants."
+      },
+      "must": {
+        "pt-PT": [
+          "invariante|INV-"
+        ],
+        "en": [
+          "invariant|INV-"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-wallet": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "Quais são as invariantes de carteira do BANZA?",
+        "paraphrase": "Explica as invariantes de carteira."
+      },
+      "en": {
+        "direct": "What are the wallet invariants in BANZA?",
+        "paraphrase": "Explain the wallet invariants."
+      },
+      "must": {
+        "pt-PT": [
+          "invariante|INV-"
+        ],
+        "en": [
+          "invariant|INV-"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-idem": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "Quais são a invariante de idempotência do BANZA?",
+        "paraphrase": "Explica a invariante de idempotência."
+      },
+      "en": {
+        "direct": "What are the idempotency invariant in BANZA?",
+        "paraphrase": "Explain the idempotency invariant."
+      },
+      "must": {
+        "pt-PT": [
+          "invariante|INV-"
+        ],
+        "en": [
+          "invariant|INV-"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-qr": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "Quais são as invariantes de QR do BANZA?",
+        "paraphrase": "Explica as invariantes de QR."
+      },
+      "en": {
+        "direct": "What are the QR invariants in BANZA?",
+        "paraphrase": "Explain the QR invariants."
+      },
+      "must": {
+        "pt-PT": [
+          "invariante|INV-"
+        ],
+        "en": [
+          "invariant|INV-"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-root": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "Quais são as invariantes da raiz do BANZA?",
+        "paraphrase": "Explica as invariantes da raiz."
+      },
+      "en": {
+        "direct": "What are the root invariants in BANZA?",
+        "paraphrase": "Explain the root invariants."
+      },
+      "must": {
+        "pt-PT": [
+          "invariante|INV-"
+        ],
+        "en": [
+          "invariant|INV-"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-fed": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "Quais são as invariantes de federação do BANZA?",
+        "paraphrase": "Explica as invariantes de federação."
+      },
+      "en": {
+        "direct": "What are the federation invariants in BANZA?",
+        "paraphrase": "Explain the federation invariants."
+      },
+      "must": {
+        "pt-PT": [
+          "invariante|INV-"
+        ],
+        "en": [
+          "invariant|INV-"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-fedeval": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "Quais são as invariantes de avaliação de federação do BANZA?",
+        "paraphrase": "Explica as invariantes de avaliação de federação."
+      },
+      "en": {
+        "direct": "What are the federation-evaluation invariants in BANZA?",
+        "paraphrase": "Explain the federation-evaluation invariants."
+      },
+      "must": {
+        "pt-PT": [
+          "invariante|INV-"
+        ],
+        "en": [
+          "invariant|INV-"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-ote": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "Quais são as invariantes de Open Trust Evaluation do BANZA?",
+        "paraphrase": "Explica as invariantes de Open Trust Evaluation."
+      },
+      "en": {
+        "direct": "What are the Open Trust Evaluation invariants in BANZA?",
+        "paraphrase": "Explain the Open Trust Evaluation invariants."
+      },
+      "must": {
+        "pt-PT": [
+          "invariante|INV-"
+        ],
+        "en": [
+          "invariant|INV-"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-stl": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "Quais são as invariantes de liquidação do BANZA?",
+        "paraphrase": "Explica as invariantes de liquidação."
+      },
+      "en": {
+        "direct": "What are the settlement invariants in BANZA?",
+        "paraphrase": "Explain the settlement invariants."
+      },
+      "must": {
+        "pt-PT": [
+          "invariante|INV-"
+        ],
+        "en": [
+          "invariant|INV-"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-collection": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "Quais são as invariantes de cobrança do BANZA?",
+        "paraphrase": "Explica as invariantes de cobrança."
+      },
+      "en": {
+        "direct": "What are the collection invariants in BANZA?",
+        "paraphrase": "Explain the collection invariants."
+      },
+      "must": {
+        "pt-PT": [
+          "invariante|INV-"
+        ],
+        "en": [
+          "invariant|INV-"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-trace": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "Quais são as invariantes de trace do BANZA?",
+        "paraphrase": "Explica as invariantes de trace."
+      },
+      "en": {
+        "direct": "What are the trace invariants in BANZA?",
+        "paraphrase": "Explain the trace invariants."
+      },
+      "must": {
+        "pt-PT": [
+          "invariante|INV-"
+        ],
+        "en": [
+          "invariant|INV-"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.mon-001": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "Quais são as invariantes monetárias do BANZA?",
+        "paraphrase": "Explica as invariantes monetárias."
+      },
+      "en": {
+        "direct": "What are the monetary invariants in BANZA?",
+        "paraphrase": "Explain the monetary invariants."
+      },
+      "must": {
+        "pt-PT": [
+          "invariante|INV-"
+        ],
+        "en": [
+          "invariant|INV-"
+        ]
+      },
+      "acceptable_refusal": false
+    }
+  }
+}
