@@ -50,6 +50,11 @@ for (const inv of invariants.invariants) {
   families.get(fam).push(inv.id);
 }
 for (const [fam, members] of families) {
+  // A DEGENERATE family: MON-001 has no `INV-<FAMILY>-<N>` shape, so its family key IS its member id
+  // and the family unit would collide with the atomic unit below — two units, one semantic id, and a
+  // universe whose declared total counts one of them twice. There is no family abstraction to make
+  // here: MON-001 is a standalone invariant, not a group, so only the atomic unit is emitted.
+  if (members.length === 1 && members[0].toLowerCase() === fam.toLowerCase()) continue;
   add({
     semantic_id: `banza.invariant.${fam.toLowerCase()}`,
     members,
@@ -61,6 +66,46 @@ for (const [fam, members] of families) {
     reader_facing: true,
     PT_required: true,
     EN_required: true,
+    comparison_eligible: false,
+    conversation_eligible: false,
+    hybrid_eligible: false,
+    runtime_truth: false,
+    owning_component: "engines/banzai-query-core",
+  });
+}
+
+// ── BANZA_NORMATIVE — the invariant registry, by INDIVIDUAL MEMBER ───────────────────────────────
+//
+// The family above is the reader's framing. It is NOT the unit of falsifiability, and the atomicity
+// audit (assurance/banzai-knowledge/invariant-atomicity.json) settled that by reading all 55 critical
+// members and asking of each: can this proposition be true while a sibling in the same family is false?
+// For all 55 the answer is yes. INV-LEDGER-002 (append-only) and INV-LEDGER-003 (integers, never
+// floats) are not one fact about ledgers; an implementation can hold either and break the other.
+//
+// So a family unit alone lets a member regress invisibly: an answer that states double-entry and says
+// nothing about immutability still satisfies a family-level probe. Both granularities are therefore
+// units — the family for "what are the ledger invariants?", the member for the proposition itself.
+//
+// The member carries the DIRECT question in both locales; the family carries the paraphrase. That
+// split is a declaration about where each burden sits, not a reduction of it: every one of the 55
+// propositions is independently probed in PT and EN, and the reader-facing paraphrase is owned by the
+// framing a reader actually uses.
+for (const inv of invariants.invariants) {
+  if (inv.severity !== "critical") continue;
+  add({
+    semantic_id: `banza.invariant.${inv.id.toLowerCase()}`,
+    member_of: `banza.invariant.${inv.id.split("-").slice(0, 2).join("-").toLowerCase()}`,
+    registry_id: inv.id,
+    unit_type: "fact",
+    knowledge_class: "BANZA_NORMATIVE",
+    authority_class: "BANZA",
+    source_ids: ["invariants"],
+    criticality: "P1",
+    reader_facing: true,
+    PT_required: true,
+    EN_required: true,
+    direct_question_required: true,
+    paraphrase_required: false,
     comparison_eligible: false,
     conversation_eligible: false,
     hybrid_eligible: false,
@@ -156,6 +201,114 @@ for (const [id, srcs, crit] of NORMATIVE_FACTS) {
   });
 }
 
+// ── BANZA_CANONICAL — the conformance and evidence vocabulary ────────────────────────────────────
+// These were reader-facing critical entries mapping to no unit at all: the orphan audit classified
+// them B — real, live authority that the generator simply never enumerated. Conformance, PASS,
+// evidence and the evidence bundle are the L2 vocabulary the whole certification boundary rests on;
+// leaving them out of the denominator meant a coverage number that excluded the words it depended on.
+const CANONICAL_FACTS = [
+  ["banza.conformance.definition", ["CONFORMANCE", "FED-EVIDENCE", "ADR-031"], "P0", ["def-conformance"]],
+  ["banza.conformance.pass_is_not_a_certificate", ["CONFORMANCE", "FED-EVIDENCE"], "P0", ["def-pass"]],
+  ["banza.conformance.demonstrated_by_evidence", ["CONFORMANCE", "ADR-031", "ADR-029"], "P0", ["how-to-demonstrate-conformance"]],
+  ["banza.evidence.definition", ["FED-EVIDENCE", "CONFORMANCE"], "P1", ["def-evidence"]],
+  ["banza.evidence_bundle.definition", ["FED-EVIDENCE", "CONFORMANCE"], "P1", ["def-evidence-bundle", "example-evidence-bundle"]],
+  ["banza.three_layer_architecture", ["ADR-004"], "P0", ["def-three-layer-architecture"]],
+];
+for (const [id, srcs, crit, entryIds] of CANONICAL_FACTS) {
+  add({
+    semantic_id: id,
+    unit_type: "fact",
+    knowledge_class: "BANZA_CANONICAL",
+    authority_class: "BANZA",
+    source_ids: srcs,
+    entry_ids: entryIds,
+    criticality: crit,
+    reader_facing: true,
+    PT_required: true,
+    EN_required: true,
+    comparison_eligible: id.includes("pass_is_not") || id.includes("conformance.definition"),
+    conversation_eligible: true,
+    hybrid_eligible: false,
+    runtime_truth: false,
+    owning_component: "engines/banzai-query-core",
+  });
+}
+
+// ── BANZA_SUPPORTING — authoritative about the PROJECT, not binding on an implementation ─────────
+// The class existed in the taxonomy and had no generator path: it was empty not because nothing
+// belonged in it, but because nothing was ever put in it — and the non-vacuity guard omitted it from
+// its own list of classes, so the hole was invisible from both sides.
+//
+// What belongs here is real authority that does NOT bind a protocol implementation: the licence, the
+// attribution notice, the governance rules and the decision register. An operator implementing BANZA
+// is not made non-conformant by any of them, so they are not normative — but BanzAI must answer them
+// correctly, so they are units.
+const SUPPORTING_FACTS = [
+  ["banza.license.apache_2_0", ["LICENSE", "NOTICE"], "P1", ["protocol-license"]],
+  ["banza.notice.attribution", ["NOTICE", "GOVERNANCE"], "P2", ["notice-content"]],
+  ["banza.adr.decision_register", ["ADR-INDEX"], "P2", ["protocol-decisions-adrs"]],
+];
+for (const [id, srcs, crit, entryIds] of SUPPORTING_FACTS) {
+  add({
+    semantic_id: id,
+    unit_type: "fact",
+    knowledge_class: "BANZA_SUPPORTING",
+    authority_class: "BANZA",
+    source_ids: srcs,
+    entry_ids: entryIds,
+    criticality: crit,
+    reader_facing: true,
+    PT_required: true,
+    EN_required: true,
+    comparison_eligible: false,
+    conversation_eligible: true,
+    hybrid_eligible: false,
+    runtime_truth: false,
+    owning_component: "engines/banzai-query-core",
+  });
+}
+
+// ── REPO_TRUTH — what this repository actually contains and runs ─────────────────────────────────
+// Orphan class E. These entries describe the engine, the guards, the indexer and CI — reader-facing
+// knowledge with no PROTOCOL authority behind it, which is exactly why the old guard waved them
+// through as "legitimately unmapped". They are not unmappable; they are a different KIND of truth,
+// and it is verifiable truth: it is checkable against the repository at the commit that serves it.
+//
+// Giving them a class rather than an exemption is the difference between a declared boundary and a
+// blind spot. `current: false` is not used here — every one of these is true of the current tree.
+const REPO_FACTS = [
+  ["repo.banzai.retrieval_pipeline", "P1", ["banzai-retrieval"]],
+  ["repo.banzai.answer_pipeline", "P1", ["how-banzai-answers"]],
+  ["repo.banzai.action_boundary_location", "P0", ["action-boundary-location"]],
+  ["repo.banzai.guards", "P1", ["guards-banzai"]],
+  ["repo.banzai.indexer_crate", "P2", ["banzai-index-crate"]],
+  ["repo.banzai.index_state", "P2", ["banzai-index-state"]],
+  ["repo.banzai.ci_jobs", "P2", ["banzai-ci"]],
+  ["repo.guards.secret_leak", "P0", ["guards-secret-leak"]],
+  ["repo.guards.brand_contamination", "P1", ["guard-brand-contamination"]],
+  ["repo.operator_zero.middleware", "P2", ["zero-middleware-files"]],
+];
+for (const [id, crit, entryIds] of REPO_FACTS) {
+  add({
+    semantic_id: id,
+    unit_type: "fact",
+    knowledge_class: "REPO_TRUTH",
+    authority_class: "REPO",
+    source_ids: ["repository"],
+    entry_ids: entryIds,
+    criticality: crit,
+    reader_facing: true,
+    PT_required: true,
+    EN_required: false,
+    paraphrase_required: false,
+    comparison_eligible: false,
+    conversation_eligible: false,
+    hybrid_eligible: false,
+    runtime_truth: true,
+    owning_component: "services/banzai-api/src/knowledge.js",
+  });
+}
+
 // ── DOMAIN — the declared concept universe ───────────────────────────────────────────────────────
 // The 50 concepts the programme declares support for. A concept answered by a BANZA entry is still a
 // domain concept for coverage purposes; its `authority_class` records which layer owns the answer.
@@ -222,6 +375,7 @@ const CAPABILITIES = JSON.parse(readFileSync(join(ROOT, "assurance/banzai-knowle
 for (const c of CAPABILITIES.capabilities) {
   add({
     semantic_id: c.semantic_id,
+    entry_ids: c.entry_ids || [],
     unit_type: "capability",
     knowledge_class: "CAPABILITY",
     authority_class: "ENGINE",

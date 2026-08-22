@@ -41,6 +41,30 @@ for (const u of universe.units) {
     }
   }
 }
+// ── MULTI-TURN JOURNEYS ──────────────────────────────────────────────────────────────────────────
+// A conversational capability is a claim about turn N resolving against turn N-1, and a corpus of
+// single questions cannot exercise it at all. V2 had 564 items and not one conversation: the
+// followup capabilities were declared, owned by unit tests, and never touched in production.
+//
+// Each turn carries its own expectation, so a journey fails at the turn that broke rather than as one
+// opaque row.
+for (const j of probes.journeys || []) {
+  push({
+    semantic_unit_ids: j.semantic_unit_ids,
+    capability_unit_ids: j.capabilities || [],
+    locale: j.locale,
+    intent: "MULTI_TURN",
+    criticality: j.criticality,
+    form: "journey",
+    question: j.turns[0].question,
+    turns: j.turns,
+    must: [],
+    must_not: [],
+    authority_class: "BANZA",
+    acceptable_refusal: false,
+  });
+}
+
 void byId;
 
 const hash = createHash("sha256").update(JSON.stringify(items)).digest("hex").slice(0, 32);

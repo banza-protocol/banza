@@ -1,0 +1,165 @@
+{
+  "_note": "ORPHAN CLASSIFICATION. Every reader-facing entry that mapped to no declared semantic unit, classified by WHY it is unmapped. The prior guard pinned the count at <=96 while the real number is 28 — so 68 new orphans could appear without the guard noticing. Result: ZERO of the 28 is legitimately outside the universe. Every one is either a missing unit (B, E), or a behaviour that belongs to a capability unit (C, D). The universe is therefore materially incomplete and its hash cannot be final.",
+  "classes": {
+    "A": "maps to a declared DOMAIN concept unit (excluded upstream by the generator)",
+    "B": "states a BANZA canonical/normative fact whose authority is real and live but was never enumerated as a universe source — A UNIVERSE GAP, the unit must be added",
+    "C": "a safety refusal / action-boundary behaviour — belongs to a CAPABILITY unit, not a factual unit",
+    "D": "a tool-intent detection behaviour — belongs to a CAPABILITY unit",
+    "E": "REPO truth: describes this repository's own implementation, guards, indexer or CI — real reader-facing knowledge with no PROTOCOL authority, so it needs its own class rather than an exemption",
+    "F": "stale authority: cites an artifact that no longer exists — must be repaired or retired",
+    "G": "dead or unreachable: no question routes here — must be deleted"
+  },
+  "total": 28,
+  "by_class": {
+    "B": 10,
+    "C": 7,
+    "D": 2,
+    "E": 9,
+    "A": 0,
+    "F": 0,
+    "G": 0
+  },
+  "legitimately_outside": 0,
+  "entries": [
+    {
+      "entry_id": "def-conformance",
+      "class": "B",
+      "disposition": "ADD a BANZA_CANONICAL or BANZA_SUPPORTING unit for the authority this entry rests on"
+    },
+    {
+      "entry_id": "def-pass",
+      "class": "B",
+      "disposition": "ADD a BANZA_CANONICAL or BANZA_SUPPORTING unit for the authority this entry rests on"
+    },
+    {
+      "entry_id": "def-evidence",
+      "class": "B",
+      "disposition": "ADD a BANZA_CANONICAL or BANZA_SUPPORTING unit for the authority this entry rests on"
+    },
+    {
+      "entry_id": "def-evidence-bundle",
+      "class": "B",
+      "disposition": "ADD a BANZA_CANONICAL or BANZA_SUPPORTING unit for the authority this entry rests on"
+    },
+    {
+      "entry_id": "def-three-layer-architecture",
+      "class": "B",
+      "disposition": "ADD a BANZA_CANONICAL or BANZA_SUPPORTING unit for the authority this entry rests on"
+    },
+    {
+      "entry_id": "protocol-license",
+      "class": "B",
+      "disposition": "ADD a BANZA_CANONICAL or BANZA_SUPPORTING unit for the authority this entry rests on"
+    },
+    {
+      "entry_id": "notice-content",
+      "class": "B",
+      "disposition": "ADD a BANZA_CANONICAL or BANZA_SUPPORTING unit for the authority this entry rests on"
+    },
+    {
+      "entry_id": "how-to-demonstrate-conformance",
+      "class": "B",
+      "disposition": "ADD a BANZA_CANONICAL or BANZA_SUPPORTING unit for the authority this entry rests on"
+    },
+    {
+      "entry_id": "example-evidence-bundle",
+      "class": "B",
+      "disposition": "ADD a BANZA_CANONICAL or BANZA_SUPPORTING unit for the authority this entry rests on"
+    },
+    {
+      "entry_id": "protocol-decisions-adrs",
+      "class": "B",
+      "disposition": "ADD a BANZA_CANONICAL or BANZA_SUPPORTING unit for the authority this entry rests on"
+    },
+    {
+      "entry_id": "refuse-delete-document",
+      "class": "C",
+      "disposition": "MAP to the action-boundary CAPABILITY unit"
+    },
+    {
+      "entry_id": "refuse-remove-guard-or-bypass-ci",
+      "class": "C",
+      "disposition": "MAP to the action-boundary CAPABILITY unit"
+    },
+    {
+      "entry_id": "refuse-modify-trust-root",
+      "class": "C",
+      "disposition": "MAP to the action-boundary CAPABILITY unit"
+    },
+    {
+      "entry_id": "refuse-expose-or-generate-secret",
+      "class": "C",
+      "disposition": "MAP to the action-boundary CAPABILITY unit"
+    },
+    {
+      "entry_id": "refuse-infra-destructive",
+      "class": "C",
+      "disposition": "MAP to the action-boundary CAPABILITY unit"
+    },
+    {
+      "entry_id": "how-banzai-refuses",
+      "class": "C",
+      "disposition": "MAP to the action-boundary CAPABILITY unit"
+    },
+    {
+      "entry_id": "action-boundary-location",
+      "class": "C",
+      "disposition": "MAP to the action-boundary CAPABILITY unit"
+    },
+    {
+      "entry_id": "tool-validate-conformance",
+      "class": "D",
+      "disposition": "MAP to the tool-intent CAPABILITY unit"
+    },
+    {
+      "entry_id": "tool-validate-evidence-bundle",
+      "class": "D",
+      "disposition": "MAP to the tool-intent CAPABILITY unit"
+    },
+    {
+      "entry_id": "banzai-retrieval",
+      "class": "E",
+      "disposition": "ADD a REPO_TRUTH unit for the component this entry describes"
+    },
+    {
+      "entry_id": "how-banzai-answers",
+      "class": "E",
+      "disposition": "ADD a REPO_TRUTH unit for the component this entry describes"
+    },
+    {
+      "entry_id": "guards-banzai",
+      "class": "E",
+      "disposition": "ADD a REPO_TRUTH unit for the component this entry describes"
+    },
+    {
+      "entry_id": "banzai-index-crate",
+      "class": "E",
+      "disposition": "ADD a REPO_TRUTH unit for the component this entry describes"
+    },
+    {
+      "entry_id": "banzai-ci",
+      "class": "E",
+      "disposition": "ADD a REPO_TRUTH unit for the component this entry describes"
+    },
+    {
+      "entry_id": "banzai-index-state",
+      "class": "E",
+      "disposition": "ADD a REPO_TRUTH unit for the component this entry describes"
+    },
+    {
+      "entry_id": "guards-secret-leak",
+      "class": "E",
+      "disposition": "ADD a REPO_TRUTH unit for the component this entry describes"
+    },
+    {
+      "entry_id": "guard-brand-contamination",
+      "class": "E",
+      "disposition": "ADD a REPO_TRUTH unit for the component this entry describes"
+    },
+    {
+      "entry_id": "zero-middleware-files",
+      "class": "E",
+      "disposition": "ADD a REPO_TRUTH unit for the component this entry describes"
+    }
+  ]
+}

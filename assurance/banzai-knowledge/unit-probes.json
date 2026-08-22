@@ -2038,6 +2038,1930 @@
         ]
       },
       "acceptable_refusal": false
+    },
+    "banza.invariant.inv-ledger-001": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-LEDGER-001 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-LEDGER-001 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-LEDGER\\-001"
+        ],
+        "en": [
+          "INV\\-LEDGER\\-001"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-ledger-002": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-LEDGER-002 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-LEDGER-002 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-LEDGER\\-002"
+        ],
+        "en": [
+          "INV\\-LEDGER\\-002"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-ledger-003": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-LEDGER-003 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-LEDGER-003 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-LEDGER\\-003"
+        ],
+        "en": [
+          "INV\\-LEDGER\\-003"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-ledger-004": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-LEDGER-004 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-LEDGER-004 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-LEDGER\\-004"
+        ],
+        "en": [
+          "INV\\-LEDGER\\-004"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-ledger-005": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-LEDGER-005 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-LEDGER-005 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-LEDGER\\-005"
+        ],
+        "en": [
+          "INV\\-LEDGER\\-005"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-wallet-001": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-WALLET-001 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-WALLET-001 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-WALLET\\-001"
+        ],
+        "en": [
+          "INV\\-WALLET\\-001"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-stl-001": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-STL-001 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-STL-001 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-STL\\-001"
+        ],
+        "en": [
+          "INV\\-STL\\-001"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-stl-002": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-STL-002 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-STL-002 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-STL\\-002"
+        ],
+        "en": [
+          "INV\\-STL\\-002"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-idem-001": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-IDEM-001 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-IDEM-001 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-IDEM\\-001"
+        ],
+        "en": [
+          "INV\\-IDEM\\-001"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-trace-001": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-TRACE-001 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-TRACE-001 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-TRACE\\-001"
+        ],
+        "en": [
+          "INV\\-TRACE\\-001"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-qr-001": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-QR-001 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-QR-001 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-QR\\-001"
+        ],
+        "en": [
+          "INV\\-QR\\-001"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-qr-002": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-QR-002 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-QR-002 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-QR\\-002"
+        ],
+        "en": [
+          "INV\\-QR\\-002"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-qr-003": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-QR-003 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-QR-003 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-QR\\-003"
+        ],
+        "en": [
+          "INV\\-QR\\-003"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-qr-004": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-QR-004 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-QR-004 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-QR\\-004"
+        ],
+        "en": [
+          "INV\\-QR\\-004"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-qr-sign-001": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-QR-SIGN-001 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-QR-SIGN-001 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-QR\\-SIGN\\-001"
+        ],
+        "en": [
+          "INV\\-QR\\-SIGN\\-001"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-ote-001": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-OTE-001 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-OTE-001 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-OTE\\-001"
+        ],
+        "en": [
+          "INV\\-OTE\\-001"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-ote-002": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-OTE-002 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-OTE-002 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-OTE\\-002"
+        ],
+        "en": [
+          "INV\\-OTE\\-002"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-ote-003": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-OTE-003 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-OTE-003 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-OTE\\-003"
+        ],
+        "en": [
+          "INV\\-OTE\\-003"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-ote-004": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-OTE-004 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-OTE-004 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-OTE\\-004"
+        ],
+        "en": [
+          "INV\\-OTE\\-004"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-ote-005": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-OTE-005 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-OTE-005 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-OTE\\-005"
+        ],
+        "en": [
+          "INV\\-OTE\\-005"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-ote-007": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-OTE-007 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-OTE-007 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-OTE\\-007"
+        ],
+        "en": [
+          "INV\\-OTE\\-007"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-ote-008": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-OTE-008 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-OTE-008 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-OTE\\-008"
+        ],
+        "en": [
+          "INV\\-OTE\\-008"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-ote-009": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-OTE-009 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-OTE-009 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-OTE\\-009"
+        ],
+        "en": [
+          "INV\\-OTE\\-009"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-fedeval-001": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-FEDEVAL-001 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-FEDEVAL-001 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-FEDEVAL\\-001"
+        ],
+        "en": [
+          "INV\\-FEDEVAL\\-001"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-fedeval-002": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-FEDEVAL-002 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-FEDEVAL-002 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-FEDEVAL\\-002"
+        ],
+        "en": [
+          "INV\\-FEDEVAL\\-002"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-fedeval-003": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-FEDEVAL-003 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-FEDEVAL-003 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-FEDEVAL\\-003"
+        ],
+        "en": [
+          "INV\\-FEDEVAL\\-003"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-fedeval-004": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-FEDEVAL-004 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-FEDEVAL-004 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-FEDEVAL\\-004"
+        ],
+        "en": [
+          "INV\\-FEDEVAL\\-004"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-fedeval-006": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-FEDEVAL-006 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-FEDEVAL-006 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-FEDEVAL\\-006"
+        ],
+        "en": [
+          "INV\\-FEDEVAL\\-006"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-fedeval-008": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-FEDEVAL-008 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-FEDEVAL-008 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-FEDEVAL\\-008"
+        ],
+        "en": [
+          "INV\\-FEDEVAL\\-008"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-root-001": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-ROOT-001 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-ROOT-001 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-ROOT\\-001"
+        ],
+        "en": [
+          "INV\\-ROOT\\-001"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-root-002": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-ROOT-002 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-ROOT-002 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-ROOT\\-002"
+        ],
+        "en": [
+          "INV\\-ROOT\\-002"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-root-003": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-ROOT-003 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-ROOT-003 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-ROOT\\-003"
+        ],
+        "en": [
+          "INV\\-ROOT\\-003"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-root-004": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-ROOT-004 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-ROOT-004 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-ROOT\\-004"
+        ],
+        "en": [
+          "INV\\-ROOT\\-004"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-root-005": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-ROOT-005 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-ROOT-005 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-ROOT\\-005"
+        ],
+        "en": [
+          "INV\\-ROOT\\-005"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-root-006": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-ROOT-006 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-ROOT-006 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-ROOT\\-006"
+        ],
+        "en": [
+          "INV\\-ROOT\\-006"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-root-007": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-ROOT-007 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-ROOT-007 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-ROOT\\-007"
+        ],
+        "en": [
+          "INV\\-ROOT\\-007"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-root-011": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-ROOT-011 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-ROOT-011 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-ROOT\\-011"
+        ],
+        "en": [
+          "INV\\-ROOT\\-011"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-root-012": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-ROOT-012 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-ROOT-012 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-ROOT\\-012"
+        ],
+        "en": [
+          "INV\\-ROOT\\-012"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-root-013": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-ROOT-013 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-ROOT-013 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-ROOT\\-013"
+        ],
+        "en": [
+          "INV\\-ROOT\\-013"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-root-014": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-ROOT-014 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-ROOT-014 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-ROOT\\-014"
+        ],
+        "en": [
+          "INV\\-ROOT\\-014"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-fed-001": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-FED-001 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-FED-001 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-FED\\-001"
+        ],
+        "en": [
+          "INV\\-FED\\-001"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-fed-002": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-FED-002 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-FED-002 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-FED\\-002"
+        ],
+        "en": [
+          "INV\\-FED\\-002"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-fed-004": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-FED-004 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-FED-004 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-FED\\-004"
+        ],
+        "en": [
+          "INV\\-FED\\-004"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-fed-005": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-FED-005 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-FED-005 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-FED\\-005"
+        ],
+        "en": [
+          "INV\\-FED\\-005"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-fed-007": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-FED-007 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-FED-007 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-FED\\-007"
+        ],
+        "en": [
+          "INV\\-FED\\-007"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-fed-ledger-001": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-FED-LEDGER-001 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-FED-LEDGER-001 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-FED\\-LEDGER\\-001"
+        ],
+        "en": [
+          "INV\\-FED\\-LEDGER\\-001"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-fed-ledger-002": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-FED-LEDGER-002 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-FED-LEDGER-002 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-FED\\-LEDGER\\-002"
+        ],
+        "en": [
+          "INV\\-FED\\-LEDGER\\-002"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-fed-idem-001": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-FED-IDEM-001 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-FED-IDEM-001 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-FED\\-IDEM\\-001"
+        ],
+        "en": [
+          "INV\\-FED\\-IDEM\\-001"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-collection-001": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-COLLECTION-001 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-COLLECTION-001 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-COLLECTION\\-001"
+        ],
+        "en": [
+          "INV\\-COLLECTION\\-001"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-collection-002": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-COLLECTION-002 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-COLLECTION-002 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-COLLECTION\\-002"
+        ],
+        "en": [
+          "INV\\-COLLECTION\\-002"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-collection-003": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-COLLECTION-003 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-COLLECTION-003 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-COLLECTION\\-003"
+        ],
+        "en": [
+          "INV\\-COLLECTION\\-003"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-collection-004": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-COLLECTION-004 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-COLLECTION-004 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-COLLECTION\\-004"
+        ],
+        "en": [
+          "INV\\-COLLECTION\\-004"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-collection-005": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-COLLECTION-005 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-COLLECTION-005 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-COLLECTION\\-005"
+        ],
+        "en": [
+          "INV\\-COLLECTION\\-005"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.invariant.inv-collection-006": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que exige a invariante INV-COLLECTION-006 do BANZA?"
+      },
+      "en": {
+        "direct": "What does invariant INV-COLLECTION-006 require in BANZA?"
+      },
+      "must": {
+        "pt-PT": [
+          "INV\\-COLLECTION\\-006"
+        ],
+        "en": [
+          "INV\\-COLLECTION\\-006"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.conformance.definition": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que é conformidade no BANZA?",
+        "paraphrase": "Explica o que significa ser conforme com o BANZA."
+      },
+      "en": {
+        "direct": "What is conformance in BANZA?",
+        "paraphrase": "Explain what it means to conform to BANZA."
+      },
+      "must": {
+        "pt-PT": [
+          "conformidade|conforme"
+        ],
+        "en": [
+          "conformance|conform"
+        ]
+      },
+      "acceptable_refusal": false,
+      "must_not": {
+        "pt-PT": [
+          "certificad[oa] (de|que) autoriza|autorização (regulatória|central)"
+        ],
+        "en": [
+          "certificate that authoris|regulatory authoris"
+        ]
+      }
+    },
+    "banza.conformance.pass_is_not_a_certificate": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "Um PASS é um certificado?",
+        "paraphrase": "Se a minha implementação dá PASS, fico certificado?"
+      },
+      "en": {
+        "direct": "Is a PASS a certificate?",
+        "paraphrase": "If my implementation returns PASS, am I certified?"
+      },
+      "must": {
+        "pt-PT": [
+          "\\b(não|nao)\\b"
+        ],
+        "en": [
+          "\\b(not|isn't|is not|does not|never)\\b"
+        ]
+      },
+      "acceptable_refusal": false,
+      "must_not": {
+        "pt-PT": [
+          "\\bPASS\\b(?:(?!\\bn[ãa]o\\b)[^.])*\\b[ée]\\s+(um|uma)\\s+certificad",
+          "\\bsim\\b(?:(?!\\bn[ãa]o\\b)[^.])*\\bcertificad"
+        ],
+        "en": [
+          "\\bPASS\\b(?:(?!\\bnot\\b|\\bnever\\b)[^.])*\\bis\\s+an?\\s+certificate",
+          "\\byes\\b(?:(?!\\bnot\\b|\\bnever\\b)[^.])*\\bcertificate\\b"
+        ]
+      }
+    },
+    "banza.conformance.demonstrated_by_evidence": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "Como é que um operador demonstra conformidade?",
+        "paraphrase": "De que forma se prova conformidade com o protocolo?"
+      },
+      "en": {
+        "direct": "How does an operator demonstrate conformance?",
+        "paraphrase": "In what way is conformance to the protocol proven?"
+      },
+      "must": {
+        "pt-PT": [
+          "evidência|evidencia"
+        ],
+        "en": [
+          "evidence"
+        ]
+      },
+      "acceptable_refusal": false,
+      "must_not": {
+        "pt-PT": [
+          "aprovação central|aprovacao central"
+        ],
+        "en": [
+          "central approval"
+        ]
+      }
+    },
+    "banza.evidence.definition": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que é evidência técnica no BANZA?",
+        "paraphrase": "O que conta como evidência técnica?"
+      },
+      "en": {
+        "direct": "What is technical evidence in BANZA?",
+        "paraphrase": "What counts as technical evidence?"
+      },
+      "must": {
+        "pt-PT": [
+          "evidência|evidencia"
+        ],
+        "en": [
+          "evidence"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.evidence_bundle.definition": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que é um evidence bundle?",
+        "paraphrase": "Explica o que é um pacote de evidência."
+      },
+      "en": {
+        "direct": "What is an evidence bundle?",
+        "paraphrase": "Explain what an evidence bundle is."
+      },
+      "must": {
+        "pt-PT": [
+          "evidence bundle|pacote de evidência|pacote de evidencia"
+        ],
+        "en": [
+          "evidence bundle"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.three_layer_architecture": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "Quais são as três camadas institucionais do BANZA?",
+        "paraphrase": "Explica a arquitectura de três camadas."
+      },
+      "en": {
+        "direct": "What are the three institutional layers of BANZA?",
+        "paraphrase": "Explain the three-layer architecture."
+      },
+      "must": {
+        "pt-PT": [
+          "camada"
+        ],
+        "en": [
+          "layer"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.license.apache_2_0": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "Qual é a licença do BANZA?",
+        "paraphrase": "Sob que licença posso usar o código do BANZA?"
+      },
+      "en": {
+        "direct": "What licence is BANZA released under?",
+        "paraphrase": "Under what licence may I use the BANZA code?"
+      },
+      "must": {
+        "pt-PT": [
+          "Apache"
+        ],
+        "en": [
+          "Apache"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.notice.attribution": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P2",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "O que contém o ficheiro NOTICE?",
+        "paraphrase": "Para que serve o NOTICE?"
+      },
+      "en": {
+        "direct": "What does the NOTICE file contain?",
+        "paraphrase": "What is the NOTICE for?"
+      },
+      "must": {
+        "pt-PT": [
+          "NOTICE|atribuição|atribuicao"
+        ],
+        "en": [
+          "NOTICE|attribution"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "banza.adr.decision_register": {
+      "intent": "BANZA_DIRECT",
+      "criticality": "P2",
+      "capabilities": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "pt-PT": {
+        "direct": "Onde estão registadas as decisões de arquitectura do BANZA?",
+        "paraphrase": "Onde encontro as decisões de arquitectura?"
+      },
+      "en": {
+        "direct": "Where are BANZA's architecture decisions recorded?",
+        "paraphrase": "Where do I find the architecture decisions?"
+      },
+      "must": {
+        "pt-PT": [
+          "ADR"
+        ],
+        "en": [
+          "ADR"
+        ]
+      },
+      "acceptable_refusal": false
+    },
+    "repo.banzai.retrieval_pipeline": {
+      "intent": "REPO_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.current_runtime_truth"
+      ],
+      "pt-PT": {
+        "direct": "Como funciona o retrieval do BanzAI?"
+      },
+      "must": {
+        "pt-PT": [
+          "Rust|determinístico|deterministico"
+        ],
+        "en": []
+      },
+      "acceptable_refusal": false
+    },
+    "repo.banzai.answer_pipeline": {
+      "intent": "REPO_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.current_runtime_truth"
+      ],
+      "pt-PT": {
+        "direct": "Como é que o BanzAI responde a uma pergunta?"
+      },
+      "must": {
+        "pt-PT": [
+          "route|Rust|conhecimento"
+        ],
+        "en": []
+      },
+      "acceptable_refusal": false
+    },
+    "repo.banzai.action_boundary_location": {
+      "intent": "REPO_DIRECT",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.current_runtime_truth"
+      ],
+      "pt-PT": {
+        "direct": "Onde está definida a fronteira de acção do BanzAI?"
+      },
+      "must": {
+        "pt-PT": [
+          "route\\.rs|Rust"
+        ],
+        "en": []
+      },
+      "acceptable_refusal": false
+    },
+    "repo.banzai.guards": {
+      "intent": "REPO_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.current_runtime_truth"
+      ],
+      "pt-PT": {
+        "direct": "Que guards protegem o BanzAI?"
+      },
+      "must": {
+        "pt-PT": [
+          "check-|guard|make"
+        ],
+        "en": []
+      },
+      "acceptable_refusal": false
+    },
+    "repo.banzai.indexer_crate": {
+      "intent": "REPO_DIRECT",
+      "criticality": "P2",
+      "capabilities": [
+        "capability.current_runtime_truth"
+      ],
+      "pt-PT": {
+        "direct": "Que crate indexa o conhecimento do BanzAI?"
+      },
+      "must": {
+        "pt-PT": [
+          "indexer|banzai-repo-indexer"
+        ],
+        "en": []
+      },
+      "acceptable_refusal": false
+    },
+    "repo.banzai.index_state": {
+      "intent": "REPO_DIRECT",
+      "criticality": "P2",
+      "capabilities": [
+        "capability.current_runtime_truth"
+      ],
+      "pt-PT": {
+        "direct": "Qual é o estado actual do índice do BanzAI?"
+      },
+      "must": {
+        "pt-PT": [
+          "read-only|índice|indice|repo"
+        ],
+        "en": []
+      },
+      "acceptable_refusal": false
+    },
+    "repo.banzai.ci_jobs": {
+      "intent": "REPO_DIRECT",
+      "criticality": "P2",
+      "capabilities": [
+        "capability.current_runtime_truth"
+      ],
+      "pt-PT": {
+        "direct": "Que jobs de CI validam o BanzAI?"
+      },
+      "must": {
+        "pt-PT": [
+          "CI|workflow|job"
+        ],
+        "en": []
+      },
+      "acceptable_refusal": false
+    },
+    "repo.guards.secret_leak": {
+      "intent": "REPO_DIRECT",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.current_runtime_truth"
+      ],
+      "pt-PT": {
+        "direct": "Como é impedida a fuga de chaves privadas no repositório?"
+      },
+      "must": {
+        "pt-PT": [
+          "private-key-leak|chave privada"
+        ],
+        "en": []
+      },
+      "acceptable_refusal": false
+    },
+    "repo.guards.brand_contamination": {
+      "intent": "REPO_DIRECT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.current_runtime_truth"
+      ],
+      "pt-PT": {
+        "direct": "Como é impedida a contaminação por marca de operador?"
+      },
+      "must": {
+        "pt-PT": [
+          "identity-check|marca"
+        ],
+        "en": []
+      },
+      "acceptable_refusal": false
+    },
+    "repo.operator_zero.middleware": {
+      "intent": "REPO_DIRECT",
+      "criticality": "P2",
+      "capabilities": [
+        "capability.current_runtime_truth"
+      ],
+      "pt-PT": {
+        "direct": "Que ficheiros implementam o routing do zero.banza.network?"
+      },
+      "must": {
+        "pt-PT": [
+          "middleware"
+        ],
+        "en": []
+      },
+      "acceptable_refusal": false
     }
-  }
+  },
+  "_journey_note": "MULTI-TURN JOURNEYS. A conversational capability cannot be proven by a single question: the whole claim is that turn N resolves against turn N-1. So every turn carries its OWN expectation, and the expectations are chosen to be UNSATISFIABLE WITHOUT CONTEXT — 'qual e a diferenca entre os dois?' cannot name L2 and L3 unless the prior turns were carried. That is what makes the context-drop mutation a real test rather than a formality.",
+  "journeys": [
+    {
+      "journey_id": "J2-PT-PROFILES",
+      "locale": "pt-PT",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.ellipsis_followup",
+        "capability.comparison_followup",
+        "capability.source_followup",
+        "capability.authority_followup"
+      ],
+      "semantic_unit_ids": [
+        "banza.profile.l2.definition",
+        "banza.profile.l3.definition",
+        "banza.certification.not_regulatory_authorisation"
+      ],
+      "turns": [
+        {
+          "question": "O que é L2?",
+          "must": [
+            "L2"
+          ]
+        },
+        {
+          "question": "E L3?",
+          "must": [
+            "L3"
+          ],
+          "must_not": [
+            "^[^.]*\\bL2\\b[^.]*$"
+          ]
+        },
+        {
+          "question": "Qual é a diferença entre os dois?",
+          "must": [
+            "L2",
+            "L3"
+          ]
+        },
+        {
+          "question": "Se passar L3 fico certificado?",
+          "must": [
+            "\\bn[ãa]o\\b|conformidade|evid[êe]ncia"
+          ]
+        },
+        {
+          "question": "E certificação dá-me autorização do regulador?",
+          "must": [
+            "\\bn[ãa]o\\b"
+          ]
+        },
+        {
+          "question": "Que fonte diz isso?",
+          "must": [
+            "ADR|contracts/|docs/|conformance/|spec"
+          ]
+        }
+      ]
+    },
+    {
+      "journey_id": "J2-PT-TRUST",
+      "locale": "pt-PT",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.proform_followup",
+        "capability.property_followup",
+        "capability.subject_referent"
+      ],
+      "semantic_unit_ids": [
+        "banza.trust.root.count",
+        "banza.trust.root.threshold",
+        "banza.trust.no_global_transparency",
+        "banza.trust.fail_closed"
+      ],
+      "turns": [
+        {
+          "question": "O que é uma raiz de confiança?",
+          "must": [
+            "raiz|root|confian"
+          ]
+        },
+        {
+          "question": "Como é que o BANZA a usa?",
+          "must": [
+            "BANZA"
+          ]
+        },
+        {
+          "question": "Quantas autoridades raiz existem?",
+          "must": [
+            "\\btr[êe]s\\b|\\b3\\b"
+          ]
+        },
+        {
+          "question": "Qual é o limiar?",
+          "must": [
+            "\\bduas\\b|\\b2\\b"
+          ]
+        },
+        {
+          "question": "Isso significa consenso global?",
+          "must": [
+            "\\bn[ãa]o\\b"
+          ]
+        }
+      ]
+    },
+    {
+      "journey_id": "J2-PT-LEDGER",
+      "locale": "pt-PT",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.false_premise_correction",
+        "capability.implementation_vs_protocol_boundary"
+      ],
+      "semantic_unit_ids": [
+        "banza.state_store.not_a_ledger",
+        "banza.implementation.technology_independent"
+      ],
+      "turns": [
+        {
+          "question": "O que é um ledger?",
+          "must": [
+            "ledger|razão|razao"
+          ]
+        },
+        {
+          "question": "O BANZA exige um ledger?",
+          "must": [
+            "BANZA"
+          ]
+        },
+        {
+          "question": "Então onde ficam os saldos?",
+          "must": [
+            "ledger|derivad"
+          ]
+        },
+        {
+          "question": "Uma implementação pode usar PostgreSQL?",
+          "must": [
+            "PostgreSQL"
+          ]
+        },
+        {
+          "question": "Outra implementação pode usar outra tecnologia?",
+          "must": [
+            "tecnologia|implementa"
+          ]
+        }
+      ]
+    },
+    {
+      "journey_id": "J2-EN-PROFILES",
+      "locale": "en",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.ellipsis_followup",
+        "capability.comparison_followup",
+        "capability.source_followup"
+      ],
+      "semantic_unit_ids": [
+        "banza.profile.l2.definition",
+        "banza.profile.l3.definition"
+      ],
+      "turns": [
+        {
+          "question": "What is L2?",
+          "must": [
+            "L2"
+          ]
+        },
+        {
+          "question": "And L3?",
+          "must": [
+            "L3"
+          ]
+        },
+        {
+          "question": "What is the difference between them?",
+          "must": [
+            "L2",
+            "L3"
+          ]
+        },
+        {
+          "question": "If I pass L3 am I certified?",
+          "must": [
+            "\\bnot\\b|conformance|evidence"
+          ]
+        },
+        {
+          "question": "Which source says that?",
+          "must": [
+            "ADR|contracts/|docs/|conformance/|spec"
+          ]
+        }
+      ]
+    },
+    {
+      "journey_id": "J2-EN-READY",
+      "locale": "en",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.current_runtime_truth",
+        "capability.proform_followup"
+      ],
+      "semantic_unit_ids": [
+        "banza.status.pre_production",
+        "banza.status.independent_implementation_demonstrated"
+      ],
+      "turns": [
+        {
+          "question": "Is BANZA production ready?",
+          "must": [
+            "\\bnot\\b|pre-production|PRE_PRODUCTION"
+          ]
+        },
+        {
+          "question": "Why not?",
+          "must": [
+            "\\w{20,}"
+          ]
+        },
+        {
+          "question": "Has an independent implementation been demonstrated?",
+          "must": [
+            "\\bno\\b|\\bnot\\b"
+          ]
+        }
+      ]
+    },
+    {
+      "journey_id": "J2-PT-HYBRID",
+      "locale": "pt-PT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.hybrid_followup",
+        "capability.document_followup"
+      ],
+      "semantic_unit_ids": [
+        "hybrid.settlement.banza_operational_boundary",
+        "hybrid.clearing.banza_operational_boundary"
+      ],
+      "turns": [
+        {
+          "question": "O que é settlement?",
+          "must": [
+            "settlement|liquida"
+          ]
+        },
+        {
+          "question": "E o BANZA faz isso centralmente?",
+          "must": [
+            "\\bn[ãa]o\\b"
+          ]
+        },
+        {
+          "question": "Que documento define isso?",
+          "must": [
+            "ADR|spec|contracts/|docs/"
+          ]
+        }
+      ]
+    },
+    {
+      "journey_id": "J2-PT-SOURCE-INTEGRITY",
+      "locale": "pt-PT",
+      "criticality": "P0",
+      "capabilities": [
+        "capability.source_followup_not_hijacked",
+        "capability.source_followup"
+      ],
+      "semantic_unit_ids": [
+        "banza.trust.root.threshold"
+      ],
+      "turns": [
+        {
+          "question": "Qual é o limiar da raiz do BANZA?",
+          "must": [
+            "\\bduas\\b|\\b2\\b"
+          ]
+        },
+        {
+          "question": "Que fonte diz isso?",
+          "must": [
+            "ADR|spec|contracts/|docs/"
+          ]
+        },
+        {
+          "question": "Que fontes explicam a conformidade?",
+          "must": [
+            "conformidade|conformance|CONFORMANCE|ADR|docs/|contracts/"
+          ]
+        }
+      ]
+    },
+    {
+      "journey_id": "J2-PT-CLARIFY",
+      "locale": "pt-PT",
+      "criticality": "P1",
+      "capabilities": [
+        "capability.ambiguous_clarification"
+      ],
+      "semantic_unit_ids": [
+        "banza.certification.not_admission"
+      ],
+      "turns": [
+        {
+          "question": "E isso?",
+          "must": [
+            "\\w{10,}"
+          ]
+        },
+        {
+          "question": "Certificação dá admissão automática?",
+          "must": [
+            "\\bn[ãa]o\\b"
+          ]
+        }
+      ]
+    }
+  ]
 }

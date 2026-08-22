@@ -25,6 +25,13 @@ const benchmark = read("assurance/banzai-knowledge/benchmark-v2.json");
 const capabilities = read("assurance/banzai-knowledge/capabilities.json");
 const domainConcepts = read("assurance/banzai-knowledge/domain-concepts.json");
 
+// The declared taxonomy, in ONE place. Both the non-vacuity check and the classification check read
+// it, so a class cannot be declared without being populated, nor populated without being declared.
+const KNOWN_CLASSES = [
+  "BANZA_NORMATIVE", "BANZA_CANONICAL", "BANZA_SUPPORTING",
+  "DOMAIN", "HYBRID", "RUNTIME_TRUTH", "REPO_TRUTH", "CAPABILITY",
+];
+
 const units = universe.units;
 const factual = units.filter((u) => u.knowledge_class !== "CAPABILITY");
 const capabilityUnits = units.filter((u) => u.knowledge_class === "CAPABILITY");
@@ -34,20 +41,30 @@ test("the universe is non-vacuous and internally counted", () => {
   assert.ok(units.length >= 100, `universe collapsed to ${units.length} units`);
   assert.equal(units.length, universe.counts.total, "declared total disagrees with the unit list");
   assert.ok(universe.universe_hash && universe.universe_hash.length >= 16, "the universe must be hashed");
-  for (const cls of ["BANZA_NORMATIVE", "BANZA_CANONICAL", "RUNTIME_TRUTH", "DOMAIN", "HYBRID", "CAPABILITY"]) {
+  // Every class the taxonomy DECLARES must be populated. The earlier version of this list omitted
+  // BANZA_SUPPORTING, so that class sat at zero with no generator path and nothing to notice it: the
+  // taxonomy claimed a kind of knowledge the universe never contained. A class list that skips the
+  // empty class cannot detect an empty class.
+  for (const cls of KNOWN_CLASSES) {
     assert.ok(universe.counts.by_class[cls] > 0, `class ${cls} is empty`);
   }
 });
 
 test("every unit is classified — none is unknown", () => {
-  const KNOWN = new Set([
-    "BANZA_NORMATIVE", "BANZA_CANONICAL", "BANZA_SUPPORTING",
-    "DOMAIN", "HYBRID", "RUNTIME_TRUTH", "CAPABILITY",
-  ]);
+  const KNOWN = new Set(KNOWN_CLASSES);
   const bad = units.filter((u) => !KNOWN.has(u.knowledge_class)).map((u) => u.semantic_id);
   assert.deepEqual(bad, [], "unclassified units: " + bad.join(", "));
   const noId = units.filter((u) => !u.semantic_id);
   assert.equal(noId.length, 0, "every unit needs a stable semantic id");
+
+  // And each id appears ONCE. Two units sharing an id inflate the declared total while covering one
+  // thing — the denominator grows and the coverage it demands does not. This caught MON-001, whose
+  // family key equals its own member id, emitting the same unit twice.
+  const seen = new Map();
+  for (const u of units) seen.set(u.semantic_id, (seen.get(u.semantic_id) || 0) + 1);
+  const dupes = [...seen].filter(([, n]) => n > 1).map(([id, n]) => `${id} x${n}`);
+  assert.deepEqual(dupes, [], "duplicate semantic ids: " + dupes.join(", "));
+  assert.equal(new Set(units.map((u) => u.semantic_id)).size, units.length, "unit ids must be unique");
 });
 
 test("every eligible factual unit has benchmark coverage in both required locales", () => {
@@ -98,28 +115,110 @@ test("every critical capability has a positive, a negative and a mutation owner"
   assert.equal(capabilityUnits.length, capabilities.capabilities.length, "declared capabilities must all be units");
 });
 
-test("every reader-facing entry maps to at least one semantic unit", () => {
-  // The mapping is by the entry's own role: a domain entry answers its concept unit, and a BANZA entry
-  // answers whichever facts it states. An entry mapping to nothing is either dead or an undeclared
-  // capability — both worth knowing, neither worth hiding.
+test("every reader-facing entry maps to a declared semantic unit — none is exempt", () => {
+  // THE CLOSED-WORLD PROPERTY, and the reason it is a property rather than a number.
+  //
+  // This assertion used to read `orphans.length <= 96`. The real count was 28. A guard pinned 68 above
+  // the truth is not a ratchet, it is permission: sixty-eight entries could have stopped mapping to
+  // anything and the suite would have stayed green. Worse, the pin was justified in a comment that said
+  // some entries "legitimately rest on sources no protocol unit names" — which was true about PROTOCOL
+  // authority and false as an excuse, because an entry about the repository's own guards is still
+  // knowledge BanzAI serves and still needs a denominator to belong to.
+  //
+  // The audit classified all 28 (assurance/banzai-knowledge/orphan-classification.json) and found ZERO
+  // legitimately outside: ten were missing canonical or supporting units, nine were repository truth
+  // with no class to live in, and nine were behaviours belonging to capabilities that had never been
+  // declared — including the action boundary, the engine's most safety-critical behaviour.
+  //
+  // So the number is now zero and it is asserted, not recorded. An entry joins the universe by one of
+  // three declared routes and there is no fourth:
+  //   1. it answers a declared DOMAIN concept
+  //   2. it rests on a source that some unit names as its authority
+  //   3. a unit claims it explicitly by id, which is how behaviours and repository truth map
   const domainEntryIds = new Set(domainConcepts.concepts.map((c) => c.entry_id));
-  const unitEntryHints = new Set(
-    units.flatMap((u) => [u.semantic_id, ...(u.source_ids || [])]),
-  );
+  const unitEntryHints = new Set(units.flatMap((u) => [u.semantic_id, ...(u.source_ids || [])]));
+  const claimedByUnit = new Set(units.flatMap((u) => u.entry_ids || []));
   const orphans = [];
   for (const e of ENTRIES) {
-    if (domainEntryIds.has(e.id)) continue;                       // answers a declared domain unit
+    if (domainEntryIds.has(e.id)) continue;
+    if (claimedByUnit.has(e.id)) continue;
     const sourceIds = (e.sources || []).map((s) => String(s.id));
-    if (sourceIds.some((s) => unitEntryHints.has(s))) continue;   // rests on a declared authority
+    if (sourceIds.some((s) => unitEntryHints.has(s))) continue;
     orphans.push(e.id);
   }
-  // Recorded rather than asserted at zero: the mapping is by authority, and entries about the repo's
-  // own tooling legitimately rest on sources no protocol unit names. The count is pinned so a NEW
-  // orphan is visible.
-  assert.ok(
-    orphans.length <= 96,
-    `reader-facing entries mapping to no declared unit grew to ${orphans.length}: ${orphans.slice(0, 12).join(", ")}…`,
+  assert.deepEqual(
+    orphans,
+    [],
+    `${orphans.length} reader-facing entries map to no declared unit — every entry must belong to the ` +
+      `universe or the coverage denominator is not closed: ${orphans.join(", ")}`,
   );
+});
+
+test("no unit claims an entry that does not exist", () => {
+  // The mirror of the property above, and the way it would rot. `entry_ids` is hand-declared, so a
+  // renamed or deleted entry would leave a unit claiming a ghost — the orphan count would stay at zero
+  // while the entry it accounted for was gone. Claiming nothing must not look like claiming something.
+  const known = new Set(ENTRIES.map((e) => e.id));
+  const ghosts = units
+    .flatMap((u) => (u.entry_ids || []).map((id) => [u.semantic_id, id]))
+    .filter(([, id]) => !known.has(id));
+  assert.deepEqual(ghosts, [], "units claiming entries that do not exist: " + JSON.stringify(ghosts));
+});
+
+test("every critical invariant member is an atomic unit of its own", () => {
+  // The atomicity property. A family unit answers "what are the ledger invariants?"; it cannot detect
+  // that one member of the family stopped being true, because an answer naming any member satisfies it.
+  //
+  // The audit (invariant-atomicity.json) read all 55 critical members and found every one independently
+  // falsifiable — an implementation can satisfy every sibling and violate this one. So each is its own
+  // unit, and this asserts the universe still contains all of them: an invariant added to the registry
+  // that never becomes a unit is a fact BanzAI is not required to know.
+  const atomicity = read("assurance/banzai-knowledge/invariant-atomicity.json");
+  const invariants = read("contracts/invariants.json");
+  const critical = invariants.invariants.filter((i) => i.severity === "critical").map((i) => i.id);
+  assert.equal(atomicity.reviewed, critical.length, "the atomicity audit did not review every critical member");
+  const unitIds = new Set(units.map((u) => u.semantic_id));
+  const missing = critical.filter((id) => !unitIds.has(`banza.invariant.${id.toLowerCase()}`));
+  assert.deepEqual(missing, [], "critical invariants with no atomic unit: " + missing.join(", "));
+  // And the family units survive alongside them — the reader's framing is not replaced by the members.
+  const families = new Set(critical.map((id) => id.split("-").slice(0, 2).join("-").toLowerCase()));
+  const missingFam = [...families].filter((f) => !unitIds.has(`banza.invariant.${f}`));
+  assert.deepEqual(missingFam, [], "invariant families with no unit: " + missingFam.join(", "));
+});
+
+test("every conversational capability is exercised by a multi-turn journey", () => {
+  // V2 shipped 564 corpus items and not one conversation. Eleven capabilities are claims about turn N
+  // resolving against turn N-1 — pro-forms, ellipsis, comparison and source follow-ups — and every one
+  // of them was declared, owned by a unit test, and never exercised against the deployed system.
+  //
+  // Unit-test ownership is not the same proof. It shows the resolver works in-process; it cannot show
+  // that the context actually survives the wire, the server's field allowlist and the forward-context
+  // builder. Only a real multi-turn run does that, so a conversational capability without a journey is
+  // reported here rather than counted as covered.
+  const conversational = capabilities.capabilities.filter((c) => c.conversational);
+  assert.ok(conversational.length >= 10, `expected the conversational capabilities, saw ${conversational.length}`);
+  const exercised = new Set(
+    benchmark.items.filter((i) => i.turns && i.turns.length > 1).flatMap((i) => i.capability_unit_ids || []),
+  );
+  const unexercised = conversational.map((c) => c.semantic_id).filter((id) => !exercised.has(id));
+  assert.deepEqual(unexercised, [], "conversational capabilities with no multi-turn journey: " + unexercised.join(", "));
+});
+
+test("every journey turn carries its own expectation", () => {
+  // A journey whose later turns assert nothing runs the conversation and checks the first answer. The
+  // follow-up turns are the entire point, so each one must be falsifiable on its own — and the turn
+  // count must be greater than one, or it is not a conversation.
+  const journeys = benchmark.items.filter((i) => i.turns);
+  assert.ok(journeys.length >= 5, `expected multi-turn journeys in the corpus, saw ${journeys.length}`);
+  const weak = [];
+  for (const j of journeys) {
+    if (j.turns.length < 2) weak.push(`${j.question_id} — single turn`);
+    j.turns.forEach((t, i) => {
+      const n = (t.must || []).length + (t.must_not || []).length;
+      if (!n) weak.push(`${j.question_id} turn ${i + 1} — no expectation`);
+    });
+  }
+  assert.deepEqual(weak, [], "journey turns that assert nothing: " + weak.join(", "));
 });
 
 test("every DOMAIN unit names a declared source, and every domain source is registered", () => {

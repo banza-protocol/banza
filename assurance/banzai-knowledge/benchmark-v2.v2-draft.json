@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "_generated_by": "tools/gen-banzai-benchmark-v2.mjs",
-  "universe_hash": "bf1a472f7a99b68aa9df50021ca43b0e",
-  "corpus_hash": "ed36d4845054886d23fbf94a3933e0ea",
-  "count": 572,
+  "universe_hash": "a5133aebd2302727e96560391a606278",
+  "corpus_hash": "081e6274bc73ade97d72fbc22684f7e3",
+  "count": 412,
   "items": [
     {
       "question_id": "V2-0001",
@@ -80,86 +80,6 @@
     {
       "question_id": "V2-0005",
       "semantic_unit_ids": [
-        "banza.adr.decision_register"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P2",
-      "form": "direct",
-      "question": "Onde estão registadas as decisões de arquitectura do BANZA?",
-      "must": [
-        "ADR"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0006",
-      "semantic_unit_ids": [
-        "banza.adr.decision_register"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P2",
-      "form": "paraphrase",
-      "question": "Onde encontro as decisões de arquitectura?",
-      "must": [
-        "ADR"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0007",
-      "semantic_unit_ids": [
-        "banza.adr.decision_register"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P2",
-      "form": "direct",
-      "question": "Where are BANZA's architecture decisions recorded?",
-      "must": [
-        "ADR"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0008",
-      "semantic_unit_ids": [
-        "banza.adr.decision_register"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P2",
-      "form": "paraphrase",
-      "question": "Where do I find the architecture decisions?",
-      "must": [
-        "ADR"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0009",
-      "semantic_unit_ids": [
         "banza.banzai.non_authoritative"
       ],
       "capability_unit_ids": [],
@@ -178,7 +98,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0010",
+      "question_id": "V2-0006",
       "semantic_unit_ids": [
         "banza.banzai.non_authoritative"
       ],
@@ -198,7 +118,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0011",
+      "question_id": "V2-0007",
       "semantic_unit_ids": [
         "banza.banzai.non_authoritative"
       ],
@@ -218,7 +138,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0012",
+      "question_id": "V2-0008",
       "semantic_unit_ids": [
         "banza.banzai.non_authoritative"
       ],
@@ -238,7 +158,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0013",
+      "question_id": "V2-0009",
       "semantic_unit_ids": [
         "banza.bcj1.duplicate_keys_rejected"
       ],
@@ -256,7 +176,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0014",
+      "question_id": "V2-0010",
       "semantic_unit_ids": [
         "banza.bcj1.duplicate_keys_rejected"
       ],
@@ -274,7 +194,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0015",
+      "question_id": "V2-0011",
       "semantic_unit_ids": [
         "banza.bcj1.duplicate_keys_rejected"
       ],
@@ -292,7 +212,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0016",
+      "question_id": "V2-0012",
       "semantic_unit_ids": [
         "banza.bcj1.duplicate_keys_rejected"
       ],
@@ -310,7 +230,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0017",
+      "question_id": "V2-0013",
       "semantic_unit_ids": [
         "banza.bcj1.integer_domain"
       ],
@@ -328,7 +248,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0018",
+      "question_id": "V2-0014",
       "semantic_unit_ids": [
         "banza.bcj1.integer_domain"
       ],
@@ -346,7 +266,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0019",
+      "question_id": "V2-0015",
       "semantic_unit_ids": [
         "banza.bcj1.integer_domain"
       ],
@@ -364,7 +284,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0020",
+      "question_id": "V2-0016",
       "semantic_unit_ids": [
         "banza.bcj1.integer_domain"
       ],
@@ -382,7 +302,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0021",
+      "question_id": "V2-0017",
       "semantic_unit_ids": [
         "banza.bcj1.no_unicode_normalization"
       ],
@@ -400,7 +320,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0022",
+      "question_id": "V2-0018",
       "semantic_unit_ids": [
         "banza.bcj1.no_unicode_normalization"
       ],
@@ -418,7 +338,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0023",
+      "question_id": "V2-0019",
       "semantic_unit_ids": [
         "banza.bcj1.no_unicode_normalization"
       ],
@@ -436,7 +356,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0024",
+      "question_id": "V2-0020",
       "semantic_unit_ids": [
         "banza.bcj1.no_unicode_normalization"
       ],
@@ -454,7 +374,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0025",
+      "question_id": "V2-0021",
       "semantic_unit_ids": [
         "banza.certification.not_admission"
       ],
@@ -476,7 +396,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0026",
+      "question_id": "V2-0022",
       "semantic_unit_ids": [
         "banza.certification.not_admission"
       ],
@@ -498,7 +418,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0027",
+      "question_id": "V2-0023",
       "semantic_unit_ids": [
         "banza.certification.not_admission"
       ],
@@ -520,7 +440,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0028",
+      "question_id": "V2-0024",
       "semantic_unit_ids": [
         "banza.certification.not_admission"
       ],
@@ -542,7 +462,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0029",
+      "question_id": "V2-0025",
       "semantic_unit_ids": [
         "banza.certification.not_regulatory_authorisation"
       ],
@@ -564,7 +484,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0030",
+      "question_id": "V2-0026",
       "semantic_unit_ids": [
         "banza.certification.not_regulatory_authorisation"
       ],
@@ -586,7 +506,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0031",
+      "question_id": "V2-0027",
       "semantic_unit_ids": [
         "banza.certification.not_regulatory_authorisation"
       ],
@@ -608,7 +528,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0032",
+      "question_id": "V2-0028",
       "semantic_unit_ids": [
         "banza.certification.not_regulatory_authorisation"
       ],
@@ -630,435 +550,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0033",
-      "semantic_unit_ids": [
-        "banza.conformance.definition"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P0",
-      "form": "direct",
-      "question": "O que é conformidade no BANZA?",
-      "must": [
-        "conformidade|conforme"
-      ],
-      "must_not": [
-        "certificad[oa] (de|que) autoriza|autorização (regulatória|central)"
-      ],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0034",
-      "semantic_unit_ids": [
-        "banza.conformance.definition"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P0",
-      "form": "paraphrase",
-      "question": "Explica o que significa ser conforme com o BANZA.",
-      "must": [
-        "conformidade|conforme"
-      ],
-      "must_not": [
-        "certificad[oa] (de|que) autoriza|autorização (regulatória|central)"
-      ],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0035",
-      "semantic_unit_ids": [
-        "banza.conformance.definition"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P0",
-      "form": "direct",
-      "question": "What is conformance in BANZA?",
-      "must": [
-        "conformance|conform"
-      ],
-      "must_not": [
-        "certificate that authoris|regulatory authoris"
-      ],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0036",
-      "semantic_unit_ids": [
-        "banza.conformance.definition"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P0",
-      "form": "paraphrase",
-      "question": "Explain what it means to conform to BANZA.",
-      "must": [
-        "conformance|conform"
-      ],
-      "must_not": [
-        "certificate that authoris|regulatory authoris"
-      ],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0037",
-      "semantic_unit_ids": [
-        "banza.conformance.demonstrated_by_evidence"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P0",
-      "form": "direct",
-      "question": "Como é que um operador demonstra conformidade?",
-      "must": [
-        "evidência|evidencia"
-      ],
-      "must_not": [
-        "aprovação central|aprovacao central"
-      ],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0038",
-      "semantic_unit_ids": [
-        "banza.conformance.demonstrated_by_evidence"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P0",
-      "form": "paraphrase",
-      "question": "De que forma se prova conformidade com o protocolo?",
-      "must": [
-        "evidência|evidencia"
-      ],
-      "must_not": [
-        "aprovação central|aprovacao central"
-      ],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0039",
-      "semantic_unit_ids": [
-        "banza.conformance.demonstrated_by_evidence"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P0",
-      "form": "direct",
-      "question": "How does an operator demonstrate conformance?",
-      "must": [
-        "evidence"
-      ],
-      "must_not": [
-        "central approval"
-      ],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0040",
-      "semantic_unit_ids": [
-        "banza.conformance.demonstrated_by_evidence"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P0",
-      "form": "paraphrase",
-      "question": "In what way is conformance to the protocol proven?",
-      "must": [
-        "evidence"
-      ],
-      "must_not": [
-        "central approval"
-      ],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0041",
-      "semantic_unit_ids": [
-        "banza.conformance.pass_is_not_a_certificate"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P0",
-      "form": "direct",
-      "question": "Um PASS é um certificado?",
-      "must": [
-        "\\b(não|nao)\\b"
-      ],
-      "must_not": [
-        "\\bPASS\\b(?:(?!\\bn[ãa]o\\b)[^.])*\\b[ée]\\s+(um|uma)\\s+certificad",
-        "\\bsim\\b(?:(?!\\bn[ãa]o\\b)[^.])*\\bcertificad"
-      ],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0042",
-      "semantic_unit_ids": [
-        "banza.conformance.pass_is_not_a_certificate"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P0",
-      "form": "paraphrase",
-      "question": "Se a minha implementação dá PASS, fico certificado?",
-      "must": [
-        "\\b(não|nao)\\b"
-      ],
-      "must_not": [
-        "\\bPASS\\b(?:(?!\\bn[ãa]o\\b)[^.])*\\b[ée]\\s+(um|uma)\\s+certificad",
-        "\\bsim\\b(?:(?!\\bn[ãa]o\\b)[^.])*\\bcertificad"
-      ],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0043",
-      "semantic_unit_ids": [
-        "banza.conformance.pass_is_not_a_certificate"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P0",
-      "form": "direct",
-      "question": "Is a PASS a certificate?",
-      "must": [
-        "\\b(not|isn't|is not|does not|never)\\b"
-      ],
-      "must_not": [
-        "\\bPASS\\b(?:(?!\\bnot\\b|\\bnever\\b)[^.])*\\bis\\s+an?\\s+certificate",
-        "\\byes\\b(?:(?!\\bnot\\b|\\bnever\\b)[^.])*\\bcertificate\\b"
-      ],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0044",
-      "semantic_unit_ids": [
-        "banza.conformance.pass_is_not_a_certificate"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P0",
-      "form": "paraphrase",
-      "question": "If my implementation returns PASS, am I certified?",
-      "must": [
-        "\\b(not|isn't|is not|does not|never)\\b"
-      ],
-      "must_not": [
-        "\\bPASS\\b(?:(?!\\bnot\\b|\\bnever\\b)[^.])*\\bis\\s+an?\\s+certificate",
-        "\\byes\\b(?:(?!\\bnot\\b|\\bnever\\b)[^.])*\\bcertificate\\b"
-      ],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0045",
-      "semantic_unit_ids": [
-        "banza.evidence_bundle.definition"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que é um evidence bundle?",
-      "must": [
-        "evidence bundle|pacote de evidência|pacote de evidencia"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0046",
-      "semantic_unit_ids": [
-        "banza.evidence_bundle.definition"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "paraphrase",
-      "question": "Explica o que é um pacote de evidência.",
-      "must": [
-        "evidence bundle|pacote de evidência|pacote de evidencia"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0047",
-      "semantic_unit_ids": [
-        "banza.evidence_bundle.definition"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What is an evidence bundle?",
-      "must": [
-        "evidence bundle"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0048",
-      "semantic_unit_ids": [
-        "banza.evidence_bundle.definition"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "paraphrase",
-      "question": "Explain what an evidence bundle is.",
-      "must": [
-        "evidence bundle"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0049",
-      "semantic_unit_ids": [
-        "banza.evidence.definition"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que é evidência técnica no BANZA?",
-      "must": [
-        "evidência|evidencia"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0050",
-      "semantic_unit_ids": [
-        "banza.evidence.definition"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "paraphrase",
-      "question": "O que conta como evidência técnica?",
-      "must": [
-        "evidência|evidencia"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0051",
-      "semantic_unit_ids": [
-        "banza.evidence.definition"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What is technical evidence in BANZA?",
-      "must": [
-        "evidence"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0052",
-      "semantic_unit_ids": [
-        "banza.evidence.definition"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "paraphrase",
-      "question": "What counts as technical evidence?",
-      "must": [
-        "evidence"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0053",
+      "question_id": "V2-0029",
       "semantic_unit_ids": [
         "banza.execution.local_no_central_processor"
       ],
@@ -1076,7 +568,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0054",
+      "question_id": "V2-0030",
       "semantic_unit_ids": [
         "banza.execution.local_no_central_processor"
       ],
@@ -1094,7 +586,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0055",
+      "question_id": "V2-0031",
       "semantic_unit_ids": [
         "banza.execution.local_no_central_processor"
       ],
@@ -1112,7 +604,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0056",
+      "question_id": "V2-0032",
       "semantic_unit_ids": [
         "banza.execution.local_no_central_processor"
       ],
@@ -1130,7 +622,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0057",
+      "question_id": "V2-0033",
       "semantic_unit_ids": [
         "banza.execution.no_global_consensus"
       ],
@@ -1148,7 +640,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0058",
+      "question_id": "V2-0034",
       "semantic_unit_ids": [
         "banza.execution.no_global_consensus"
       ],
@@ -1166,7 +658,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0059",
+      "question_id": "V2-0035",
       "semantic_unit_ids": [
         "banza.execution.no_global_consensus"
       ],
@@ -1184,7 +676,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0060",
+      "question_id": "V2-0036",
       "semantic_unit_ids": [
         "banza.execution.no_global_consensus"
       ],
@@ -1202,7 +694,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0061",
+      "question_id": "V2-0037",
       "semantic_unit_ids": [
         "banza.idempotency.scope"
       ],
@@ -1220,7 +712,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0062",
+      "question_id": "V2-0038",
       "semantic_unit_ids": [
         "banza.idempotency.scope"
       ],
@@ -1238,7 +730,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0063",
+      "question_id": "V2-0039",
       "semantic_unit_ids": [
         "banza.idempotency.scope"
       ],
@@ -1256,7 +748,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0064",
+      "question_id": "V2-0040",
       "semantic_unit_ids": [
         "banza.idempotency.scope"
       ],
@@ -1274,7 +766,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0065",
+      "question_id": "V2-0041",
       "semantic_unit_ids": [
         "banza.implementation.technology_independent"
       ],
@@ -1294,7 +786,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0066",
+      "question_id": "V2-0042",
       "semantic_unit_ids": [
         "banza.implementation.technology_independent"
       ],
@@ -1314,7 +806,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0067",
+      "question_id": "V2-0043",
       "semantic_unit_ids": [
         "banza.implementation.technology_independent"
       ],
@@ -1334,7 +826,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0068",
+      "question_id": "V2-0044",
       "semantic_unit_ids": [
         "banza.implementation.technology_independent"
       ],
@@ -1354,7 +846,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0069",
+      "question_id": "V2-0045",
       "semantic_unit_ids": [
         "banza.invariant.inv-collection"
       ],
@@ -1374,7 +866,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0070",
+      "question_id": "V2-0046",
       "semantic_unit_ids": [
         "banza.invariant.inv-collection"
       ],
@@ -1394,7 +886,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0071",
+      "question_id": "V2-0047",
       "semantic_unit_ids": [
         "banza.invariant.inv-collection"
       ],
@@ -1414,7 +906,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0072",
+      "question_id": "V2-0048",
       "semantic_unit_ids": [
         "banza.invariant.inv-collection"
       ],
@@ -1434,247 +926,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0073",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-collection-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-COLLECTION-001 do BANZA?",
-      "must": [
-        "INV\\-COLLECTION\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0074",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-collection-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-COLLECTION-001 require in BANZA?",
-      "must": [
-        "INV\\-COLLECTION\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0075",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-collection-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-COLLECTION-002 do BANZA?",
-      "must": [
-        "INV\\-COLLECTION\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0076",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-collection-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-COLLECTION-002 require in BANZA?",
-      "must": [
-        "INV\\-COLLECTION\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0077",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-collection-003"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-COLLECTION-003 do BANZA?",
-      "must": [
-        "INV\\-COLLECTION\\-003"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0078",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-collection-003"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-COLLECTION-003 require in BANZA?",
-      "must": [
-        "INV\\-COLLECTION\\-003"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0079",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-collection-004"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-COLLECTION-004 do BANZA?",
-      "must": [
-        "INV\\-COLLECTION\\-004"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0080",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-collection-004"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-COLLECTION-004 require in BANZA?",
-      "must": [
-        "INV\\-COLLECTION\\-004"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0081",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-collection-005"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-COLLECTION-005 do BANZA?",
-      "must": [
-        "INV\\-COLLECTION\\-005"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0082",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-collection-005"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-COLLECTION-005 require in BANZA?",
-      "must": [
-        "INV\\-COLLECTION\\-005"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0083",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-collection-006"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-COLLECTION-006 do BANZA?",
-      "must": [
-        "INV\\-COLLECTION\\-006"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0084",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-collection-006"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-COLLECTION-006 require in BANZA?",
-      "must": [
-        "INV\\-COLLECTION\\-006"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0085",
+      "question_id": "V2-0049",
       "semantic_unit_ids": [
         "banza.invariant.inv-fed"
       ],
@@ -1694,7 +946,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0086",
+      "question_id": "V2-0050",
       "semantic_unit_ids": [
         "banza.invariant.inv-fed"
       ],
@@ -1714,7 +966,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0087",
+      "question_id": "V2-0051",
       "semantic_unit_ids": [
         "banza.invariant.inv-fed"
       ],
@@ -1734,7 +986,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0088",
+      "question_id": "V2-0052",
       "semantic_unit_ids": [
         "banza.invariant.inv-fed"
       ],
@@ -1754,327 +1006,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0089",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fed-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-FED-001 do BANZA?",
-      "must": [
-        "INV\\-FED\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0090",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fed-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-FED-001 require in BANZA?",
-      "must": [
-        "INV\\-FED\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0091",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fed-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-FED-002 do BANZA?",
-      "must": [
-        "INV\\-FED\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0092",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fed-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-FED-002 require in BANZA?",
-      "must": [
-        "INV\\-FED\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0093",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fed-004"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-FED-004 do BANZA?",
-      "must": [
-        "INV\\-FED\\-004"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0094",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fed-004"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-FED-004 require in BANZA?",
-      "must": [
-        "INV\\-FED\\-004"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0095",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fed-005"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-FED-005 do BANZA?",
-      "must": [
-        "INV\\-FED\\-005"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0096",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fed-005"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-FED-005 require in BANZA?",
-      "must": [
-        "INV\\-FED\\-005"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0097",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fed-007"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-FED-007 do BANZA?",
-      "must": [
-        "INV\\-FED\\-007"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0098",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fed-007"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-FED-007 require in BANZA?",
-      "must": [
-        "INV\\-FED\\-007"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0099",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fed-idem-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-FED-IDEM-001 do BANZA?",
-      "must": [
-        "INV\\-FED\\-IDEM\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0100",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fed-idem-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-FED-IDEM-001 require in BANZA?",
-      "must": [
-        "INV\\-FED\\-IDEM\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0101",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fed-ledger-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-FED-LEDGER-001 do BANZA?",
-      "must": [
-        "INV\\-FED\\-LEDGER\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0102",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fed-ledger-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-FED-LEDGER-001 require in BANZA?",
-      "must": [
-        "INV\\-FED\\-LEDGER\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0103",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fed-ledger-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-FED-LEDGER-002 do BANZA?",
-      "must": [
-        "INV\\-FED\\-LEDGER\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0104",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fed-ledger-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-FED-LEDGER-002 require in BANZA?",
-      "must": [
-        "INV\\-FED\\-LEDGER\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0105",
+      "question_id": "V2-0053",
       "semantic_unit_ids": [
         "banza.invariant.inv-fedeval"
       ],
@@ -2094,7 +1026,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0106",
+      "question_id": "V2-0054",
       "semantic_unit_ids": [
         "banza.invariant.inv-fedeval"
       ],
@@ -2114,7 +1046,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0107",
+      "question_id": "V2-0055",
       "semantic_unit_ids": [
         "banza.invariant.inv-fedeval"
       ],
@@ -2134,7 +1066,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0108",
+      "question_id": "V2-0056",
       "semantic_unit_ids": [
         "banza.invariant.inv-fedeval"
       ],
@@ -2154,247 +1086,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0109",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fedeval-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-FEDEVAL-001 do BANZA?",
-      "must": [
-        "INV\\-FEDEVAL\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0110",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fedeval-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-FEDEVAL-001 require in BANZA?",
-      "must": [
-        "INV\\-FEDEVAL\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0111",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fedeval-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-FEDEVAL-002 do BANZA?",
-      "must": [
-        "INV\\-FEDEVAL\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0112",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fedeval-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-FEDEVAL-002 require in BANZA?",
-      "must": [
-        "INV\\-FEDEVAL\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0113",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fedeval-003"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-FEDEVAL-003 do BANZA?",
-      "must": [
-        "INV\\-FEDEVAL\\-003"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0114",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fedeval-003"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-FEDEVAL-003 require in BANZA?",
-      "must": [
-        "INV\\-FEDEVAL\\-003"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0115",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fedeval-004"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-FEDEVAL-004 do BANZA?",
-      "must": [
-        "INV\\-FEDEVAL\\-004"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0116",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fedeval-004"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-FEDEVAL-004 require in BANZA?",
-      "must": [
-        "INV\\-FEDEVAL\\-004"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0117",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fedeval-006"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-FEDEVAL-006 do BANZA?",
-      "must": [
-        "INV\\-FEDEVAL\\-006"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0118",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fedeval-006"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-FEDEVAL-006 require in BANZA?",
-      "must": [
-        "INV\\-FEDEVAL\\-006"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0119",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fedeval-008"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-FEDEVAL-008 do BANZA?",
-      "must": [
-        "INV\\-FEDEVAL\\-008"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0120",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-fedeval-008"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-FEDEVAL-008 require in BANZA?",
-      "must": [
-        "INV\\-FEDEVAL\\-008"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0121",
+      "question_id": "V2-0057",
       "semantic_unit_ids": [
         "banza.invariant.inv-idem"
       ],
@@ -2414,7 +1106,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0122",
+      "question_id": "V2-0058",
       "semantic_unit_ids": [
         "banza.invariant.inv-idem"
       ],
@@ -2434,7 +1126,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0123",
+      "question_id": "V2-0059",
       "semantic_unit_ids": [
         "banza.invariant.inv-idem"
       ],
@@ -2454,7 +1146,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0124",
+      "question_id": "V2-0060",
       "semantic_unit_ids": [
         "banza.invariant.inv-idem"
       ],
@@ -2474,47 +1166,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0125",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-idem-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-IDEM-001 do BANZA?",
-      "must": [
-        "INV\\-IDEM\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0126",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-idem-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-IDEM-001 require in BANZA?",
-      "must": [
-        "INV\\-IDEM\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0127",
+      "question_id": "V2-0061",
       "semantic_unit_ids": [
         "banza.invariant.inv-ledger"
       ],
@@ -2534,7 +1186,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0128",
+      "question_id": "V2-0062",
       "semantic_unit_ids": [
         "banza.invariant.inv-ledger"
       ],
@@ -2554,7 +1206,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0129",
+      "question_id": "V2-0063",
       "semantic_unit_ids": [
         "banza.invariant.inv-ledger"
       ],
@@ -2574,7 +1226,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0130",
+      "question_id": "V2-0064",
       "semantic_unit_ids": [
         "banza.invariant.inv-ledger"
       ],
@@ -2594,207 +1246,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0131",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ledger-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-LEDGER-001 do BANZA?",
-      "must": [
-        "INV\\-LEDGER\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0132",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ledger-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-LEDGER-001 require in BANZA?",
-      "must": [
-        "INV\\-LEDGER\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0133",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ledger-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-LEDGER-002 do BANZA?",
-      "must": [
-        "INV\\-LEDGER\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0134",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ledger-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-LEDGER-002 require in BANZA?",
-      "must": [
-        "INV\\-LEDGER\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0135",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ledger-003"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-LEDGER-003 do BANZA?",
-      "must": [
-        "INV\\-LEDGER\\-003"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0136",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ledger-003"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-LEDGER-003 require in BANZA?",
-      "must": [
-        "INV\\-LEDGER\\-003"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0137",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ledger-004"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-LEDGER-004 do BANZA?",
-      "must": [
-        "INV\\-LEDGER\\-004"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0138",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ledger-004"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-LEDGER-004 require in BANZA?",
-      "must": [
-        "INV\\-LEDGER\\-004"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0139",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ledger-005"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-LEDGER-005 do BANZA?",
-      "must": [
-        "INV\\-LEDGER\\-005"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0140",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ledger-005"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-LEDGER-005 require in BANZA?",
-      "must": [
-        "INV\\-LEDGER\\-005"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0141",
+      "question_id": "V2-0065",
       "semantic_unit_ids": [
         "banza.invariant.inv-ote"
       ],
@@ -2814,7 +1266,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0142",
+      "question_id": "V2-0066",
       "semantic_unit_ids": [
         "banza.invariant.inv-ote"
       ],
@@ -2834,7 +1286,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0143",
+      "question_id": "V2-0067",
       "semantic_unit_ids": [
         "banza.invariant.inv-ote"
       ],
@@ -2854,7 +1306,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0144",
+      "question_id": "V2-0068",
       "semantic_unit_ids": [
         "banza.invariant.inv-ote"
       ],
@@ -2874,327 +1326,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0145",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ote-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-OTE-001 do BANZA?",
-      "must": [
-        "INV\\-OTE\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0146",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ote-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-OTE-001 require in BANZA?",
-      "must": [
-        "INV\\-OTE\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0147",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ote-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-OTE-002 do BANZA?",
-      "must": [
-        "INV\\-OTE\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0148",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ote-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-OTE-002 require in BANZA?",
-      "must": [
-        "INV\\-OTE\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0149",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ote-003"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-OTE-003 do BANZA?",
-      "must": [
-        "INV\\-OTE\\-003"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0150",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ote-003"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-OTE-003 require in BANZA?",
-      "must": [
-        "INV\\-OTE\\-003"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0151",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ote-004"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-OTE-004 do BANZA?",
-      "must": [
-        "INV\\-OTE\\-004"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0152",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ote-004"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-OTE-004 require in BANZA?",
-      "must": [
-        "INV\\-OTE\\-004"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0153",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ote-005"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-OTE-005 do BANZA?",
-      "must": [
-        "INV\\-OTE\\-005"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0154",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ote-005"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-OTE-005 require in BANZA?",
-      "must": [
-        "INV\\-OTE\\-005"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0155",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ote-007"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-OTE-007 do BANZA?",
-      "must": [
-        "INV\\-OTE\\-007"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0156",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ote-007"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-OTE-007 require in BANZA?",
-      "must": [
-        "INV\\-OTE\\-007"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0157",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ote-008"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-OTE-008 do BANZA?",
-      "must": [
-        "INV\\-OTE\\-008"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0158",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ote-008"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-OTE-008 require in BANZA?",
-      "must": [
-        "INV\\-OTE\\-008"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0159",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ote-009"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-OTE-009 do BANZA?",
-      "must": [
-        "INV\\-OTE\\-009"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0160",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-ote-009"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-OTE-009 require in BANZA?",
-      "must": [
-        "INV\\-OTE\\-009"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0161",
+      "question_id": "V2-0069",
       "semantic_unit_ids": [
         "banza.invariant.inv-qr"
       ],
@@ -3214,7 +1346,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0162",
+      "question_id": "V2-0070",
       "semantic_unit_ids": [
         "banza.invariant.inv-qr"
       ],
@@ -3234,7 +1366,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0163",
+      "question_id": "V2-0071",
       "semantic_unit_ids": [
         "banza.invariant.inv-qr"
       ],
@@ -3254,7 +1386,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0164",
+      "question_id": "V2-0072",
       "semantic_unit_ids": [
         "banza.invariant.inv-qr"
       ],
@@ -3274,207 +1406,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0165",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-qr-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-QR-001 do BANZA?",
-      "must": [
-        "INV\\-QR\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0166",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-qr-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-QR-001 require in BANZA?",
-      "must": [
-        "INV\\-QR\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0167",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-qr-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-QR-002 do BANZA?",
-      "must": [
-        "INV\\-QR\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0168",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-qr-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-QR-002 require in BANZA?",
-      "must": [
-        "INV\\-QR\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0169",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-qr-003"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-QR-003 do BANZA?",
-      "must": [
-        "INV\\-QR\\-003"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0170",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-qr-003"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-QR-003 require in BANZA?",
-      "must": [
-        "INV\\-QR\\-003"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0171",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-qr-004"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-QR-004 do BANZA?",
-      "must": [
-        "INV\\-QR\\-004"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0172",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-qr-004"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-QR-004 require in BANZA?",
-      "must": [
-        "INV\\-QR\\-004"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0173",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-qr-sign-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-QR-SIGN-001 do BANZA?",
-      "must": [
-        "INV\\-QR\\-SIGN\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0174",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-qr-sign-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-QR-SIGN-001 require in BANZA?",
-      "must": [
-        "INV\\-QR\\-SIGN\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0175",
+      "question_id": "V2-0073",
       "semantic_unit_ids": [
         "banza.invariant.inv-root"
       ],
@@ -3494,7 +1426,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0176",
+      "question_id": "V2-0074",
       "semantic_unit_ids": [
         "banza.invariant.inv-root"
       ],
@@ -3514,7 +1446,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0177",
+      "question_id": "V2-0075",
       "semantic_unit_ids": [
         "banza.invariant.inv-root"
       ],
@@ -3534,7 +1466,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0178",
+      "question_id": "V2-0076",
       "semantic_unit_ids": [
         "banza.invariant.inv-root"
       ],
@@ -3554,447 +1486,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0179",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-ROOT-001 do BANZA?",
-      "must": [
-        "INV\\-ROOT\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0180",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-ROOT-001 require in BANZA?",
-      "must": [
-        "INV\\-ROOT\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0181",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-ROOT-002 do BANZA?",
-      "must": [
-        "INV\\-ROOT\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0182",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-ROOT-002 require in BANZA?",
-      "must": [
-        "INV\\-ROOT\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0183",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-003"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-ROOT-003 do BANZA?",
-      "must": [
-        "INV\\-ROOT\\-003"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0184",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-003"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-ROOT-003 require in BANZA?",
-      "must": [
-        "INV\\-ROOT\\-003"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0185",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-004"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-ROOT-004 do BANZA?",
-      "must": [
-        "INV\\-ROOT\\-004"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0186",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-004"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-ROOT-004 require in BANZA?",
-      "must": [
-        "INV\\-ROOT\\-004"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0187",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-005"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-ROOT-005 do BANZA?",
-      "must": [
-        "INV\\-ROOT\\-005"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0188",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-005"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-ROOT-005 require in BANZA?",
-      "must": [
-        "INV\\-ROOT\\-005"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0189",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-006"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-ROOT-006 do BANZA?",
-      "must": [
-        "INV\\-ROOT\\-006"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0190",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-006"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-ROOT-006 require in BANZA?",
-      "must": [
-        "INV\\-ROOT\\-006"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0191",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-007"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-ROOT-007 do BANZA?",
-      "must": [
-        "INV\\-ROOT\\-007"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0192",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-007"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-ROOT-007 require in BANZA?",
-      "must": [
-        "INV\\-ROOT\\-007"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0193",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-011"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-ROOT-011 do BANZA?",
-      "must": [
-        "INV\\-ROOT\\-011"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0194",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-011"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-ROOT-011 require in BANZA?",
-      "must": [
-        "INV\\-ROOT\\-011"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0195",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-012"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-ROOT-012 do BANZA?",
-      "must": [
-        "INV\\-ROOT\\-012"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0196",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-012"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-ROOT-012 require in BANZA?",
-      "must": [
-        "INV\\-ROOT\\-012"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0197",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-013"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-ROOT-013 do BANZA?",
-      "must": [
-        "INV\\-ROOT\\-013"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0198",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-013"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-ROOT-013 require in BANZA?",
-      "must": [
-        "INV\\-ROOT\\-013"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0199",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-014"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-ROOT-014 do BANZA?",
-      "must": [
-        "INV\\-ROOT\\-014"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0200",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-root-014"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-ROOT-014 require in BANZA?",
-      "must": [
-        "INV\\-ROOT\\-014"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0201",
+      "question_id": "V2-0077",
       "semantic_unit_ids": [
         "banza.invariant.inv-stl"
       ],
@@ -4014,7 +1506,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0202",
+      "question_id": "V2-0078",
       "semantic_unit_ids": [
         "banza.invariant.inv-stl"
       ],
@@ -4034,7 +1526,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0203",
+      "question_id": "V2-0079",
       "semantic_unit_ids": [
         "banza.invariant.inv-stl"
       ],
@@ -4054,7 +1546,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0204",
+      "question_id": "V2-0080",
       "semantic_unit_ids": [
         "banza.invariant.inv-stl"
       ],
@@ -4074,87 +1566,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0205",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-stl-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-STL-001 do BANZA?",
-      "must": [
-        "INV\\-STL\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0206",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-stl-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-STL-001 require in BANZA?",
-      "must": [
-        "INV\\-STL\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0207",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-stl-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-STL-002 do BANZA?",
-      "must": [
-        "INV\\-STL\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0208",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-stl-002"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-STL-002 require in BANZA?",
-      "must": [
-        "INV\\-STL\\-002"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0209",
+      "question_id": "V2-0081",
       "semantic_unit_ids": [
         "banza.invariant.inv-trace"
       ],
@@ -4174,7 +1586,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0210",
+      "question_id": "V2-0082",
       "semantic_unit_ids": [
         "banza.invariant.inv-trace"
       ],
@@ -4194,7 +1606,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0211",
+      "question_id": "V2-0083",
       "semantic_unit_ids": [
         "banza.invariant.inv-trace"
       ],
@@ -4214,7 +1626,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0212",
+      "question_id": "V2-0084",
       "semantic_unit_ids": [
         "banza.invariant.inv-trace"
       ],
@@ -4234,47 +1646,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0213",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-trace-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-TRACE-001 do BANZA?",
-      "must": [
-        "INV\\-TRACE\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0214",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-trace-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-TRACE-001 require in BANZA?",
-      "must": [
-        "INV\\-TRACE\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0215",
+      "question_id": "V2-0085",
       "semantic_unit_ids": [
         "banza.invariant.inv-wallet"
       ],
@@ -4294,7 +1666,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0216",
+      "question_id": "V2-0086",
       "semantic_unit_ids": [
         "banza.invariant.inv-wallet"
       ],
@@ -4314,7 +1686,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0217",
+      "question_id": "V2-0087",
       "semantic_unit_ids": [
         "banza.invariant.inv-wallet"
       ],
@@ -4334,7 +1706,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0218",
+      "question_id": "V2-0088",
       "semantic_unit_ids": [
         "banza.invariant.inv-wallet"
       ],
@@ -4354,47 +1726,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0219",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-wallet-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "O que exige a invariante INV-WALLET-001 do BANZA?",
-      "must": [
-        "INV\\-WALLET\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0220",
-      "semantic_unit_ids": [
-        "banza.invariant.inv-wallet-001"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What does invariant INV-WALLET-001 require in BANZA?",
-      "must": [
-        "INV\\-WALLET\\-001"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0221",
+      "question_id": "V2-0089",
       "semantic_unit_ids": [
         "banza.invariant.mon-001"
       ],
@@ -4414,7 +1746,27 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0222",
+      "question_id": "V2-0090",
+      "semantic_unit_ids": [
+        "banza.invariant.mon-001"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "locale": "pt-PT",
+      "intent": "BANZA_DIRECT",
+      "criticality": "P1",
+      "form": "paraphrase",
+      "question": "Explica as invariantes monetárias.",
+      "must": [
+        "invariante|INV-"
+      ],
+      "must_not": [],
+      "authority_class": "BANZA",
+      "acceptable_refusal": false
+    },
+    {
+      "question_id": "V2-0091",
       "semantic_unit_ids": [
         "banza.invariant.mon-001"
       ],
@@ -4434,69 +1786,9 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0223",
+      "question_id": "V2-0092",
       "semantic_unit_ids": [
-        "banza.license.apache_2_0"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "Qual é a licença do BANZA?",
-      "must": [
-        "Apache"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0224",
-      "semantic_unit_ids": [
-        "banza.license.apache_2_0"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "paraphrase",
-      "question": "Sob que licença posso usar o código do BANZA?",
-      "must": [
-        "Apache"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0225",
-      "semantic_unit_ids": [
-        "banza.license.apache_2_0"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "What licence is BANZA released under?",
-      "must": [
-        "Apache"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0226",
-      "semantic_unit_ids": [
-        "banza.license.apache_2_0"
+        "banza.invariant.mon-001"
       ],
       "capability_unit_ids": [
         "capability.pt_en_semantic_realization"
@@ -4505,96 +1797,16 @@
       "intent": "BANZA_DIRECT",
       "criticality": "P1",
       "form": "paraphrase",
-      "question": "Under what licence may I use the BANZA code?",
+      "question": "Explain the monetary invariants.",
       "must": [
-        "Apache"
+        "invariant|INV-"
       ],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0227",
-      "semantic_unit_ids": [
-        "banza.notice.attribution"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P2",
-      "form": "direct",
-      "question": "O que contém o ficheiro NOTICE?",
-      "must": [
-        "NOTICE|atribuição|atribuicao"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0228",
-      "semantic_unit_ids": [
-        "banza.notice.attribution"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P2",
-      "form": "paraphrase",
-      "question": "Para que serve o NOTICE?",
-      "must": [
-        "NOTICE|atribuição|atribuicao"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0229",
-      "semantic_unit_ids": [
-        "banza.notice.attribution"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P2",
-      "form": "direct",
-      "question": "What does the NOTICE file contain?",
-      "must": [
-        "NOTICE|attribution"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0230",
-      "semantic_unit_ids": [
-        "banza.notice.attribution"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P2",
-      "form": "paraphrase",
-      "question": "What is the NOTICE for?",
-      "must": [
-        "NOTICE|attribution"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0231",
+      "question_id": "V2-0093",
       "semantic_unit_ids": [
         "banza.profile.l0.definition"
       ],
@@ -4614,7 +1826,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0232",
+      "question_id": "V2-0094",
       "semantic_unit_ids": [
         "banza.profile.l0.definition"
       ],
@@ -4634,7 +1846,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0233",
+      "question_id": "V2-0095",
       "semantic_unit_ids": [
         "banza.profile.l0.definition"
       ],
@@ -4654,7 +1866,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0234",
+      "question_id": "V2-0096",
       "semantic_unit_ids": [
         "banza.profile.l0.definition"
       ],
@@ -4674,7 +1886,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0235",
+      "question_id": "V2-0097",
       "semantic_unit_ids": [
         "banza.profile.l1.definition"
       ],
@@ -4694,7 +1906,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0236",
+      "question_id": "V2-0098",
       "semantic_unit_ids": [
         "banza.profile.l1.definition"
       ],
@@ -4714,7 +1926,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0237",
+      "question_id": "V2-0099",
       "semantic_unit_ids": [
         "banza.profile.l1.definition"
       ],
@@ -4734,7 +1946,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0238",
+      "question_id": "V2-0100",
       "semantic_unit_ids": [
         "banza.profile.l1.definition"
       ],
@@ -4754,7 +1966,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0239",
+      "question_id": "V2-0101",
       "semantic_unit_ids": [
         "banza.profile.l2.definition"
       ],
@@ -4774,7 +1986,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0240",
+      "question_id": "V2-0102",
       "semantic_unit_ids": [
         "banza.profile.l2.definition"
       ],
@@ -4794,7 +2006,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0241",
+      "question_id": "V2-0103",
       "semantic_unit_ids": [
         "banza.profile.l2.definition"
       ],
@@ -4814,7 +2026,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0242",
+      "question_id": "V2-0104",
       "semantic_unit_ids": [
         "banza.profile.l2.definition"
       ],
@@ -4834,7 +2046,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0243",
+      "question_id": "V2-0105",
       "semantic_unit_ids": [
         "banza.profile.l3.definition"
       ],
@@ -4854,7 +2066,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0244",
+      "question_id": "V2-0106",
       "semantic_unit_ids": [
         "banza.profile.l3.definition"
       ],
@@ -4874,7 +2086,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0245",
+      "question_id": "V2-0107",
       "semantic_unit_ids": [
         "banza.profile.l3.definition"
       ],
@@ -4894,7 +2106,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0246",
+      "question_id": "V2-0108",
       "semantic_unit_ids": [
         "banza.profile.l3.definition"
       ],
@@ -4914,7 +2126,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0247",
+      "question_id": "V2-0109",
       "semantic_unit_ids": [
         "banza.profile.l4.definition"
       ],
@@ -4934,7 +2146,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0248",
+      "question_id": "V2-0110",
       "semantic_unit_ids": [
         "banza.profile.l4.definition"
       ],
@@ -4954,7 +2166,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0249",
+      "question_id": "V2-0111",
       "semantic_unit_ids": [
         "banza.profile.l4.definition"
       ],
@@ -4974,7 +2186,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0250",
+      "question_id": "V2-0112",
       "semantic_unit_ids": [
         "banza.profile.l4.definition"
       ],
@@ -4994,7 +2206,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0251",
+      "question_id": "V2-0113",
       "semantic_unit_ids": [
         "banza.protocol.holds_no_funds"
       ],
@@ -5012,7 +2224,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0252",
+      "question_id": "V2-0114",
       "semantic_unit_ids": [
         "banza.protocol.holds_no_funds"
       ],
@@ -5030,7 +2242,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0253",
+      "question_id": "V2-0115",
       "semantic_unit_ids": [
         "banza.protocol.holds_no_funds"
       ],
@@ -5048,7 +2260,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0254",
+      "question_id": "V2-0116",
       "semantic_unit_ids": [
         "banza.protocol.holds_no_funds"
       ],
@@ -5066,7 +2278,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0255",
+      "question_id": "V2-0117",
       "semantic_unit_ids": [
         "banza.r2s2.four_principles"
       ],
@@ -5087,7 +2299,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0256",
+      "question_id": "V2-0118",
       "semantic_unit_ids": [
         "banza.r2s2.four_principles"
       ],
@@ -5108,7 +2320,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0257",
+      "question_id": "V2-0119",
       "semantic_unit_ids": [
         "banza.r2s2.four_principles"
       ],
@@ -5129,7 +2341,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0258",
+      "question_id": "V2-0120",
       "semantic_unit_ids": [
         "banza.r2s2.four_principles"
       ],
@@ -5150,7 +2362,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0259",
+      "question_id": "V2-0121",
       "semantic_unit_ids": [
         "banza.reference_implementation.does_not_define"
       ],
@@ -5168,7 +2380,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0260",
+      "question_id": "V2-0122",
       "semantic_unit_ids": [
         "banza.reference_implementation.does_not_define"
       ],
@@ -5186,7 +2398,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0261",
+      "question_id": "V2-0123",
       "semantic_unit_ids": [
         "banza.reference_implementation.does_not_define"
       ],
@@ -5204,7 +2416,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0262",
+      "question_id": "V2-0124",
       "semantic_unit_ids": [
         "banza.reference_implementation.does_not_define"
       ],
@@ -5222,7 +2434,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0263",
+      "question_id": "V2-0125",
       "semantic_unit_ids": [
         "banza.resilience.never_overrides_security"
       ],
@@ -5240,7 +2452,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0264",
+      "question_id": "V2-0126",
       "semantic_unit_ids": [
         "banza.resilience.never_overrides_security"
       ],
@@ -5258,7 +2470,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0265",
+      "question_id": "V2-0127",
       "semantic_unit_ids": [
         "banza.resilience.never_overrides_security"
       ],
@@ -5276,7 +2488,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0266",
+      "question_id": "V2-0128",
       "semantic_unit_ids": [
         "banza.resilience.never_overrides_security"
       ],
@@ -5294,7 +2506,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0267",
+      "question_id": "V2-0129",
       "semantic_unit_ids": [
         "banza.state_store.not_a_ledger"
       ],
@@ -5312,7 +2524,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0268",
+      "question_id": "V2-0130",
       "semantic_unit_ids": [
         "banza.state_store.not_a_ledger"
       ],
@@ -5330,7 +2542,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0269",
+      "question_id": "V2-0131",
       "semantic_unit_ids": [
         "banza.state_store.not_a_ledger"
       ],
@@ -5348,7 +2560,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0270",
+      "question_id": "V2-0132",
       "semantic_unit_ids": [
         "banza.state_store.not_a_ledger"
       ],
@@ -5366,7 +2578,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0271",
+      "question_id": "V2-0133",
       "semantic_unit_ids": [
         "banza.status.independent_implementation_demonstrated"
       ],
@@ -5388,7 +2600,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0272",
+      "question_id": "V2-0134",
       "semantic_unit_ids": [
         "banza.status.independent_implementation_demonstrated"
       ],
@@ -5410,7 +2622,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0273",
+      "question_id": "V2-0135",
       "semantic_unit_ids": [
         "banza.status.independent_implementation_demonstrated"
       ],
@@ -5432,7 +2644,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0274",
+      "question_id": "V2-0136",
       "semantic_unit_ids": [
         "banza.status.independent_implementation_demonstrated"
       ],
@@ -5454,7 +2666,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0275",
+      "question_id": "V2-0137",
       "semantic_unit_ids": [
         "banza.status.independent_trial_started"
       ],
@@ -5476,7 +2688,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0276",
+      "question_id": "V2-0138",
       "semantic_unit_ids": [
         "banza.status.independent_trial_started"
       ],
@@ -5498,7 +2710,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0277",
+      "question_id": "V2-0139",
       "semantic_unit_ids": [
         "banza.status.independent_trial_started"
       ],
@@ -5520,7 +2732,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0278",
+      "question_id": "V2-0140",
       "semantic_unit_ids": [
         "banza.status.independent_trial_started"
       ],
@@ -5542,7 +2754,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0279",
+      "question_id": "V2-0141",
       "semantic_unit_ids": [
         "banza.status.l0_frozen"
       ],
@@ -5564,7 +2776,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0280",
+      "question_id": "V2-0142",
       "semantic_unit_ids": [
         "banza.status.l0_frozen"
       ],
@@ -5586,7 +2798,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0281",
+      "question_id": "V2-0143",
       "semantic_unit_ids": [
         "banza.status.l0_frozen"
       ],
@@ -5608,7 +2820,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0282",
+      "question_id": "V2-0144",
       "semantic_unit_ids": [
         "banza.status.l0_frozen"
       ],
@@ -5630,7 +2842,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0283",
+      "question_id": "V2-0145",
       "semantic_unit_ids": [
         "banza.status.pre_production"
       ],
@@ -5652,7 +2864,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0284",
+      "question_id": "V2-0146",
       "semantic_unit_ids": [
         "banza.status.pre_production"
       ],
@@ -5674,7 +2886,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0285",
+      "question_id": "V2-0147",
       "semantic_unit_ids": [
         "banza.status.pre_production"
       ],
@@ -5696,7 +2908,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0286",
+      "question_id": "V2-0148",
       "semantic_unit_ids": [
         "banza.status.pre_production"
       ],
@@ -5718,7 +2930,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0287",
+      "question_id": "V2-0149",
       "semantic_unit_ids": [
         "banza.status.production_certificates"
       ],
@@ -5740,7 +2952,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0288",
+      "question_id": "V2-0150",
       "semantic_unit_ids": [
         "banza.status.production_certificates"
       ],
@@ -5762,7 +2974,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0289",
+      "question_id": "V2-0151",
       "semantic_unit_ids": [
         "banza.status.production_certificates"
       ],
@@ -5784,7 +2996,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0290",
+      "question_id": "V2-0152",
       "semantic_unit_ids": [
         "banza.status.production_certificates"
       ],
@@ -5806,7 +3018,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0291",
+      "question_id": "V2-0153",
       "semantic_unit_ids": [
         "banza.status.protocol_frozen"
       ],
@@ -5828,7 +3040,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0292",
+      "question_id": "V2-0154",
       "semantic_unit_ids": [
         "banza.status.protocol_frozen"
       ],
@@ -5850,7 +3062,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0293",
+      "question_id": "V2-0155",
       "semantic_unit_ids": [
         "banza.status.protocol_frozen"
       ],
@@ -5872,7 +3084,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0294",
+      "question_id": "V2-0156",
       "semantic_unit_ids": [
         "banza.status.protocol_frozen"
       ],
@@ -5894,7 +3106,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0295",
+      "question_id": "V2-0157",
       "semantic_unit_ids": [
         "banza.status.protocol_version"
       ],
@@ -5916,7 +3128,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0296",
+      "question_id": "V2-0158",
       "semantic_unit_ids": [
         "banza.status.protocol_version"
       ],
@@ -5938,7 +3150,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0297",
+      "question_id": "V2-0159",
       "semantic_unit_ids": [
         "banza.status.protocol_version"
       ],
@@ -5960,7 +3172,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0298",
+      "question_id": "V2-0160",
       "semantic_unit_ids": [
         "banza.status.protocol_version"
       ],
@@ -5982,87 +3194,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0299",
-      "semantic_unit_ids": [
-        "banza.three_layer_architecture"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P0",
-      "form": "direct",
-      "question": "Quais são as três camadas institucionais do BANZA?",
-      "must": [
-        "camada"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0300",
-      "semantic_unit_ids": [
-        "banza.three_layer_architecture"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "pt-PT",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P0",
-      "form": "paraphrase",
-      "question": "Explica a arquitectura de três camadas.",
-      "must": [
-        "camada"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0301",
-      "semantic_unit_ids": [
-        "banza.three_layer_architecture"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P0",
-      "form": "direct",
-      "question": "What are the three institutional layers of BANZA?",
-      "must": [
-        "layer"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0302",
-      "semantic_unit_ids": [
-        "banza.three_layer_architecture"
-      ],
-      "capability_unit_ids": [
-        "capability.pt_en_semantic_realization"
-      ],
-      "locale": "en",
-      "intent": "BANZA_DIRECT",
-      "criticality": "P0",
-      "form": "paraphrase",
-      "question": "Explain the three-layer architecture.",
-      "must": [
-        "layer"
-      ],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0303",
+      "question_id": "V2-0161",
       "semantic_unit_ids": [
         "banza.trust.fail_closed"
       ],
@@ -6080,7 +3212,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0304",
+      "question_id": "V2-0162",
       "semantic_unit_ids": [
         "banza.trust.fail_closed"
       ],
@@ -6098,7 +3230,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0305",
+      "question_id": "V2-0163",
       "semantic_unit_ids": [
         "banza.trust.fail_closed"
       ],
@@ -6116,7 +3248,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0306",
+      "question_id": "V2-0164",
       "semantic_unit_ids": [
         "banza.trust.fail_closed"
       ],
@@ -6134,7 +3266,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0307",
+      "question_id": "V2-0165",
       "semantic_unit_ids": [
         "banza.trust.no_global_transparency"
       ],
@@ -6152,7 +3284,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0308",
+      "question_id": "V2-0166",
       "semantic_unit_ids": [
         "banza.trust.no_global_transparency"
       ],
@@ -6170,7 +3302,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0309",
+      "question_id": "V2-0167",
       "semantic_unit_ids": [
         "banza.trust.no_global_transparency"
       ],
@@ -6188,7 +3320,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0310",
+      "question_id": "V2-0168",
       "semantic_unit_ids": [
         "banza.trust.no_global_transparency"
       ],
@@ -6206,7 +3338,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0311",
+      "question_id": "V2-0169",
       "semantic_unit_ids": [
         "banza.trust.root.count"
       ],
@@ -6224,7 +3356,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0312",
+      "question_id": "V2-0170",
       "semantic_unit_ids": [
         "banza.trust.root.count"
       ],
@@ -6242,7 +3374,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0313",
+      "question_id": "V2-0171",
       "semantic_unit_ids": [
         "banza.trust.root.count"
       ],
@@ -6260,7 +3392,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0314",
+      "question_id": "V2-0172",
       "semantic_unit_ids": [
         "banza.trust.root.count"
       ],
@@ -6278,7 +3410,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0315",
+      "question_id": "V2-0173",
       "semantic_unit_ids": [
         "banza.trust.root.threshold"
       ],
@@ -6298,7 +3430,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0316",
+      "question_id": "V2-0174",
       "semantic_unit_ids": [
         "banza.trust.root.threshold"
       ],
@@ -6318,7 +3450,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0317",
+      "question_id": "V2-0175",
       "semantic_unit_ids": [
         "banza.trust.root.threshold"
       ],
@@ -6338,7 +3470,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0318",
+      "question_id": "V2-0176",
       "semantic_unit_ids": [
         "banza.trust.root.threshold"
       ],
@@ -6358,7 +3490,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0319",
+      "question_id": "V2-0177",
       "semantic_unit_ids": [
         "domain.account.definition"
       ],
@@ -6377,7 +3509,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0320",
+      "question_id": "V2-0178",
       "semantic_unit_ids": [
         "domain.account.definition"
       ],
@@ -6396,7 +3528,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0321",
+      "question_id": "V2-0179",
       "semantic_unit_ids": [
         "domain.account.definition"
       ],
@@ -6415,7 +3547,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0322",
+      "question_id": "V2-0180",
       "semantic_unit_ids": [
         "domain.account.definition"
       ],
@@ -6434,7 +3566,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0323",
+      "question_id": "V2-0181",
       "semantic_unit_ids": [
         "domain.acquirer.definition"
       ],
@@ -6453,7 +3585,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0324",
+      "question_id": "V2-0182",
       "semantic_unit_ids": [
         "domain.acquirer.definition"
       ],
@@ -6472,7 +3604,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0325",
+      "question_id": "V2-0183",
       "semantic_unit_ids": [
         "domain.acquirer.definition"
       ],
@@ -6491,7 +3623,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0326",
+      "question_id": "V2-0184",
       "semantic_unit_ids": [
         "domain.acquirer.definition"
       ],
@@ -6510,7 +3642,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0327",
+      "question_id": "V2-0185",
       "semantic_unit_ids": [
         "domain.api.definition"
       ],
@@ -6529,7 +3661,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0328",
+      "question_id": "V2-0186",
       "semantic_unit_ids": [
         "domain.api.definition"
       ],
@@ -6548,7 +3680,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0329",
+      "question_id": "V2-0187",
       "semantic_unit_ids": [
         "domain.api.definition"
       ],
@@ -6567,7 +3699,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0330",
+      "question_id": "V2-0188",
       "semantic_unit_ids": [
         "domain.api.definition"
       ],
@@ -6586,7 +3718,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0331",
+      "question_id": "V2-0189",
       "semantic_unit_ids": [
         "domain.authentication.definition"
       ],
@@ -6605,7 +3737,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0332",
+      "question_id": "V2-0190",
       "semantic_unit_ids": [
         "domain.authentication.definition"
       ],
@@ -6624,7 +3756,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0333",
+      "question_id": "V2-0191",
       "semantic_unit_ids": [
         "domain.authentication.definition"
       ],
@@ -6643,7 +3775,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0334",
+      "question_id": "V2-0192",
       "semantic_unit_ids": [
         "domain.authentication.definition"
       ],
@@ -6662,7 +3794,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0335",
+      "question_id": "V2-0193",
       "semantic_unit_ids": [
         "domain.availability.definition"
       ],
@@ -6681,7 +3813,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0336",
+      "question_id": "V2-0194",
       "semantic_unit_ids": [
         "domain.availability.definition"
       ],
@@ -6700,7 +3832,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0337",
+      "question_id": "V2-0195",
       "semantic_unit_ids": [
         "domain.availability.definition"
       ],
@@ -6719,7 +3851,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0338",
+      "question_id": "V2-0196",
       "semantic_unit_ids": [
         "domain.availability.definition"
       ],
@@ -6738,7 +3870,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0339",
+      "question_id": "V2-0197",
       "semantic_unit_ids": [
         "domain.backward-compatibility.definition"
       ],
@@ -6757,7 +3889,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0340",
+      "question_id": "V2-0198",
       "semantic_unit_ids": [
         "domain.backward-compatibility.definition"
       ],
@@ -6776,7 +3908,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0341",
+      "question_id": "V2-0199",
       "semantic_unit_ids": [
         "domain.backward-compatibility.definition"
       ],
@@ -6795,7 +3927,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0342",
+      "question_id": "V2-0200",
       "semantic_unit_ids": [
         "domain.backward-compatibility.definition"
       ],
@@ -6814,7 +3946,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0343",
+      "question_id": "V2-0201",
       "semantic_unit_ids": [
         "domain.balance.definition"
       ],
@@ -6833,7 +3965,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0344",
+      "question_id": "V2-0202",
       "semantic_unit_ids": [
         "domain.balance.definition"
       ],
@@ -6852,7 +3984,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0345",
+      "question_id": "V2-0203",
       "semantic_unit_ids": [
         "domain.balance.definition"
       ],
@@ -6871,7 +4003,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0346",
+      "question_id": "V2-0204",
       "semantic_unit_ids": [
         "domain.balance.definition"
       ],
@@ -6890,7 +4022,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0347",
+      "question_id": "V2-0205",
       "semantic_unit_ids": [
         "domain.canonicalization.definition"
       ],
@@ -6909,7 +4041,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0348",
+      "question_id": "V2-0206",
       "semantic_unit_ids": [
         "domain.canonicalization.definition"
       ],
@@ -6928,7 +4060,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0349",
+      "question_id": "V2-0207",
       "semantic_unit_ids": [
         "domain.canonicalization.definition"
       ],
@@ -6947,7 +4079,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0350",
+      "question_id": "V2-0208",
       "semantic_unit_ids": [
         "domain.canonicalization.definition"
       ],
@@ -6966,7 +4098,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0351",
+      "question_id": "V2-0209",
       "semantic_unit_ids": [
         "domain.clearing.definition"
       ],
@@ -6985,7 +4117,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0352",
+      "question_id": "V2-0210",
       "semantic_unit_ids": [
         "domain.clearing.definition"
       ],
@@ -7004,7 +4136,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0353",
+      "question_id": "V2-0211",
       "semantic_unit_ids": [
         "domain.clearing.definition"
       ],
@@ -7023,7 +4155,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0354",
+      "question_id": "V2-0212",
       "semantic_unit_ids": [
         "domain.clearing.definition"
       ],
@@ -7042,7 +4174,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0355",
+      "question_id": "V2-0213",
       "semantic_unit_ids": [
         "domain.consistency.definition"
       ],
@@ -7061,7 +4193,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0356",
+      "question_id": "V2-0214",
       "semantic_unit_ids": [
         "domain.consistency.definition"
       ],
@@ -7080,7 +4212,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0357",
+      "question_id": "V2-0215",
       "semantic_unit_ids": [
         "domain.consistency.definition"
       ],
@@ -7099,7 +4231,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0358",
+      "question_id": "V2-0216",
       "semantic_unit_ids": [
         "domain.consistency.definition"
       ],
@@ -7118,7 +4250,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0359",
+      "question_id": "V2-0217",
       "semantic_unit_ids": [
         "domain.contract.definition"
       ],
@@ -7137,7 +4269,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0360",
+      "question_id": "V2-0218",
       "semantic_unit_ids": [
         "domain.contract.definition"
       ],
@@ -7156,7 +4288,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0361",
+      "question_id": "V2-0219",
       "semantic_unit_ids": [
         "domain.contract.definition"
       ],
@@ -7175,7 +4307,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0362",
+      "question_id": "V2-0220",
       "semantic_unit_ids": [
         "domain.contract.definition"
       ],
@@ -7194,7 +4326,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0363",
+      "question_id": "V2-0221",
       "semantic_unit_ids": [
         "domain.determinism.definition"
       ],
@@ -7213,7 +4345,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0364",
+      "question_id": "V2-0222",
       "semantic_unit_ids": [
         "domain.determinism.definition"
       ],
@@ -7232,7 +4364,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0365",
+      "question_id": "V2-0223",
       "semantic_unit_ids": [
         "domain.determinism.definition"
       ],
@@ -7251,7 +4383,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0366",
+      "question_id": "V2-0224",
       "semantic_unit_ids": [
         "domain.determinism.definition"
       ],
@@ -7270,7 +4402,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0367",
+      "question_id": "V2-0225",
       "semantic_unit_ids": [
         "domain.digital-signature.definition"
       ],
@@ -7289,7 +4421,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0368",
+      "question_id": "V2-0226",
       "semantic_unit_ids": [
         "domain.digital-signature.definition"
       ],
@@ -7308,7 +4440,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0369",
+      "question_id": "V2-0227",
       "semantic_unit_ids": [
         "domain.digital-signature.definition"
       ],
@@ -7327,7 +4459,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0370",
+      "question_id": "V2-0228",
       "semantic_unit_ids": [
         "domain.digital-signature.definition"
       ],
@@ -7346,7 +4478,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0371",
+      "question_id": "V2-0229",
       "semantic_unit_ids": [
         "domain.ed25519.definition"
       ],
@@ -7365,7 +4497,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0372",
+      "question_id": "V2-0230",
       "semantic_unit_ids": [
         "domain.ed25519.definition"
       ],
@@ -7384,7 +4516,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0373",
+      "question_id": "V2-0231",
       "semantic_unit_ids": [
         "domain.ed25519.definition"
       ],
@@ -7403,7 +4535,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0374",
+      "question_id": "V2-0232",
       "semantic_unit_ids": [
         "domain.ed25519.definition"
       ],
@@ -7422,7 +4554,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0375",
+      "question_id": "V2-0233",
       "semantic_unit_ids": [
         "domain.endpoint.definition"
       ],
@@ -7441,7 +4573,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0376",
+      "question_id": "V2-0234",
       "semantic_unit_ids": [
         "domain.endpoint.definition"
       ],
@@ -7460,7 +4592,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0377",
+      "question_id": "V2-0235",
       "semantic_unit_ids": [
         "domain.endpoint.definition"
       ],
@@ -7479,7 +4611,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0378",
+      "question_id": "V2-0236",
       "semantic_unit_ids": [
         "domain.endpoint.definition"
       ],
@@ -7498,7 +4630,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0379",
+      "question_id": "V2-0237",
       "semantic_unit_ids": [
         "domain.fail-closed.definition"
       ],
@@ -7517,7 +4649,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0380",
+      "question_id": "V2-0238",
       "semantic_unit_ids": [
         "domain.fail-closed.definition"
       ],
@@ -7536,7 +4668,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0381",
+      "question_id": "V2-0239",
       "semantic_unit_ids": [
         "domain.fail-closed.definition"
       ],
@@ -7555,7 +4687,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0382",
+      "question_id": "V2-0240",
       "semantic_unit_ids": [
         "domain.fail-closed.definition"
       ],
@@ -7574,7 +4706,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0383",
+      "question_id": "V2-0241",
       "semantic_unit_ids": [
         "domain.hash.definition"
       ],
@@ -7593,7 +4725,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0384",
+      "question_id": "V2-0242",
       "semantic_unit_ids": [
         "domain.hash.definition"
       ],
@@ -7612,7 +4744,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0385",
+      "question_id": "V2-0243",
       "semantic_unit_ids": [
         "domain.hash.definition"
       ],
@@ -7631,7 +4763,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0386",
+      "question_id": "V2-0244",
       "semantic_unit_ids": [
         "domain.hash.definition"
       ],
@@ -7650,7 +4782,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0387",
+      "question_id": "V2-0245",
       "semantic_unit_ids": [
         "domain.http.definition"
       ],
@@ -7669,7 +4801,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0388",
+      "question_id": "V2-0246",
       "semantic_unit_ids": [
         "domain.http.definition"
       ],
@@ -7688,7 +4820,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0389",
+      "question_id": "V2-0247",
       "semantic_unit_ids": [
         "domain.http.definition"
       ],
@@ -7707,7 +4839,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0390",
+      "question_id": "V2-0248",
       "semantic_unit_ids": [
         "domain.http.definition"
       ],
@@ -7726,7 +4858,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0391",
+      "question_id": "V2-0249",
       "semantic_unit_ids": [
         "domain.idempotency.definition"
       ],
@@ -7745,7 +4877,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0392",
+      "question_id": "V2-0250",
       "semantic_unit_ids": [
         "domain.idempotency.definition"
       ],
@@ -7764,7 +4896,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0393",
+      "question_id": "V2-0251",
       "semantic_unit_ids": [
         "domain.idempotency.definition"
       ],
@@ -7783,7 +4915,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0394",
+      "question_id": "V2-0252",
       "semantic_unit_ids": [
         "domain.idempotency.definition"
       ],
@@ -7802,7 +4934,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0395",
+      "question_id": "V2-0253",
       "semantic_unit_ids": [
         "domain.integrity.definition"
       ],
@@ -7821,7 +4953,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0396",
+      "question_id": "V2-0254",
       "semantic_unit_ids": [
         "domain.integrity.definition"
       ],
@@ -7840,7 +4972,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0397",
+      "question_id": "V2-0255",
       "semantic_unit_ids": [
         "domain.integrity.definition"
       ],
@@ -7859,7 +4991,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0398",
+      "question_id": "V2-0256",
       "semantic_unit_ids": [
         "domain.integrity.definition"
       ],
@@ -7878,7 +5010,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0399",
+      "question_id": "V2-0257",
       "semantic_unit_ids": [
         "domain.issuer.definition"
       ],
@@ -7897,7 +5029,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0400",
+      "question_id": "V2-0258",
       "semantic_unit_ids": [
         "domain.issuer.definition"
       ],
@@ -7916,7 +5048,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0401",
+      "question_id": "V2-0259",
       "semantic_unit_ids": [
         "domain.issuer.definition"
       ],
@@ -7935,7 +5067,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0402",
+      "question_id": "V2-0260",
       "semantic_unit_ids": [
         "domain.issuer.definition"
       ],
@@ -7954,7 +5086,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0403",
+      "question_id": "V2-0261",
       "semantic_unit_ids": [
         "domain.json.definition"
       ],
@@ -7973,7 +5105,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0404",
+      "question_id": "V2-0262",
       "semantic_unit_ids": [
         "domain.json.definition"
       ],
@@ -7992,7 +5124,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0405",
+      "question_id": "V2-0263",
       "semantic_unit_ids": [
         "domain.json.definition"
       ],
@@ -8011,7 +5143,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0406",
+      "question_id": "V2-0264",
       "semantic_unit_ids": [
         "domain.json.definition"
       ],
@@ -8030,7 +5162,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0407",
+      "question_id": "V2-0265",
       "semantic_unit_ids": [
         "domain.key-rotation.definition"
       ],
@@ -8049,7 +5181,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0408",
+      "question_id": "V2-0266",
       "semantic_unit_ids": [
         "domain.key-rotation.definition"
       ],
@@ -8068,7 +5200,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0409",
+      "question_id": "V2-0267",
       "semantic_unit_ids": [
         "domain.key-rotation.definition"
       ],
@@ -8087,7 +5219,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0410",
+      "question_id": "V2-0268",
       "semantic_unit_ids": [
         "domain.key-rotation.definition"
       ],
@@ -8106,7 +5238,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0411",
+      "question_id": "V2-0269",
       "semantic_unit_ids": [
         "domain.keypair.definition"
       ],
@@ -8125,7 +5257,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0412",
+      "question_id": "V2-0270",
       "semantic_unit_ids": [
         "domain.keypair.definition"
       ],
@@ -8144,7 +5276,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0413",
+      "question_id": "V2-0271",
       "semantic_unit_ids": [
         "domain.keypair.definition"
       ],
@@ -8163,7 +5295,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0414",
+      "question_id": "V2-0272",
       "semantic_unit_ids": [
         "domain.keypair.definition"
       ],
@@ -8182,7 +5314,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0415",
+      "question_id": "V2-0273",
       "semantic_unit_ids": [
         "domain.ledger.definition"
       ],
@@ -8201,7 +5333,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0416",
+      "question_id": "V2-0274",
       "semantic_unit_ids": [
         "domain.ledger.definition"
       ],
@@ -8220,7 +5352,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0417",
+      "question_id": "V2-0275",
       "semantic_unit_ids": [
         "domain.ledger.definition"
       ],
@@ -8239,7 +5371,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0418",
+      "question_id": "V2-0276",
       "semantic_unit_ids": [
         "domain.ledger.definition"
       ],
@@ -8258,7 +5390,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0419",
+      "question_id": "V2-0277",
       "semantic_unit_ids": [
         "domain.merchant.definition"
       ],
@@ -8277,7 +5409,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0420",
+      "question_id": "V2-0278",
       "semantic_unit_ids": [
         "domain.merchant.definition"
       ],
@@ -8296,7 +5428,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0421",
+      "question_id": "V2-0279",
       "semantic_unit_ids": [
         "domain.merchant.definition"
       ],
@@ -8315,7 +5447,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0422",
+      "question_id": "V2-0280",
       "semantic_unit_ids": [
         "domain.merchant.definition"
       ],
@@ -8334,7 +5466,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0423",
+      "question_id": "V2-0281",
       "semantic_unit_ids": [
         "domain.nonce.definition"
       ],
@@ -8353,7 +5485,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0424",
+      "question_id": "V2-0282",
       "semantic_unit_ids": [
         "domain.nonce.definition"
       ],
@@ -8372,7 +5504,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0425",
+      "question_id": "V2-0283",
       "semantic_unit_ids": [
         "domain.nonce.definition"
       ],
@@ -8391,7 +5523,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0426",
+      "question_id": "V2-0284",
       "semantic_unit_ids": [
         "domain.nonce.definition"
       ],
@@ -8410,7 +5542,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0427",
+      "question_id": "V2-0285",
       "semantic_unit_ids": [
         "domain.payment-initiation.definition"
       ],
@@ -8429,7 +5561,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0428",
+      "question_id": "V2-0286",
       "semantic_unit_ids": [
         "domain.payment-initiation.definition"
       ],
@@ -8448,7 +5580,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0429",
+      "question_id": "V2-0287",
       "semantic_unit_ids": [
         "domain.payment-initiation.definition"
       ],
@@ -8467,7 +5599,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0430",
+      "question_id": "V2-0288",
       "semantic_unit_ids": [
         "domain.payment-initiation.definition"
       ],
@@ -8486,7 +5618,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0431",
+      "question_id": "V2-0289",
       "semantic_unit_ids": [
         "domain.payment-rail.definition"
       ],
@@ -8505,7 +5637,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0432",
+      "question_id": "V2-0290",
       "semantic_unit_ids": [
         "domain.payment-rail.definition"
       ],
@@ -8524,7 +5656,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0433",
+      "question_id": "V2-0291",
       "semantic_unit_ids": [
         "domain.payment-rail.definition"
       ],
@@ -8543,7 +5675,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0434",
+      "question_id": "V2-0292",
       "semantic_unit_ids": [
         "domain.payment-rail.definition"
       ],
@@ -8562,7 +5694,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0435",
+      "question_id": "V2-0293",
       "semantic_unit_ids": [
         "domain.payment-scheme.definition"
       ],
@@ -8581,7 +5713,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0436",
+      "question_id": "V2-0294",
       "semantic_unit_ids": [
         "domain.payment-scheme.definition"
       ],
@@ -8600,7 +5732,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0437",
+      "question_id": "V2-0295",
       "semantic_unit_ids": [
         "domain.payment-scheme.definition"
       ],
@@ -8619,7 +5751,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0438",
+      "question_id": "V2-0296",
       "semantic_unit_ids": [
         "domain.payment-scheme.definition"
       ],
@@ -8638,7 +5770,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0439",
+      "question_id": "V2-0297",
       "semantic_unit_ids": [
         "domain.payment.definition"
       ],
@@ -8657,7 +5789,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0440",
+      "question_id": "V2-0298",
       "semantic_unit_ids": [
         "domain.payment.definition"
       ],
@@ -8676,7 +5808,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0441",
+      "question_id": "V2-0299",
       "semantic_unit_ids": [
         "domain.payment.definition"
       ],
@@ -8695,7 +5827,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0442",
+      "question_id": "V2-0300",
       "semantic_unit_ids": [
         "domain.payment.definition"
       ],
@@ -8714,7 +5846,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0443",
+      "question_id": "V2-0301",
       "semantic_unit_ids": [
         "domain.psp.definition"
       ],
@@ -8733,7 +5865,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0444",
+      "question_id": "V2-0302",
       "semantic_unit_ids": [
         "domain.psp.definition"
       ],
@@ -8752,7 +5884,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0445",
+      "question_id": "V2-0303",
       "semantic_unit_ids": [
         "domain.psp.definition"
       ],
@@ -8771,7 +5903,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0446",
+      "question_id": "V2-0304",
       "semantic_unit_ids": [
         "domain.psp.definition"
       ],
@@ -8790,7 +5922,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0447",
+      "question_id": "V2-0305",
       "semantic_unit_ids": [
         "domain.reconciliation.definition"
       ],
@@ -8809,7 +5941,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0448",
+      "question_id": "V2-0306",
       "semantic_unit_ids": [
         "domain.reconciliation.definition"
       ],
@@ -8828,7 +5960,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0449",
+      "question_id": "V2-0307",
       "semantic_unit_ids": [
         "domain.reconciliation.definition"
       ],
@@ -8847,7 +5979,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0450",
+      "question_id": "V2-0308",
       "semantic_unit_ids": [
         "domain.reconciliation.definition"
       ],
@@ -8866,7 +5998,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0451",
+      "question_id": "V2-0309",
       "semantic_unit_ids": [
         "domain.refund.definition"
       ],
@@ -8885,7 +6017,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0452",
+      "question_id": "V2-0310",
       "semantic_unit_ids": [
         "domain.refund.definition"
       ],
@@ -8904,7 +6036,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0453",
+      "question_id": "V2-0311",
       "semantic_unit_ids": [
         "domain.refund.definition"
       ],
@@ -8923,7 +6055,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0454",
+      "question_id": "V2-0312",
       "semantic_unit_ids": [
         "domain.refund.definition"
       ],
@@ -8942,7 +6074,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0455",
+      "question_id": "V2-0313",
       "semantic_unit_ids": [
         "domain.replay.definition"
       ],
@@ -8961,7 +6093,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0456",
+      "question_id": "V2-0314",
       "semantic_unit_ids": [
         "domain.replay.definition"
       ],
@@ -8980,7 +6112,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0457",
+      "question_id": "V2-0315",
       "semantic_unit_ids": [
         "domain.replay.definition"
       ],
@@ -8999,7 +6131,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0458",
+      "question_id": "V2-0316",
       "semantic_unit_ids": [
         "domain.replay.definition"
       ],
@@ -9018,7 +6150,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0459",
+      "question_id": "V2-0317",
       "semantic_unit_ids": [
         "domain.resilience.definition"
       ],
@@ -9037,7 +6169,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0460",
+      "question_id": "V2-0318",
       "semantic_unit_ids": [
         "domain.resilience.definition"
       ],
@@ -9056,7 +6188,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0461",
+      "question_id": "V2-0319",
       "semantic_unit_ids": [
         "domain.resilience.definition"
       ],
@@ -9075,7 +6207,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0462",
+      "question_id": "V2-0320",
       "semantic_unit_ids": [
         "domain.resilience.definition"
       ],
@@ -9094,7 +6226,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0463",
+      "question_id": "V2-0321",
       "semantic_unit_ids": [
         "domain.retry.definition"
       ],
@@ -9113,7 +6245,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0464",
+      "question_id": "V2-0322",
       "semantic_unit_ids": [
         "domain.retry.definition"
       ],
@@ -9132,7 +6264,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0465",
+      "question_id": "V2-0323",
       "semantic_unit_ids": [
         "domain.retry.definition"
       ],
@@ -9151,7 +6283,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0466",
+      "question_id": "V2-0324",
       "semantic_unit_ids": [
         "domain.retry.definition"
       ],
@@ -9170,7 +6302,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0467",
+      "question_id": "V2-0325",
       "semantic_unit_ids": [
         "domain.reversal.definition"
       ],
@@ -9189,7 +6321,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0468",
+      "question_id": "V2-0326",
       "semantic_unit_ids": [
         "domain.reversal.definition"
       ],
@@ -9208,7 +6340,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0469",
+      "question_id": "V2-0327",
       "semantic_unit_ids": [
         "domain.reversal.definition"
       ],
@@ -9227,7 +6359,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0470",
+      "question_id": "V2-0328",
       "semantic_unit_ids": [
         "domain.reversal.definition"
       ],
@@ -9246,7 +6378,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0471",
+      "question_id": "V2-0329",
       "semantic_unit_ids": [
         "domain.revocation.definition"
       ],
@@ -9265,7 +6397,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0472",
+      "question_id": "V2-0330",
       "semantic_unit_ids": [
         "domain.revocation.definition"
       ],
@@ -9284,7 +6416,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0473",
+      "question_id": "V2-0331",
       "semantic_unit_ids": [
         "domain.revocation.definition"
       ],
@@ -9303,7 +6435,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0474",
+      "question_id": "V2-0332",
       "semantic_unit_ids": [
         "domain.revocation.definition"
       ],
@@ -9322,7 +6454,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0475",
+      "question_id": "V2-0333",
       "semantic_unit_ids": [
         "domain.rollback.definition"
       ],
@@ -9341,7 +6473,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0476",
+      "question_id": "V2-0334",
       "semantic_unit_ids": [
         "domain.rollback.definition"
       ],
@@ -9360,7 +6492,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0477",
+      "question_id": "V2-0335",
       "semantic_unit_ids": [
         "domain.rollback.definition"
       ],
@@ -9379,7 +6511,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0478",
+      "question_id": "V2-0336",
       "semantic_unit_ids": [
         "domain.rollback.definition"
       ],
@@ -9398,7 +6530,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0479",
+      "question_id": "V2-0337",
       "semantic_unit_ids": [
         "domain.safe-degradation.definition"
       ],
@@ -9417,7 +6549,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0480",
+      "question_id": "V2-0338",
       "semantic_unit_ids": [
         "domain.safe-degradation.definition"
       ],
@@ -9436,7 +6568,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0481",
+      "question_id": "V2-0339",
       "semantic_unit_ids": [
         "domain.safe-degradation.definition"
       ],
@@ -9455,7 +6587,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0482",
+      "question_id": "V2-0340",
       "semantic_unit_ids": [
         "domain.safe-degradation.definition"
       ],
@@ -9474,7 +6606,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0483",
+      "question_id": "V2-0341",
       "semantic_unit_ids": [
         "domain.schema.definition"
       ],
@@ -9493,7 +6625,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0484",
+      "question_id": "V2-0342",
       "semantic_unit_ids": [
         "domain.schema.definition"
       ],
@@ -9512,7 +6644,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0485",
+      "question_id": "V2-0343",
       "semantic_unit_ids": [
         "domain.schema.definition"
       ],
@@ -9531,7 +6663,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0486",
+      "question_id": "V2-0344",
       "semantic_unit_ids": [
         "domain.schema.definition"
       ],
@@ -9550,7 +6682,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0487",
+      "question_id": "V2-0345",
       "semantic_unit_ids": [
         "domain.serialization.definition"
       ],
@@ -9569,7 +6701,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0488",
+      "question_id": "V2-0346",
       "semantic_unit_ids": [
         "domain.serialization.definition"
       ],
@@ -9588,7 +6720,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0489",
+      "question_id": "V2-0347",
       "semantic_unit_ids": [
         "domain.serialization.definition"
       ],
@@ -9607,7 +6739,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0490",
+      "question_id": "V2-0348",
       "semantic_unit_ids": [
         "domain.serialization.definition"
       ],
@@ -9626,7 +6758,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0491",
+      "question_id": "V2-0349",
       "semantic_unit_ids": [
         "domain.settlement.definition"
       ],
@@ -9645,7 +6777,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0492",
+      "question_id": "V2-0350",
       "semantic_unit_ids": [
         "domain.settlement.definition"
       ],
@@ -9664,7 +6796,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0493",
+      "question_id": "V2-0351",
       "semantic_unit_ids": [
         "domain.settlement.definition"
       ],
@@ -9683,7 +6815,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0494",
+      "question_id": "V2-0352",
       "semantic_unit_ids": [
         "domain.settlement.definition"
       ],
@@ -9702,7 +6834,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0495",
+      "question_id": "V2-0353",
       "semantic_unit_ids": [
         "domain.state-machine.definition"
       ],
@@ -9721,7 +6853,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0496",
+      "question_id": "V2-0354",
       "semantic_unit_ids": [
         "domain.state-machine.definition"
       ],
@@ -9740,7 +6872,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0497",
+      "question_id": "V2-0355",
       "semantic_unit_ids": [
         "domain.state-machine.definition"
       ],
@@ -9759,7 +6891,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0498",
+      "question_id": "V2-0356",
       "semantic_unit_ids": [
         "domain.state-machine.definition"
       ],
@@ -9778,7 +6910,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0499",
+      "question_id": "V2-0357",
       "semantic_unit_ids": [
         "domain.timeout.definition"
       ],
@@ -9797,7 +6929,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0500",
+      "question_id": "V2-0358",
       "semantic_unit_ids": [
         "domain.timeout.definition"
       ],
@@ -9816,7 +6948,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0501",
+      "question_id": "V2-0359",
       "semantic_unit_ids": [
         "domain.timeout.definition"
       ],
@@ -9835,7 +6967,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0502",
+      "question_id": "V2-0360",
       "semantic_unit_ids": [
         "domain.timeout.definition"
       ],
@@ -9854,7 +6986,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0503",
+      "question_id": "V2-0361",
       "semantic_unit_ids": [
         "domain.transfer.definition"
       ],
@@ -9873,7 +7005,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0504",
+      "question_id": "V2-0362",
       "semantic_unit_ids": [
         "domain.transfer.definition"
       ],
@@ -9892,7 +7024,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0505",
+      "question_id": "V2-0363",
       "semantic_unit_ids": [
         "domain.transfer.definition"
       ],
@@ -9911,7 +7043,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0506",
+      "question_id": "V2-0364",
       "semantic_unit_ids": [
         "domain.transfer.definition"
       ],
@@ -9930,7 +7062,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0507",
+      "question_id": "V2-0365",
       "semantic_unit_ids": [
         "domain.trust-root.definition"
       ],
@@ -9949,7 +7081,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0508",
+      "question_id": "V2-0366",
       "semantic_unit_ids": [
         "domain.trust-root.definition"
       ],
@@ -9968,7 +7100,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0509",
+      "question_id": "V2-0367",
       "semantic_unit_ids": [
         "domain.trust-root.definition"
       ],
@@ -9987,7 +7119,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0510",
+      "question_id": "V2-0368",
       "semantic_unit_ids": [
         "domain.trust-root.definition"
       ],
@@ -10006,7 +7138,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0511",
+      "question_id": "V2-0369",
       "semantic_unit_ids": [
         "domain.versioning.definition"
       ],
@@ -10025,7 +7157,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0512",
+      "question_id": "V2-0370",
       "semantic_unit_ids": [
         "domain.versioning.definition"
       ],
@@ -10044,7 +7176,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0513",
+      "question_id": "V2-0371",
       "semantic_unit_ids": [
         "domain.versioning.definition"
       ],
@@ -10063,7 +7195,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0514",
+      "question_id": "V2-0372",
       "semantic_unit_ids": [
         "domain.versioning.definition"
       ],
@@ -10082,7 +7214,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0515",
+      "question_id": "V2-0373",
       "semantic_unit_ids": [
         "domain.wallet.definition"
       ],
@@ -10101,7 +7233,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0516",
+      "question_id": "V2-0374",
       "semantic_unit_ids": [
         "domain.wallet.definition"
       ],
@@ -10120,7 +7252,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0517",
+      "question_id": "V2-0375",
       "semantic_unit_ids": [
         "domain.wallet.definition"
       ],
@@ -10139,7 +7271,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0518",
+      "question_id": "V2-0376",
       "semantic_unit_ids": [
         "domain.wallet.definition"
       ],
@@ -10158,7 +7290,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0519",
+      "question_id": "V2-0377",
       "semantic_unit_ids": [
         "hybrid.authorization.banza_regulatory_boundary"
       ],
@@ -10179,7 +7311,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0520",
+      "question_id": "V2-0378",
       "semantic_unit_ids": [
         "hybrid.authorization.banza_regulatory_boundary"
       ],
@@ -10200,7 +7332,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0521",
+      "question_id": "V2-0379",
       "semantic_unit_ids": [
         "hybrid.authorization.banza_regulatory_boundary"
       ],
@@ -10221,7 +7353,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0522",
+      "question_id": "V2-0380",
       "semantic_unit_ids": [
         "hybrid.authorization.banza_regulatory_boundary"
       ],
@@ -10242,7 +7374,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0523",
+      "question_id": "V2-0381",
       "semantic_unit_ids": [
         "hybrid.canonicalization.banza_byte_form_rule"
       ],
@@ -10263,7 +7395,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0524",
+      "question_id": "V2-0382",
       "semantic_unit_ids": [
         "hybrid.canonicalization.banza_byte_form_rule"
       ],
@@ -10284,7 +7416,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0525",
+      "question_id": "V2-0383",
       "semantic_unit_ids": [
         "hybrid.canonicalization.banza_byte_form_rule"
       ],
@@ -10305,7 +7437,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0526",
+      "question_id": "V2-0384",
       "semantic_unit_ids": [
         "hybrid.canonicalization.banza_byte_form_rule"
       ],
@@ -10326,7 +7458,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0527",
+      "question_id": "V2-0385",
       "semantic_unit_ids": [
         "hybrid.certification.banza_certification_semantics"
       ],
@@ -10347,7 +7479,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0528",
+      "question_id": "V2-0386",
       "semantic_unit_ids": [
         "hybrid.certification.banza_certification_semantics"
       ],
@@ -10368,7 +7500,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0529",
+      "question_id": "V2-0387",
       "semantic_unit_ids": [
         "hybrid.certification.banza_certification_semantics"
       ],
@@ -10389,7 +7521,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0530",
+      "question_id": "V2-0388",
       "semantic_unit_ids": [
         "hybrid.certification.banza_certification_semantics"
       ],
@@ -10410,7 +7542,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0531",
+      "question_id": "V2-0389",
       "semantic_unit_ids": [
         "hybrid.clearing.banza_operational_boundary"
       ],
@@ -10431,7 +7563,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0532",
+      "question_id": "V2-0390",
       "semantic_unit_ids": [
         "hybrid.clearing.banza_operational_boundary"
       ],
@@ -10452,7 +7584,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0533",
+      "question_id": "V2-0391",
       "semantic_unit_ids": [
         "hybrid.clearing.banza_operational_boundary"
       ],
@@ -10473,7 +7605,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0534",
+      "question_id": "V2-0392",
       "semantic_unit_ids": [
         "hybrid.clearing.banza_operational_boundary"
       ],
@@ -10494,7 +7626,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0535",
+      "question_id": "V2-0393",
       "semantic_unit_ids": [
         "hybrid.digital-signature.banza_trust_usage"
       ],
@@ -10515,7 +7647,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0536",
+      "question_id": "V2-0394",
       "semantic_unit_ids": [
         "hybrid.digital-signature.banza_trust_usage"
       ],
@@ -10536,7 +7668,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0537",
+      "question_id": "V2-0395",
       "semantic_unit_ids": [
         "hybrid.digital-signature.banza_trust_usage"
       ],
@@ -10557,7 +7689,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0538",
+      "question_id": "V2-0396",
       "semantic_unit_ids": [
         "hybrid.digital-signature.banza_trust_usage"
       ],
@@ -10578,7 +7710,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0539",
+      "question_id": "V2-0397",
       "semantic_unit_ids": [
         "hybrid.idempotency.banza_normative_rule"
       ],
@@ -10599,7 +7731,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0540",
+      "question_id": "V2-0398",
       "semantic_unit_ids": [
         "hybrid.idempotency.banza_normative_rule"
       ],
@@ -10620,7 +7752,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0541",
+      "question_id": "V2-0399",
       "semantic_unit_ids": [
         "hybrid.idempotency.banza_normative_rule"
       ],
@@ -10641,7 +7773,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0542",
+      "question_id": "V2-0400",
       "semantic_unit_ids": [
         "hybrid.idempotency.banza_normative_rule"
       ],
@@ -10662,7 +7794,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0543",
+      "question_id": "V2-0401",
       "semantic_unit_ids": [
         "hybrid.ledger.banza_storage_boundary"
       ],
@@ -10683,7 +7815,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0544",
+      "question_id": "V2-0402",
       "semantic_unit_ids": [
         "hybrid.ledger.banza_storage_boundary"
       ],
@@ -10704,7 +7836,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0545",
+      "question_id": "V2-0403",
       "semantic_unit_ids": [
         "hybrid.ledger.banza_storage_boundary"
       ],
@@ -10725,7 +7857,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0546",
+      "question_id": "V2-0404",
       "semantic_unit_ids": [
         "hybrid.ledger.banza_storage_boundary"
       ],
@@ -10746,7 +7878,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0547",
+      "question_id": "V2-0405",
       "semantic_unit_ids": [
         "hybrid.settlement.banza_operational_boundary"
       ],
@@ -10767,7 +7899,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0548",
+      "question_id": "V2-0406",
       "semantic_unit_ids": [
         "hybrid.settlement.banza_operational_boundary"
       ],
@@ -10788,7 +7920,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0549",
+      "question_id": "V2-0407",
       "semantic_unit_ids": [
         "hybrid.settlement.banza_operational_boundary"
       ],
@@ -10809,7 +7941,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0550",
+      "question_id": "V2-0408",
       "semantic_unit_ids": [
         "hybrid.settlement.banza_operational_boundary"
       ],
@@ -10830,7 +7962,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0551",
+      "question_id": "V2-0409",
       "semantic_unit_ids": [
         "hybrid.state-machine.banza_protocol_state_semantics"
       ],
@@ -10851,7 +7983,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0552",
+      "question_id": "V2-0410",
       "semantic_unit_ids": [
         "hybrid.state-machine.banza_protocol_state_semantics"
       ],
@@ -10872,7 +8004,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0553",
+      "question_id": "V2-0411",
       "semantic_unit_ids": [
         "hybrid.state-machine.banza_protocol_state_semantics"
       ],
@@ -10893,7 +8025,7 @@
       "acceptable_refusal": false
     },
     {
-      "question_id": "V2-0554",
+      "question_id": "V2-0412",
       "semantic_unit_ids": [
         "hybrid.state-machine.banza_protocol_state_semantics"
       ],
@@ -10911,583 +8043,6 @@
       ],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0555",
-      "semantic_unit_ids": [
-        "repo.banzai.action_boundary_location"
-      ],
-      "capability_unit_ids": [
-        "capability.current_runtime_truth"
-      ],
-      "locale": "pt-PT",
-      "intent": "REPO_DIRECT",
-      "criticality": "P0",
-      "form": "direct",
-      "question": "Onde está definida a fronteira de acção do BanzAI?",
-      "must": [
-        "route\\.rs|Rust"
-      ],
-      "must_not": [],
-      "authority_class": "REPO",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0556",
-      "semantic_unit_ids": [
-        "repo.banzai.answer_pipeline"
-      ],
-      "capability_unit_ids": [
-        "capability.current_runtime_truth"
-      ],
-      "locale": "pt-PT",
-      "intent": "REPO_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "Como é que o BanzAI responde a uma pergunta?",
-      "must": [
-        "route|Rust|conhecimento"
-      ],
-      "must_not": [],
-      "authority_class": "REPO",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0557",
-      "semantic_unit_ids": [
-        "repo.banzai.ci_jobs"
-      ],
-      "capability_unit_ids": [
-        "capability.current_runtime_truth"
-      ],
-      "locale": "pt-PT",
-      "intent": "REPO_DIRECT",
-      "criticality": "P2",
-      "form": "direct",
-      "question": "Que jobs de CI validam o BanzAI?",
-      "must": [
-        "CI|workflow|job"
-      ],
-      "must_not": [],
-      "authority_class": "REPO",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0558",
-      "semantic_unit_ids": [
-        "repo.banzai.guards"
-      ],
-      "capability_unit_ids": [
-        "capability.current_runtime_truth"
-      ],
-      "locale": "pt-PT",
-      "intent": "REPO_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "Que guards protegem o BanzAI?",
-      "must": [
-        "check-|guard|make"
-      ],
-      "must_not": [],
-      "authority_class": "REPO",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0559",
-      "semantic_unit_ids": [
-        "repo.banzai.index_state"
-      ],
-      "capability_unit_ids": [
-        "capability.current_runtime_truth"
-      ],
-      "locale": "pt-PT",
-      "intent": "REPO_DIRECT",
-      "criticality": "P2",
-      "form": "direct",
-      "question": "Qual é o estado actual do índice do BanzAI?",
-      "must": [
-        "read-only|índice|indice|repo"
-      ],
-      "must_not": [],
-      "authority_class": "REPO",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0560",
-      "semantic_unit_ids": [
-        "repo.banzai.indexer_crate"
-      ],
-      "capability_unit_ids": [
-        "capability.current_runtime_truth"
-      ],
-      "locale": "pt-PT",
-      "intent": "REPO_DIRECT",
-      "criticality": "P2",
-      "form": "direct",
-      "question": "Que crate indexa o conhecimento do BanzAI?",
-      "must": [
-        "indexer|banzai-repo-indexer"
-      ],
-      "must_not": [],
-      "authority_class": "REPO",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0561",
-      "semantic_unit_ids": [
-        "repo.banzai.retrieval_pipeline"
-      ],
-      "capability_unit_ids": [
-        "capability.current_runtime_truth"
-      ],
-      "locale": "pt-PT",
-      "intent": "REPO_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "Como funciona o retrieval do BanzAI?",
-      "must": [
-        "Rust|determinístico|deterministico"
-      ],
-      "must_not": [],
-      "authority_class": "REPO",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0562",
-      "semantic_unit_ids": [
-        "repo.guards.brand_contamination"
-      ],
-      "capability_unit_ids": [
-        "capability.current_runtime_truth"
-      ],
-      "locale": "pt-PT",
-      "intent": "REPO_DIRECT",
-      "criticality": "P1",
-      "form": "direct",
-      "question": "Como é impedida a contaminação por marca de operador?",
-      "must": [
-        "identity-check|marca"
-      ],
-      "must_not": [],
-      "authority_class": "REPO",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0563",
-      "semantic_unit_ids": [
-        "repo.guards.secret_leak"
-      ],
-      "capability_unit_ids": [
-        "capability.current_runtime_truth"
-      ],
-      "locale": "pt-PT",
-      "intent": "REPO_DIRECT",
-      "criticality": "P0",
-      "form": "direct",
-      "question": "Como é impedida a fuga de chaves privadas no repositório?",
-      "must": [
-        "private-key-leak|chave privada"
-      ],
-      "must_not": [],
-      "authority_class": "REPO",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0564",
-      "semantic_unit_ids": [
-        "repo.operator_zero.middleware"
-      ],
-      "capability_unit_ids": [
-        "capability.current_runtime_truth"
-      ],
-      "locale": "pt-PT",
-      "intent": "REPO_DIRECT",
-      "criticality": "P2",
-      "form": "direct",
-      "question": "Que ficheiros implementam o routing do zero.banza.network?",
-      "must": [
-        "middleware"
-      ],
-      "must_not": [],
-      "authority_class": "REPO",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0565",
-      "semantic_unit_ids": [
-        "banza.profile.l2.definition",
-        "banza.profile.l3.definition",
-        "banza.certification.not_regulatory_authorisation"
-      ],
-      "capability_unit_ids": [
-        "capability.ellipsis_followup",
-        "capability.comparison_followup",
-        "capability.source_followup",
-        "capability.authority_followup"
-      ],
-      "locale": "pt-PT",
-      "intent": "MULTI_TURN",
-      "criticality": "P0",
-      "form": "journey",
-      "question": "O que é L2?",
-      "turns": [
-        {
-          "question": "O que é L2?",
-          "must": [
-            "L2"
-          ]
-        },
-        {
-          "question": "E L3?",
-          "must": [
-            "L3"
-          ],
-          "must_not": [
-            "^[^.]*\\bL2\\b[^.]*$"
-          ]
-        },
-        {
-          "question": "Qual é a diferença entre os dois?",
-          "must": [
-            "L2",
-            "L3"
-          ]
-        },
-        {
-          "question": "Se passar L3 fico certificado?",
-          "must": [
-            "\\bn[ãa]o\\b|conformidade|evid[êe]ncia"
-          ]
-        },
-        {
-          "question": "E certificação dá-me autorização do regulador?",
-          "must": [
-            "\\bn[ãa]o\\b"
-          ]
-        },
-        {
-          "question": "Que fonte diz isso?",
-          "must": [
-            "ADR|contracts/|docs/|conformance/|spec"
-          ]
-        }
-      ],
-      "must": [],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0566",
-      "semantic_unit_ids": [
-        "banza.trust.root.count",
-        "banza.trust.root.threshold",
-        "banza.trust.no_global_transparency",
-        "banza.trust.fail_closed"
-      ],
-      "capability_unit_ids": [
-        "capability.proform_followup",
-        "capability.property_followup",
-        "capability.subject_referent"
-      ],
-      "locale": "pt-PT",
-      "intent": "MULTI_TURN",
-      "criticality": "P0",
-      "form": "journey",
-      "question": "O que é uma raiz de confiança?",
-      "turns": [
-        {
-          "question": "O que é uma raiz de confiança?",
-          "must": [
-            "raiz|root|confian"
-          ]
-        },
-        {
-          "question": "Como é que o BANZA a usa?",
-          "must": [
-            "BANZA"
-          ]
-        },
-        {
-          "question": "Quantas autoridades raiz existem?",
-          "must": [
-            "\\btr[êe]s\\b|\\b3\\b"
-          ]
-        },
-        {
-          "question": "Qual é o limiar?",
-          "must": [
-            "\\bduas\\b|\\b2\\b"
-          ]
-        },
-        {
-          "question": "Isso significa consenso global?",
-          "must": [
-            "\\bn[ãa]o\\b"
-          ]
-        }
-      ],
-      "must": [],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0567",
-      "semantic_unit_ids": [
-        "banza.state_store.not_a_ledger",
-        "banza.implementation.technology_independent"
-      ],
-      "capability_unit_ids": [
-        "capability.false_premise_correction",
-        "capability.implementation_vs_protocol_boundary"
-      ],
-      "locale": "pt-PT",
-      "intent": "MULTI_TURN",
-      "criticality": "P0",
-      "form": "journey",
-      "question": "O que é um ledger?",
-      "turns": [
-        {
-          "question": "O que é um ledger?",
-          "must": [
-            "ledger|razão|razao"
-          ]
-        },
-        {
-          "question": "O BANZA exige um ledger?",
-          "must": [
-            "BANZA"
-          ]
-        },
-        {
-          "question": "Então onde ficam os saldos?",
-          "must": [
-            "ledger|derivad"
-          ]
-        },
-        {
-          "question": "Uma implementação pode usar PostgreSQL?",
-          "must": [
-            "PostgreSQL"
-          ]
-        },
-        {
-          "question": "Outra implementação pode usar outra tecnologia?",
-          "must": [
-            "tecnologia|implementa"
-          ]
-        }
-      ],
-      "must": [],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0568",
-      "semantic_unit_ids": [
-        "banza.profile.l2.definition",
-        "banza.profile.l3.definition"
-      ],
-      "capability_unit_ids": [
-        "capability.ellipsis_followup",
-        "capability.comparison_followup",
-        "capability.source_followup"
-      ],
-      "locale": "en",
-      "intent": "MULTI_TURN",
-      "criticality": "P0",
-      "form": "journey",
-      "question": "What is L2?",
-      "turns": [
-        {
-          "question": "What is L2?",
-          "must": [
-            "L2"
-          ]
-        },
-        {
-          "question": "And L3?",
-          "must": [
-            "L3"
-          ]
-        },
-        {
-          "question": "What is the difference between them?",
-          "must": [
-            "L2",
-            "L3"
-          ]
-        },
-        {
-          "question": "If I pass L3 am I certified?",
-          "must": [
-            "\\bnot\\b|conformance|evidence"
-          ]
-        },
-        {
-          "question": "Which source says that?",
-          "must": [
-            "ADR|contracts/|docs/|conformance/|spec"
-          ]
-        }
-      ],
-      "must": [],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0569",
-      "semantic_unit_ids": [
-        "banza.status.pre_production",
-        "banza.status.independent_implementation_demonstrated"
-      ],
-      "capability_unit_ids": [
-        "capability.current_runtime_truth",
-        "capability.proform_followup"
-      ],
-      "locale": "en",
-      "intent": "MULTI_TURN",
-      "criticality": "P0",
-      "form": "journey",
-      "question": "Is BANZA production ready?",
-      "turns": [
-        {
-          "question": "Is BANZA production ready?",
-          "must": [
-            "\\bnot\\b|pre-production|PRE_PRODUCTION"
-          ]
-        },
-        {
-          "question": "Why not?",
-          "must": [
-            "\\w{20,}"
-          ]
-        },
-        {
-          "question": "Has an independent implementation been demonstrated?",
-          "must": [
-            "\\bno\\b|\\bnot\\b"
-          ]
-        }
-      ],
-      "must": [],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0570",
-      "semantic_unit_ids": [
-        "hybrid.settlement.banza_operational_boundary",
-        "hybrid.clearing.banza_operational_boundary"
-      ],
-      "capability_unit_ids": [
-        "capability.hybrid_followup",
-        "capability.document_followup"
-      ],
-      "locale": "pt-PT",
-      "intent": "MULTI_TURN",
-      "criticality": "P1",
-      "form": "journey",
-      "question": "O que é settlement?",
-      "turns": [
-        {
-          "question": "O que é settlement?",
-          "must": [
-            "settlement|liquida"
-          ]
-        },
-        {
-          "question": "E o BANZA faz isso centralmente?",
-          "must": [
-            "\\bn[ãa]o\\b"
-          ]
-        },
-        {
-          "question": "Que documento define isso?",
-          "must": [
-            "ADR|spec|contracts/|docs/"
-          ]
-        }
-      ],
-      "must": [],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0571",
-      "semantic_unit_ids": [
-        "banza.trust.root.threshold"
-      ],
-      "capability_unit_ids": [
-        "capability.source_followup_not_hijacked",
-        "capability.source_followup"
-      ],
-      "locale": "pt-PT",
-      "intent": "MULTI_TURN",
-      "criticality": "P0",
-      "form": "journey",
-      "question": "Qual é o limiar da raiz do BANZA?",
-      "turns": [
-        {
-          "question": "Qual é o limiar da raiz do BANZA?",
-          "must": [
-            "\\bduas\\b|\\b2\\b"
-          ]
-        },
-        {
-          "question": "Que fonte diz isso?",
-          "must": [
-            "ADR|spec|contracts/|docs/"
-          ]
-        },
-        {
-          "question": "Que fontes explicam a conformidade?",
-          "must": [
-            "conformidade|conformance|CONFORMANCE|ADR|docs/|contracts/"
-          ]
-        }
-      ],
-      "must": [],
-      "must_not": [],
-      "authority_class": "BANZA",
-      "acceptable_refusal": false
-    },
-    {
-      "question_id": "V2-0572",
-      "semantic_unit_ids": [
-        "banza.certification.not_admission"
-      ],
-      "capability_unit_ids": [
-        "capability.ambiguous_clarification"
-      ],
-      "locale": "pt-PT",
-      "intent": "MULTI_TURN",
-      "criticality": "P1",
-      "form": "journey",
-      "question": "E isso?",
-      "turns": [
-        {
-          "question": "E isso?",
-          "must": [
-            "\\w{10,}"
-          ]
-        },
-        {
-          "question": "Certificação dá admissão automática?",
-          "must": [
-            "\\bn[ãa]o\\b"
-          ]
-        }
-      ],
-      "must": [],
-      "must_not": [],
-      "authority_class": "BANZA",
       "acceptable_refusal": false
     }
   ]
