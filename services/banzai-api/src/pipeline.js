@@ -2319,6 +2319,41 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // it. When no BANZA authority is available for the relation, this tier declines rather than letting
     // the general definition stand in for the protocol's position.
     const hybrid = hybridPlan(correctedQuestion);
+    // A HYBRID whose subject is a PRO-FORM takes it from the conversation.
+    //
+    // "E o BANZA faz isso centralmente?" after "O que é settlement?" recognises the relation and fails
+    // to resolve "isso", so the tier declined and the turn fell to the model — which answered that
+    // BANZA "visa centralizar certos aspectos". That is the opposite of the protocol's position, stated
+    // to a reader as fact, and it is exactly the forbidden claim the universe records against this
+    // relation.
+    //
+    // Bound, not guessed: only a pro-form is substituted, and only from a subject the previous turn
+    // actually resolved. An unresolvable NOUN is still unresolved, so the tier still declines rather
+    // than attaching the relation to whatever was last discussed.
+    const HYBRID_PRO_FORMS = new Set([
+      "isso", "isto", "aquilo", "esse", "essa", "that", "this", "it",
+    ]);
+    if (
+      hybrid &&
+      hybrid.is_hybrid &&
+      !hybrid.resolved &&
+      conversationContext &&
+      conversationContext.last_subject_id &&
+      String(hybrid.subject_phrase || "")
+        .split(" ")
+        .some((t) => HYBRID_PRO_FORMS.has(t))
+    ) {
+      const bound = getEntry(conversationContext.last_subject_id);
+      if (bound) {
+        hybrid.subject_id = conversationContext.last_subject_id;
+        hybrid.subject_class = bound.domain ? "domain" : "banza";
+        hybrid.resolved = true;
+        if (bound.domain && !hybrid.banza_position_id) {
+          const pos = hybridPlan(`o que o banza especifica sobre ${bound.id}`);
+          hybrid.banza_position_id = (pos && pos.banza_position_id) || "";
+        }
+      }
+    }
     if (hybrid && hybrid.is_hybrid && hybrid.resolved && !journeyOwnsTurn) {
       const subject = getEntry(hybrid.subject_id);
       // The BANZA half comes from the entry that states the protocol's position on this subject. Where

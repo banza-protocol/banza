@@ -104,3 +104,29 @@ test("the same plural referent works in English", async () => {
   assert.equal(t3.emitted.comparison_right, "def-profile-l3");
   assert.equal(t3.res.answer_locale, "en");
 });
+
+test("a hybrid follow-up binds its pro-form to the conversation, and only a pro-form", async () => {
+  // The most consequential failure in the whole production run. "E o BANZA faz isso centralmente?"
+  // after "O que é settlement?" recognises the relation and cannot resolve "isso", so the tier declined
+  // and the turn fell to the model — which told the reader that BANZA "visa centralizar certos aspectos
+  // dos modelos subjacentes". That is the opposite of the protocol's position, asserted as fact, and it
+  // is the exact claim the universe records as forbidden for this relation.
+  //
+  // A refusal here would have been fine. Confabulating centralisation is not.
+  const steps = await converse("pt-PT", ["O que é settlement?", "E o BANZA faz isso centralmente?"]);
+  assert.equal(steps[1].meta.terminal_kind, "hybrid_relation", "the pro-form must bind to settlement");
+  assert.doesNotMatch(
+    steps[1].res.answer,
+    /BANZA[^.]{0,40}centraliz/i,
+    "the answer must never claim BANZA centralises anything",
+  );
+
+  // BOUND, not guessed. An unresolvable noun is not a reference to the previous subject, and attaching
+  // the relation to whatever was last discussed is the blind inheritance this must not become.
+  const stray = await converse("pt-PT", ["O que é settlement?", "E o BANZA faz xpto centralmente?"]);
+  assert.notEqual(
+    stray[1].meta.terminal_kind,
+    "hybrid_relation",
+    "an unresolvable subject must not inherit the previous one",
+  );
+});
