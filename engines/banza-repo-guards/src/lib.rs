@@ -273,6 +273,12 @@ fn banzami_attribution_allowed(path: &str) -> bool {
             | "check-banzai-truth-table-current.sh"
             | "gen-banzai-vocabulary.mjs"
             | "check-banzai-canonical-protocol-vocabulary.sh"
+            // The generated known-word set, on the same basis as the vocabulary generators above: it is
+            // derived from the canonical catalogue, and the catalogue names the Layer-3 designated
+            // scheme because ADR-004 does. Stripping the name here would leave that word unprotected
+            // from typo recovery — which is exactly the class of defect this file exists to prevent.
+            | "known-words.json"
+            | "gen-banzai-known-words.mjs"
             // WP1.2: the whitepaper LaTeX generator carries the publisher/institution (Banzami,
             // BANZAMI – Tecnologia e Serviços, Lda.) in the generated BibTeX @techreport, the same
             // ADR-009 creator-attribution basis as CITATION/NOTICE. Not a payment-OPERATOR brand.
