@@ -668,5 +668,293 @@
       "statement": "All monetary values MUST be integers in minor units. Floating-point monetary values are prohibited across the entire protocol surface: APIs, traces and logs, operator manifests, wallet balances, ledger entries, settlement batches, and SDK contracts. Every monetary field carries the _minor suffix.",
       "source": "docs/reference/pt/BANZA_REFERENCIA.md"
     }
+  ],
+  "families": [
+    {
+      "family": "INV-COLLECTION",
+      "key": "inv collection",
+      "members": [
+        "INV-COLLECTION-001",
+        "INV-COLLECTION-002",
+        "INV-COLLECTION-003",
+        "INV-COLLECTION-004",
+        "INV-COLLECTION-005",
+        "INV-COLLECTION-006",
+        "INV-COLLECTION-007",
+        "INV-COLLECTION-008"
+      ],
+      "aliases": [
+        "inv collection",
+        "collection",
+        "cobranca",
+        "coleta"
+      ]
+    },
+    {
+      "family": "INV-FED-LEDGER",
+      "key": "inv fed ledger",
+      "members": [
+        "INV-FED-LEDGER-001",
+        "INV-FED-LEDGER-002"
+      ],
+      "aliases": [
+        "inv fed ledger",
+        "fed ledger"
+      ]
+    },
+    {
+      "family": "INV-FED-RECON",
+      "key": "inv fed recon",
+      "members": [
+        "INV-FED-RECON-001"
+      ],
+      "aliases": [
+        "inv fed recon",
+        "fed recon"
+      ]
+    },
+    {
+      "family": "INV-FED-IDEM",
+      "key": "inv fed idem",
+      "members": [
+        "INV-FED-IDEM-001"
+      ],
+      "aliases": [
+        "inv fed idem",
+        "fed idem"
+      ]
+    },
+    {
+      "family": "INV-FEDEVAL",
+      "key": "inv fedeval",
+      "members": [
+        "INV-FEDEVAL-001",
+        "INV-FEDEVAL-002",
+        "INV-FEDEVAL-003",
+        "INV-FEDEVAL-004",
+        "INV-FEDEVAL-005",
+        "INV-FEDEVAL-006",
+        "INV-FEDEVAL-007",
+        "INV-FEDEVAL-008",
+        "INV-FEDEVAL-009",
+        "INV-FEDEVAL-010"
+      ],
+      "aliases": [
+        "avaliacao de federacao",
+        "federation evaluation",
+        "inv fedeval",
+        "fedeval"
+      ]
+    },
+    {
+      "family": "INV-QR-SIGN",
+      "key": "inv qr sign",
+      "members": [
+        "INV-QR-SIGN-001"
+      ],
+      "aliases": [
+        "inv qr sign",
+        "qr sign"
+      ]
+    },
+    {
+      "family": "INV-LEDGER",
+      "key": "inv ledger",
+      "members": [
+        "INV-LEDGER-001",
+        "INV-LEDGER-002",
+        "INV-LEDGER-003",
+        "INV-LEDGER-004",
+        "INV-LEDGER-005"
+      ],
+      "aliases": [
+        "inv ledger",
+        "ledger",
+        "razao"
+      ]
+    },
+    {
+      "family": "INV-QR-ENV",
+      "key": "inv qr env",
+      "members": [
+        "INV-QR-ENV-001"
+      ],
+      "aliases": [
+        "inv qr env",
+        "qr env"
+      ]
+    },
+    {
+      "family": "INV-WALLET",
+      "key": "inv wallet",
+      "members": [
+        "INV-WALLET-001"
+      ],
+      "aliases": [
+        "inv wallet",
+        "carteiras",
+        "carteira",
+        "wallet"
+      ]
+    },
+    {
+      "family": "INV-EVENT",
+      "key": "inv event",
+      "members": [
+        "INV-EVENT-001",
+        "INV-EVENT-002"
+      ],
+      "aliases": [
+        "inv event",
+        "eventos",
+        "evento",
+        "event"
+      ]
+    },
+    {
+      "family": "INV-IDENT",
+      "key": "inv ident",
+      "members": [
+        "INV-IDENT-001"
+      ],
+      "aliases": [
+        "identidade",
+        "inv ident",
+        "identity",
+        "ident"
+      ]
+    },
+    {
+      "family": "INV-TRACE",
+      "key": "inv trace",
+      "members": [
+        "INV-TRACE-001"
+      ],
+      "aliases": [
+        "inv trace",
+        "rastreio",
+        "trace"
+      ]
+    },
+    {
+      "family": "INV-IDEM",
+      "key": "inv idem",
+      "members": [
+        "INV-IDEM-001"
+      ],
+      "aliases": [
+        "idempotencia",
+        "idempotency",
+        "inv idem",
+        "idem"
+      ]
+    },
+    {
+      "family": "INV-ROOT",
+      "key": "inv root",
+      "members": [
+        "INV-ROOT-001",
+        "INV-ROOT-002",
+        "INV-ROOT-003",
+        "INV-ROOT-004",
+        "INV-ROOT-005",
+        "INV-ROOT-006",
+        "INV-ROOT-007",
+        "INV-ROOT-008",
+        "INV-ROOT-009",
+        "INV-ROOT-010",
+        "INV-ROOT-011",
+        "INV-ROOT-012",
+        "INV-ROOT-013",
+        "INV-ROOT-014"
+      ],
+      "aliases": [
+        "inv root",
+        "root",
+        "raiz"
+      ]
+    },
+    {
+      "family": "INV-FED",
+      "key": "inv fed",
+      "members": [
+        "INV-FED-001",
+        "INV-FED-002",
+        "INV-FED-003",
+        "INV-FED-004",
+        "INV-FED-005",
+        "INV-FED-006",
+        "INV-FED-007"
+      ],
+      "aliases": [
+        "federation",
+        "federacao",
+        "inv fed",
+        "fed"
+      ]
+    },
+    {
+      "family": "INV-OTE",
+      "key": "inv ote",
+      "members": [
+        "INV-OTE-001",
+        "INV-OTE-002",
+        "INV-OTE-003",
+        "INV-OTE-004",
+        "INV-OTE-005",
+        "INV-OTE-006",
+        "INV-OTE-007",
+        "INV-OTE-008",
+        "INV-OTE-009",
+        "INV-OTE-010"
+      ],
+      "aliases": [
+        "avaliacao de confianca aberta",
+        "open trust evaluation",
+        "inv ote",
+        "ote"
+      ]
+    },
+    {
+      "family": "INV-STL",
+      "key": "inv stl",
+      "members": [
+        "INV-STL-001",
+        "INV-STL-002",
+        "INV-STL-003"
+      ],
+      "aliases": [
+        "settlement",
+        "liquidacao",
+        "inv stl",
+        "stl"
+      ]
+    },
+    {
+      "family": "INV-QR",
+      "key": "inv qr",
+      "members": [
+        "INV-QR-001",
+        "INV-QR-002",
+        "INV-QR-003",
+        "INV-QR-004"
+      ],
+      "aliases": [
+        "inv qr",
+        "qr"
+      ]
+    },
+    {
+      "family": "MON",
+      "key": "mon",
+      "members": [
+        "MON-001"
+      ],
+      "aliases": [
+        "monetario",
+        "monetary",
+        "mon"
+      ]
+    }
   ]
 }

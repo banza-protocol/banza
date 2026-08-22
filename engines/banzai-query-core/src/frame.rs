@@ -85,6 +85,15 @@ const TASK: &[&str] = &[
     "support",
     "supports",
     "defines",
+    // The DOCUMENT nouns. They are already in EVIDENCE, and `source_evidence` is only set when the same
+    // token is BOTH a task and evidence — so "que documento define isso?" set `task` from "define",
+    // never set `source_evidence`, and fell through to a plain target inheritance instead of an evidence
+    // request. Measured in the hybrid journey: turn 3 declined while the previous turn's sources were
+    // sitting in the context it received.
+    "documento",
+    "documentos",
+    "document",
+    "documents",
     // "onde está isto documentado?" / "where is this documented?" is the same request in the shape of a
     // location question. It asks for the evidence, not for a document the reader already has in mind.
     "documentado",

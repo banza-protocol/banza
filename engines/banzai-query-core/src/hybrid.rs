@@ -36,9 +36,41 @@ pub struct HybridPlan {
     pub relation: &'static str,
     /// The subject resolved and a relation was recognised — the only state a hybrid may be composed in.
     pub resolved: bool,
+    /// For a DOMAIN subject: the BANZA entry that states the protocol's position on it, or empty when
+    /// none is declared. Empty means the hybrid tier must decline rather than pair the concept with
+    /// something generic.
+    pub banza_position_id: String,
 }
 
 /// The relation being requested. Each is a different question about the same subject.
+/// The BANZA entry that states the protocol's position on a DOMAIN concept.
+///
+/// The hybrid tier declines when the subject is a domain concept and no SPECIFIC BANZA authority is
+/// known for the relation — deliberately, because pairing any concept with a catch-all entry would let
+/// "BANZA's position on X" be written from something that says nothing about X. That is the right
+/// default and it left three declared relations unanswerable: the universe declares
+/// `hybrid.authorization.*`, `hybrid.digital-signature.*` and `hybrid.state-machine.*`, and the engine
+/// had no way to find the entry carrying each.
+///
+/// So the mapping is DECLARED, one concept at a time, and it is not a fallback. A concept absent from
+/// this table still declines, which keeps the collapse the tier was built to prevent out of reach.
+pub const BANZA_POSITION: &[(&str, &str)] = &[
+    // BANZA establishes no central authority over operators — its position on authorisation (ADR-007).
+    ("def-dom-authorization", "def-operator-governance-authority"),
+    // How BANZA USES signatures: locally evaluated signed metadata, no certificate authority (ADR-025).
+    ("def-dom-digital-signature", "how-trust-works"),
+    // Protocol state semantics: what BANZA's state store holds and what it is not (ADR-013).
+    ("def-dom-state-machine", "banza-limits"),
+];
+
+/// The BANZA authority entry for a domain subject, if one is declared.
+pub fn banza_position_for(subject_id: &str) -> Option<&'static str> {
+    BANZA_POSITION
+        .iter()
+        .find(|(d, _)| *d == subject_id)
+        .map(|(_, b)| *b)
+}
+
 const RELATIONS: &[(&str, &[&str])] = &[
     // What the protocol SPECIFIES about it — the general "what does BANZA say" request.
     (
@@ -192,6 +224,7 @@ pub fn plan(nq: &str) -> HybridPlan {
         subject_class: String::new(),
         relation: "",
         resolved: false,
+        banza_position_id: String::new(),
     };
     let relation = match relation_of(nq) {
         Some(r) => r,
@@ -223,6 +256,13 @@ pub fn plan(nq: &str) -> HybridPlan {
         (String::new(), "")
     };
     let resolved = !id.is_empty();
+    // For a DOMAIN subject the composer needs the BANZA half, and there is no generic one — the table
+    // is consulted per concept and returns nothing for a concept nobody has declared a position for.
+    let banza_position_id = if class == "domain" {
+        banza_position_for(&id).unwrap_or("").to_string()
+    } else {
+        String::new()
+    };
     HybridPlan {
         is_hybrid: true,
         subject_phrase: phrase,
@@ -230,6 +270,7 @@ pub fn plan(nq: &str) -> HybridPlan {
         subject_class: class.into(),
         relation,
         resolved,
+        banza_position_id,
     }
 }
 

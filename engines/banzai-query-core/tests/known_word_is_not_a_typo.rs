@@ -106,3 +106,76 @@ fn protecting_rust_does_not_move_trust() {
         );
     }
 }
+
+#[test]
+fn a_declared_word_is_never_rewritten_into_a_different_declared_word() {
+    // Four correct words were being "corrected" into other words at HIGH CONFIDENCE, before any router
+    // saw the question, because known-word protection was built from the entries INDEX — 28 lexically
+    // routable entries out of 215 — while the correction TARGET set drew on more.
+    //
+    //   public   → publica     "What is a public key?"        resolved to nothing
+    //   contrato → controlo    "O que é um contrato?"         resolved to nothing
+    //   schema   → scheme      "What is a schema?"            resolved to nothing
+    //   transfer → transfere   "What is a transfer?"          resolved to nothing
+    //
+    // Every one of them is a concept this engine answers. Routing eligibility and known-word protection
+    // are different questions, and conflating them made the second one blind to most of the vocabulary.
+    for w in [
+        "public", "contrato", "schema", "transfer", "nonce", "ledger", "rust", "hash", "endpoint",
+        "timeout", "replay", "issuer", "merchant", "acquirer",
+    ] {
+        assert!(
+            banzai_query_core::is_registered_surface_form(w),
+            "{w:?} is declared vocabulary and must never be treated as a typo"
+        );
+    }
+}
+
+#[test]
+fn the_questions_that_were_corrupted_now_reach_their_concepts() {
+    // The property at the level a reader experiences: the whole question, not the token.
+    use banzai_query_core::fuzzy::recover;
+    for q in [
+        "What is a public key?",
+        "O que é um contrato?",
+        "What is a schema?",
+        "What is a transfer?",
+    ] {
+        let r = recover(q);
+        assert!(
+            r.corrections.is_empty(),
+            "{q:?} was rewritten: {:?} -> {:?}",
+            r.corrections,
+            r.corrected_query
+        );
+    }
+}
+
+#[test]
+fn the_boundary_does_not_depend_on_a_typo_correction_to_fire() {
+    // A critical-benchmark case was passing THROUGH a corruption: recovery rewrote "autorizar" to
+    // "autoriza", and only the rewritten form matched the boundary bigram "autoriza operadores" — the
+    // infinitive puts an r between the two words. Fixing the corrector exposed the gap it had hidden.
+    //
+    // Both forms must reach the boundary on their own, with no correction in between.
+    use banzai_query_core::route::route;
+    for q in [
+        "O BanzAI pode autorizar operadores?",
+        "O BanzAI pode autoriza operadores?",
+        "Can BanzAI authorise operators?",
+    ] {
+        let r = route(q);
+        assert_ne!(
+            r.action, "qwen",
+            "{q:?} is an authority boundary and must be settled before the model"
+        );
+    }
+
+    // And the design it must not break: an OPERATOR authorising a payment is ordinary mechanics, not a
+    // boundary. That is why the bare verb is not word-bounded and the bigram exists.
+    assert_eq!(
+        route("como um operador autoriza um pagamento").action,
+        "qwen",
+        "operator mechanics must stay grounded"
+    );
+}

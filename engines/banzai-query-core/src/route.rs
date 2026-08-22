@@ -1016,6 +1016,24 @@ fn has_authority_verb(nq: &str) -> bool {
                 "approve the rules",
                 "autoriza operador",
                 "autoriza operadores",
+                // The INFINITIVE. The bigram is deliberate — bare "autoriza" must stay grounded so an
+                // operator authorising a payment is not read as a boundary — but "autorizaR operadores"
+                // puts an r between the two words and matched nothing.
+                //
+                // This was invisible because typo recovery was rewriting "autorizar" to "autoriza",
+                // which DID match: the critical benchmark case passed through a corruption. Fixing the
+                // corrector exposed the gap it had been hiding, which is the argument for fixing
+                // correctors rather than living with them.
+                "autorizar operador",
+                "autorizar operadores",
+                // The English pair, for the same reason and with the same shape. `approves_verb` above
+                // is word-bounded and covers approve/license; authorise/authorize were only ever
+                // reachable as Portuguese bigrams, so "Can BanzAI authorise operators?" grounded while
+                // its Portuguese twin was settled at the boundary — the same question, two answers.
+                "authorise operator",
+                "authorise operators",
+                "authorize operator",
+                "authorize operators",
                 "aceita operador",
                 "aceita operadores",
                 "emite licenca",
@@ -5444,6 +5462,31 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     ) {
         return Some("who-implements-protocol");
     }
+    // GENERIC technology choice, checked BEFORE the storage arm below. That arm matches the bare
+    // substring "implementation use", which also occurs in "can another implementation USE a different
+    // technology" — so ordering, not phrasing, is what keeps the two apart.
+    //
+    // The two questions have different answers. `banza-limits` states what BANZA does not hold — right
+    // for "does the protocol require PostgreSQL?", and silent on the rule the reader asks about here.
+    // `who-implements-protocol` states it: any operator may implement in any language or stack that
+    // satisfies the invariants.
+    //
+    // Measured in the ledger journey: turn 5, "Outra implementação pode usar outra tecnologia?", was
+    // answered with "BANZA não tem carteira, ledger de operador, KYC/KYB…" — true, and not an answer to
+    // the question asked.
+    if any(
+        nq,
+        &[
+            "outra tecnologia",
+            "outra linguagem",
+            "another technology",
+            "different technology",
+            "another language",
+            "different stack",
+        ],
+    ) {
+        return Some("who-implements-protocol");
+    }
     // The same question with the IMPLEMENTATION as its subject, and no mention of BANZA at all.
     //
     // "Uma implementação pode usar PostgreSQL?" reached `banza-limits` — the right entry, which states
@@ -5456,7 +5499,11 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     if any(
         nq,
         &[
-            "implementacao pode usar",
+            // NB: narrowed to the STORAGE question. Bare "implementacao pode usar" also matches
+            // "outra implementação pode usar outra TECNOLOGIA", which is the technology-choice rule
+            // below and has a different answer.
+            "implementacao pode usar postgres",
+            "implementacao pode usar postgresql",
             "implementacao podem usar",
             "implementacoes podem usar",
             "implementation use",
@@ -5474,9 +5521,6 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
             "do all implementations use",
             "can i use postgresql",
             "can i use postgres",
-            "outra tecnologia",
-            "another technology",
-            "different technology",
         ],
     ) {
         return Some("banza-limits");
@@ -7218,6 +7262,13 @@ fn compound_safety_refusal(question: &str) -> bool {
 /// and route to the corresponding journey step for the full Rust/WASM engine. Conceptual questions
 /// ("o que é trust?", "como federar?") carry no analyse verb, so they fall through to grounding.
 fn technical_tool_intent(nq: &str) -> Option<&'static str> {
+    // An INVARIANT question is not a tool request. "Quais são as invariantes de avaliação de federação
+    // do BANZA?" names a family the registry answers, and the federation tool router captured it on the
+    // word "federação" alone — returning an analyse-this-artifact answer for a question about normative
+    // text. The invariant resolvers run later in route(), so the veto belongs here.
+    if crate::invariant::lookup(nq).is_some() || crate::invariant::family_lookup(nq).is_some() {
+        return None;
+    }
     // Defence-in-depth (belt-and-braces behind the boundaries, which run first in route()): never route a
     // query that carries pasted credential material OR a residual dangerous-command signal into a "tool".
     // The action/compound boundaries already refuse the strong cases; this bail covers anything they miss
@@ -7515,6 +7566,21 @@ pub fn route(question: &str) -> Route {
             };
         }
     }
+    // The invariant FAMILY, for the question that asks about the group rather than a member. It runs
+    // immediately after the member resolver and defers to it: naming INV-QR-001 is not asking about QR.
+    // Measured across the V2 corpus, seven of the twelve critical families were answered with the
+    // protocol summary because nothing routed them.
+    if !crate::compare::is_comparison(&nq) {
+        if let Some(fam) = crate::invariant::family_lookup(&nq) {
+            return Route {
+                action: "deterministic",
+                entry_id: Some(format!("inv-family-{}", fam.family.to_lowercase())),
+                intent: "critical_boundary",
+                reason: "an invariant family named by its label is served from the registry",
+            };
+        }
+    }
+
     // M2.18 — EXACT-DOCUMENT RESOLVER (resolver-first; architecture doc §1 rule R1). A NUMBERED
     // document reference — "ADR 002" / "adr-2" / "adr002" / "RFC 14" — names a SPECIFIC canonical
     // record. The generic glossary DEFINITION ("def-adr": *what is an ADR*) must never swallow it:
@@ -7853,6 +7919,10 @@ pub fn is_verbatim_entry(entry_id: &str) -> bool {
         // prevent, and it is sharper here: a paraphrase of "integers in minor units, never floating
         // point" that drifts is a wrong answer about a financial invariant.
         || crate::invariant::lookup(&entry_id.replace('-', " ")).is_some()
+        // A family answer is a list of normative statements, served verbatim for the same reason a
+        // single one is: "explica as invariantes do ledger" carries an explanatory cue, and recomposing
+        // five normative statements is five chances to drift.
+        || entry_id.starts_with("inv-family-")
 }
 
 pub fn route_json(question: &str) -> String {
@@ -7873,6 +7943,42 @@ pub fn route_json(question: &str) -> String {
 /// aqui", "e em JSON?", "explica melhor", "continua", "e para operador?"). These lean on context and
 /// have little standalone retrieval signal.
 fn is_followup(nq: &str) -> bool {
+    // A BARE WHY is a follow-up, and the shortest one there is.
+    //
+    // "Why not?" after "Is BANZA production ready?" names no subject, asks for the reason behind the
+    // previous answer, and was declined here — so the turn fell through to the question-family
+    // classifier, which read it as a request to DIAGNOSE A FAILED RUN and asked the reader for an
+    // execution identifier. The reader had asked why the protocol is not production ready.
+    //
+    // Bounded to the bare shape: two or three tokens, an interrogative "why", and nothing else. "Why is
+    // the ledger append-only?" names its own subject and is not this.
+    {
+        let toks: Vec<&str> = nq.split(' ').filter(|t| !t.is_empty()).collect();
+        if toks.len() <= 3 {
+            let why = toks
+                .iter()
+                .any(|t| matches!(*t, "why" | "porque" | "porquê" | "porquce" | "porq"))
+                || nq.starts_with("por que");
+            let only_scaffolding = toks.iter().all(|t| {
+                matches!(
+                    *t,
+                    "why"
+                        | "not"
+                        | "porque"
+                        | "porquê"
+                        | "por"
+                        | "que"
+                        | "nao"
+                        | "não"
+                        | "e"
+                        | "and"
+                )
+            });
+            if why && only_scaffolding {
+                return true;
+            }
+        }
+    }
     let cues = [
         " aqui",
         "isso",

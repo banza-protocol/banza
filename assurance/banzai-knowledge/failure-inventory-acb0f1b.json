@@ -1,0 +1,1702 @@
+{
+  "_note": "Every failing question and TURN from the frozen V2 run against production src-acb0f1b, recorded individually rather than summarised. A journey contributes one row per failing turn, so 'seven of eight journeys fail' is expanded into which turn broke and what it received.",
+  "production": "src-acb0f1b",
+  "universe_hash": "bf1a472f7a99b68aa9df50021ca43b0e",
+  "corpus_hash": "ed36d4845054886d23fbf94a3933e0ea",
+  "raw_transcript_sha256": "c11406554928da5058124b1cd1e9d295",
+  "failing_items": 58,
+  "failing_rows": 61,
+  "by_class": {
+    "FACTUAL": 51,
+    "CONVERSATIONAL": 10
+  },
+  "failures": [
+    {
+      "question_id": "V2-0001",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.admission.not_authorisation"
+      ],
+      "capability_unit_ids": [],
+      "question": "O que é admissão operacional?",
+      "expected": "admiss",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei uma operação ou fonte pública do **BANZA** que suporte este pedido. O **BanzAI** responde sobre o protocolo **BANZA** — as suas regras, decisões, contratos e execuções de validação — e não sobre assuntos fo",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /admiss/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0003",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.admission.not_authorisation"
+      ],
+      "capability_unit_ids": [],
+      "question": "What is operational admission?",
+      "expected": "admission",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "I found no **BANZA** operation or public source that supports this request. **BanzAI** answers about the **BANZA** protocol — its rules, decisions, contracts and validation runs — and not about subjects outside that scop",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /admission/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0005",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.adr.decision_register"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "Onde estão registadas as decisões de arquitectura do BANZA?",
+      "expected": "ADR",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei evidência pública suficiente para responder com segurança a este pedido. Prefiro não adivinhar: indique o identificador do documento ou da decisão, ou reformule, para eu localizar a fonte canónica.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "explain_concept",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /ADR/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P2"
+    },
+    {
+      "question_id": "V2-0006",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.adr.decision_register"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "Onde encontro as decisões de arquitectura?",
+      "expected": "ADR",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei uma operação ou fonte pública do **BANZA** que suporte este pedido. O **BanzAI** responde sobre o protocolo **BANZA** — as suas regras, decisões, contratos e execuções de validação — e não sobre assuntos fo",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /ADR/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P2"
+    },
+    {
+      "question_id": "V2-0007",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.adr.decision_register"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "Where are BANZA's architecture decisions recorded?",
+      "expected": "ADR",
+      "actual_terminal": "operational_failure",
+      "actual_intent": "governance_reference",
+      "actual_entry_id": null,
+      "actual_answer": "**BANZA** is an open financial protocol, neutral with respect to operators. It defines rules, invariants, contracts and conformance criteria that any operator may implement. It is not an operator, a wallet, a payment pro",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /ADR/",
+      "all_reasons": [
+        "missing /ADR/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P2"
+    },
+    {
+      "question_id": "V2-0008",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.adr.decision_register"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "Where do I find the architecture decisions?",
+      "expected": "ADR",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "I found no **BANZA** operation or public source that supports this request. **BanzAI** answers about the **BANZA** protocol — its rules, decisions, contracts and validation runs — and not about subjects outside that scop",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /ADR/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P2"
+    },
+    {
+      "question_id": "V2-0018",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.bcj1.integer_domain"
+      ],
+      "capability_unit_ids": [],
+      "question": "Qual é o domínio de inteiros do BCJ/1?",
+      "expected": "BCJ|inteiro",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei uma operação ou fonte pública do **BANZA** que suporte este pedido. O **BanzAI** responde sobre o protocolo **BANZA** — as suas regras, decisões, contratos e execuções de validação — e não sobre assuntos fo",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /BCJ|inteiro/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0026",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.certification.not_admission"
+      ],
+      "capability_unit_ids": [
+        "capability.authority_precedence"
+      ],
+      "question": "Estar certificado significa que fui admitido?",
+      "expected": "[Nn]ão|admiss",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei uma operação ou fonte pública do **BANZA** que suporte este pedido. O **BanzAI** responde sobre o protocolo **BANZA** — as suas regras, decisões, contratos e execuções de validação — e não sobre assuntos fo",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal"
+      ],
+      "class": "FACTUAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0028",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.certification.not_admission"
+      ],
+      "capability_unit_ids": [
+        "capability.authority_precedence"
+      ],
+      "question": "Does being certified mean I have been admitted?",
+      "expected": "\\bno\\b|admission",
+      "actual_terminal": "explanatory_trunk",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "Being certified does not mean you have been admitted. Certification requires demonstrating critical properties through a falsifiable chain of evidence, without self-validation at any layer.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /\\bno\\b|admission/",
+      "all_reasons": [
+        "missing /\\bno\\b|admission/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0037",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.conformance.demonstrated_by_evidence"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "Como é que um operador demonstra conformidade?",
+      "expected": "evidência|evidencia",
+      "actual_terminal": "explanatory_trunk",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "Um operador demonstra conformidade através de cinco perfis cumulativos, cada um definindo o que uma implementação deve demonstrar.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /evidência|evidencia/",
+      "all_reasons": [
+        "missing /evidência|evidencia/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0038",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.conformance.demonstrated_by_evidence"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "De que forma se prova conformidade com o protocolo?",
+      "expected": "evidência|evidencia",
+      "actual_terminal": "explanatory_trunk",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "A conformidade é demonstrada através da capacidade de um implementação corretamente executar um sandbox com manifestos válidos e dinheiro inteiro, ou federar com pares e liquidar跨语言继续回答，不需要翻译成提问的语言，直接用目标语言继续回答即可。继续用葡萄牙语回",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /evidência|evidencia/",
+      "all_reasons": [
+        "missing /evidência|evidencia/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0039",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.conformance.demonstrated_by_evidence"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "How does an operator demonstrate conformance?",
+      "expected": "evidence",
+      "actual_terminal": "explanatory_trunk",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "An operator demonstrates conformance by showing compliance with the capabilities named from a canonical registry, as scoped by one of five cumulative profiles.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /evidence/",
+      "all_reasons": [
+        "missing /evidence/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0040",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.conformance.demonstrated_by_evidence"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "In what way is conformance to the protocol proven?",
+      "expected": "evidence",
+      "actual_terminal": "explanatory_trunk",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "Conformance to the protocol is proven by demonstrating compliance with the defined profiles, which specify the required capabilities through exact matching against a canonical registry.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /evidence/",
+      "all_reasons": [
+        "missing /evidence/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0070",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.invariant.inv-collection"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "Explica as invariantes de cobrança.",
+      "expected": "invariante|INV-",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei evidência pública suficiente para responder com segurança a este pedido. Prefiro não adivinhar: indique o identificador do documento ou da decisão, ou reformule, para eu localizar a fonte canónica.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "explain_concept",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /invariante|INV-/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0072",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.invariant.inv-collection"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "Explain the collection invariants.",
+      "expected": "invariant|INV-",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "I found no **BANZA** operation or public source that supports this request. **BanzAI** answers about the **BANZA** protocol — its rules, decisions, contracts and validation runs — and not about subjects outside that scop",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /invariant|INV-/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0087",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.invariant.inv-fed"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "What are the federation invariants in BANZA?",
+      "expected": "invariant|INV-",
+      "actual_terminal": "explanatory_trunk",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "There is no certificate authority over operators in **BANZA**. A verifier reaches its own conclusion from public material, offline, without contacting anyone and without asking permission.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /invariant|INV-/",
+      "all_reasons": [
+        "missing /invariant|INV-/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0105",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.invariant.inv-fedeval"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "Quais são as invariantes de avaliação de federação do BANZA?",
+      "expected": "invariante|INV-",
+      "actual_terminal": "canonical_definition",
+      "actual_intent": "tool_routing",
+      "actual_entry_id": null,
+      "actual_answer": "Detectei um pedido de **federação técnica**.\n\nPosso ajudar a preparar e a rever os artefactos de federação — manifesto, key manifest, revocation list e evidence bundle — para que outros participantes possam **verificar l",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /invariante|INV-/",
+      "all_reasons": [
+        "missing /invariante|INV-/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0107",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.invariant.inv-fedeval"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "What are the federation-evaluation invariants in BANZA?",
+      "expected": "invariant|INV-",
+      "actual_terminal": "explanatory_trunk",
+      "actual_intent": "federation_how_to",
+      "actual_entry_id": null,
+      "actual_answer": "There is no certificate authority over operators in **BANZA**. A verifier reaches its own conclusion from public material, offline, without contacting anyone and without asking permission.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /invariant|INV-/",
+      "all_reasons": [
+        "missing /invariant|INV-/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0124",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.invariant.inv-idem"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "Explain the idempotency invariant.",
+      "expected": "invariant|INV-",
+      "actual_terminal": "explanatory_trunk",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "Idempotency ensures that re-submitting the same key does not create a second effect, returning the original result instead. The key is caller-supplied to distinguish between requests with the same intent.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /invariant|INV-/",
+      "all_reasons": [
+        "missing /invariant|INV-/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0161",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.invariant.inv-qr"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "Quais são as invariantes de QR do BANZA?",
+      "expected": "invariante|INV-",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei evidência pública suficiente para responder com segurança a este pedido. Prefiro não adivinhar: indique o identificador do documento ou da decisão, ou reformule, para eu localizar a fonte canónica.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "explain_concept",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /invariante|INV-/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0176",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.invariant.inv-root"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "Explica as invariantes da raiz.",
+      "expected": "invariante|INV-",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei evidência pública suficiente para responder com segurança a este pedido. Prefiro não adivinhar: indique o identificador do documento ou da decisão, ou reformule, para eu localizar a fonte canónica.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "explain_concept",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /invariante|INV-/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0178",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.invariant.inv-root"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "Explain the root invariants.",
+      "expected": "invariant|INV-",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "implementation_steps",
+      "actual_entry_id": null,
+      "actual_answer": "The engine that answers this request is not available right now. I do not answer by estimate: try again shortly.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /invariant|INV-/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0209",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.invariant.inv-trace"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "Quais são as invariantes de trace do BANZA?",
+      "expected": "invariante|INV-",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei evidência pública suficiente para responder com segurança a este pedido. Prefiro não adivinhar: indique o identificador do documento ou da decisão, ou reformule, para eu localizar a fonte canónica.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "explain_concept",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /invariante|INV-/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0210",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.invariant.inv-trace"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "Explica as invariantes de trace.",
+      "expected": "invariante|INV-",
+      "actual_terminal": "operational_failure",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "**Evidência técnica** no **BANZA** são artefactos verificáveis — resultados de conformidade, um **trace** de ponta a ponta, um **session summary** — que documentam o que ocorreu localmente. Evidência **não é certificação",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /invariante|INV-/",
+      "all_reasons": [
+        "missing /invariante|INV-/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0211",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.invariant.inv-trace"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "What are the trace invariants in BANZA?",
+      "expected": "invariant|INV-",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "I did not find enough public evidence to answer this safely. I would rather not guess: name the document or decision identifier, or rephrase, so I can locate the canonical source.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "explain_concept",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /invariant|INV-/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0217",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.invariant.inv-wallet"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "question": "What are the wallet invariants in BANZA?",
+      "expected": "invariant|INV-",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "I did not find enough public evidence to answer this safely. I would rather not guess: name the document or decision identifier, or rephrase, so I can locate the canonical source.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "explain_concept",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /invariant|INV-/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0262",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.reference_implementation.does_not_define"
+      ],
+      "capability_unit_ids": [],
+      "question": "Does Operator Zero define the protocol?",
+      "expected": "reference|implement",
+      "actual_terminal": "explanatory_trunk",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "Operator Zero does not define the protocol. The protocol specification is an open document that defines the rules all operators must follow, but it does not specify how an operator verifies identity or other operational ",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /reference|implement/",
+      "all_reasons": [
+        "missing /reference|implement/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0268",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.state_store.not_a_ledger"
+      ],
+      "capability_unit_ids": [],
+      "question": "O estado de protocolo é um ledger?",
+      "expected": "[Nn]ão|estado de protocolo",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei uma operação ou fonte pública do **BANZA** que suporte este pedido. O **BanzAI** responde sobre o protocolo **BANZA** — as suas regras, decisões, contratos e execuções de validação — e não sobre assuntos fo",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0270",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.state_store.not_a_ledger"
+      ],
+      "capability_unit_ids": [],
+      "question": "Is protocol state a ledger?",
+      "expected": "\\b[Nn]o\\b|protocol state",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "I found no **BANZA** operation or public source that supports this request. **BanzAI** answers about the **BANZA** protocol — its rules, decisions, contracts and validation runs — and not about subjects outside that scop",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0284",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.status.pre_production"
+      ],
+      "capability_unit_ids": [
+        "capability.current_runtime_truth"
+      ],
+      "question": "O BANZA já pode operar dinheiro real?",
+      "expected": "PRE-PRODUCTION|pré-produção|pre-produ",
+      "actual_terminal": "safety_refusal",
+      "actual_intent": "critical_boundary",
+      "actual_entry_id": null,
+      "actual_answer": "Não. **BANZA** não processa pagamentos. É o protocolo que define as regras (invariantes, contratos, conformidade); a execução de pagamentos pertence aos operadores, na infraestrutura deles. A infraestrutura **BANZA** não",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /PRE-PRODUCTION|pré-produção|pre-produ/",
+      "all_reasons": [
+        "missing /PRE-PRODUCTION|pré-produção|pre-produ/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0286",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.status.pre_production"
+      ],
+      "capability_unit_ids": [
+        "capability.current_runtime_truth"
+      ],
+      "question": "Can BANZA operate real money yet?",
+      "expected": "PRE-PRODUCTION|pré-produção|pre-produ",
+      "actual_terminal": "safety_refusal",
+      "actual_intent": "critical_boundary",
+      "actual_entry_id": null,
+      "actual_answer": "No. **BANZA** does not process payments. It is the protocol that defines the rules — invariants, contracts, conformance; executing payments belongs to operators, on their own infrastructure. **BANZA** infrastructure has ",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /PRE-PRODUCTION|pré-produção|pre-produ/",
+      "all_reasons": [
+        "missing /PRE-PRODUCTION|pré-produção|pre-produ/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0304",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.trust.fail_closed"
+      ],
+      "capability_unit_ids": [],
+      "question": "Trust inválido bloqueia?",
+      "expected": "trust|confian",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei uma operação ou fonte pública do **BANZA** que suporte este pedido. O **BanzAI** responde sobre o protocolo **BANZA** — as suas regras, decisões, contratos e execuções de validação — e não sobre assuntos fo",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /trust|confian/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0306",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.trust.fail_closed"
+      ],
+      "capability_unit_ids": [],
+      "question": "Does invalid trust block?",
+      "expected": "trust",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "I found no **BANZA** operation or public source that supports this request. **BanzAI** answers about the **BANZA** protocol — its rules, decisions, contracts and validation runs — and not about subjects outside that scop",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /trust/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0316",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.trust.root.threshold"
+      ],
+      "capability_unit_ids": [],
+      "question": "Quantas assinaturas raiz são necessárias?",
+      "expected": "duas|2",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei uma operação ou fonte pública do **BANZA** que suporte este pedido. O **BanzAI** responde sobre o protocolo **BANZA** — as suas regras, decisões, contratos e execuções de validação — e não sobre assuntos fo",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /duas|2/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0318",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.trust.root.threshold"
+      ],
+      "capability_unit_ids": [],
+      "question": "How many root signatures are required?",
+      "expected": "two|2",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "I found no **BANZA** operation or public source that supports this request. **BanzAI** answers about the **BANZA** protocol — its rules, decisions, contracts and validation runs — and not about subjects outside that scop",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /two|2/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0359",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "domain.contract.definition"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "question": "O que é um contrato?",
+      "expected": "answered",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei uma operação ou fonte pública do **BANZA** que suporte este pedido. O **BanzAI** responde sobre o protocolo **BANZA** — as suas regras, decisões, contratos e execuções de validação — e não sobre assuntos fo",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal"
+      ],
+      "class": "FACTUAL",
+      "severity": "P2"
+    },
+    {
+      "question_id": "V2-0360",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "domain.contract.definition"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "question": "Explica um contrato de forma simples.",
+      "expected": "answered",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei uma operação ou fonte pública do **BANZA** que suporte este pedido. O **BanzAI** responde sobre o protocolo **BANZA** — as suas regras, decisões, contratos e execuções de validação — e não sobre assuntos fo",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal"
+      ],
+      "class": "FACTUAL",
+      "severity": "P2"
+    },
+    {
+      "question_id": "V2-0381",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "domain.fail-closed.definition"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "question": "What is fail-closed?",
+      "expected": "answered",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "I did not find enough public evidence to answer this safely. I would rather not guess: name the document or decision identifier, or rephrase, so I can locate the canonical source.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "explain_concept",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal"
+      ],
+      "class": "FACTUAL",
+      "severity": "P2"
+    },
+    {
+      "question_id": "V2-0382",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "domain.fail-closed.definition"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "question": "Explain fail-closed simply.",
+      "expected": "answered",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "I did not find enough public evidence to answer this safely. I would rather not guess: name the document or decision identifier, or rephrase, so I can locate the canonical source.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "explain_concept",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal"
+      ],
+      "class": "FACTUAL",
+      "severity": "P2"
+    },
+    {
+      "question_id": "V2-0413",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "domain.keypair.definition"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "question": "What is a public key?",
+      "expected": "answered",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "I found no **BANZA** operation or public source that supports this request. **BanzAI** answers about the **BANZA** protocol — its rules, decisions, contracts and validation runs — and not about subjects outside that scop",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal"
+      ],
+      "class": "FACTUAL",
+      "severity": "P2"
+    },
+    {
+      "question_id": "V2-0414",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "domain.keypair.definition"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "question": "Explain a public key simply.",
+      "expected": "answered",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "I found no **BANZA** operation or public source that supports this request. **BanzAI** answers about the **BANZA** protocol — its rules, decisions, contracts and validation runs — and not about subjects outside that scop",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal"
+      ],
+      "class": "FACTUAL",
+      "severity": "P2"
+    },
+    {
+      "question_id": "V2-0483",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "domain.schema.definition"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "question": "O que é um schema?",
+      "expected": "answered",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei uma operação ou fonte pública do **BANZA** que suporte este pedido. O **BanzAI** responde sobre o protocolo **BANZA** — as suas regras, decisões, contratos e execuções de validação — e não sobre assuntos fo",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal"
+      ],
+      "class": "FACTUAL",
+      "severity": "P2"
+    },
+    {
+      "question_id": "V2-0484",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "domain.schema.definition"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "question": "Explica um schema de forma simples.",
+      "expected": "answered",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei uma operação ou fonte pública do **BANZA** que suporte este pedido. O **BanzAI** responde sobre o protocolo **BANZA** — as suas regras, decisões, contratos e execuções de validação — e não sobre assuntos fo",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal"
+      ],
+      "class": "FACTUAL",
+      "severity": "P2"
+    },
+    {
+      "question_id": "V2-0485",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "domain.schema.definition"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "question": "What is a schema?",
+      "expected": "answered",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "I found no **BANZA** operation or public source that supports this request. **BanzAI** answers about the **BANZA** protocol — its rules, decisions, contracts and validation runs — and not about subjects outside that scop",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal"
+      ],
+      "class": "FACTUAL",
+      "severity": "P2"
+    },
+    {
+      "question_id": "V2-0486",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "domain.schema.definition"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "question": "Explain a schema simply.",
+      "expected": "answered",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "I found no **BANZA** operation or public source that supports this request. **BanzAI** answers about the **BANZA** protocol — its rules, decisions, contracts and validation runs — and not about subjects outside that scop",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal"
+      ],
+      "class": "FACTUAL",
+      "severity": "P2"
+    },
+    {
+      "question_id": "V2-0505",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "domain.transfer.definition"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "question": "What is a transfer?",
+      "expected": "answered",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "I found no **BANZA** operation or public source that supports this request. **BanzAI** answers about the **BANZA** protocol — its rules, decisions, contracts and validation runs — and not about subjects outside that scop",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal"
+      ],
+      "class": "FACTUAL",
+      "severity": "P2"
+    },
+    {
+      "question_id": "V2-0506",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "domain.transfer.definition"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "question": "Explain a transfer simply.",
+      "expected": "answered",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "I found no **BANZA** operation or public source that supports this request. **BanzAI** answers about the **BANZA** protocol — its rules, decisions, contracts and validation runs — and not about subjects outside that scop",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal"
+      ],
+      "class": "FACTUAL",
+      "severity": "P2"
+    },
+    {
+      "question_id": "V2-0520",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "hybrid.authorization.banza_regulatory_boundary"
+      ],
+      "capability_unit_ids": [
+        "capability.hybrid_domain_banza_relation",
+        "capability.hybrid_authority_split"
+      ],
+      "question": "O que é que o BANZA especifica sobre autorização?",
+      "expected": "BANZA",
+      "actual_terminal": "canonical_definition",
+      "actual_intent": "grounded",
+      "actual_entry_id": null,
+      "actual_answer": "A **autorização** estabelece **o que** uma parte já identificada pode fazer. É distinta da **autenticação**, que estabelece **quem** essa parte é: autenticar não autoriza, e as duas decisões são tomadas separadamente.",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /BANZA/",
+      "all_reasons": [
+        "missing /BANZA/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0536",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "hybrid.digital-signature.banza_trust_usage"
+      ],
+      "capability_unit_ids": [
+        "capability.hybrid_domain_banza_relation",
+        "capability.hybrid_authority_split"
+      ],
+      "question": "O que é que o BANZA especifica sobre assinatura digital?",
+      "expected": "BANZA",
+      "actual_terminal": "canonical_definition",
+      "actual_intent": "grounded",
+      "actual_entry_id": null,
+      "actual_answer": "Uma **assinatura digital** liga um documento a uma chave privada de tal modo que qualquer pessoa com a chave pública correspondente pode verificar que o documento não mudou e que foi assinado por quem detém essa chave. P",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /BANZA/",
+      "all_reasons": [
+        "missing /BANZA/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0552",
+      "journey_id": null,
+      "turn": null,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "hybrid.state-machine.banza_protocol_state_semantics"
+      ],
+      "capability_unit_ids": [
+        "capability.hybrid_domain_banza_relation",
+        "capability.hybrid_authority_split"
+      ],
+      "question": "O que é que o BANZA especifica sobre máquina de estados?",
+      "expected": "BANZA",
+      "actual_terminal": "canonical_definition",
+      "actual_intent": "grounded",
+      "actual_entry_id": null,
+      "actual_answer": "Uma **máquina de estados** é um modelo em que algo está sempre exactamente num estado de um conjunto fechado, e só muda por transições declaradas. O valor está no que exclui: um estado que não está no conjunto é inalcanç",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /BANZA/",
+      "all_reasons": [
+        "missing /BANZA/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0554",
+      "journey_id": null,
+      "turn": null,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "hybrid.state-machine.banza_protocol_state_semantics"
+      ],
+      "capability_unit_ids": [
+        "capability.hybrid_domain_banza_relation",
+        "capability.hybrid_authority_split"
+      ],
+      "question": "What does BANZA specify about state machine?",
+      "expected": "BANZA",
+      "actual_terminal": "operational_failure",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "A **state machine** is a model in which something is always in exactly one state from a closed set, and changes only through declared transitions. Its value is in what it excludes: a state not in the set is unreachable, ",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /BANZA/",
+      "all_reasons": [
+        "missing /BANZA/"
+      ],
+      "class": "FACTUAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0565",
+      "journey_id": "V2-0565",
+      "turn": 3,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.profile.l2.definition",
+        "banza.profile.l3.definition",
+        "banza.certification.not_regulatory_authorisation"
+      ],
+      "capability_unit_ids": [
+        "capability.ellipsis_followup",
+        "capability.comparison_followup",
+        "capability.source_followup",
+        "capability.authority_followup"
+      ],
+      "question": "Qual é a diferença entre os dois?",
+      "expected": "L2; L3",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei uma operação ou fonte pública do **BANZA** que suporte este pedido. O **BanzAI** responde sobre o protocolo **BANZA** — as suas regras, decisões, contratos e execuções de validação — e não sobre assuntos fo",
+      "ctx_leaving_prev_turn": true,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /L2/",
+        "missing /L3/"
+      ],
+      "class": "CONVERSATIONAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0565",
+      "journey_id": "V2-0565",
+      "turn": 6,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.profile.l2.definition",
+        "banza.profile.l3.definition",
+        "banza.certification.not_regulatory_authorisation"
+      ],
+      "capability_unit_ids": [
+        "capability.ellipsis_followup",
+        "capability.comparison_followup",
+        "capability.source_followup",
+        "capability.authority_followup"
+      ],
+      "question": "Que fonte diz isso?",
+      "expected": "ADR|contracts/|docs/|conformance/|spec",
+      "actual_terminal": "source_evidence",
+      "actual_intent": "critical_boundary",
+      "actual_entry_id": null,
+      "actual_answer": "Estas são as fontes que sustentam a resposta anterior:",
+      "ctx_leaving_prev_turn": false,
+      "ctx_used_this_turn": true,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /ADR|contracts/|docs/|conformance/|spec/",
+      "all_reasons": [
+        "missing /ADR|contracts/|docs/|conformance/|spec/"
+      ],
+      "class": "CONVERSATIONAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0567",
+      "journey_id": "V2-0567",
+      "turn": 5,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.state_store.not_a_ledger",
+        "banza.implementation.technology_independent"
+      ],
+      "capability_unit_ids": [
+        "capability.false_premise_correction",
+        "capability.implementation_vs_protocol_boundary"
+      ],
+      "question": "Outra implementação pode usar outra tecnologia?",
+      "expected": "tecnologia|implementa",
+      "actual_terminal": "safety_refusal",
+      "actual_intent": "critical_boundary",
+      "actual_entry_id": null,
+      "actual_answer": "**BANZA** não tem carteira, ledger de operador, KYC/KYB, pagamentos, contas de utilizador final nem nomes comerciais de operadores. Qualquer coisa dessa natureza pertence a um operador, noutro lugar. **BANZA** define ape",
+      "ctx_leaving_prev_turn": false,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /tecnologia|implementa/",
+      "all_reasons": [
+        "missing /tecnologia|implementa/"
+      ],
+      "class": "CONVERSATIONAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0568",
+      "journey_id": "V2-0568",
+      "turn": 5,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.profile.l2.definition",
+        "banza.profile.l3.definition"
+      ],
+      "capability_unit_ids": [
+        "capability.ellipsis_followup",
+        "capability.comparison_followup",
+        "capability.source_followup"
+      ],
+      "question": "Which source says that?",
+      "expected": "ADR|contracts/|docs/|conformance/|spec",
+      "actual_terminal": "source_evidence",
+      "actual_intent": "critical_boundary",
+      "actual_entry_id": null,
+      "actual_answer": "These are the sources supporting the previous answer:",
+      "ctx_leaving_prev_turn": false,
+      "ctx_used_this_turn": true,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /ADR|contracts/|docs/|conformance/|spec/",
+      "all_reasons": [
+        "missing /ADR|contracts/|docs/|conformance/|spec/"
+      ],
+      "class": "CONVERSATIONAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0569",
+      "journey_id": "V2-0569",
+      "turn": 2,
+      "locale": "en",
+      "semantic_unit_ids": [
+        "banza.status.pre_production",
+        "banza.status.independent_implementation_demonstrated"
+      ],
+      "capability_unit_ids": [
+        "capability.current_runtime_truth",
+        "capability.proform_followup"
+      ],
+      "question": "Why not?",
+      "expected": "\\w{20,}",
+      "actual_terminal": "clarification",
+      "actual_intent": "clarification_required",
+      "actual_entry_id": null,
+      "actual_answer": "I read your request as referring to an earlier turn — **diagnosing why a run failed or was blocked** — but **I do not have that conversation's context** (no earlier run, operator or artifact). I will not guess the refere",
+      "ctx_leaving_prev_turn": false,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /\\w{20,}/",
+      "all_reasons": [
+        "missing /\\w{20,}/"
+      ],
+      "class": "CONVERSATIONAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0570",
+      "journey_id": "V2-0570",
+      "turn": 2,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "hybrid.settlement.banza_operational_boundary",
+        "hybrid.clearing.banza_operational_boundary"
+      ],
+      "capability_unit_ids": [
+        "capability.hybrid_followup",
+        "capability.document_followup"
+      ],
+      "question": "E o BANZA faz isso centralmente?",
+      "expected": "\\bn[ãa]o\\b",
+      "actual_terminal": "explanatory_trunk",
+      "actual_intent": "explain_concept",
+      "actual_entry_id": null,
+      "actual_answer": "O **BANZA** é um protocolo financeiro aberto que visa centralizar certos aspectos dos modelos subjacentes a qualquer sistema de pagamento, como livros-duplos, modelos de conta, máquinas de estado de transação, semântica ",
+      "ctx_leaving_prev_turn": false,
+      "ctx_used_this_turn": true,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /\\bn[ãa]o\\b/",
+      "all_reasons": [
+        "missing /\\bn[ãa]o\\b/"
+      ],
+      "class": "CONVERSATIONAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0570",
+      "journey_id": "V2-0570",
+      "turn": 3,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "hybrid.settlement.banza_operational_boundary",
+        "hybrid.clearing.banza_operational_boundary"
+      ],
+      "capability_unit_ids": [
+        "capability.hybrid_followup",
+        "capability.document_followup"
+      ],
+      "question": "Que documento define isso?",
+      "expected": "ADR|spec|contracts/|docs/",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "concept_explanation",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei evidência pública suficiente para responder com segurança a este pedido. Prefiro não adivinhar: indique o identificador do documento ou da decisão, ou reformule, para eu localizar a fonte canónica.",
+      "ctx_leaving_prev_turn": true,
+      "ctx_used_this_turn": true,
+      "interpreted_intent": "explain_concept",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /ADR|spec|contracts/|docs//"
+      ],
+      "class": "CONVERSATIONAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0571",
+      "journey_id": "V2-0571",
+      "turn": 2,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.trust.root.threshold"
+      ],
+      "capability_unit_ids": [
+        "capability.source_followup_not_hijacked",
+        "capability.source_followup"
+      ],
+      "question": "Que fonte diz isso?",
+      "expected": "ADR|spec|contracts/|docs/",
+      "actual_terminal": "source_evidence",
+      "actual_intent": "grounded",
+      "actual_entry_id": null,
+      "actual_answer": "Estas são as fontes que sustentam a resposta anterior:",
+      "ctx_leaving_prev_turn": false,
+      "ctx_used_this_turn": true,
+      "interpreted_intent": null,
+      "first_failing_boundary": "missing /ADR|spec|contracts/|docs//",
+      "all_reasons": [
+        "missing /ADR|spec|contracts/|docs//"
+      ],
+      "class": "CONVERSATIONAL",
+      "severity": "P0"
+    },
+    {
+      "question_id": "V2-0572",
+      "journey_id": "V2-0572",
+      "turn": 1,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.certification.not_admission"
+      ],
+      "capability_unit_ids": [
+        "capability.ambiguous_clarification"
+      ],
+      "question": "E isso?",
+      "expected": "\\w{10,}",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei uma operação ou fonte pública do **BANZA** que suporte este pedido. O **BanzAI** responde sobre o protocolo **BANZA** — as suas regras, decisões, contratos e execuções de validação — e não sobre assuntos fo",
+      "ctx_leaving_prev_turn": null,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal",
+        "missing /\\w{10,}/"
+      ],
+      "class": "CONVERSATIONAL",
+      "severity": "P1"
+    },
+    {
+      "question_id": "V2-0572",
+      "journey_id": "V2-0572",
+      "turn": 2,
+      "locale": "pt-PT",
+      "semantic_unit_ids": [
+        "banza.certification.not_admission"
+      ],
+      "capability_unit_ids": [
+        "capability.ambiguous_clarification"
+      ],
+      "question": "Certificação dá admissão automática?",
+      "expected": "\\bn[ãa]o\\b",
+      "actual_terminal": "insufficient_evidence",
+      "actual_intent": "no_source",
+      "actual_entry_id": null,
+      "actual_answer": "Não encontrei uma operação ou fonte pública do **BANZA** que suporte este pedido. O **BanzAI** responde sobre o protocolo **BANZA** — as suas regras, decisões, contratos e execuções de validação — e não sobre assuntos fo",
+      "ctx_leaving_prev_turn": false,
+      "ctx_used_this_turn": false,
+      "interpreted_intent": "unsupported",
+      "first_failing_boundary": "incorrect refusal",
+      "all_reasons": [
+        "incorrect refusal"
+      ],
+      "class": "CONVERSATIONAL",
+      "severity": "P1"
+    }
+  ]
+}

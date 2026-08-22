@@ -233,3 +233,46 @@ test("PROPERTY — no served answer makes a BANZA-specific claim without BANZA a
     "answers asserting something about BANZA with no BANZA authority behind them:\n  " + violations.join("\n  "),
   );
 });
+
+test("a declared BANZA position lets a domain-subject hybrid compose, and only a declared one", async () => {
+  // The tier declines when the subject is a domain concept and no SPECIFIC BANZA authority is known,
+  // which is right: pairing any concept with a catch-all would let "BANZA's position on X" be written
+  // from something that says nothing about X. It also left three DECLARED relations unanswerable —
+  // authorization, digital-signature and state-machine all have a domain subject, so the tier served
+  // the general definition and the answer never mentioned BANZA at all.
+  //
+  // The mapping is declared per concept. The second half of this test is the part that matters: a
+  // concept with no declared position must STILL decline, or the fix has become the fallback it was
+  // written to avoid.
+  const { harness: h } = await import("./_pipeline-harness.mjs");
+  const { canaryProvider: cp } = await import("./_production-canary.mjs");
+  const ask = async (q, locale) => {
+    const c = cp("MODEL PROSE");
+    const p = h({ provider: c.provider });
+    const r = await p.pipeline.answer(q, { locale });
+    return { res: r.result || {}, meta: r.meta || {} };
+  };
+
+  for (const [q, loc] of [
+    ["O que é que o BANZA especifica sobre autorização?", "pt-PT"],
+    ["O que é que o BANZA especifica sobre assinatura digital?", "pt-PT"],
+    ["What does BANZA specify about state machine?", "en"],
+  ]) {
+    const { res, meta } = await ask(q, loc);
+    assert.equal(meta.terminal_kind, "hybrid_relation", `${q}: must compose both halves`);
+    assert.match(res.answer, /BANZA/, `${q}: the BANZA half must actually be present`);
+  }
+
+  // Undeclared concepts keep declining to a plain definition.
+  for (const [q, loc] of [
+    ["O que é que o BANZA especifica sobre hash?", "pt-PT"],
+    ["What does BANZA specify about a nonce?", "en"],
+  ]) {
+    const { meta } = await ask(q, loc);
+    assert.notEqual(
+      meta.terminal_kind,
+      "hybrid_relation",
+      `${q}: no BANZA position is declared for this concept, so it must not compose one`,
+    );
+  }
+});

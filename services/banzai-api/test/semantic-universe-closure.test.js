@@ -214,7 +214,11 @@ test("every journey turn carries its own expectation", () => {
   for (const j of journeys) {
     if (j.turns.length < 2) weak.push(`${j.question_id} — single turn`);
     j.turns.forEach((t, i) => {
-      const n = (t.must || []).length + (t.must_not || []).length;
+      // `sources_continue_prior` IS an expectation, and a stricter one than a prose regex: it requires
+      // the turn to serve real source ids that continue the previous turn's evidence. Counting only
+      // must/must_not read a source follow-up as asserting nothing.
+      const n =
+        (t.must || []).length + (t.must_not || []).length + (t.sources_continue_prior ? 1 : 0);
       if (!n) weak.push(`${j.question_id} turn ${i + 1} — no expectation`);
     });
   }

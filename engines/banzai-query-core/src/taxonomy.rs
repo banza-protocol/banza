@@ -967,6 +967,31 @@ primeira; a(s) restante(s) ficam por responder até existir a fonte ou ferrament
 /// happened at the call site — "tool_unavailable" (a live tool/model could not run) or "insufficient_source"
 /// (grounding was attempted and declined); "" lets the engine decide from the resolution alone. The
 /// boundary/refusal path never calls this. The message is ALWAYS request-oriented and NEVER the topic list.
+/// True when the WHOLE query is a referential fragment — a pro-form and nothing else.
+///
+/// This is the shape that has no subject to resolve and no subject to be out of scope: "E isso?",
+/// "Isso?", "And that?". Anything with content after the pronoun ("Isso dá admissão automática?") is
+/// not this, and keeps its existing handling.
+fn is_bare_referential_fragment(nq: &str) -> bool {
+    let toks: Vec<&str> = nq.split(' ').filter(|t| !t.is_empty()).collect();
+    if toks.is_empty() || toks.len() > 3 {
+        return false;
+    }
+    const PRO_FORMS: &[&str] = &[
+        "isso", "isto", "esse", "essa", "aquilo", "that", "this", "it", "them", "these", "those",
+    ];
+    const FILLERS: &[&str] = &["e", "and", "o", "a", "so", "entao", "then", "ok"];
+    let mut saw_pro = false;
+    for t in &toks {
+        if PRO_FORMS.contains(t) {
+            saw_pro = true;
+        } else if !FILLERS.contains(t) {
+            return false;
+        }
+    }
+    saw_pro
+}
+
 pub fn contextual_fallback(question: &str, situation: &str) -> ContextualFallback {
     let r = resolve_query(question);
     let phrase = intent_phrase(&r);
@@ -1031,6 +1056,31 @@ ferramenta não está disponível neste momento**, por isso não invento a respo
             interpreted_intent: r.primary_intent.clone(),
             sub_intents: r.sub_intents.clone(),
             message: msg,
+            ambiguity_candidates: Vec::new(),
+        };
+    }
+
+    // A BARE REFERENTIAL FRAGMENT is not out of scope — it is unresolved, and saying otherwise is a
+    // false statement about what BanzAI covers.
+    //
+    // "E isso?" with nothing bound reached the out-of-scope terminal and was told that BanzAI "answers
+    // about the BANZA protocol and not about subjects outside that scope". The reader asked about no
+    // subject at all; there was nothing to be outside anything. The declared capability for this is
+    // `ambiguous_clarification`, which asks rather than declines, and it was unreachable because the
+    // fragment carries no entity for the resolver to fail on.
+    //
+    // Deliberately narrow: the whole query must be a pro-form fragment. "Isso dá admissão automática?"
+    // has real content after the pronoun and keeps the existing behaviour, which the certification
+    // context tests pin.
+    if is_bare_referential_fragment(&crate::normalize(question)) {
+        return ContextualFallback {
+            kind: "ambiguous".into(),
+            interpreted_intent: "unresolved_reference".into(),
+            sub_intents: r.sub_intents.clone(),
+            message: format!(
+                "Não percebi a que se refere. Indique o assunto concreto — o conceito, o documento ou a \
+decisão — e respondo.{note}"
+            ),
             ambiguity_candidates: Vec::new(),
         };
     }

@@ -63,6 +63,14 @@ fn is_canonicalization_phrase(nq: &str) -> bool {
             "duplicate keys",
             "duplicate members",
             "rfc 8785",
+            // The INTEGER DOMAIN, which is a BCJ/1 rule like the others here. It needs the bypass for
+            // the same reason the rest of this list does: "Qual é o domínio de inteiros do BCJ/1?" is
+            // eight tokens and the definition gate caps at six, so the Portuguese form fell through
+            // while the shorter English form ("What is BCJ/1's integer domain?", six tokens) resolved.
+            // A fact should not depend on how many words its language needs to ask for it.
+            "dominio de inteiros",
+            "dominio inteiro",
+            "integer domain",
         ],
     )
 }
@@ -92,6 +100,21 @@ pub fn asks_for_evidence(nq: &str) -> bool {
             "show the source",
             "evidencia",
             "evidence for",
+            // The DOCUMENT phrasing of the same request. A reader asking "que documento define isso?"
+            // after an answer wants the record behind it, exactly as "que fonte diz isso?" does — and
+            // that one was recognised while this one was read as a fresh governance query and declined.
+            //
+            // The document/record nouns only, and only where the question is asking WHICH one: "o que
+            // diz a ADR-025?" names its document and belongs to the exact-document resolver.
+            "que documento define",
+            "que documento diz",
+            "qual documento define",
+            "qual o documento",
+            "which document defines",
+            "which document says",
+            "what document defines",
+            "que adr define",
+            "which adr defines",
         ],
     )
 }
@@ -667,6 +690,12 @@ fn is_trust_guarantee_phrase(nq: &str) -> bool {
             "cross-observer",
             "garantias de confianca",
             "trust guarantees",
+            // FAIL-CLOSED, asked as a yes/no about blocking rather than about what happens on failure.
+            // `def-trust-guarantees` is the entry that states it, and the direct form already routed.
+            "trust invalido bloqueia",
+            "confianca invalida bloqueia",
+            "invalid trust block",
+            "invalid trust blocks",
         ],
     )
 }
@@ -981,6 +1010,64 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
     // "O que significa certificar uma implementação?" asks what certifying IS. Without a registered
     // surface it reached how-to-demonstrate-conformance — the PROCEDURE — because the two share the
     // domain noun, which is the collision this table exists to settle.
+    // ADMISSION. `def-admission` states the three-way separation exactly — certification evaluates an
+    // implementation and confers no admission, admission confers no regulatory authorisation — and it
+    // was referenced ONLY as a comparison alias, never as a routing target. Every way of asking about
+    // admission declined for want of public evidence while the answer sat in the catalogue, which is
+    // also why `banza.admission.not_authorisation` and `banza.certification.not_admission` were
+    // partially failing in production.
+    // WHERE the architecture decisions live. `protocol-decisions-adrs` says it exactly, and was only
+    // reachable as a grounded fallback — so "Onde encontro as decisões de arquitectura?" declined and
+    // the fuller phrasing was answered by the model from the protocol summary, without the word ADR.
+    (
+        "protocol-decisions-adrs",
+        &[
+            "decisoes de arquitectura",
+            "decisoes de arquitetura",
+            "decisao de arquitectura",
+            "decisao de arquitetura",
+            "architecture decisions",
+            "architecture decision",
+            "onde estao registadas as decisoes",
+            "where are banza s architecture decisions",
+        ],
+    ),
+    // PROTOCOL STATE is not a ledger. `banza-limits` states it; the direct form ("o PostgreSQL do BANZA
+    // guarda saldos?") reached `def-balance` and the paraphrase reached nothing at all.
+    (
+        "banza-limits",
+        &[
+            "estado de protocolo e um ledger",
+            "o estado de protocolo e um ledger",
+            "estado do protocolo e um ledger",
+            "protocol state a ledger",
+            "is protocol state a ledger",
+        ],
+    ),
+    (
+        "def-admission",
+        &[
+            "admissao operacional",
+            "operational admission",
+            "o que e admissao",
+            "what is admission",
+            // SUBJECT-QUALIFIED only. A bare "dá admissão" also matches "ISSO dá admissão
+            // automática?", whose subject is an unresolved pronoun — and `certification_context`
+            // already pins that such a turn must stay `insufficient` rather than invent a
+            // certification it was never given. Ambiguity fails safe; a NAMED subject resolves.
+            "certificacao da admissao",
+            "certificacao confere admissao",
+            "certificacao da-me admissao",
+            "certificado significa que fui admitido",
+            "estar certificado significa que fui admitido",
+            "certification grant admission",
+            "certification grants admission",
+            "certification confer admission",
+            "certification confers admission",
+            "certified mean i have been admitted",
+            "being certified mean i have been admitted",
+        ],
+    ),
     (
         "def-l2-certification",
         &[
@@ -1036,6 +1123,12 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
             "production ready",
             "ready for production",
             "production readiness",
+            // The lifecycle STAGE, named as such. The status entry is the one that states it, and this
+            // phrasing reached the generic protocol summary instead.
+            "fase do ciclo de vida",
+            "ciclo de vida do banza",
+            "lifecycle stage",
+            "lifecycle status",
             // PRODUCTION CERTIFICATES. The status entry states that no operator holds one, and the
             // question that asks it directly had no arm at all — "Existem certificados de produção?"
             // was declined for want of public evidence by an engine holding the answer.
@@ -1199,6 +1292,12 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
             // declined to give it because the question named its subject in one fewer word.
             "limiar",
             "threshold",
+            // Asked as a COUNT of signatures rather than by the word "limiar"/"threshold". The same
+            // fact, one step further from the vocabulary the arm was written around.
+            "quantas assinaturas raiz",
+            "quantas assinaturas da raiz",
+            "how many root signatures",
+            "how many signatures are required",
         ],
     ),
     // "Quem controla a Root?" — the question that started this milestone. It must reach the Root
@@ -1222,6 +1321,12 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
             // declined to give it because the question named its subject in one fewer word.
             "limiar",
             "threshold",
+            // Asked as a COUNT of signatures rather than by the word "limiar"/"threshold". The same
+            // fact, one step further from the vocabulary the arm was written around.
+            "quantas assinaturas raiz",
+            "quantas assinaturas da raiz",
+            "how many root signatures",
+            "how many signatures are required",
         ],
     ),
 ];
@@ -1611,6 +1716,11 @@ fn term_of(nq: &str) -> Option<&'static str> {
             "duplicate members",
             "rfc 8785",
             "jcs",
+            // The paraphrase. "Que inteiros o BCJ/1 permite?" resolved and "Qual é o domínio de
+            // inteiros do BCJ/1?" did not — one asks with the verb, the other with the noun.
+            "dominio de inteiros",
+            "dominio inteiro",
+            "integer domain",
         ],
     ) {
         return Some("def-bcj");
@@ -1645,6 +1755,12 @@ fn term_of(nq: &str) -> Option<&'static str> {
             "cross-observer",
             "garantias de confianca",
             "trust guarantees",
+            // FAIL-CLOSED, asked as a yes/no about blocking rather than about what happens on failure.
+            // `def-trust-guarantees` is the entry that states it, and the direct form already routed.
+            "trust invalido bloqueia",
+            "confianca invalida bloqueia",
+            "invalid trust block",
+            "invalid trust blocks",
         ],
     ) {
         return Some("def-trust-guarantees");
@@ -2220,6 +2336,14 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
     if (is_operational(nq) || is_onboarding(nq))
         && !boundary
         && !is_root_succession_phrase(nq)
+        // A GUARANTEE question has a settled answer, and the operational heuristic was closing the gate
+        // in front of it. "Trust inválido bloqueia?" reads as operational because of "bloqueia", so it
+        // returned None before `term_of` was ever consulted — while its English twin, "Does invalid
+        // trust block?", carried no such marker and was answered. The same fact, one locale answered.
+        //
+        // This is the exemption the comment above already describes: the heuristic still governs
+        // everything it was written for, and no longer overrides a subject the resolver has registered.
+        && !guarantee_phrase
         && critical_subject(nq).is_none()
     {
         return None;
