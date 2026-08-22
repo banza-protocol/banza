@@ -63,6 +63,14 @@ fn is_canonicalization_phrase(nq: &str) -> bool {
             "duplicate keys",
             "duplicate members",
             "rfc 8785",
+            // The INTEGER DOMAIN, which is a BCJ/1 rule like the others here. It needs the bypass for
+            // the same reason the rest of this list does: "Qual é o domínio de inteiros do BCJ/1?" is
+            // eight tokens and the definition gate caps at six, so the Portuguese form fell through
+            // while the shorter English form ("What is BCJ/1's integer domain?", six tokens) resolved.
+            // A fact should not depend on how many words its language needs to ask for it.
+            "dominio de inteiros",
+            "dominio inteiro",
+            "integer domain",
         ],
     )
 }
@@ -667,6 +675,12 @@ fn is_trust_guarantee_phrase(nq: &str) -> bool {
             "cross-observer",
             "garantias de confianca",
             "trust guarantees",
+            // FAIL-CLOSED, asked as a yes/no about blocking rather than about what happens on failure.
+            // `def-trust-guarantees` is the entry that states it, and the direct form already routed.
+            "trust invalido bloqueia",
+            "confianca invalida bloqueia",
+            "invalid trust block",
+            "invalid trust blocks",
         ],
     )
 }
@@ -1229,6 +1243,12 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
             // declined to give it because the question named its subject in one fewer word.
             "limiar",
             "threshold",
+            // Asked as a COUNT of signatures rather than by the word "limiar"/"threshold". The same
+            // fact, one step further from the vocabulary the arm was written around.
+            "quantas assinaturas raiz",
+            "quantas assinaturas da raiz",
+            "how many root signatures",
+            "how many signatures are required",
         ],
     ),
     // "Quem controla a Root?" — the question that started this milestone. It must reach the Root
@@ -1252,6 +1272,12 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
             // declined to give it because the question named its subject in one fewer word.
             "limiar",
             "threshold",
+            // Asked as a COUNT of signatures rather than by the word "limiar"/"threshold". The same
+            // fact, one step further from the vocabulary the arm was written around.
+            "quantas assinaturas raiz",
+            "quantas assinaturas da raiz",
+            "how many root signatures",
+            "how many signatures are required",
         ],
     ),
 ];
@@ -1641,6 +1667,11 @@ fn term_of(nq: &str) -> Option<&'static str> {
             "duplicate members",
             "rfc 8785",
             "jcs",
+            // The paraphrase. "Que inteiros o BCJ/1 permite?" resolved and "Qual é o domínio de
+            // inteiros do BCJ/1?" did not — one asks with the verb, the other with the noun.
+            "dominio de inteiros",
+            "dominio inteiro",
+            "integer domain",
         ],
     ) {
         return Some("def-bcj");
@@ -1675,6 +1706,12 @@ fn term_of(nq: &str) -> Option<&'static str> {
             "cross-observer",
             "garantias de confianca",
             "trust guarantees",
+            // FAIL-CLOSED, asked as a yes/no about blocking rather than about what happens on failure.
+            // `def-trust-guarantees` is the entry that states it, and the direct form already routed.
+            "trust invalido bloqueia",
+            "confianca invalida bloqueia",
+            "invalid trust block",
+            "invalid trust blocks",
         ],
     ) {
         return Some("def-trust-guarantees");
@@ -2250,6 +2287,14 @@ pub fn glossary_entry(nq: &str) -> Option<&'static str> {
     if (is_operational(nq) || is_onboarding(nq))
         && !boundary
         && !is_root_succession_phrase(nq)
+        // A GUARANTEE question has a settled answer, and the operational heuristic was closing the gate
+        // in front of it. "Trust inválido bloqueia?" reads as operational because of "bloqueia", so it
+        // returned None before `term_of` was ever consulted — while its English twin, "Does invalid
+        // trust block?", carried no such marker and was answered. The same fact, one locale answered.
+        //
+        // This is the exemption the comment above already describes: the heuristic still governs
+        // everything it was written for, and no longer overrides a subject the resolver has registered.
+        && !guarantee_phrase
         && critical_subject(nq).is_none()
     {
         return None;
