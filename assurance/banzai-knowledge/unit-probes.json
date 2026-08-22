@@ -1357,11 +1357,11 @@
       ],
       "pt-PT": {
         "direct": "O BANZA está pronto para produção?",
-        "paraphrase": "O BANZA já pode operar dinheiro real?"
+        "paraphrase": "Em que fase do ciclo de vida está o BANZA?"
       },
       "en": {
         "direct": "Is BANZA production ready?",
-        "paraphrase": "Can BANZA operate real money yet?"
+        "paraphrase": "What lifecycle stage is BANZA at?"
       },
       "must": {
         "pt-PT": [
@@ -3979,6 +3979,13 @@
       "was": "must: /\\w{10,}/",
       "now": "must: /reformul|indique|especifi|qual|refer/i  (a clarification, not a decline)",
       "why": "Same defect as O-2, and it hid a real engine bug: the declared capability is `ambiguous_clarification`, so an unresolvable reference must ASK, not decline as out of scope. The corrected probe asserts the clarification, which the engine currently fails — the correction makes the oracle harder to satisfy, not easier."
+    },
+    {
+      "id": "O-4",
+      "turns": "banza.status.pre_production paraphrase",
+      "was": "'O BANZA já pode operar dinheiro real?' / 'Can BANZA operate real money yet?'",
+      "now": "'Em que fase do ciclo de vida está o BANZA?' / 'What lifecycle stage is BANZA at?'",
+      "why": "The paraphrase changed the SUBJECT and stopped probing its unit. Asked whether BANZA can operate real money, the engine answers — correctly and completely — that BANZA does not process payments at all; that is the payments boundary's question, not the lifecycle status. Demanding the string PRE-PRODUCTION from it was demanding the wrong answer. The replacement stays on the lifecycle subject the unit names, and the direct form was always passing."
     }
   ]
 }

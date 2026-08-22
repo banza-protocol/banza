@@ -1001,6 +1001,34 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
     // admission declined for want of public evidence while the answer sat in the catalogue, which is
     // also why `banza.admission.not_authorisation` and `banza.certification.not_admission` were
     // partially failing in production.
+    // WHERE the architecture decisions live. `protocol-decisions-adrs` says it exactly, and was only
+    // reachable as a grounded fallback — so "Onde encontro as decisões de arquitectura?" declined and
+    // the fuller phrasing was answered by the model from the protocol summary, without the word ADR.
+    (
+        "protocol-decisions-adrs",
+        &[
+            "decisoes de arquitectura",
+            "decisoes de arquitetura",
+            "decisao de arquitectura",
+            "decisao de arquitetura",
+            "architecture decisions",
+            "architecture decision",
+            "onde estao registadas as decisoes",
+            "where are banza s architecture decisions",
+        ],
+    ),
+    // PROTOCOL STATE is not a ledger. `banza-limits` states it; the direct form ("o PostgreSQL do BANZA
+    // guarda saldos?") reached `def-balance` and the paraphrase reached nothing at all.
+    (
+        "banza-limits",
+        &[
+            "estado de protocolo e um ledger",
+            "o estado de protocolo e um ledger",
+            "estado do protocolo e um ledger",
+            "protocol state a ledger",
+            "is protocol state a ledger",
+        ],
+    ),
     (
         "def-admission",
         &[
@@ -1080,6 +1108,12 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
             "production ready",
             "ready for production",
             "production readiness",
+            // The lifecycle STAGE, named as such. The status entry is the one that states it, and this
+            // phrasing reached the generic protocol summary instead.
+            "fase do ciclo de vida",
+            "ciclo de vida do banza",
+            "lifecycle stage",
+            "lifecycle status",
             // PRODUCTION CERTIFICATES. The status entry states that no operator holds one, and the
             // question that asks it directly had no arm at all — "Existem certificados de produção?"
             // was declined for want of public evidence by an engine holding the answer.

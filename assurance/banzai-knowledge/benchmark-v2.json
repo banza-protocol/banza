@@ -2,7 +2,7 @@
   "schema_version": 1,
   "_generated_by": "tools/gen-banzai-benchmark-v2.mjs",
   "universe_hash": "bf1a472f7a99b68aa9df50021ca43b0e",
-  "corpus_hash": "93f4cf9eba4689efd97a0f90d2e05ee2",
+  "corpus_hash": "93cee39b9bcc1d81cda81946e1b1b3f7",
   "count": 572,
   "items": [
     {
@@ -5663,7 +5663,7 @@
       "intent": "STATUS_QUERY",
       "criticality": "P0",
       "form": "paraphrase",
-      "question": "O BANZA já pode operar dinheiro real?",
+      "question": "Em que fase do ciclo de vida está o BANZA?",
       "must": [
         "PRE-PRODUCTION|pré-produção|pre-produ"
       ],
@@ -5707,7 +5707,7 @@
       "intent": "STATUS_QUERY",
       "criticality": "P0",
       "form": "paraphrase",
-      "question": "Can BANZA operate real money yet?",
+      "question": "What lifecycle stage is BANZA at?",
       "must": [
         "PRE-PRODUCTION|pré-produção|pre-produ"
       ],

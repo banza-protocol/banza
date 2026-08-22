@@ -7236,6 +7236,13 @@ fn compound_safety_refusal(question: &str) -> bool {
 /// and route to the corresponding journey step for the full Rust/WASM engine. Conceptual questions
 /// ("o que é trust?", "como federar?") carry no analyse verb, so they fall through to grounding.
 fn technical_tool_intent(nq: &str) -> Option<&'static str> {
+    // An INVARIANT question is not a tool request. "Quais são as invariantes de avaliação de federação
+    // do BANZA?" names a family the registry answers, and the federation tool router captured it on the
+    // word "federação" alone — returning an analyse-this-artifact answer for a question about normative
+    // text. The invariant resolvers run later in route(), so the veto belongs here.
+    if crate::invariant::lookup(nq).is_some() || crate::invariant::family_lookup(nq).is_some() {
+        return None;
+    }
     // Defence-in-depth (belt-and-braces behind the boundaries, which run first in route()): never route a
     // query that carries pasted credential material OR a residual dangerous-command signal into a "tool".
     // The action/compound boundaries already refuse the strong cases; this bail covers anything they miss
