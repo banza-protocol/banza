@@ -85,7 +85,11 @@ has "$PIPELINE_JS" "coveredEntities\(\)\.has" || report "E pipeline covered-enti
 has "$PIPELINE_JS" "attribute_not_declared" || report "E pipeline attribute terminal" "missing"
 
 # F. no silent degrade — the attribute terminal uses the attribute's own answer, not the generic message.
-if grep -n "attributeAnswer(correctedQuestion)" "$PIPELINE_JS" >/dev/null 2>&1; then
+# Match the CALL, not one exact argument list. Pinning "attributeAnswer(correctedQuestion)" byte for
+# byte meant that threading a locale through — which the answer-locale contract requires — read as the
+# terminal having been removed. The property is that the pipeline builds this terminal from
+# attributeAnswer; how many arguments it passes is not the property.
+if grep -n "attributeAnswer(correctedQuestion" "$PIPELINE_JS" >/dev/null 2>&1; then
   ok "attribute terminal wired to the corrected question"
 else
   report "F attribute terminal" "pipeline.js does not build the attribute terminal from attributeAnswer"

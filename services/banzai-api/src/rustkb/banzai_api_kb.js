@@ -128,20 +128,23 @@ exports.answer_type_str = answer_type_str;
  * topic list). Returns the AttributeAnswer JSON; `matched:false` when this is not an attribute question
  * the registry owns (the pipeline then continues to normal grounding).
  * @param {string} question
+ * @param {string} locale
  * @returns {string}
  */
-function attribute_answer_json(question) {
-    let deferred2_0;
-    let deferred2_1;
+function attribute_answer_json(question, locale) {
+    let deferred3_0;
+    let deferred3_1;
     try {
         const ptr0 = passStringToWasm0(question, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         const len0 = WASM_VECTOR_LEN;
-        const ret = wasm.attribute_answer_json(ptr0, len0);
-        deferred2_0 = ret[0];
-        deferred2_1 = ret[1];
+        const ptr1 = passStringToWasm0(locale, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len1 = WASM_VECTOR_LEN;
+        const ret = wasm.attribute_answer_json(ptr0, len0, ptr1, len1);
+        deferred3_0 = ret[0];
+        deferred3_1 = ret[1];
         return getStringFromWasm0(ret[0], ret[1]);
     } finally {
-        wasm.__wbindgen_free(deferred2_0, deferred2_1, 1);
+        wasm.__wbindgen_free(deferred3_0, deferred3_1, 1);
     }
 }
 exports.attribute_answer_json = attribute_answer_json;

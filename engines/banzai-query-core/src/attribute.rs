@@ -72,7 +72,11 @@ fn detect_entity(nq: &str) -> Option<(&'static str, &'static str)> {
     if nq.contains("banzai") || nq.contains("banz ai") {
         return Some(("banzai", "o BanzAI"));
     }
-    if nq.contains("banza") || nq.contains("protocolo") {
+    // "protocol" alongside "protocolo": the English noun was missing, so "Which protocol version is
+    // current?" named no entity and the whole attribute path declined — while the Portuguese form of
+    // the same question resolved. The display string stays "o BANZA"; only the detector is bilingual,
+    // because the frame around the value is chosen later by locale.
+    if nq.contains("banza") || nq.contains("protocolo") || nq.contains("protocol") {
         return Some(("banza", "o BANZA"));
     }
     None
@@ -118,7 +122,18 @@ fn asks_version(nq: &str) -> bool {
 
 /// Resolve an attribute question to a deterministic answer, or None when it is not an attribute question
 /// this registry owns (the caller then continues to normal grounding).
-pub fn resolve_attribute_query(question: &str) -> Option<AttributeAnswer> {
+/// The attribute answer, in the locale the reader asked in.
+///
+/// The three bodies below were Portuguese-only, and the terminal that serves them declared no
+/// `answer_locale`, so an English reader asking "What version is the BANZA protocol?" received
+/// "A versão do protocolo **BANZA** é **1.0.0**…" — the right fact, in the wrong language, with
+/// nothing in the response able to detect it. Measured across the V2 baseline as a SILENT PT FALLBACK.
+///
+/// The VALUE is locale-independent — a version is 1.0.0 in any language — so only the prose around it
+/// is chosen here. `locale` accepts the wire values; anything unrecognised falls back to pt-PT, which
+/// is the canonical locale of this repository.
+pub fn resolve_attribute_query(question: &str, locale: &str) -> Option<AttributeAnswer> {
+    let en = locale.eq_ignore_ascii_case("en") || locale.to_ascii_lowercase().starts_with("en-");
     let nq = normalize(question);
     let (entity_id, display) = detect_entity(&nq)?;
 
@@ -133,11 +148,17 @@ pub fn resolve_attribute_query(question: &str) -> Option<AttributeAnswer> {
                 entity_id: entity_id.to_string(),
                 attribute_id: "creation_date".to_string(),
                 status: AttributeStatus::Declared.as_str().to_string(),
-                answer:
+                answer: if en {
+                    "**BANZA** was created on **01/08/2025 (1 August 2025)** — the creation / initial \
+availability date declared in NOTICE and MAINTAINERS. It is the protocol's historical origin, not a \
+production, certification or authorisation date."
+                        .to_string()
+                } else {
                     "O **BANZA** foi criado em **01/08/2025 (1 de agosto de 2025)** — a data de \
 criação / disponibilização inicial declarada no NOTICE e no MAINTAINERS. É a origem histórica do \
 protocolo, não uma data de produção, certificação ou autorização."
-                        .to_string(),
+                        .to_string()
+                },
                 reason_code: ReasonCode::ExactFactConfirmed.as_str().to_string(),
                 source_id: "NOTICE".to_string(),
             });
@@ -160,23 +181,38 @@ protocolo, não uma data de produção, certificação ou autorização."
                 entity_id: entity_id.to_string(),
                 attribute_id: "version".to_string(),
                 status: AttributeStatus::Declared.as_str().to_string(),
-                answer:
+                answer: if en {
+                    "The **BANZA** protocol version is **1.0.0** — the `protocol_version` value \
+declared in the normative manifest (`contracts/production/normative-manifest.json`), which indexes the \
+whole normative surface. It is the **protocol's** version, distinct from any release version of an \
+implementation or service."
+                        .to_string()
+                } else {
                     "A versão do protocolo **BANZA** é **1.0.0** — o valor de `protocol_version` \
 declarado no manifesto normativo (`contracts/production/normative-manifest.json`), que indexa toda a \
 superfície normativa. É a versão do **protocolo**, distinta de qualquer versão de release de uma \
 implementação ou serviço."
-                        .to_string(),
+                        .to_string()
+                },
                 reason_code: ReasonCode::ExactFactConfirmed.as_str().to_string(),
                 source_id: "normative-manifest".to_string(),
             });
         }
         // "para {display}" avoids the de+o/de+a contraction (never write "de o BANZA"); the display
         // strings carry their own article ("o BanzAI" / "a Banzami").
-        let answer = format!(
-            "A documentação pública canónica não declara uma versão única para {display}. \
+        let answer = if en {
+            format!(
+                "The canonical public documentation declares no single version for {display}. \
+Version **1.0.0** belongs to the **BANZA protocol**, not to this layer.",
+                display = display
+            )
+        } else {
+            format!(
+                "A documentação pública canónica não declara uma versão única para {display}. \
 A versão **1.0.0** é do **protocolo BANZA**, não desta camada.",
-            display = display
-        );
+                display = display
+            )
+        };
         return Some(AttributeAnswer {
             matched: true,
             entity_id: entity_id.to_string(),
@@ -192,8 +228,8 @@ A versão **1.0.0** é do **protocolo BANZA**, não desta camada.",
 }
 
 /// JSON for the WASM boundary: the AttributeAnswer, or `{"matched":false,...}` when not owned here.
-pub fn resolve_attribute_query_json(question: &str) -> String {
-    let ans = resolve_attribute_query(question).unwrap_or_else(AttributeAnswer::none);
+pub fn resolve_attribute_query_json(question: &str, locale: &str) -> String {
+    let ans = resolve_attribute_query(question, locale).unwrap_or_else(AttributeAnswer::none);
     serde_json::to_string(&ans).unwrap_or_else(|_| "{\"matched\":false}".to_string())
 }
 
@@ -211,7 +247,8 @@ mod tests {
             "quando foi criado o BANZA?",
             "data de criação do protocolo",
         ] {
-            let a = resolve_attribute_query(q).unwrap_or_else(|| panic!("{q} must resolve"));
+            let a =
+                resolve_attribute_query(q, "pt-PT").unwrap_or_else(|| panic!("{q} must resolve"));
             assert_eq!(a.entity_id, "banza", "{q}");
             assert_eq!(a.status, "DECLARED", "{q}");
             assert_eq!(a.reason_code, "EXACT_FACT_CONFIRMED", "{q}");
@@ -231,7 +268,7 @@ mod tests {
             "qual é a versão do protocolo BANZA?",
             "what is the BANZA protocol version?",
         ] {
-            let a = resolve_attribute_query(q).unwrap();
+            let a = resolve_attribute_query(q, "pt-PT").unwrap();
             assert_eq!(a.entity_id, "banza", "{q}");
             assert_eq!(a.status, "DECLARED", "{q}");
             assert_eq!(a.reason_code, "EXACT_FACT_CONFIRMED", "{q}");
@@ -254,7 +291,7 @@ mod tests {
     fn only_the_protocol_has_a_declared_version() {
         // BanzAI and Banzami declare none, and the answer must not let the protocol version leak onto them.
         for q in ["qual a versão do BanzAI?", "qual a versão da Banzami?"] {
-            let a = resolve_attribute_query(q).unwrap();
+            let a = resolve_attribute_query(q, "pt-PT").unwrap();
             assert_eq!(a.status, "NOT_DECLARED", "{q}");
             assert!(a.answer.contains("não declara"), "{q}");
             assert!(
@@ -275,7 +312,7 @@ mod tests {
             "qual a licença do BANZA?",
         ] {
             assert!(
-                resolve_attribute_query(q).is_none(),
+                resolve_attribute_query(q, "pt-PT").is_none(),
                 "{q} must NOT be an attribute query"
             );
         }

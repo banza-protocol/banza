@@ -1073,26 +1073,48 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
   // concise, non-narrative template around the exact value (never prose — a request that needs prose is
   // routed to the trunk by the classifier, never here). `term` is the Rust Terminal; `term.source` is the
   // canonical SourceCard. This is grounded and true, but carries llm_called:false (no generation).
-  function exactTerminal(term, meta) {
+  // The templates are per LOCALE. They were Portuguese-only, so an English reader asking "What version
+  // is the BANZA protocol?" was served "Versão de BANZA: **1.0.0**." — the right fact, in the wrong
+  // language, from a terminal that also never declared `answer_locale`, so nothing could detect it.
+  // The VALUE is locale-independent (a version, a date, an identifier); only the frame around it is not.
+  const EXACT_TEMPLATE = {
+    "pt-PT": {
+      status: (id, v) => `Estado de ${id}: **${v}**.`,
+      dateWithId: (id, v) => `Data de ${id}: **${v}**.`,
+      version: (id, v) => `Versão de ${id}: **${v}**.`,
+      identifier: (id, v) => `Identificador: **${v}**.`,
+      license: (id, v) => `A licença do protocolo é **${v}**.`,
+    },
+    en: {
+      status: (id, v) => `Status of ${id}: **${v}**.`,
+      dateWithId: (id, v) => `Date of ${id}: **${v}**.`,
+      version: (id, v) => `Version of ${id}: **${v}**.`,
+      identifier: (id, v) => `Identifier: **${v}**.`,
+      license: (id, v) => `The protocol licence is **${v}**.`,
+    },
+  };
+
+  function exactTerminal(term, meta, answerLocale) {
     const v = String(term.value || "").trim();
     const id = term.source && term.source.id ? String(term.source.id) : "";
+    const t = EXACT_TEMPLATE[answerLocale] || EXACT_TEMPLATE["pt-PT"];
     let body;
     switch (term.exact_kind) {
       case "status":
-        body = `Estado de ${id}: **${v}**.`;
+        body = t.status(id, v);
         break;
       case "date":
         // Protocol-level date values are already a full phrase; document dates get the id prefix.
-        body = id && id !== "NOTICE" ? `Data de ${id}: **${v}**.` : v;
+        body = id && id !== "NOTICE" ? t.dateWithId(id, v) : v;
         break;
       case "version":
-        body = `Versão de ${id}: **${v}**.`;
+        body = t.version(id, v);
         break;
       case "identifier":
-        body = `Identificador: **${v}**.`;
+        body = t.identifier(id, v);
         break;
       case "license":
-        body = `A licença do protocolo é **${v}**.`;
+        body = t.license(id, v);
         break;
       case "origin":
         body = v; // already a complete provenance phrase
@@ -1107,6 +1129,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       result: {
         grounded: true,
         answer: body,
+        answer_locale: answerLocale,
         sources,
         entry_id: null,
         provider: provider.name,
@@ -2434,7 +2457,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // deploy/domain/index dates) and NEVER the generic topic list. Runs AFTER every safety/critical
     // boundary above; skipped only when this turn IS the journey's next-step answer. reason_code carries the structured cause.
     if (!journeyOwnsTurn) {
-      const attr = attributeAnswer(correctedQuestion);
+      const attr = attributeAnswer(correctedQuestion, locale);
       if (attr) {
         const declared = attr.status === "DECLARED";
         const sources = declared && attr.source_id ? [{ id: attr.source_id, title: attr.source_id, path: "" }] : [];
@@ -2442,6 +2465,10 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
           result: {
             grounded: declared,
             answer: attr.answer,
+            // The third terminal found serving an answer with no declared locale. Rust composes this
+            // body, and it composed it in Portuguese regardless of who asked — so an English reader
+            // got the right fact in the wrong language and nothing in the response could say so.
+            answer_locale: locale,
             sources,
             entry_id: `attr-${attr.entity_id}-${attr.attribute_id}`,
             provider: provider.name,
@@ -2695,7 +2722,7 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     if (!hasExplanatoryCue && !documentId) {
       const term = buildTerminal(rq);
       if (term && term.kind === "exact_fact" && term.source) {
-        return exactTerminal(term, { answer_mode: mode, fallback_reason: null, intent, ...ctxMeta, ...docMeta });
+        return exactTerminal(term, { answer_mode: mode, fallback_reason: null, intent, ...ctxMeta, ...docMeta }, locale);
       }
       if (term && term.kind === "insufficient_evidence" && !docRes.found) {
         return contextualInsufficient(rq, "insufficient_source", { answer_mode: mode, fallback_reason: "exact_fact_unsourced", intent, terminal_kind: "insufficient_evidence", ...ctxMeta, ...docMeta }, locale);

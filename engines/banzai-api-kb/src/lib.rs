@@ -483,8 +483,8 @@ pub fn covered_entities_json() -> String {
 /// the registry owns (the pipeline then continues to normal grounding).
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
-pub fn attribute_answer_json(question: &str) -> String {
-    attribute::resolve_attribute_query_json(question)
+pub fn attribute_answer_json(question: &str, locale: &str) -> String {
+    attribute::resolve_attribute_query_json(question, locale)
 }
 
 /// Node WASM (M2.18B.5): deterministic typo tolerance / intent recovery. Returns the Recovery JSON

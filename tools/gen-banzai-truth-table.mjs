@@ -23,7 +23,7 @@ const J = (s) => { try { return JSON.parse(s); } catch { return null; } };
 const obligations = (q, s) => J(kb.answer_obligations_json(q, s || ""));
 const tasked = (q, s) => J(kb.tasked_answer_json(q, s || ""));
 const plan = (q, s) => J(kb.retrieval_plan_json(q, s || ""));
-const attribute = (q) => J(kb.attribute_answer_json(q));
+const attribute = (q) => J(kb.attribute_answer_json(q, "pt-PT"));
 const completion = (q, s, md, cited, n, ok) =>
   J(kb.task_completion_json(kb.answer_obligations_json(q, s || ""), md, JSON.stringify(cited || []), n, ok));
 
