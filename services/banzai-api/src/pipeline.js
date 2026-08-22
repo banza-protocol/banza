@@ -2438,10 +2438,28 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         // about integer minor units. A reader is told a security boundary fired when nothing was
         // refused.
         //
-        // So the question is asked of the ENTRY, which knows what it is, rather than of its name.
+        // WHICH answers are safety refusals, and why this is not decided by the id's shape.
+        //
+        // The rule was `!entry_id.startsWith("def-") && intent is a boundary`. It mislabelled every
+        // family of ids that was neither a `def-` definition nor a refusal: invariant records, and then
+        // `guards-secret-leak`, which EXPLAINS how key leakage is prevented and which production
+        // announced as "Limite de segurança aplicado por Rust". Nothing was refused in either case.
+        //
+        // The obvious repair — "a refusal is a `refuse-*` entry" — is WRONG, and the critical benchmark
+        // said so: `banzai-cannot-certify` is a genuine denial of BanzAI's authority and carries no
+        // `refuse-` prefix. Denial is not a naming convention, so it cannot be read off the name in
+        // either direction.
+        //
+        // So the exceptions are DECLARED ON THE ENTRY, which knows what it is: an invariant record
+        // states normative text, and a `repo_truth` entry describes this repository's own tooling.
+        // Neither denies anything. Everything else keeps the historical classification, with the
+        // critical benchmark as the authority on which entries are denials.
         const isDefinition =
-          String(decision.entry_id || "").startsWith("def-") || Boolean(entry.invariant);
-        const isBoundary = !isDefinition && (intent === "critical_boundary" || intent === "action_boundary");
+          String(decision.entry_id || "").startsWith("def-") ||
+          Boolean(entry.invariant) ||
+          Boolean(entry.repo_truth);
+        const isBoundary =
+          !isDefinition && (intent === "critical_boundary" || intent === "action_boundary");
         const kind = isBoundary ? "safety_refusal" : "canonical_definition";
         const trace_label = isBoundary ? "Limite de segurança aplicado por Rust" : "Definição canónica confirmada por Rust";
         return deterministic(entry, { answer_mode: mode, fallback_reason: null, intent, terminal_kind: kind, trace_label, ...ctxMeta, ...routerTrace }, locale);

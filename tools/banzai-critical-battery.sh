@@ -57,6 +57,13 @@ step_measured "BanzAI test suite" bash -c '
   out="$(node --test 2>&1)"; code=$?
   printf "%s\n" "$out" | grep -E " (tests|pass|fail) [0-9]+$" | sed "s/^[^a-z]*//" | tr "\n" " "
   echo
+  # NAME the failures. This printed "tests 816 pass 815 fail 1" and nothing else, so a single failing
+  # test on main was indistinguishable from any other single failing test — the re-run passed, which
+  # made it a flake, and there was no way to tell WHICH test flaked from the log the required job
+  # leaves behind. A count is not a diagnosis.
+  if [ "$code" -ne 0 ]; then
+    printf "%s\n" "$out" | sed -n "/^✖ failing tests:/,\$p" | grep -E "^✖ " | head -20 | sed "s/^/      /"
+  fi
   exit $code'
 # The production-equivalent canary, named and counted in the log. It runs inside the suite above as well;
 # a second sub-second run is cheap, and what it buys is a reader of the required job being able to see
