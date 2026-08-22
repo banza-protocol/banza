@@ -5778,6 +5778,21 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     if let Some(id) = crate::glossary::glossary_entry(nq) {
         return Some(id);
     }
+    // The declared DOMAIN vocabulary, after every BANZA arm above.
+    //
+    // Ordering is the whole point. A term BANZA defines is answered from BANZA authority; only a term
+    // BANZA does NOT define falls through to here, where the answer is a general definition with a
+    // domain authority behind it. So "idempotência" reaches the BANZA invariant and "nonce" reaches the
+    // domain definition, and neither borrows the other's standing.
+    //
+    // Gated on the same shapes the glossary gate accepts, and no more: a domain concept merely
+    // MENTIONED inside a longer operational question is not a request to define it, and answering it as
+    // one would take the question away from the path written for it.
+    if crate::glossary::is_domain_definition_shape(nq) {
+        if let Some(id) = crate::domain::resolve_domain(nq) {
+            return Some(id);
+        }
+    }
     None
 }
 

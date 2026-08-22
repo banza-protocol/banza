@@ -37,6 +37,7 @@ pub mod coverage;
 pub mod diagnose;
 pub mod disposition;
 pub mod docref;
+pub mod domain;
 pub mod factcheck;
 pub mod factpack;
 pub mod frame;

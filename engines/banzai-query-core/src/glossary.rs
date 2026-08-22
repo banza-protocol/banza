@@ -194,6 +194,16 @@ fn is_locative_query(nq: &str) -> bool {
         || q.starts_with("where does ")
 }
 
+/// A query shaped like a request for a DOMAIN definition.
+///
+/// Deliberately the shapes this file's own gate accepts, and no more: a definition or explanatory lead
+/// (with any trailing style qualifier removed), or a bare term. A domain concept merely mentioned
+/// inside a longer operational question is not a request to define it.
+pub fn is_domain_definition_shape(nq: &str) -> bool {
+    let nq = without_style_qualifier(nq);
+    starts_definition_lead(nq) || count(nq) <= 2
+}
+
 fn starts_definition_lead(nq: &str) -> bool {
     [
         "o que e ",
