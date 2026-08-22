@@ -1016,6 +1016,24 @@ fn has_authority_verb(nq: &str) -> bool {
                 "approve the rules",
                 "autoriza operador",
                 "autoriza operadores",
+                // The INFINITIVE. The bigram is deliberate — bare "autoriza" must stay grounded so an
+                // operator authorising a payment is not read as a boundary — but "autorizaR operadores"
+                // puts an r between the two words and matched nothing.
+                //
+                // This was invisible because typo recovery was rewriting "autorizar" to "autoriza",
+                // which DID match: the critical benchmark case passed through a corruption. Fixing the
+                // corrector exposed the gap it had been hiding, which is the argument for fixing
+                // correctors rather than living with them.
+                "autorizar operador",
+                "autorizar operadores",
+                // The English pair, for the same reason and with the same shape. `approves_verb` above
+                // is word-bounded and covers approve/license; authorise/authorize were only ever
+                // reachable as Portuguese bigrams, so "Can BanzAI authorise operators?" grounded while
+                // its Portuguese twin was settled at the boundary — the same question, two answers.
+                "authorise operator",
+                "authorise operators",
+                "authorize operator",
+                "authorize operators",
                 "aceita operador",
                 "aceita operadores",
                 "emite licenca",

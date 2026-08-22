@@ -150,3 +150,32 @@ fn the_questions_that_were_corrupted_now_reach_their_concepts() {
         );
     }
 }
+
+#[test]
+fn the_boundary_does_not_depend_on_a_typo_correction_to_fire() {
+    // A critical-benchmark case was passing THROUGH a corruption: recovery rewrote "autorizar" to
+    // "autoriza", and only the rewritten form matched the boundary bigram "autoriza operadores" — the
+    // infinitive puts an r between the two words. Fixing the corrector exposed the gap it had hidden.
+    //
+    // Both forms must reach the boundary on their own, with no correction in between.
+    use banzai_query_core::route::route;
+    for q in [
+        "O BanzAI pode autorizar operadores?",
+        "O BanzAI pode autoriza operadores?",
+        "Can BanzAI authorise operators?",
+    ] {
+        let r = route(q);
+        assert_ne!(
+            r.action, "qwen",
+            "{q:?} is an authority boundary and must be settled before the model"
+        );
+    }
+
+    // And the design it must not break: an OPERATOR authorising a payment is ordinary mechanics, not a
+    // boundary. That is why the bare verb is not word-bounded and the bigram exists.
+    assert_eq!(
+        route("como um operador autoriza um pagamento").action,
+        "qwen",
+        "operator mechanics must stay grounded"
+    );
+}
