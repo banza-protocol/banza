@@ -165,3 +165,56 @@ story.
 
 `make assurance-check` reports AG-0…AG-9 PASS with their evidence present. AG-10 is the release/freeze
 gate and remains NOT_RUN: the protocol stays PRE-PRODUCTION, and absence is never PASS.
+
+## The reachability repair, and the final V2 measurement
+
+Two more deployments after `src-1c893be`, both one container, both proven by build-context diff and
+container uptime.
+
+| | `src-ef21f43` | `src-1c893be` | `src-acb0f1b` |
+|---|---|---|---|
+| A · universe mapping coverage | 100% | 100% | 100% |
+| B · execution coverage | 100% | 100% | 100% |
+| C · behavioral pass rate | **49.5%** | **87.1%** | **89.9%** |
+| fully-passing factual units | 132/176 | 167/176 | **173/176** |
+
+| class | ef21f43 | 1c893be | acb0f1b |
+|---|---|---|---|
+| invariant members | 44.5% | 100% | 100% |
+| REPO_TRUTH | 50.0% | 50.0% | **100%** |
+| RUNTIME_TRUTH | 48.3% | 48.3% | **86.7%** |
+| DOMAIN | 41.5% | 94.0% | 94.0% |
+| BANZA_NORMATIVE | 57.2% | 87.7% | 87.7% |
+| BANZA_SUPPORTING | 50.0% | 75.0% | 66.7% |
+
+Every locale counter is now zero: `false_answer_locale`, `silent_pt_fallback` and
+`unavailable_placeholder` all disappear from the run.
+
+### What the RUNTIME_TRUTH and REPO_TRUTH repair actually was
+
+Not one of those failures was a knowledge gap. Every answer existed, current and correct, and the
+phrasing a reader uses missed the gate. Three of the misses are one Portuguese habit each — the copula
+("l0 congelado" is not inside "o l0 ESTÁ congelado"), the interposed "é que", and the passive ("impede"
+is not inside "impedida"). Production certificates had no arm at all.
+
+Three terminals were also found serving answers that never declared `answer_locale`: `familyAnswer`,
+the exact-fact terminal (Portuguese-only templates) and the Rust attribute composer (Portuguese
+regardless of who asked). `answer_locale` is what the locale contract is checked against, so the
+guarantee was simply inapplicable to all three.
+
+### What the 58 remaining failures are
+
+| group | count |
+|---|---|
+| other BANZA facts | 20 |
+| invariant families | 13 |
+| DOMAIN | 12 |
+| conversational journeys | 7 |
+| HYBRID | 4 |
+| RUNTIME_TRUTH | 2 |
+
+The **conversational journeys** are the one genuinely unexplored area: seven of eight fail at least one
+turn, and the failures are follow-up resolution rather than missing knowledge — turn 3 of the profile
+journey ("Qual é a diferença entre os dois?") refuses instead of naming L2 and L3. Eleven capabilities
+were declared for this and never exercised against the deployed system until this corpus existed. That
+is the next repair, and it is named here rather than folded into a percentage.
