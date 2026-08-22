@@ -136,3 +136,100 @@ test("a two-concept comparison is still a comparison", async () => {
   const { meta } = await ask("qual a diferenca entre clearing e settlement", "pt-PT");
   assert.equal(meta.terminal_kind, "comparison", "two genuine targets stay a comparison");
 });
+
+// ── PROPERTY-LEVEL · the forbidden BEHAVIOUR cannot become PASS ───────────────────────────────────
+//
+// The mutations above target ENFORCEMENT: remove one guard and the other still holds, which is defence
+// in depth rather than proof. What follows targets the PROPERTY itself, and it is asserted on the
+// DELIVERED ANSWER rather than on any mechanism, so it holds however the answer came to be.
+//
+// The forbidden behaviour, stated exactly: an answer that makes a BANZA-SPECIFIC factual claim while
+// carrying no eligible BANZA authority. That is the shape of "BANZA performs settlement" written from a
+// source that only defines settlement — the claim the whole authority split exists to prevent.
+//
+// This does not ask which guard stopped it. It asks whether any served answer exhibits it.
+
+/** Sentences that assert something about what BANZA itself does, requires or is. */
+const BANZA_SPECIFIC_CLAIM = [
+  /\bBANZA\b[^.!?]{0,80}\b(exige|requer|define|garante|proíbe|permite|faz|liquida|processa|mantém|guarda)\b/i,
+  /\bBANZA\b[^.!?]{0,80}\b(requires|defines|guarantees|prohibits|permits|performs|settles|processes|holds|keeps)\b/i,
+];
+
+function makesBanzaSpecificClaim(text) {
+  return BANZA_SPECIFIC_CLAIM.some((re) => re.test(String(text || "")));
+}
+
+function hasEligibleBanzaAuthority(sources) {
+  return (sources || []).some((s) => s && (s.class || "banza") !== "domain");
+}
+
+test("PROPERTY — a relation answer always carries eligible BANZA authority", async () => {
+  // The invariant stated directly on the DELIVERED RESULT, not on any mechanism.
+  //
+  // A `hybrid_relation` answer contains a half that claims to state BANZA's position on the subject.
+  // Whatever that half happens to say, an eligible BANZA source must stand behind it — otherwise the
+  // protocol's position is being asserted from a document that never discusses the protocol.
+  //
+  // This is what the enforcement-level mutations could not prove. Removing both guards produces exactly
+  // the forbidden shape: `como é que um nonce se relaciona com o BANZA` served as a relation with
+  // `NIST-CSRC:domain` as its only source. The prose in that case makes no false claim about BANZA, so
+  // a prose-matching assertion stays green while the property is plainly violated. This one does not.
+  const QUERIES = [
+    ["qual a diferenca entre settlement e o que o banza especifica", "pt-PT"],
+    ["what is the difference between settlement and what banza specifies", "en"],
+    ["como e que settlement se relaciona com o banza", "pt-PT"],
+    ["how does settlement relate to banza", "en"],
+    ["does banza perform settlement", "en"],
+    ["o banza exige um ledger", "pt-PT"],
+    ["como e que um nonce se relaciona com o banza", "pt-PT"],
+    ["how does a hash relate to banza", "en"],
+    ["como e que uma assinatura digital se relaciona com o banza", "pt-PT"],
+  ];
+  const violations = [];
+  for (const [q, loc] of QUERIES) {
+    const { result, meta } = await ask(q, loc);
+    if (meta.terminal_kind !== "hybrid_relation") continue;
+    if (!hasEligibleBanzaAuthority(result.sources)) {
+      violations.push(
+        `${q} → served as a relation with only ${(result.sources || []).map((s) => s.id + ":" + (s.class || "banza")).join(",") || "no sources"}`,
+      );
+    }
+  }
+  assert.deepEqual(
+    violations,
+    [],
+    "relation answers stating BANZA's position with no BANZA authority behind them:\n  " + violations.join("\n  "),
+  );
+});
+
+test("PROPERTY — no served answer makes a BANZA-specific claim without BANZA authority", async () => {
+  // Swept across the hybrid family and its neighbours, in both locales. The assertion is on what was
+  // delivered: if the prose asserts something about BANZA, an eligible BANZA source must stand behind
+  // it. No mechanism is named, so no rearrangement of the mechanisms can satisfy it vacuously.
+  const QUERIES = [
+    ["qual a diferenca entre settlement e o que o banza especifica", "pt-PT"],
+    ["what is the difference between settlement and what banza specifies", "en"],
+    ["como e que settlement se relaciona com o banza", "pt-PT"],
+    ["how does settlement relate to banza", "en"],
+    ["does banza perform settlement", "en"],
+    ["o banza faz settlement", "pt-PT"],
+    ["o banza exige um ledger", "pt-PT"],
+    ["does banza require a ledger", "en"],
+    ["como e que um nonce se relaciona com o banza", "pt-PT"],
+    ["how does a hash relate to banza", "en"],
+    ["como e que uma assinatura digital se relaciona com o banza", "pt-PT"],
+  ];
+  const violations = [];
+  for (const [q, loc] of QUERIES) {
+    const { result } = await ask(q, loc);
+    const answer = String(result.answer || "");
+    if (makesBanzaSpecificClaim(answer) && !hasEligibleBanzaAuthority(result.sources)) {
+      violations.push(`${q} → ${(result.sources || []).map((s) => s.id + ":" + (s.class || "banza")).join(",") || "no sources"}`);
+    }
+  }
+  assert.deepEqual(
+    violations,
+    [],
+    "answers asserting something about BANZA with no BANZA authority behind them:\n  " + violations.join("\n  "),
+  );
+});
