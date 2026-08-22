@@ -22,6 +22,17 @@ const INVARIANTS_JSON: &str = include_str!("invariants.json");
 #[derive(Deserialize)]
 struct File {
     invariants: Vec<Invariant>,
+    #[serde(default)]
+    families: Vec<Family>,
+}
+
+#[derive(Deserialize, Clone)]
+pub struct Family {
+    pub family: String,
+    pub members: Vec<String>,
+    /// Normalized labels for this family, longest first — the id-derived form plus one declared
+    /// bilingual label, because a Portuguese reader asks for "invariantes da RAIZ" and never "root".
+    pub aliases: Vec<String>,
 }
 
 #[derive(Deserialize, Clone)]
@@ -39,6 +50,49 @@ fn all() -> &'static [Invariant] {
             .expect("invariants.json")
             .invariants
     })[..]
+}
+
+fn all_families() -> &'static [Family] {
+    static F: OnceLock<Vec<Family>> = OnceLock::new();
+    &F.get_or_init(|| {
+        serde_json::from_str::<File>(INVARIANTS_JSON)
+            .expect("invariants.json")
+            .families
+    })[..]
+}
+
+/// The invariant FAMILY a normalized query asks about, if it asks about one.
+///
+/// A family question — "quais são as invariantes de QR do BANZA?" — is a different unit from any of its
+/// members, and it had no resolver at all: it fell through to lexical retrieval and came back as the
+/// protocol summary. Measured across the V2 corpus, seven of the twelve critical families were answered
+/// that way.
+///
+/// It requires BOTH an invariant cue and a family label, because the label alone is far too common:
+/// "ledger", "qr" and "raiz" appear throughout the corpus in questions that are not about invariants.
+/// A query naming a specific MEMBER is not a family question — the member resolver owns that, and it
+/// runs first.
+pub fn family_lookup(nq: &str) -> Option<&'static Family> {
+    if lookup(nq).is_some() {
+        return None;
+    }
+    let cue = nq
+        .split(' ')
+        .any(|t| matches!(t, "invariante" | "invariantes" | "invariant" | "invariants"));
+    if !cue {
+        return None;
+    }
+    all_families()
+        .iter()
+        .filter(|f| f.aliases.iter().any(|a| contains_token_run(nq, a)))
+        .max_by_key(|f| {
+            f.aliases
+                .iter()
+                .filter(|a| contains_token_run(nq, a))
+                .map(|a| a.len())
+                .max()
+                .unwrap_or(0)
+        })
 }
 
 /// Every registered invariant id — for the closure guard, which must be able to prove the engine
@@ -107,6 +161,61 @@ mod tests {
             "INV-FED-LEDGER-001"
         );
         assert_eq!(lookup("inv fed 001").unwrap().id, "INV-FED-001");
+    }
+
+    #[test]
+    fn a_family_question_reaches_its_family() {
+        assert_eq!(
+            family_lookup("quais sao as invariantes de qr do banza")
+                .unwrap()
+                .family,
+            "INV-QR"
+        );
+        assert_eq!(
+            family_lookup("explica as invariantes da raiz")
+                .unwrap()
+                .family,
+            "INV-ROOT"
+        );
+        assert_eq!(
+            family_lookup("what are the wallet invariants in banza")
+                .unwrap()
+                .family,
+            "INV-WALLET"
+        );
+        assert_eq!(
+            family_lookup("explica as invariantes de cobranca")
+                .unwrap()
+                .family,
+            "INV-COLLECTION"
+        );
+    }
+
+    #[test]
+    fn a_member_question_is_not_a_family_question() {
+        // The member resolver owns an id. If both fired, "o que exige INV-QR-001" would be answered
+        // with the whole QR family instead of the invariant the reader named.
+        assert!(family_lookup("o que exige a invariante inv qr 001 do banza").is_none());
+    }
+
+    #[test]
+    fn a_family_label_without_an_invariant_cue_is_not_a_family_question() {
+        // "ledger", "qr" and "raiz" are ordinary words in this corpus. Without the cue this gate would
+        // capture most of the domain layer.
+        assert!(family_lookup("o que e um ledger").is_none());
+        assert!(family_lookup("o que e uma raiz de confianca").is_none());
+        assert!(family_lookup("como funciona o qr").is_none());
+    }
+
+    #[test]
+    fn the_longest_family_label_wins() {
+        // INV-FED and INV-FED-LEDGER both exist; the more specific one must win.
+        assert_eq!(
+            family_lookup("quais sao as invariantes de fed ledger")
+                .unwrap()
+                .family,
+            "INV-FED-LEDGER"
+        );
     }
 
     #[test]

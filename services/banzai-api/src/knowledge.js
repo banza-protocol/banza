@@ -3477,8 +3477,46 @@ export function invariantIds() {
   return [...INVARIANT_FACTS.values()].map((f) => f.id);
 }
 
+// An invariant FAMILY, composed from the same registry as its members.
+//
+// The family question is a different unit from any member — "quais são as invariantes do ledger?" is
+// what a reader asks, and it had no answer: seven of the twelve critical families were being served
+// the protocol summary. Composing it here keeps the two granularities on one source, so a registry
+// change cannot leave the family answer describing a set that no longer exists.
+const INVARIANT_FAMILIES = new Map(
+  (invariantFacts.families || []).map((f) => [f.family.toLowerCase(), f]),
+);
+
+function invariantFamilyEntry(id) {
+  const fam = INVARIANT_FAMILIES.get(String(id).replace(/^inv-family-/, "").toLowerCase());
+  if (!fam) return null;
+  const members = fam.members.map((m) => INVARIANT_FACTS.get(m.toLowerCase())).filter(Boolean);
+  if (!members.length) return null;
+  const line = (f) => `- **${f.id}** — *${f.title}*: ${f.statement}`;
+  const body = members.map(line).join("\n");
+  const n = members.length;
+  return {
+    id: String(id).toLowerCase(),
+    critical: members.some((m) => m.severity === "critical"),
+    deterministic: true,
+    keywords: [],
+    invariant: true,
+    realizations: {
+      "pt-PT":
+        `A família **${fam.family}** do registo normativo do **BANZA** tem ${n} invariante${n === 1 ? "" : "s"}. ` +
+        `O texto que vincula qualquer implementação é o seguinte:\n\n${body}\n\n` +
+        "Fonte normativa: `contracts/invariants.json`.",
+      en:
+        `The **${fam.family}** family of the **BANZA** normative registry has ${n} invariant${n === 1 ? "" : "s"}. ` +
+        `The text that binds any implementation is:\n\n${body}\n\n` +
+        "Normative source: `contracts/invariants.json`.",
+    },
+    sources: [SOURCES.invariants],
+  };
+}
+
 export function getEntry(id) {
-  return ENTRIES_BY_ID.get(id) || invariantEntry(id);
+  return ENTRIES_BY_ID.get(id) || invariantEntry(id) || invariantFamilyEntry(id);
 }
 
 // M2.8G routing policy (ADR-036): the Rust engine decides how to answer — { action, entry_id, intent,

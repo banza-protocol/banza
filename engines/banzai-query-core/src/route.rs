@@ -7515,6 +7515,21 @@ pub fn route(question: &str) -> Route {
             };
         }
     }
+    // The invariant FAMILY, for the question that asks about the group rather than a member. It runs
+    // immediately after the member resolver and defers to it: naming INV-QR-001 is not asking about QR.
+    // Measured across the V2 corpus, seven of the twelve critical families were answered with the
+    // protocol summary because nothing routed them.
+    if !crate::compare::is_comparison(&nq) {
+        if let Some(fam) = crate::invariant::family_lookup(&nq) {
+            return Route {
+                action: "deterministic",
+                entry_id: Some(format!("inv-family-{}", fam.family.to_lowercase())),
+                intent: "critical_boundary",
+                reason: "an invariant family named by its label is served from the registry",
+            };
+        }
+    }
+
     // M2.18 — EXACT-DOCUMENT RESOLVER (resolver-first; architecture doc §1 rule R1). A NUMBERED
     // document reference — "ADR 002" / "adr-2" / "adr002" / "RFC 14" — names a SPECIFIC canonical
     // record. The generic glossary DEFINITION ("def-adr": *what is an ADR*) must never swallow it:
@@ -7853,6 +7868,10 @@ pub fn is_verbatim_entry(entry_id: &str) -> bool {
         // prevent, and it is sharper here: a paraphrase of "integers in minor units, never floating
         // point" that drifts is a wrong answer about a financial invariant.
         || crate::invariant::lookup(&entry_id.replace('-', " ")).is_some()
+        // A family answer is a list of normative statements, served verbatim for the same reason a
+        // single one is: "explica as invariantes do ledger" carries an explanatory cue, and recomposing
+        // five normative statements is five chances to drift.
+        || entry_id.starts_with("inv-family-")
 }
 
 pub fn route_json(question: &str) -> String {

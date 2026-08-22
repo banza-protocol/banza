@@ -172,7 +172,7 @@ root-threshold-model-check:
 banza-whitepaper-check:
 	@bash tools/check-banza-whitepaper.sh
 
-.PHONY: l0-regulatory-boundary-check canonical-profiles-rs profile-vocabulary-check website-hermetic-build-check website-guard-targets-check website-locale-roots-check banzai-entries-index banzai-entries-index-check banzai-source-paths-check banzai-answer-policy-check banzai-lifecycle-facts-check banzai-wasm-source-bound-check current-doc-links-check website-copy-resolved website-copy-resolved-check website-chrome-resolved website-chrome-resolved-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
+.PHONY: l0-regulatory-boundary-check canonical-profiles-rs profile-vocabulary-check website-hermetic-build-check website-guard-targets-check website-locale-roots-check banzai-entries-index banzai-entries-index-check banzai-known-words banzai-known-words-check banzai-source-paths-check banzai-answer-policy-check banzai-lifecycle-facts-check banzai-wasm-source-bound-check current-doc-links-check website-copy-resolved website-copy-resolved-check website-chrome-resolved website-chrome-resolved-check website-reference-mirror website-reference-source-boundary-check reference-source-authority-check reference-structural-parity-check reference-check
 ## website-copy-resolved: GENERATOR — realize every BanzAI catalogue id in both editions into website/lib/copyResolved.json. Block E2 moved the surfaces' sentences into bilingual catalogues, so a guard can no longer grep a component for the copy it renders; it reads this instead. Never hand-edited.
 website-copy-resolved:
 	@cd website && node scripts/emit-copy-resolved.mjs
@@ -228,6 +228,17 @@ banzai-wasm-source-bound-check:
 ## banzai-entries-index: regenerate the lexical keyword index from the entries explicitly marked lexicalCandidate
 banzai-entries-index:
 	@node tools/gen-banzai-entries-index.mjs
+
+## banzai-known-words: regenerate the declared-vocabulary set that typo recovery must never "correct"
+banzai-known-words:
+	@node tools/gen-banzai-known-words.mjs
+
+## banzai-known-words-check: the declared vocabulary in the engine matches the catalogue it is derived from
+banzai-known-words-check:
+	@node tools/gen-banzai-known-words.mjs --stdout > /tmp/known-words-fresh.json 2>/dev/null || node tools/gen-banzai-known-words.mjs >/dev/null
+	@git diff --quiet -- engines/banzai-query-core/src/known-words.json || { \
+		echo "banzai-known-words-check: STALE — run 'make banzai-known-words' and commit the result"; exit 1; }
+	@echo "banzai-known-words-check: OK"
 
 ## banzai-entries-index-check: The lexical keyword index is derived from the canonical entries, in ENTRIES order (ties break by index position), and its membership is a curated routing-eligibility decision rather than `critical`
 banzai-entries-index-check:

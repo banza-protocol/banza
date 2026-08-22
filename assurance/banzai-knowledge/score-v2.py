@@ -49,6 +49,7 @@ byprio = collections.defaultdict(lambda: [0, 0])
 byclass = collections.defaultdict(lambda: [0, 0])
 fails = []
 verdicts = []
+unit_pass = collections.defaultdict(lambda: [0, 0])
 covered_units = set()
 counters = collections.Counter()
 unit_class = {u["semantic_id"]: u["knowledge_class"] for u in uni["units"]}
@@ -81,6 +82,19 @@ for d in rows:
             for rx in ts.get("must_not", []):
                 if re.search(rx, ta, re.I):
                     why.append(f"turn {idx}: FORBIDDEN /{rx}/")
+            # A SOURCE follow-up is judged on the sources it served, not on its prose. The terminal puts
+            # the identities in `sources` and a lead sentence in the body — that is the shipped contract —
+            # so reading the body failed turns that had cited correctly. This is the stronger property:
+            # real ids, non-empty, and continuous with what the previous turn actually cited.
+            if ts.get("sources_continue_prior"):
+                served = [str(x.get("id")) for x in (rec.get("sources") or []) if x.get("id")]
+                prior = [str(x.get("id")) for x in ((d["records"][idx - 2].get("sources") or []) if idx >= 2 else [])]
+                if not served:
+                    why.append(f"turn {idx}: source follow-up served NO sources")
+                else:
+                    stray = [x for x in served if x not in prior]
+                    if stray:
+                        why.append(f"turn {idx}: sources not carried from the previous turn: {stray}")
         if len(d["records"]) != len(turns_spec):
             why.append(f"journey ran {len(d['records'])} of {len(turns_spec)} turns")
         ok = not why
@@ -93,6 +107,8 @@ for d in rows:
             c = unit_class.get(u, "?")
             byclass[c][0] += 1
             if ok: byclass[c][1] += 1
+            unit_pass[u][0] += 1
+            if ok: unit_pass[u][1] += 1
         if not ok:
             fails.append((d["question_id"], spec["criticality"], spec["locale"], spec["question"][:52], why, ""))
         verdicts.append({"question_id": d["question_id"], "locale": spec["locale"], "form": spec["form"],
@@ -140,6 +156,8 @@ for d in rows:
         c = unit_class.get(u, "?")
         byclass[c][0] += 1
         if ok: byclass[c][1] += 1
+        unit_pass[u][0] += 1
+        if ok: unit_pass[u][1] += 1
     if not ok:
         fails.append((d["question_id"], spec["criticality"], spec["locale"], spec["question"][:52], why, a[:100]))
     verdicts.append({"question_id": d["question_id"], "locale": spec["locale"], "form": spec["form"],
@@ -166,7 +184,27 @@ if scored < declared:
 print("C. BEHAVIORAL PASS RATE      (was the answer CORRECT?)")
 print(f"     {passing}/{scored} executed items correct = {100*passing/scored:.1f}%" if scored else "     no rows")
 print()
-print("   fully-passing factual units:", len([u for u in factual if u['semantic_id'] in covered_units]), "/", len(factual))
+# FULLY passing means EVERY item naming the unit passed.
+#
+# This line read `semantic_id in covered_units`, and `covered_units` is populated whenever ANY item
+# passes — so a unit with a passing Portuguese direct question and a failing English paraphrase counted
+# as fully passing. Against src-acb0f1b it reported 173/176 while 51 factual items were failing, which
+# is arithmetically impossible for 3 units and was the giveaway. A metric that cannot be reconciled
+# with the failure list is worse than no metric: it was the headline number for release readiness.
+unit_items = collections.defaultdict(lambda: [0, 0])
+for u, (t, g) in unit_pass.items():
+    unit_items[u] = [t, g]
+fully = [u["semantic_id"] for u in factual
+         if unit_items.get(u["semantic_id"], [0, 0])[0] > 0
+         and unit_items[u["semantic_id"]][0] == unit_items[u["semantic_id"]][1]]
+partial = [u["semantic_id"] for u in factual
+           if unit_items.get(u["semantic_id"], [0, 0])[0] > 0
+           and unit_items[u["semantic_id"]][1] < unit_items[u["semantic_id"]][0]]
+unasked = [u["semantic_id"] for u in factual if unit_items.get(u["semantic_id"], [0, 0])[0] == 0]
+print(f"   FULLY-passing factual units (every item): {len(fully)}/{len(factual)}")
+print(f"   partially-passing (>=1 item failing)    : {len(partial)}")
+if unasked:
+    print(f"   NOT ASKED AT ALL                        : {len(unasked)}")
 for p in sorted(byprio):
     t, g = byprio[p]
     print(f"  {p}: {g}/{t} = {100*g/t:.1f}%")

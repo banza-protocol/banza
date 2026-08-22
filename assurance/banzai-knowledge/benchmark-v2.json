@@ -2,7 +2,7 @@
   "schema_version": 1,
   "_generated_by": "tools/gen-banzai-benchmark-v2.mjs",
   "universe_hash": "bf1a472f7a99b68aa9df50021ca43b0e",
-  "corpus_hash": "ed36d4845054886d23fbf94a3933e0ea",
+  "corpus_hash": "93f4cf9eba4689efd97a0f90d2e05ee2",
   "count": 572,
   "items": [
     {
@@ -11168,9 +11168,7 @@
         },
         {
           "question": "Que fonte diz isso?",
-          "must": [
-            "ADR|contracts/|docs/|conformance/|spec"
-          ]
+          "sources_continue_prior": true
         }
       ],
       "must": [],
@@ -11329,9 +11327,7 @@
         },
         {
           "question": "Which source says that?",
-          "must": [
-            "ADR|contracts/|docs/|conformance/|spec"
-          ]
+          "sources_continue_prior": true
         }
       ],
       "must": [],
@@ -11364,7 +11360,7 @@
         {
           "question": "Why not?",
           "must": [
-            "\\w{20,}"
+            "pre-production|not production ready|independent|frozen|certificate"
           ]
         },
         {
@@ -11442,9 +11438,7 @@
         },
         {
           "question": "Que fonte diz isso?",
-          "must": [
-            "ADR|spec|contracts/|docs/"
-          ]
+          "sources_continue_prior": true
         },
         {
           "question": "Que fontes explicam a conformidade?",
@@ -11475,7 +11469,7 @@
         {
           "question": "E isso?",
           "must": [
-            "\\w{10,}"
+            "reformul|indique|especifi|qual|refer"
           ]
         },
         {

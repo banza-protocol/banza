@@ -981,6 +981,36 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
     // "O que significa certificar uma implementação?" asks what certifying IS. Without a registered
     // surface it reached how-to-demonstrate-conformance — the PROCEDURE — because the two share the
     // domain noun, which is the collision this table exists to settle.
+    // ADMISSION. `def-admission` states the three-way separation exactly — certification evaluates an
+    // implementation and confers no admission, admission confers no regulatory authorisation — and it
+    // was referenced ONLY as a comparison alias, never as a routing target. Every way of asking about
+    // admission declined for want of public evidence while the answer sat in the catalogue, which is
+    // also why `banza.admission.not_authorisation` and `banza.certification.not_admission` were
+    // partially failing in production.
+    (
+        "def-admission",
+        &[
+            "admissao operacional",
+            "operational admission",
+            "o que e admissao",
+            "what is admission",
+            // SUBJECT-QUALIFIED only. A bare "dá admissão" also matches "ISSO dá admissão
+            // automática?", whose subject is an unresolved pronoun — and `certification_context`
+            // already pins that such a turn must stay `insufficient` rather than invent a
+            // certification it was never given. Ambiguity fails safe; a NAMED subject resolves.
+            "certificacao da admissao",
+            "certificacao confere admissao",
+            "certificacao da-me admissao",
+            "certificado significa que fui admitido",
+            "estar certificado significa que fui admitido",
+            "certification grant admission",
+            "certification grants admission",
+            "certification confer admission",
+            "certification confers admission",
+            "certified mean i have been admitted",
+            "being certified mean i have been admitted",
+        ],
+    ),
     (
         "def-l2-certification",
         &[

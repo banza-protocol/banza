@@ -63,6 +63,17 @@ const CONVERSATION_CONTEXT_FIELDS = [
   // never free text. They are hints like every other client-carried field — the server re-resolves what
   // they name and never treats a carried id as authority.
   "last_subject_id",
+  // The PREVIOUS subject, and the reason a working referent engine still produced a refusal.
+  //
+  // The pipeline emits `previous_subject_id` — after "O que é L2?" then "E L3?" it correctly carries
+  // last=def-profile-l3 and previous=def-profile-l2 — and this allowlist did not include it, so the
+  // server dropped it on the way back in. Turn three ("Qual é a diferença entre os dois?") therefore
+  // reached the engine with one subject where it needed two, resolved nothing, and declined.
+  //
+  // The engine was never wrong. Every referent test passed, because they all handed the engine a
+  // context object directly and never crossed this boundary. That is what the round-trip guard in
+  // conversation-transport.test.js now exists to prevent.
+  "previous_subject_id",
   "comparison_left",
   "comparison_right",
   "hybrid_subject_id",
