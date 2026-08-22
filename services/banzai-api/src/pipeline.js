@@ -2307,7 +2307,19 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       // programme removed, in a different costume: it would let "BANZA's position on X" be written from
       // an entry that says nothing about X. Where no specific authority exists this tier declines, and
       // the ordinary paths answer the subject alone.
-      const banzaEntry = subject && subject.domain ? null : subject;
+      // A DOMAIN subject uses the BANZA authority the engine DECLARES for it. `banza_position_id` is
+      // empty for any concept nobody has declared a position for, so this stays a per-concept mapping
+      // and never becomes a fallback: an undeclared concept still declines, and the ordinary paths
+      // answer the subject alone.
+      //
+      // Three declared hybrid relations were unanswerable without this — authorization,
+      // digital-signature and state-machine all have a domain subject, and the tier had no way to find
+      // the entry stating BANZA's position, so it served the general definition and the answer never
+      // mentioned BANZA at all.
+      const banzaEntry =
+        subject && subject.domain
+          ? (hybrid.banza_position_id ? getEntry(hybrid.banza_position_id) : null)
+          : subject;
       if (subject && banzaEntry) {
         const sub = answerFor(subject, locale);
         const ban = answerFor(banzaEntry, locale);
