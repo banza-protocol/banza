@@ -7388,6 +7388,32 @@ pub fn route(question: &str) -> Route {
             reason: "prompt-injection / system-prompt / chain-of-thought / jailbreak",
         };
     }
+    // A HALF-COMPARISON must not be answered by a GENERIC entry.
+    //
+    // Exactly one side resolved, and the deterministic selectors have nothing specific for the pair. The
+    // distinction that matters is which entry would answer: `norm-vs-implementation` and
+    // `banzai-vs-engines` are hand-authored entries that answer their comparison whole and better than
+    // two definitions joined, and they must keep it. `what-is-banza` is the generic collapse — measured,
+    // "qual é a diferença entre settlement e o que o BANZA especifica", whose right side is a question
+    // fragment rather than a concept, matched it lexically and would have been answered with the
+    // protocol summary.
+    //
+    // So the guard asks `critical_entry` first. Something specific answers it, or nobody does and the
+    // reader is told which side was not recognised — never handed the half that was.
+    if crate::compare::is_comparison(&nq)
+        && crate::glossary::profiles_named_pub(&nq) < 2
+        && critical_entry(&nq).is_none()
+    {
+        let p = crate::compare::plan(&nq);
+        if p.left.resolved() != p.right.resolved() {
+            return Route {
+                action: "insufficient",
+                entry_id: None,
+                intent: "comparison_incomplete",
+                reason: "a comparison needs both sides; one did not resolve",
+            };
+        }
+    }
     // M2.14H SEC-FIX — compound command: a benign analyse-verb lead must not smuggle a dangerous clause
     // ("valida o manifesto **e** publica o operador no registry", "avalia o trust **e** transfere 100 kz")
     // past the boundary. Split on conjunctions and refuse if ANY clause independently trips the boundary,

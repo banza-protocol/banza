@@ -3118,6 +3118,107 @@ export const ENTRIES = [
     },
     sources: s("domNistGlossary"),
   },
+  {
+    id: "def-dom-database",
+    deterministic: true,
+    domain: true,
+    keywords: ["base de dados", "o que e uma base de dados", "database", "what is a database", "banco de dados"],
+    realizations: {
+      "pt-PT":
+        "Uma **base de dados** é um sistema de armazenamento que mantém o **estado actual** e permite lê-lo e alterá-lo. Difere de um **ledger** no que conserva: uma base de dados guarda o valor de agora e pode sobrepô-lo; um ledger guarda os **movimentos** e deriva o valor deles, de forma append-only.",
+      en:
+        "A **database** is a storage system that holds **current state** and lets it be read and changed. It differs from a **ledger** in what it keeps: a database stores the value as of now and may overwrite it, while a ledger stores the **movements** and derives the value from them, append-only.",
+    },
+    sources: s("domNistGlossary"),
+  },
+  {
+    id: "def-dom-authorization",
+    deterministic: true,
+    domain: true,
+    keywords: ["autorizacao", "o que e autorizacao", "authorization", "authorisation", "what is authorization", "autorizar"],
+    realizations: {
+      "pt-PT":
+        "A **autorização** estabelece **o que** uma parte já identificada pode fazer. É distinta da **autenticação**, que estabelece **quem** essa parte é: autenticar não autoriza, e as duas decisões são tomadas separadamente.",
+      en:
+        "**Authorization** establishes **what** an already-identified party may do. It is distinct from **authentication**, which establishes **who** that party is: authenticating does not authorise, and the two decisions are taken separately.",
+    },
+    sources: s("domNistGlossary"),
+  },
+  {
+    id: "def-dom-validation",
+    deterministic: true,
+    domain: true,
+    keywords: ["validacao", "o que e validacao", "validation", "what is validation", "validar"],
+    realizations: {
+      "pt-PT":
+        "A **validação** verifica que algo está conforme a uma especificação declarada — que o documento tem a forma que o schema exige, por exemplo. Responde a \"está bem construído?\", e é distinta da **verificação**, que responde a \"é verdade?\".",
+      en:
+        "**Validation** checks that something conforms to a declared specification — that a document has the shape the schema requires, for instance. It answers \"is it well formed?\", and is distinct from **verification**, which answers \"is it true?\".",
+    },
+    sources: s("domW3cJsonSchema"),
+  },
+  {
+    id: "def-dom-verification",
+    deterministic: true,
+    domain: true,
+    keywords: ["verificacao", "o que e verificacao", "verification", "what is verification", "verificar"],
+    realizations: {
+      "pt-PT":
+        "A **verificação** estabelece que uma afirmação é verdadeira perante evidência — que uma assinatura corresponde a uma chave e a bytes, por exemplo. Responde a \"é verdade?\", e é distinta da **validação**, que responde a \"está bem construído?\". Um documento pode ser válido e a sua assinatura não verificar.",
+      en:
+        "**Verification** establishes that a claim is true against evidence — that a signature matches a key and a set of bytes, for instance. It answers \"is it true?\", and is distinct from **validation**, which answers \"is it well formed?\". A document can be valid and its signature still fail to verify.",
+    },
+    sources: s("domNistGlossary"),
+  },
+  {
+    id: "def-dom-accreditation",
+    deterministic: true,
+    domain: true,
+    keywords: ["acreditacao", "o que e acreditacao", "accreditation", "what is accreditation", "acreditar"],
+    realizations: {
+      "pt-PT":
+        "A **acreditação** é o reconhecimento formal, por uma autoridade, de que um organismo é competente para avaliar ou certificar terceiros. É um nível acima da **certificação**: certifica-se um objecto ou uma implementação; acredita-se quem certifica. O **BANZA** não acredita nem é acreditado — a participação demonstra-se por evidência verificável.",
+      en:
+        "**Accreditation** is the formal recognition, by an authority, that a body is competent to assess or certify third parties. It sits one level above **certification**: an object or an implementation is certified, and the certifier is accredited. **BANZA** neither accredits nor is accredited — participation is demonstrated by verifiable evidence.",
+    },
+    sources: s("domBisPfmi"),
+  },
+  {
+    id: "def-protocol",
+    deterministic: true,
+    keywords: ["protocolo", "o que e um protocolo", "protocol", "what is a protocol", "o que e o protocolo"],
+    realizations: {
+      "pt-PT":
+        "Um **protocolo** é o conjunto de regras técnicas públicas que partes independentes seguem para interoperar. O **BANZA** é um protocolo: define regras, contratos, invariantes e critérios de conformidade, e **não confere estatuto** a quem os segue. Distingue-se de um **esquema operacional**, que acrescenta regras contratuais, admissão e responsabilidades sobre o protocolo.",
+      en:
+        "A **protocol** is the set of public technical rules independent parties follow in order to interoperate. **BANZA** is a protocol: it defines rules, contracts, invariants and conformance criteria, and it **confers no status** on those who follow them. It is distinct from an **operational scheme**, which adds contractual rules, admission and responsibilities on top of the protocol.",
+    },
+    sources: s("specOverview", "adr002"),
+  },
+  {
+    id: "def-reference",
+    deterministic: true,
+    keywords: ["referencia", "a referencia", "reference", "the reference", "o que e a referencia", "documento de referencia"],
+    realizations: {
+      "pt-PT":
+        "A **Referência** do **BANZA** é o documento **descritivo** que explica o protocolo a um leitor. É deliberadamente **não normativa**: a autoridade normativa é o Manifesto Normativo e os artefactos que ele indexa — especificações, contratos, schemas e invariantes. Quando a Referência e um artefacto normativo divergem, o artefacto normativo prevalece. A edição PT é canónica; a EN é a sua tradução oficial.",
+      en:
+        "**BANZA**'s **Reference** is the **descriptive** document that explains the protocol to a reader. It is deliberately **non-normative**: normative authority belongs to the Normative Manifest and the artifacts it indexes — specifications, contracts, schemas and invariants. Where the Reference and a normative artifact diverge, the normative artifact prevails. The Portuguese edition is canonical; the English one is its official translation.",
+    },
+    sources: s("specOverview"),
+  },
+  {
+    id: "def-admission",
+    deterministic: true,
+    keywords: ["admissao", "o que e admissao", "admission", "what is admission", "admissao operacional", "operational admission"],
+    realizations: {
+      "pt-PT":
+        "A **admissão** é a decisão de um **esquema operacional** de aceitar um participante segundo as suas próprias regras. Não é conferida pelo **BANZA**: a certificação avalia uma **implementação** e não confere admissão, e a admissão não confere **autorização regulatória** (ADR-005). As três decisões pertencem a autoridades diferentes e nenhuma implica a outra.",
+      en:
+        "**Admission** is an **operational scheme**'s decision to accept a participant under its own rules. It is not conferred by **BANZA**: certification evaluates an **implementation** and confers no admission, and admission confers no **regulatory authorisation** (ADR-005). The three decisions belong to different authorities and none implies another.",
+    },
+    sources: s("adr005sep", "adr060"),
+  },
 ];
 
 // ── RESPONSE LOCALE ───────────────────────────────────────────────────────────────────────────────
@@ -3580,6 +3681,21 @@ export function resolveOperationalMetric(question) {
 // comparison/execution descriptors + profile/environment/version + requires_* flags + ambiguities +
 // confidence + resolution_state + boundary flag). A boundary question is `boundary_request`, never
 // reclassified. This wrapper only transports. See engines/banzai-query-core/src/taxonomy.rs.
+/**
+ * The COMPARISON PLAN for a question — two independently resolved targets and the authority class.
+ *
+ * Rust owns the extraction and both resolutions; this only transports. Returns null when the engine
+ * predates the export, so an older vendored WASM degrades to the previous behaviour instead of throwing.
+ */
+export function comparisonPlan(question) {
+  if (typeof kb.comparison_plan_json !== "function") return null;
+  try {
+    return JSON.parse(kb.comparison_plan_json(String(question || "")));
+  } catch {
+    return null;
+  }
+}
+
 export function resolveQuery(question) {
   if (typeof kb.resolve_query_json !== "function") return { primary_intent: "", sub_intents: [] };
   try {

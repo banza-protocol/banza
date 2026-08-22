@@ -27,7 +27,7 @@
 import { GUARDRAILS } from "./provider.js";
 import { operationalDomain } from "./operationalDomain.js";
 import { composeTasked } from "./taskedRealizations.js";
-import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims, answerFor, unavailableRealization, LOCALES, DEFAULT_LOCALE } from "./knowledge.js";
+import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, comparisonPlan, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims, answerFor, unavailableRealization, LOCALES, DEFAULT_LOCALE } from "./knowledge.js";
 import { honestLiveFailureAnswer } from "./liveArtifact.js";
 import { isPublicSource } from "./answerContract.js";
 
@@ -820,6 +820,86 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
   // A GROUNDED answer: the model synthesised only from the Rust FactualPackage and the Rust factual
   // validator PASSED it. Sources are built from the package's facts for the ids the answer actually cited
   // (never authored). This is a genuine model answer (llm_called:true).
+  /**
+   * Reader prose for a two-sided comparison, per locale.
+   *
+   * The two sides are the entries' OWN realizations, joined by a frame — not a paraphrase of them, and
+   * not a model recomposition. Each side already states its own boundaries (that BANZA neither clears
+   * nor settles real funds, for instance), and those boundaries are exactly what a comparison must not
+   * blur. The frame says what is being compared; the sides say what they are.
+   */
+  const COMPARISON_FRAME = {
+    "pt-PT": (a, b) => `**${a.title}** — ${a.text}\n\n**${b.title}** — ${b.text}`,
+    en: (a, b) => `**${a.title}** — ${a.text}\n\n**${b.title}** — ${b.text}`,
+  };
+
+  /** The reader-facing label for one side: the phrase they used, capitalised. */
+  function sideTitle(phrase) {
+    const p = String(phrase || "").trim();
+    return p ? p.charAt(0).toUpperCase() + p.slice(1) : "";
+  }
+
+  function comparisonAnswer(plan, leftText, rightText, sources, meta, locale) {
+    const frame = COMPARISON_FRAME[locale] || COMPARISON_FRAME[DEFAULT_LOCALE];
+    const body = frame(
+      { title: sideTitle(plan.left.phrase), text: leftText },
+      { title: sideTitle(plan.right.phrase), text: rightText },
+    );
+    return {
+      result: {
+        grounded: true,
+        answer: body,
+        sources,
+        entry_id: null,
+        provider: provider.name,
+        mode: isReal ? "real" : "mock",
+        guardrails: GUARDRAILS,
+        model_called: false,
+        model_name: "",
+        inference_location: provider.inferenceLocation || null,
+        answer_locale: locale,
+      },
+      meta: { deterministic: true, cache: null, llm_called: false, ...meta },
+    };
+  }
+
+  /**
+   * A comparison the engine could not plan, said plainly.
+   *
+   * Naming the side that did not resolve is the difference between a decline a reader can act on and a
+   * blanket "insufficient evidence". They asked about two things; one of them was understood.
+   */
+  const COMPARISON_INCOMPLETE = {
+    "pt-PT": (side) =>
+      side === "both"
+        ? "Não reconheci nenhum dos dois termos desta comparação. Indique os dois conceitos que quer comparar e eu comparo-os."
+        : `Reconheci um dos lados desta comparação, mas não o outro (**${side}**). Uma comparação precisa dos dois lados: indique o segundo conceito e eu comparo-os. Não respondo por um só lado como se respondesse pela pergunta.`,
+    en: (side) =>
+      side === "both"
+        ? "I did not recognise either term in this comparison. Name the two concepts you want compared and I will compare them."
+        : `I recognised one side of this comparison but not the other (**${side}**). A comparison needs both sides: name the second concept and I will compare them. I will not answer for one side as though it answered the question.`,
+  };
+
+  function comparisonIncomplete(side, meta, locale) {
+    const frame = COMPARISON_INCOMPLETE[locale] || COMPARISON_INCOMPLETE[DEFAULT_LOCALE];
+    return {
+      result: {
+        grounded: false,
+        answer: frame(side),
+        sources: [],
+        entry_id: null,
+        provider: provider.name,
+        mode: isReal ? "real" : "mock",
+        guardrails: GUARDRAILS,
+        model_called: false,
+        model_name: "",
+        inference_location: provider.inferenceLocation || null,
+        answer_locale: locale,
+      },
+      meta: { deterministic: true, cache: null, llm_called: false, ...meta },
+    };
+  }
+
   function groundedAnswer(answerText, pkg, citedIds, meta) {
     const byId = new Map();
     for (const f of (pkg && Array.isArray(pkg.facts) ? pkg.facts : [])) {
@@ -1833,6 +1913,94 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // honest outcome is to say so: no canned answer, and no model either. The check runs only on the
     // cue-escalation exemption, so the settled path for a question with no cue is byte-for-byte unchanged.
     const verbatimEntry = decision.entry_id ? isVerbatimEntry(decision.entry_id) : false;
+    // Tier 1-COMPARE — a comparison is served from BOTH sides, or not served as a comparison.
+    //
+    // Every selector in this pipeline names ONE subject. A two-sided question therefore used to be
+    // answered with whichever side matched first: `Qual é a diferença entre L2 e L3?` returned the L2
+    // definition alone with `degraded: true`, and its English twin fell to the model and invented "L3
+    // introduces a lineage that ties keys to a trusted set", citing reason-codes and root-authority
+    // ADRs. The first repair pointed profile comparisons at `def-profiles`, which works for exactly one
+    // family and needs a hand-authored combined entry for every other pair.
+    //
+    // Rust plans the comparison: it extracts the two sides and resolves each INDEPENDENTLY through the
+    // same resolvers a single-subject question uses. This serves that plan.
+    //
+    //   both sides resolved  → both entries' evidence, both realizations, one answer
+    //   either side missing  → an honest decline naming the side that did not resolve
+    //
+    // The second case is the point. A comparison with one side unresolved is not a comparison, and
+    // presenting the resolved half as though it answered the question is the defect this replaces.
+    const comparison = comparisonPlan(correctedQuestion);
+    // At least one side must resolve as a KNOWLEDGE concept for this tier to own the turn.
+    //
+    // "compara com a anterior" and "compara a execução X com a Y" are comparisons too, and they belong
+    // to the operational family, which resolves execution operands from the receipt store rather than
+    // concepts from the corpus. Neither of their sides is a concept, so requiring one keeps this tier
+    // to conceptual comparisons and leaves the operational path exactly as it was. Measured: without
+    // this, the execution-comparison family started receiving "name the second concept".
+    // A HALF-COMPARISON the router already decided: exactly one side resolved and nothing else
+    // answered. Served as an honest decline that NAMES the side it did not recognise — the difference
+    // between a decline a reader can act on and a blanket "insufficient evidence". Without this the
+    // verdict reached the model, which composed prose for a question it had one half of.
+    if (
+      decisionEffective.intent === "comparison_incomplete" &&
+      !journeyOwnsTurn &&
+      comparisonPlan(correctedQuestion)
+    ) {
+      const p = comparisonPlan(correctedQuestion);
+      const unresolved = !p.left.semantic_id ? p.left.phrase || "left" : p.right.phrase || "right";
+      return comparisonIncomplete(unresolved, {
+        answer_mode: mode,
+        fallback_reason: "comparison_incomplete",
+        intent: "comparison_incomplete",
+        terminal_kind: "insufficient_evidence",
+        comparison_left: p.left.semantic_id || null,
+        comparison_right: p.right.semantic_id || null,
+        ...ctxMeta,
+        ...routerTrace,
+      }, locale);
+    }
+
+    // This tier SERVES a comparison; it does not decline one. An incomplete comparison is decided one
+    // layer up, by the router, which returns `comparison_incomplete` when exactly one side resolved — a
+    // genuine half-comparison. When neither side resolves the query is not a conceptual comparison at
+    // all, and the paths that do own it are left alone.
+    if (comparison && comparison.is_comparison && comparison.both_resolved && !journeyOwnsTurn) {
+      const left = comparison.left && comparison.left.semantic_id ? getEntry(comparison.left.semantic_id) : null;
+      const right = comparison.right && comparison.right.semantic_id ? getEntry(comparison.right.semantic_id) : null;
+      if (!left || !right || left.id === right.id) {
+        // Both sides named the same subject, or an id the corpus no longer holds — not a comparison.
+        // Fall through rather than composing one side against itself.
+      } else {
+        const a = answerFor(left, locale);
+        const b = answerFor(right, locale);
+        if (a.available && b.available) {
+          // Both sides' sources, deduplicated by id: two entries frequently rest on the same document,
+          // and citing it twice tells a reader nothing except that the composer did not look.
+          const seen = new Set();
+          const sources = publicSourcesOnly([...(left.sources || []), ...(right.sources || [])]).filter(
+            (src) => {
+              const id = String((src && src.id) || "");
+              if (!id || seen.has(id)) return false;
+              seen.add(id);
+              return true;
+            },
+          );
+          return comparisonAnswer(comparison, a.text, b.text, sources, {
+            answer_mode: mode,
+            fallback_reason: null,
+            intent: "comparison",
+            terminal_kind: "comparison",
+            comparison_left: left.id,
+            comparison_right: right.id,
+            comparison_class: comparison.class,
+            ...ctxMeta,
+            ...routerTrace,
+          }, locale);
+        }
+      }
+    }
+
     if (decisionEffective.action === "deterministic" && (!hasExplanatoryCue || verbatimEntry)) {
       const entry = decision.entry_id ? getEntry(decision.entry_id) : null;
       if (entry && hasExplanatoryCue && publicSourcesOnly(entry.sources).length === 0) {

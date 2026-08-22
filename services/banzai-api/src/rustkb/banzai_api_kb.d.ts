@@ -151,6 +151,17 @@ export function classify_diagnosis_json(input_json: string): string;
 export function classify_query_intent_str(question: string): string;
 
 /**
+ * Node WASM: the COMPARISON PLAN for a question — two independently resolved targets, their knowledge
+ * classes and the authority the comparison requires.
+ *
+ * The plan is what the pipeline packages evidence from. It is never an answer: both sides must resolve
+ * before a comparison may be composed, and `both_resolved` is what says so. A comparison the engine
+ * cannot plan is one the reader is told it cannot plan, rather than one answered with whichever side
+ * happened to resolve.
+ */
+export function comparison_plan_json(question: string): string;
+
+/**
  * M2.18B.7 (TFG-3) — classify HOW conversation context resolved the current turn (typed trace) and the
  * question whose TASK governs the answer shape (the current turn always wins over a prior turn's verb).
  * Returns `{ context_used_for, task_question }`. Deterministic, no model.

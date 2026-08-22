@@ -12,6 +12,16 @@
       ]
     },
     {
+      "id": "def-dom-accreditation",
+      "aliases": [
+        "what is accreditation",
+        "o que e acreditacao",
+        "accreditation",
+        "acreditacao",
+        "acreditar"
+      ]
+    },
+    {
       "id": "def-dom-acquirer",
       "aliases": [
         "o que e um adquirente",
@@ -28,6 +38,17 @@
         "authentication",
         "autenticacao",
         "autenticar"
+      ]
+    },
+    {
+      "id": "def-dom-authorization",
+      "aliases": [
+        "what is authorization",
+        "o que e autorizacao",
+        "authorisation",
+        "authorization",
+        "autorizacao",
+        "autorizar"
       ]
     },
     {
@@ -58,6 +79,16 @@
         "consistencia",
         "consistency",
         "consistente"
+      ]
+    },
+    {
+      "id": "def-dom-database",
+      "aliases": [
+        "o que e uma base de dados",
+        "what is a database",
+        "banco de dados",
+        "base de dados",
+        "database"
       ]
     },
     {
@@ -282,6 +313,26 @@
         "what is a transfer",
         "transferencia",
         "transfer"
+      ]
+    },
+    {
+      "id": "def-dom-validation",
+      "aliases": [
+        "what is validation",
+        "o que e validacao",
+        "validation",
+        "validacao",
+        "validar"
+      ]
+    },
+    {
+      "id": "def-dom-verification",
+      "aliases": [
+        "what is verification",
+        "o que e verificacao",
+        "verification",
+        "verificacao",
+        "verificar"
       ]
     },
     {

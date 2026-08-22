@@ -937,6 +937,19 @@ pub fn route_question_json(question: &str) -> String {
     route::route_json(question)
 }
 
+/// Node WASM: the COMPARISON PLAN for a question — two independently resolved targets, their knowledge
+/// classes and the authority the comparison requires.
+///
+/// The plan is what the pipeline packages evidence from. It is never an answer: both sides must resolve
+/// before a comparison may be composed, and `both_resolved` is what says so. A comparison the engine
+/// cannot plan is one the reader is told it cannot plan, rather than one answered with whichever side
+/// happened to resolve.
+#[cfg(target_arch = "wasm32")]
+#[wasm_bindgen]
+pub fn comparison_plan_json(question: &str) -> String {
+    banzai_query_core::compare::plan_json(&banzai_query_core::normalize(question))
+}
+
 /// Node WASM: is this entry a NORMATIVE DENIAL that must be served verbatim, even when the question
 /// carries an explanatory cue that would otherwise escalate a definition into the explanatory trunk?
 /// Rust owns the list; the pipeline asks and executes. See `route::is_verbatim_entry`.
