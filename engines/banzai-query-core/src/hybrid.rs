@@ -103,10 +103,6 @@ const RELATIONS: &[(&str, &[&str])] = &[
     ),
 ];
 
-fn has(nq: &str, pats: &[&str]) -> bool {
-    pats.iter().any(|p| nq.contains(p))
-}
-
 /// The relation a query is asking about, longest match first.
 fn relation_of(nq: &str) -> Option<&'static str> {
     let mut best: Option<(&'static str, usize)> = None;
