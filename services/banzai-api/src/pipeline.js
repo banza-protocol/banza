@@ -784,6 +784,15 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         interpreted_intent: fb.interpreted_intent || null,
         interpreted_sub_intents: Array.isArray(fb.sub_intents) ? fb.sub_intents : [],
         ...meta,
+        // AMBIGUOUS is the engine ASKING, not declining, and the terminal must say so. Every call site
+        // here passes `insufficient_evidence`, which is right for the situations that ARE insufficiency
+        // — no source, no evidence — and wrong for the one where a clarifying question was produced and
+        // handed to the reader. `E isso?` came back as a clarification labelled a refusal, which made
+        // the ambiguous-clarification capability unobservable: it looked identical to a decline.
+        //
+        // Placed after the spread on purpose. The decision belongs to the engine, not to whichever call
+        // site happened to reach this composer.
+        ...(fb.kind === "ambiguous" ? { terminal_kind: "clarification" } : {}),
       },
     };
   }
@@ -1623,7 +1632,19 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     // concrete clarifying question (Rust-authored, honest, request-oriented), NEVER a guessed referent. Runs
     // AFTER the Tier-0 safety refusal (a boundary follow-up is refused first) and only when the client
     // actually carried a prior context that this specific anaphor could not resolve against.
-    if (contextActive && references.requires_clarification && references.clarification) {
+    // ...unless the CONTEXT MERGE already decided that the previous subject travels.
+    //
+    // "Why not?" after "Is BANZA production ready?" is resolved by the merge as SUBJECT_CARRY — the
+    // engine's own decision that this turn is about the prior subject. The reference resolver, which
+    // looks for executions and artifacts, separately reported that it could not bind an anaphor, and
+    // this tier asked the reader to name an execution. Two parts of the engine disagreeing, with the
+    // one that had the answer overruled.
+    //
+    // Narrow deliberately: only SUBJECT_CARRY defers, because that is the merge kind that means "the
+    // subject is inherited". A turn whose reference genuinely cannot be bound still gets asked, which
+    // is what keeps the ambiguous-referent property intact.
+    const subjectCarried = decision.merge_kind === "SUBJECT_CARRY";
+    if (contextActive && references.requires_clarification && references.clarification && !subjectCarried) {
       // `references.clarification` is the ENGINE's Portuguese sentence and is diagnostics here, exactly as
       // `fb.message` is on the contextual-fallback path. The reader gets the realization of the same
       // decision in their own language — see `referenceClarificationProse`.
@@ -3160,7 +3181,19 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
     const meta = out && out.meta ? out.meta : null;
     if (!meta) return out;
     const served = ((out.result || {}).sources || []).map((x) => String(x.id)).filter(Boolean);
-    const targetId = (out.result || {}).entry_id || "";
+    // A MODEL-BACKED turn has no `entry_id` — the answer is composed, not served from one record — and
+    // the forward target was therefore empty, so the NEXT turn had nothing to bind to. In the hybrid
+    // journey, turn 2 grounds on the model and turn 3 ("Que documento define isso?") arrived with the
+    // sources of the previous answer and no identity for them, and declined.
+    //
+    // The fallback is the subject the engine ACTUALLY resolved for this turn, which the forward-context
+    // builder already computed. It is a real identity, not a synthesised one: no fake entry id is
+    // minted, and when the engine resolved no subject either, the target stays empty and the follow-up
+    // still fails safe.
+    const ctxOut = meta.conversation_context && typeof meta.conversation_context === "object"
+      ? meta.conversation_context
+      : {};
+    const targetId = (out.result || {}).entry_id || ctxOut.last_subject_id || "";
     if (meta.conversation_context && typeof meta.conversation_context === "object") {
       if (targetId) meta.conversation_context.previous_semantic_target = String(targetId);
       meta.conversation_context.previous_source_ids = [...new Set(served)].slice(0, 24);

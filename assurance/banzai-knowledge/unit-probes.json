@@ -3896,9 +3896,7 @@
         },
         {
           "question": "Que documento define isso?",
-          "must": [
-            "ADR|spec|contracts/|docs/"
-          ]
+          "sources_continue_prior": true
         }
       ]
     },
@@ -3961,10 +3959,10 @@
   "_oracle_corrections": [
     {
       "id": "O-1",
-      "turns": "source follow-up turns in J2-PT-PROFILES, J2-EN-PROFILES, J2-PT-SOURCE-INTEGRITY",
+      "turns": "source follow-up turns in J2-PT-PROFILES, J2-EN-PROFILES, J2-PT-SOURCE-INTEGRITY and the 'Que documento define isso?' turn in J2-PT-HYBRID",
       "was": "must: /ADR|contracts\\/|docs\\/|conformance\\/|spec/ over the ANSWER TEXT",
       "now": "sources_continue_prior: the served `sources` must be non-empty AND every id must have appeared in the previous turn's sources",
-      "why": "Demonstrated defect in the oracle, not the engine. The source-evidence terminal puts the identities in the `sources` field and a lead sentence in the prose — that is the shipped contract, and the response genuinely carried ['GETTING-STARTED','ADR-001']. The probe read the prose, so it failed a turn that had done exactly the right thing. The replacement is STRICTER: a prose regex could be satisfied by the word 'spec' appearing anywhere, while this requires real ids that actually continue the previous turn's evidence."
+      "why": "Demonstrated defect in the oracle, not the engine. The source-evidence terminal puts the identities in the `sources` field and a lead sentence in the prose — that is the shipped contract, and the response genuinely carried ['GETTING-STARTED','ADR-001']. The probe read the prose, so it failed a turn that had done exactly the right thing. The replacement is STRICTER: a prose regex could be satisfied by the word 'spec' appearing anywhere, while this requires real ids that actually continue the previous turn's evidence. The document phrasing of the same request is judged the same way, for the same reason: it is served by the same terminal, which puts identities in `sources`."
     },
     {
       "id": "O-2",

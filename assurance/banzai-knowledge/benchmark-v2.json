@@ -2,7 +2,7 @@
   "schema_version": 1,
   "_generated_by": "tools/gen-banzai-benchmark-v2.mjs",
   "universe_hash": "bf1a472f7a99b68aa9df50021ca43b0e",
-  "corpus_hash": "93cee39b9bcc1d81cda81946e1b1b3f7",
+  "corpus_hash": "abf2832131b289fc8f834527d781ff3c",
   "count": 572,
   "items": [
     {
@@ -11405,9 +11405,7 @@
         },
         {
           "question": "Que documento define isso?",
-          "must": [
-            "ADR|spec|contracts/|docs/"
-          ]
+          "sources_continue_prior": true
         }
       ],
       "must": [],

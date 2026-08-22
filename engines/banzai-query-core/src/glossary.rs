@@ -100,6 +100,21 @@ pub fn asks_for_evidence(nq: &str) -> bool {
             "show the source",
             "evidencia",
             "evidence for",
+            // The DOCUMENT phrasing of the same request. A reader asking "que documento define isso?"
+            // after an answer wants the record behind it, exactly as "que fonte diz isso?" does — and
+            // that one was recognised while this one was read as a fresh governance query and declined.
+            //
+            // The document/record nouns only, and only where the question is asking WHICH one: "o que
+            // diz a ADR-025?" names its document and belongs to the exact-document resolver.
+            "que documento define",
+            "que documento diz",
+            "qual documento define",
+            "qual o documento",
+            "which document defines",
+            "which document says",
+            "what document defines",
+            "que adr define",
+            "which adr defines",
         ],
     )
 }

@@ -25,7 +25,7 @@ for (const it of corpus) {
     try {
       r = await h.pipeline.answer(t.question, {
         locale: it.locale,
-        ...(history.length ? { history: history.slice(-2) } : {}),
+        ...(history.length ? { contextQuestions: history.slice(-2) } : {}),
         ...(wire ? { conversationContext: wire } : {}),
       });
     } catch (e) {
@@ -43,7 +43,7 @@ for (const it of corpus) {
       entry_id: res.entry_id ?? null,
       conversation_context_used: meta.conversation_context_used ?? null,
     });
-    history.push({ role: "user", text: t.question });
+    history.push(t.question);
     if (meta.conversation_context) wire = sanitize(meta.conversation_context);
   }
   out.push({ ...it, turns: undefined, records });

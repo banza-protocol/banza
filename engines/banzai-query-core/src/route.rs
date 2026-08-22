@@ -7943,6 +7943,42 @@ pub fn route_json(question: &str) -> String {
 /// aqui", "e em JSON?", "explica melhor", "continua", "e para operador?"). These lean on context and
 /// have little standalone retrieval signal.
 fn is_followup(nq: &str) -> bool {
+    // A BARE WHY is a follow-up, and the shortest one there is.
+    //
+    // "Why not?" after "Is BANZA production ready?" names no subject, asks for the reason behind the
+    // previous answer, and was declined here — so the turn fell through to the question-family
+    // classifier, which read it as a request to DIAGNOSE A FAILED RUN and asked the reader for an
+    // execution identifier. The reader had asked why the protocol is not production ready.
+    //
+    // Bounded to the bare shape: two or three tokens, an interrogative "why", and nothing else. "Why is
+    // the ledger append-only?" names its own subject and is not this.
+    {
+        let toks: Vec<&str> = nq.split(' ').filter(|t| !t.is_empty()).collect();
+        if toks.len() <= 3 {
+            let why = toks
+                .iter()
+                .any(|t| matches!(*t, "why" | "porque" | "porquê" | "porquce" | "porq"))
+                || nq.starts_with("por que");
+            let only_scaffolding = toks.iter().all(|t| {
+                matches!(
+                    *t,
+                    "why"
+                        | "not"
+                        | "porque"
+                        | "porquê"
+                        | "por"
+                        | "que"
+                        | "nao"
+                        | "não"
+                        | "e"
+                        | "and"
+                )
+            });
+            if why && only_scaffolding {
+                return true;
+            }
+        }
+    }
     let cues = [
         " aqui",
         "isso",
