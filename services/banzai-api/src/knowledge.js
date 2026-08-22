@@ -214,6 +214,43 @@ Object.assign(SOURCES, {
 
 const s = (...keys) => keys.map((k) => SOURCES[k]);
 
+/**
+ * The CANONICAL DOMAIN SOURCE REGISTRY — the closed set of external authorities this corpus may cite.
+ *
+ * Eligibility is MEMBERSHIP, not shape. The first version of the citability rule asked whether a source
+ * looked like a domain source — declared class, a publisher, an https URL — and anything carrying those
+ * three fields would have been accepted, including a source id that arrived from retrieval and was
+ * never declared anywhere. "No repository path" must not become "trusted by default"; it must mean
+ * "eligible only if this registry names it".
+ *
+ * Keyed by source id, so a citation is checked against the identity it claims rather than against its
+ * own description of itself. Unknown external ids fail closed.
+ */
+export const DOMAIN_SOURCE_REGISTRY = Object.freeze(
+  Object.fromEntries(
+    Object.values(SOURCES)
+      .filter((x) => x && x.class === "domain")
+      .map((x) => [
+        x.id,
+        Object.freeze({
+          source_id: x.id,
+          source_class: "DOMAIN",
+          publisher: x.publisher,
+          authority: x.authority,
+          url: x.url,
+          title: x.title,
+          eligible: true,
+        }),
+      ]),
+  ),
+);
+
+/** Whether a source id names a declared external DOMAIN authority. Fail-closed on anything else. */
+export function isDeclaredDomainSource(id) {
+  const key = String(id || "").trim();
+  return Boolean(key) && Object.prototype.hasOwnProperty.call(DOMAIN_SOURCE_REGISTRY, key);
+}
+
 // Knowledge entries. `keywords` drive matching; `answer` is the deterministic body.
 
 /** The profile levels, in registry order, as a compact PT/EN line each. */
