@@ -5211,6 +5211,11 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
         &[
             "como o banzai sabe responder",
             "como o banzai responde",
+            // Portuguese interposes "é que" between the interrogative and the subject, which breaks a
+            // contiguous phrase match: "como É QUE o banzai responde" does not contain "como o banzai
+            // responde". The plainest way to ask was the way that missed.
+            "que o banzai responde",
+            "banzai responde a uma pergunta",
             "como sabe responder",
             "de onde vem a resposta do banzai",
             "como o banzai gera a resposta",
@@ -5268,7 +5273,9 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     if any(
         nq,
         &[
-            "guard", "guards", "impede", "impedem", "protege", "protegem",
+            // "impedi" covers the passive the question is actually asked in — "como é IMPEDIDA a
+            // fuga de chaves privadas" — which "impede" does not match.
+            "guard", "guards", "impedi", "impede", "impedem", "protege", "protegem",
         ],
     ) && any(
         nq,
@@ -5284,7 +5291,10 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
         return Some("guards-secret-leak");
     }
     // Which guard prevents operator-brand contamination?
-    if any(nq, &["guard", "guards", "impede", "impedem"])
+    // "impedi" rather than "impede": the passive is how the question is actually asked — "como é
+    // IMPEDIDA a contaminação" — and "impede" does not occur inside "impedida". The stem covers
+    // impede / impedem / impedida / impedido, and the second condition below keeps it narrow.
+    if any(nq, &["guard", "guards", "impedi", "impede", "impedem"])
         && any(
             nq,
             &[
@@ -5340,7 +5350,7 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
         return Some("zero-endpoints");
     }
     // Files implementing the zero.banza.network middleware/routing.
-    if nq.contains("middleware")
+    if (nq.contains("middleware") || nq.contains("routing") || nq.contains("encaminhamento"))
         && any(
             nq,
             &[
@@ -5351,6 +5361,8 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
             ],
         )
     {
+        // The entry names the middleware files, and the reader asks by what they DO — "que ficheiros
+        // implementam o routing do zero.banza.network?" — without using the word "middleware" at all.
         return Some("zero-middleware-files");
     }
     // What does the NOTICE say? (legal attribution — distinct from the software licence)
@@ -5492,6 +5504,13 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
             "estado actual do banzai",
             "estado atual do banzai",
             "estado do banzai",
+            // The state of the INDEX is what this entry reports, and naming the index was what stopped
+            // the question reaching it: "estado actual do ÍNDICE do banzai" contains none of the forms
+            // above.
+            "estado do indice",
+            "estado actual do indice",
+            "estado atual do indice",
+            "indice do banzai",
             "conhece o repo banzai",
             "conhece o repositorio banzai",
             "quantos ficheiros",

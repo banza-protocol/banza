@@ -251,7 +251,7 @@ fn fuzz_campaign_total_function_no_panic() {
             q
         );
         let _ = boundary::evaluate(&q);
-        let _ = attribute::resolve_attribute_query(&q);
+        let _ = attribute::resolve_attribute_query(&q, "pt-PT");
     }
     // normalize idempotence is asserted on NATURAL text (the corpus + the dangerous families). On
     // pathological symbol-only soup normalize is intentionally not guaranteed idempotent (a second pass

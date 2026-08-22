@@ -43,7 +43,7 @@ const readJson = (p) => { try { return JSON.parse(readFileSync(p, "utf8")); } ca
 }
 // 2. creation date DECLARED (2025, NOTICE).
 {
-  const a = JSON.parse(kb.attribute_answer_json("ano de criação do banza"));
+  const a = JSON.parse(kb.attribute_answer_json("ano de criação do banza", "pt-PT"));
   (a.matched && a.status === "DECLARED" && /2025/.test(a.answer))
     ? ok("creation date is a DECLARED exact fact (2025)")
     : fail(`creation date not declared-2025: ${JSON.stringify(a).slice(0,120)}`);
@@ -54,7 +54,7 @@ const readJson = (p) => { try { return JSON.parse(readFileSync(p, "utf8")); } ca
 {
   const manifest = readJson("contracts/production/normative-manifest.json");
   const declared = manifest && manifest.protocol_version;
-  const a = JSON.parse(kb.attribute_answer_json("qual a versão do BANZA?"));
+  const a = JSON.parse(kb.attribute_answer_json("qual a versão do BANZA?", "pt-PT"));
   if (!a.matched) {
     fail("protocol version is not an attribute answer at all");
   } else if (declared) {

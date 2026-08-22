@@ -97,7 +97,7 @@ fn c_declared_vs_not_declared_attribute_is_exact() {
     // The correctness pair: two attributes the canonical documents DECLARE, answered as exact facts
     // from the attribute layer. The version was NOT_DECLARED here for as long as that was true; it is
     // declared as `protocol_version` in the normative manifest, so the assertion follows the fact.
-    let creation = attribute::resolve_attribute_query("ano de criação do banza")
+    let creation = attribute::resolve_attribute_query("ano de criação do banza", "pt-PT")
         .expect("creation date is an attribute query");
     assert_eq!(creation.status, "DECLARED", "creation date is declared");
     assert!(
@@ -105,7 +105,7 @@ fn c_declared_vs_not_declared_attribute_is_exact() {
         "creation answer states the declared year"
     );
 
-    let version = attribute::resolve_attribute_query("qual a versão do BANZA?")
+    let version = attribute::resolve_attribute_query("qual a versão do BANZA?", "pt-PT")
         .expect("version is an attribute query");
     assert_eq!(version.status, "DECLARED", "protocol version is declared");
     assert!(
@@ -115,12 +115,12 @@ fn c_declared_vs_not_declared_attribute_is_exact() {
 
     // The layers below the protocol declare no version of their own — asserting one for them would be
     // the same error in the opposite direction.
-    let banzai = attribute::resolve_attribute_query("qual a versão do BanzAI?")
+    let banzai = attribute::resolve_attribute_query("qual a versão do BanzAI?", "pt-PT")
         .expect("version is an attribute query");
     assert_eq!(banzai.status, "NOT_DECLARED", "BanzAI declares no version");
 
     // A definition/explanation must NOT be captured by the attribute layer.
-    assert!(attribute::resolve_attribute_query("o que é o BANZA?").is_none());
+    assert!(attribute::resolve_attribute_query("o que é o BANZA?", "pt-PT").is_none());
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -262,7 +262,7 @@ fn f_fuzz_smoke_no_panic_and_fail_closed() {
         let _ = normalize(q);
         let _ = route::route(q);
         let _ = boundary::evaluate(q);
-        let _ = attribute::resolve_attribute_query(q);
+        let _ = attribute::resolve_attribute_query(q, "pt-PT");
     }
     // Fail-closed: the confirmed financial action is refused and never routed to the model, and stays
     // so with trailing adversarial noise appended after the complete command.

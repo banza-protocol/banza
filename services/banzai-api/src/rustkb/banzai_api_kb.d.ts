@@ -46,7 +46,7 @@ export function answer_type_str(question: string): string;
  * topic list). Returns the AttributeAnswer JSON; `matched:false` when this is not an attribute question
  * the registry owns (the pipeline then continues to normal grounding).
  */
-export function attribute_answer_json(question: string): string;
+export function attribute_answer_json(question: string, locale: string): string;
 
 /**
  * Node WASM (SPR-1): the safe, public boundary facts for a raw question — `{is_boundary, boundary_kind,

@@ -1036,6 +1036,13 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
             "production ready",
             "ready for production",
             "production readiness",
+            // PRODUCTION CERTIFICATES. The status entry states that no operator holds one, and the
+            // question that asks it directly had no arm at all — "Existem certificados de produção?"
+            // was declined for want of public evidence by an engine holding the answer.
+            "certificados de producao",
+            "certificado de producao",
+            "production certificates",
+            "production certificate",
         ],
     ),
     (
@@ -1044,6 +1051,11 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
             "protocolo foi congelado",
             "protocolo ja foi congelado",
             "protocolo congelado",
+            // The copula. `normalize` leaves "está" as "esta", and "protocolo congelado" does not occur
+            // inside "o protocolo esta congelado" — so the plainest form of the question was the one
+            // phrasing that missed.
+            "protocolo esta congelado",
+            "protocolo ja esta congelado",
             "congelamento do protocolo",
             "protocol been frozen",
             "protocol is frozen",
@@ -1057,6 +1069,8 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
             "l0 foi congelado",
             "l0 ja foi congelado",
             "l0 congelado",
+            "l0 esta congelado",
+            "l0 ja esta congelado",
             "congelamento do l0",
             "l0 been frozen",
             "l0 is frozen",
@@ -1070,6 +1084,13 @@ const CRITICAL_SUBJECTS: &[(&str, &[&str])] = &[
             "implementacao independente",
             "independent implementation",
             "independently implemented",
+            // The same fact asked about WHO rather than about WHAT: "Algum terceiro já demonstrou uma
+            // implementação?" names no independent implementation and was answered with the generic
+            // operator implementation-steps guide.
+            "terceiro ja demonstrou",
+            "terceiro demonstrou",
+            "third party demonstrated",
+            "third party has demonstrated",
         ],
     ),
     (

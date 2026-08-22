@@ -4012,10 +4012,10 @@ export function coveredEntities() {
 // AttributeAnswer { entity_id, attribute_id, status, answer, reason_code, source_id } when the question is
 // an attribute question the registry owns, else null (the pipeline continues to normal grounding). 0 model
 // calls. The NOT_DECLARED answer is a PRECISE contextual message, never the generic topic list.
-export function attributeAnswer(question) {
+export function attributeAnswer(question, locale = DEFAULT_LOCALE) {
   if (typeof kb.attribute_answer_json !== "function") return null;
   try {
-    const a = JSON.parse(kb.attribute_answer_json(String(question || "")));
+    const a = JSON.parse(kb.attribute_answer_json(String(question || ""), String(locale || DEFAULT_LOCALE)));
     return a && a.matched ? a : null;
   } catch {
     return null;
