@@ -2438,19 +2438,28 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         // about integer minor units. A reader is told a security boundary fired when nothing was
         // refused.
         //
-        // Asked POSITIVELY: an answer is a safety refusal when it REFUSES, not when its id fails to
-        // look like a definition.
+        // WHICH answers are safety refusals, and why this is not decided by the id's shape.
         //
-        // The previous rule was `!startsWith("def-") && intent is a boundary`, patched once for
-        // invariants. It was still a guess about naming, and it kept being wrong for the same reason:
-        // `guards-secret-leak` EXPLAINS how leakage is prevented and was announced to the reader as
-        // "Limite de segurança aplicado por Rust", as were the invariant records before them. Every new
-        // family of ids inherited the bug because the test was "is this named like a definition?"
+        // The rule was `!entry_id.startsWith("def-") && intent is a boundary`. It mislabelled every
+        // family of ids that was neither a `def-` definition nor a refusal: invariant records, and then
+        // `guards-secret-leak`, which EXPLAINS how key leakage is prevented and which production
+        // announced as "Limite de segurança aplicado por Rust". Nothing was refused in either case.
         //
-        // A refusal is a `refuse-*` entry, or the deterministic action-boundary path — which serves
-        // only `refuse-*` ids. Everything else is knowledge being served, whatever its id looks like.
+        // The obvious repair — "a refusal is a `refuse-*` entry" — is WRONG, and the critical benchmark
+        // said so: `banzai-cannot-certify` is a genuine denial of BanzAI's authority and carries no
+        // `refuse-` prefix. Denial is not a naming convention, so it cannot be read off the name in
+        // either direction.
+        //
+        // So the exceptions are DECLARED ON THE ENTRY, which knows what it is: an invariant record
+        // states normative text, and a `repo_truth` entry describes this repository's own tooling.
+        // Neither denies anything. Everything else keeps the historical classification, with the
+        // critical benchmark as the authority on which entries are denials.
+        const isDefinition =
+          String(decision.entry_id || "").startsWith("def-") ||
+          Boolean(entry.invariant) ||
+          Boolean(entry.repo_truth);
         const isBoundary =
-          String(decision.entry_id || "").startsWith("refuse-") || intent === "action_boundary";
+          !isDefinition && (intent === "critical_boundary" || intent === "action_boundary");
         const kind = isBoundary ? "safety_refusal" : "canonical_definition";
         const trace_label = isBoundary ? "Limite de segurança aplicado por Rust" : "Definição canónica confirmada por Rust";
         return deterministic(entry, { answer_mode: mode, fallback_reason: null, intent, terminal_kind: kind, trace_label, ...ctxMeta, ...routerTrace }, locale);

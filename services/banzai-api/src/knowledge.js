@@ -1438,6 +1438,7 @@ export const ENTRIES = [
   },
   {
     id: "banzai-retrieval",
+    repo_truth: true,
     critical: true,
     keywords: ["como funciona o retrieval do banzai", "retrieval do banzai", "como o banzai recupera", "banzai retrieval", "como o banzai encontra fontes", "como o banzai procura"],
     realizations: {
@@ -1450,6 +1451,7 @@ export const ENTRIES = [
   },
   {
     id: "how-banzai-answers",
+    repo_truth: true,
     critical: true,
     keywords: ["como o banzai sabe responder", "como o banzai responde", "de onde vem a resposta do banzai", "como o banzai gera a resposta", "how does banzai know"],
     realizations: {
@@ -1474,6 +1476,7 @@ export const ENTRIES = [
   },
   {
     id: "action-boundary-location",
+    repo_truth: true,
     critical: true,
     keywords: ["onde esta definido o action boundary", "onde esta a fronteira de acao", "onde vive o action boundary", "action boundary definido", "onde esta a fronteira de accao", "where is the action boundary"],
     realizations: {
@@ -1486,6 +1489,7 @@ export const ENTRIES = [
   },
   {
     id: "guards-banzai",
+    repo_truth: true,
     critical: true,
     keywords: ["que guards protegem o banzai", "guards do banzai", "quais guards do banzai", "banzai guards", "que checks protegem o banzai"],
     realizations: {
@@ -1534,6 +1538,7 @@ export const ENTRIES = [
   },
   {
     id: "banzai-index-crate",
+    repo_truth: true,
     critical: true,
     keywords: ["que crate rust indexa o conhecimento do banzai", "crate que indexa o banzai", "qual crate indexa o conhecimento", "que crate faz o indice do banzai", "rust crate indexes banzai knowledge"],
     realizations: {
@@ -1558,6 +1563,7 @@ export const ENTRIES = [
   },
   {
     id: "zero-middleware-files",
+    repo_truth: true,
     critical: true,
     keywords: ["que ficheiros implementam o middleware do zero.banza.network", "ficheiros do middleware zero", "middleware do zero banza network", "que ficheiros fazem o routing do zero", "middleware files zero banza network"],
     realizations: {
@@ -1620,6 +1626,7 @@ export const ENTRIES = [
   },
   {
     id: "guards-secret-leak",
+    repo_truth: true,
     critical: true,
     keywords: ["que guards impedem fuga de private key", "que guard impede fuga de chave", "guard de private key", "que impede vazamento de chave", "private key leak guard", "que guard protege segredos"],
     realizations: {
@@ -1632,6 +1639,7 @@ export const ENTRIES = [
   },
   {
     id: "guard-brand-contamination",
+    repo_truth: true,
     critical: true,
     keywords: ["que guard impede contaminacao de marca", "guard de contaminacao de marca", "que impede marca de operador", "guard de neutralidade", "operator brand guard", "que guard bloqueia marca comercial"],
     realizations: {
@@ -1644,6 +1652,7 @@ export const ENTRIES = [
   },
   {
     id: "banzai-ci",
+    repo_truth: true,
     critical: true,
     keywords: ["que ci valida o banzai", "qual ci valida o banzai", "que workflow valida o banzai", "banzai ci", "que pipeline valida o banzai", "que ci corre para o banzai"],
     realizations: {
@@ -1656,6 +1665,7 @@ export const ENTRIES = [
   },
   {
     id: "banzai-index-state",
+    repo_truth: true,
     critical: true,
     keywords: ["qual e o estado actual do banzai", "estado actual do banzai", "o banzai conhece o repo banzai", "banzai conhece o repositorio banzai", "quantos ficheiros foram indexados", "quantos chunks foram indexados", "quantos ficheiros chunks", "que testes foram adicionados na m2.13b", "current state of banzai", "does banzai know the banzai repo"],
     realizations: {
