@@ -112,3 +112,56 @@ trust or governance, and none of it changes that status.
   significa consenso global?" refuses rather than inheriting the prior subject. Inheriting blindly
   would produce confident, off-target answers, which is the failure class this programme removed.
 - The global unmatched-path 404 is untouched and remains open.
+
+## The V2 measurement, on the closed universe
+
+Universe `bf1a472f` · 203 units · corpus `ed36d484` · 572 items. Two full production runs against the
+same frozen denominator, before and after the repairs, both at 100% execution coverage.
+
+| | `src-ef21f43` (before) | `src-1c893be` (after) |
+|---|---|---|
+| A · universe mapping coverage | 176/176 = 100% | 176/176 = 100% |
+| B · execution coverage | 572/572 = 100% | 572/572 = 100% |
+| C · behavioral pass rate | 283/572 = **49.5%** | 498/572 = **87.1%** |
+| fully-passing factual units | 132/176 | 167/176 |
+
+By knowledge class:
+
+| class | before | after |
+|---|---|---|
+| invariant members (atomic) | 44.5% | **100.0%** |
+| DOMAIN | 41.5% | 94.0% |
+| BANZA_NORMATIVE | 57.2% | 87.7% |
+| HYBRID | 78.4% | 86.5% |
+| conformance vocabulary | 70.8% | 83.3% |
+| BANZA_SUPPORTING | 50.0% | 75.0% |
+| profiles | 90.9% | 90.9% |
+| invariant families | 68.2% | 71.7% |
+| REPO_TRUTH | 50.0% | 50.0% |
+| RUNTIME_TRUTH | 48.3% | 48.3% |
+
+The three metrics are reported separately on purpose. Collapsing them is how a run that died at item 78
+gets read as a clean result — which is exactly what happened to the first attempt at this baseline.
+
+## What the 74 remaining failures are
+
+Not a long tail of unrelated problems. Two groups, both the same defect the whole programme has been
+repairing — the knowledge is present and the question does not reach it.
+
+**RUNTIME_TRUTH, 14/29.** "O L0 está congelado?", "Existem certificados de produção?", "Algum terceiro
+já demonstrou uma implementação?" — every one of these is a derived lifecycle fact sitting in
+`lifecycleFacts.generated.json`. The facts are current and correct; the question shapes that ask for
+them have no gate.
+
+**REPO_TRUTH, 5/10.** "Como é impedida a fuga de chaves privadas no repositório?", "Como é que o BanzAI
+responde a uma pergunta?" — `guards-secret-leak` and `how-banzai-answers` are real entries with real
+content, unreachable from the question a reader would actually ask.
+
+Both are bounded and well understood, and neither is a knowledge gap. They are the next repair, not a
+reason to call this one finished early — recorded here so the number is not mistaken for the whole
+story.
+
+## AG-10 is still NOT_RUN
+
+`make assurance-check` reports AG-0…AG-9 PASS with their evidence present. AG-10 is the release/freeze
+gate and remains NOT_RUN: the protocol stays PRE-PRODUCTION, and absence is never PASS.

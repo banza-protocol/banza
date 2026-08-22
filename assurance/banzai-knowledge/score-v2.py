@@ -18,6 +18,10 @@ Reporting one number in place of these three is how a partial run gets mistaken 
 import json, re, sys, collections
 
 RUN = sys.argv[1]
+# --emit <path> writes the per-item verdicts as a committable artifact. It is produced BY THIS SCORER
+# so there is exactly one oracle: a second implementation of "did this pass?" drifts from the first and
+# then the evidence and the report disagree, which is how a measurement stops meaning anything.
+EMIT = sys.argv[sys.argv.index("--emit") + 1] if "--emit" in sys.argv else None
 ROOT = "/Users/fm65/banza/assurance/banzai-knowledge"
 bench = json.load(open(f"{ROOT}/benchmark-v2.json"))
 uni = json.load(open(f"{ROOT}/semantic-universe.json"))
@@ -44,6 +48,7 @@ rows = [json.loads(l) for l in open(RUN) if l.strip()]
 byprio = collections.defaultdict(lambda: [0, 0])
 byclass = collections.defaultdict(lambda: [0, 0])
 fails = []
+verdicts = []
 covered_units = set()
 counters = collections.Counter()
 unit_class = {u["semantic_id"]: u["knowledge_class"] for u in uni["units"]}
@@ -90,6 +95,11 @@ for d in rows:
             if ok: byclass[c][1] += 1
         if not ok:
             fails.append((d["question_id"], spec["criticality"], spec["locale"], spec["question"][:52], why, ""))
+        verdicts.append({"question_id": d["question_id"], "locale": spec["locale"], "form": spec["form"],
+                         "criticality": spec["criticality"], "semantic_unit_ids": spec["semantic_unit_ids"],
+                         "terminal_kind": d["records"][0].get("terminal_kind"),
+                         "answer_locale": d["records"][0].get("answer_locale"),
+                         "turns_run": len(d["records"]), "pass": ok, "reasons": why})
         continue
 
     r = d["records"][0]
@@ -132,6 +142,10 @@ for d in rows:
         if ok: byclass[c][1] += 1
     if not ok:
         fails.append((d["question_id"], spec["criticality"], spec["locale"], spec["question"][:52], why, a[:100]))
+    verdicts.append({"question_id": d["question_id"], "locale": spec["locale"], "form": spec["form"],
+                     "criticality": spec["criticality"], "semantic_unit_ids": spec["semantic_unit_ids"],
+                     "terminal_kind": r.get("terminal_kind"), "answer_locale": r.get("answer_locale"),
+                     "sources_count": r.get("sources_count"), "pass": ok, "reasons": why})
 
 factual = [u for u in uni["units"] if u["knowledge_class"] != "CAPABILITY"]
 asked = {u for i in bench["items"] for u in i["semantic_unit_ids"]}
@@ -169,3 +183,29 @@ print("clusters:", dict(clusters.most_common(12)))
 for qid, prio, loc, q, why, snip in fails[:30]:
     print(f"  [{prio}/{loc}] {qid} {q}")
     print(f"      {'; '.join(why)[:150]}")
+
+
+if EMIT:
+    import hashlib
+    digest = hashlib.sha256(open(RUN, "rb").read()).hexdigest()
+    payload = {
+        "_note": (
+            "SCORED RESULTS for a full production run against the frozen V2 universe, emitted by "
+            "score-v2.py so the verdicts and the report share one oracle. The raw transcript is NOT "
+            "committed: two of the 572 answers correctly name the Layer-3 designated scheme operator — "
+            "legitimate ADR-060 vocabulary BanzAI is right to state — and committing the prose would "
+            "require widening the operator-neutrality allowlist to admit measurement output. Widening a "
+            "contamination guard to store evidence is the wrong trade, and editing the transcript would "
+            "be worse. Everything the measurement claim rests on is here: every item, its units, its "
+            "verdict and its reasons, with the transcript identified by digest and reproducible from "
+            "the pinned corpus."
+        ),
+        "universe_hash": uni["universe_hash"], "corpus_hash": bench["corpus_hash"],
+        "raw_transcript_sha256": digest,
+        "items": len(verdicts), "passing": sum(1 for v in verdicts if v["pass"]),
+        "results": verdicts,
+    }
+    with open(EMIT, "w", encoding="utf-8") as fh:
+        json.dump(payload, fh, ensure_ascii=False, indent=2)
+        fh.write("\n")
+    print(f"\nemitted {EMIT}: {payload['passing']}/{payload['items']}")
