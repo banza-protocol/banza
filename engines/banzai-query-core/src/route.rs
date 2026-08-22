@@ -5462,6 +5462,31 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     ) {
         return Some("who-implements-protocol");
     }
+    // GENERIC technology choice, checked BEFORE the storage arm below. That arm matches the bare
+    // substring "implementation use", which also occurs in "can another implementation USE a different
+    // technology" — so ordering, not phrasing, is what keeps the two apart.
+    //
+    // The two questions have different answers. `banza-limits` states what BANZA does not hold — right
+    // for "does the protocol require PostgreSQL?", and silent on the rule the reader asks about here.
+    // `who-implements-protocol` states it: any operator may implement in any language or stack that
+    // satisfies the invariants.
+    //
+    // Measured in the ledger journey: turn 5, "Outra implementação pode usar outra tecnologia?", was
+    // answered with "BANZA não tem carteira, ledger de operador, KYC/KYB…" — true, and not an answer to
+    // the question asked.
+    if any(
+        nq,
+        &[
+            "outra tecnologia",
+            "outra linguagem",
+            "another technology",
+            "different technology",
+            "another language",
+            "different stack",
+        ],
+    ) {
+        return Some("who-implements-protocol");
+    }
     // The same question with the IMPLEMENTATION as its subject, and no mention of BANZA at all.
     //
     // "Uma implementação pode usar PostgreSQL?" reached `banza-limits` — the right entry, which states
@@ -5474,7 +5499,11 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     if any(
         nq,
         &[
-            "implementacao pode usar",
+            // NB: narrowed to the STORAGE question. Bare "implementacao pode usar" also matches
+            // "outra implementação pode usar outra TECNOLOGIA", which is the technology-choice rule
+            // below and has a different answer.
+            "implementacao pode usar postgres",
+            "implementacao pode usar postgresql",
             "implementacao podem usar",
             "implementacoes podem usar",
             "implementation use",
@@ -5492,9 +5521,6 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
             "do all implementations use",
             "can i use postgresql",
             "can i use postgres",
-            "outra tecnologia",
-            "another technology",
-            "different technology",
         ],
     ) {
         return Some("banza-limits");

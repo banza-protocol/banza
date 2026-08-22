@@ -111,10 +111,29 @@ fn a_found_entry_is_not_thrown_away_on_the_way_to_the_reader() {
     for q in [
         "uma implementacao pode usar postgresql",
         "can an implementation use postgresql",
-        "outra implementacao pode usar outra tecnologia",
     ] {
         let r = route(q);
         assert_eq!(r.entry_id.as_deref(), Some("banza-limits"), "{q:?}");
+        assert_eq!(
+            r.action, "deterministic",
+            "{q:?} must be served, not re-derived"
+        );
+    }
+    // GENERIC technology choice is the same SHAPE and a different QUESTION. This case used to expect
+    // `banza-limits` alongside the PostgreSQL ones, and the property being pinned was that a found
+    // entry is not discarded — not which entry. Measured in the ledger journey, `banza-limits` answered
+    // it with "BANZA não tem carteira, ledger de operador, KYC/KYB…": true, and silent on the rule the
+    // reader asked for. `who-implements-protocol` states that rule.
+    for q in [
+        "outra implementacao pode usar outra tecnologia",
+        "can another implementation use a different technology",
+    ] {
+        let r = route(q);
+        assert_eq!(
+            r.entry_id.as_deref(),
+            Some("who-implements-protocol"),
+            "{q:?}"
+        );
         assert_eq!(
             r.action, "deterministic",
             "{q:?} must be served, not re-derived"
