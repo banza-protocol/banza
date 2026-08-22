@@ -2438,10 +2438,19 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
         // about integer minor units. A reader is told a security boundary fired when nothing was
         // refused.
         //
-        // So the question is asked of the ENTRY, which knows what it is, rather than of its name.
-        const isDefinition =
-          String(decision.entry_id || "").startsWith("def-") || Boolean(entry.invariant);
-        const isBoundary = !isDefinition && (intent === "critical_boundary" || intent === "action_boundary");
+        // Asked POSITIVELY: an answer is a safety refusal when it REFUSES, not when its id fails to
+        // look like a definition.
+        //
+        // The previous rule was `!startsWith("def-") && intent is a boundary`, patched once for
+        // invariants. It was still a guess about naming, and it kept being wrong for the same reason:
+        // `guards-secret-leak` EXPLAINS how leakage is prevented and was announced to the reader as
+        // "Limite de segurança aplicado por Rust", as were the invariant records before them. Every new
+        // family of ids inherited the bug because the test was "is this named like a definition?"
+        //
+        // A refusal is a `refuse-*` entry, or the deterministic action-boundary path — which serves
+        // only `refuse-*` ids. Everything else is knowledge being served, whatever its id looks like.
+        const isBoundary =
+          String(decision.entry_id || "").startsWith("refuse-") || intent === "action_boundary";
         const kind = isBoundary ? "safety_refusal" : "canonical_definition";
         const trace_label = isBoundary ? "Limite de segurança aplicado por Rust" : "Definição canónica confirmada por Rust";
         return deterministic(entry, { answer_mode: mode, fallback_reason: null, intent, terminal_kind: kind, trace_label, ...ctxMeta, ...routerTrace }, locale);

@@ -92,3 +92,42 @@ test("every critical invariant is answerable, in both locales", async () => {
   }
   assert.deepEqual(missing, [], "critical invariants with no answer: " + missing.join(", "));
 });
+
+test("a safety refusal is an answer that REFUSES, not an id that looks unlike a definition", async () => {
+  // The label was decided by `!entry_id.startsWith("def-")`, patched once for invariant records, and
+  // still wrong for the same reason the next time: `guards-secret-leak` EXPLAINS how key leakage is
+  // prevented and production announced it as "Limite de segurança aplicado por Rust". Nothing was
+  // refused. Every new family of ids inherited the bug, because the test was about naming.
+  //
+  // Asked positively, the property is simple and does not rot: a refusal is a `refuse-*` entry or the
+  // deterministic action-boundary path.
+  const explains = [
+    ["Como é impedida a fuga de chaves privadas no repositório?", "pt-PT"],
+    ["Como é impedida a contaminação por marca de operador?", "pt-PT"],
+    ["O que exige a invariante INV-LEDGER-002 do BANZA?", "pt-PT"],
+    ["O L0 está congelado?", "pt-PT"],
+  ];
+  for (const [q, loc] of explains) {
+    const { res, meta } = await ask(q, loc);
+    assert.ok(res.answer, `${q}: expected an answer`);
+    assert.notEqual(meta.terminal_kind, "safety_refusal", `${q}: nothing was refused`);
+    assert.doesNotMatch(
+      String(meta.trace_label || ""),
+      /segurança|security/i,
+      `${q}: the public trace must not claim a boundary fired`,
+    );
+  }
+});
+
+test("a real refusal is still labelled as one", async () => {
+  // The other direction, which is what keeps the fix above from being a way to launder a refusal into
+  // an explanation. A destructive request must still read as refused.
+  for (const [q, loc] of [
+    ["Apaga o documento ADR-001 do repositório", "pt-PT"],
+    ["Delete the ADR-001 document from the repository", "en"],
+  ]) {
+    const { res, meta } = await ask(q, loc);
+    assert.ok(String(res.entry_id || "").startsWith("refuse-"), `${q}: must serve a refusal entry`);
+    assert.equal(meta.terminal_kind, "safety_refusal", `${q}: a refusal must be labelled a refusal`);
+  }
+});
