@@ -2,7 +2,7 @@
   "schema_version": 1,
   "_generated_by": "tools/gen-banzai-benchmark-v2.mjs",
   "universe_hash": "bf1a472f7a99b68aa9df50021ca43b0e",
-  "corpus_hash": "35d89b42f8ababbd24cb7ee0c24ed723",
+  "corpus_hash": "d9084360154dab5dc651d64234e0cadf",
   "count": 572,
   "items": [
     {
@@ -768,9 +768,9 @@
       "question": "Como é que um operador demonstra conformidade?",
       "must": [],
       "must_any": [
-        "(demonstra|prova|estabelec|comprova)\\w*[^.]{0,90}(evid[êe]ncia|verific|reverifica|artefactos? publicad|resultados? de conformidade|auto-?publica)",
-        "(evid[êe]ncia|verifica[çc][ãa]o|resultados? verific[áa]ve)[^.]{0,90}(demonstra|prova|estabelec|comprova)",
-        "corre a conformance suite[^.]{0,90}(publica|verific|evid)"
+        "(demonstra|prova|estabelec|comprova)\\w*[^.]{0,140}(evid[êe]ncia|verific|reverifica|reexecu|artefactos?|auto-?publica|resultados? de conformidade)",
+        "(evid[êe]ncia|verifica[çc][ãa]o|resultados? verific[áa]ve)[^.]{0,140}(demonstra|prova|estabelec|comprova)",
+        "corre a conformance suite[^.]{0,140}(publica|verific|evid)"
       ],
       "must_not": [
         "(?<!n[ãa]o )(?<!nem )por aprova[çc][ãa]o central",
@@ -794,9 +794,9 @@
       "question": "De que forma se prova conformidade com o protocolo?",
       "must": [],
       "must_any": [
-        "(demonstra|prova|estabelec|comprova)\\w*[^.]{0,90}(evid[êe]ncia|verific|reverifica|artefactos? publicad|resultados? de conformidade|auto-?publica)",
-        "(evid[êe]ncia|verifica[çc][ãa]o|resultados? verific[áa]ve)[^.]{0,90}(demonstra|prova|estabelec|comprova)",
-        "corre a conformance suite[^.]{0,90}(publica|verific|evid)"
+        "(demonstra|prova|estabelec|comprova)\\w*[^.]{0,140}(evid[êe]ncia|verific|reverifica|reexecu|artefactos?|auto-?publica|resultados? de conformidade)",
+        "(evid[êe]ncia|verifica[çc][ãa]o|resultados? verific[áa]ve)[^.]{0,140}(demonstra|prova|estabelec|comprova)",
+        "corre a conformance suite[^.]{0,140}(publica|verific|evid)"
       ],
       "must_not": [
         "(?<!n[ãa]o )(?<!nem )por aprova[çc][ãa]o central",
@@ -820,9 +820,9 @@
       "question": "How does an operator demonstrate conformance?",
       "must": [],
       "must_any": [
-        "(demonstrat|prov|establish|show)\\w*[^.]{0,90}(evidence|verifi|re-?execut|published artefacts?|conformance results?|self-?publicat)",
-        "(evidence|verifi\\w+)[^.]{0,90}(demonstrat|prov|establish)",
-        "runs? the conformance suite[^.]{0,90}(publish|verifi|evidence)"
+        "(demonstrat|prov|establish|show)\\w*[^.]{0,140}(evidence|verifi|re-?execut|artefacts?|self-?publish|self-?publicat|conformance results?|conformance suite)",
+        "(evidence|verifi\\w+)[^.]{0,140}(demonstrat|prov|establish)",
+        "runs? the conformance suite[^.]{0,140}(publish|verifi|evidence)"
       ],
       "must_not": [
         "(?<!not )(?<!nor )by central approval",
@@ -846,9 +846,9 @@
       "question": "In what way is conformance to the protocol proven?",
       "must": [],
       "must_any": [
-        "(demonstrat|prov|establish|show)\\w*[^.]{0,90}(evidence|verifi|re-?execut|published artefacts?|conformance results?|self-?publicat)",
-        "(evidence|verifi\\w+)[^.]{0,90}(demonstrat|prov|establish)",
-        "runs? the conformance suite[^.]{0,90}(publish|verifi|evidence)"
+        "(demonstrat|prov|establish|show)\\w*[^.]{0,140}(evidence|verifi|re-?execut|artefacts?|self-?publish|self-?publicat|conformance results?|conformance suite)",
+        "(evidence|verifi\\w+)[^.]{0,140}(demonstrat|prov|establish)",
+        "runs? the conformance suite[^.]{0,140}(publish|verifi|evidence)"
       ],
       "must_not": [
         "(?<!not )(?<!nor )by central approval",
