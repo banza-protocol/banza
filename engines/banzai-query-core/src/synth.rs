@@ -320,7 +320,11 @@ pub fn build_output_prompt_obliged(
         )
     };
     OutputPrompt {
-        system: format!("{}\n{}{}{}", base.system, directive, sections, claims),
+        // The obligations go FIRST. Appended after the grounding rules and the shape directive they sat
+        // at the end of a long system prompt, and the local model kept producing answers that were
+        // well-shaped, well-sourced and silent on the proposition. What a small model reads first is
+        // what it honours.
+        system: format!("{}{}\n{}{}", claims, base.system, directive, sections),
         user: base.user,
     }
 }
@@ -360,7 +364,11 @@ pub fn build_output_prompt_obliged_structured(
         )
     };
     OutputPrompt {
-        system: format!("{}\n{}{}{}", base.system, directive, sections, claims),
+        // The obligations go FIRST. Appended after the grounding rules and the shape directive they sat
+        // at the end of a long system prompt, and the local model kept producing answers that were
+        // well-shaped, well-sourced and silent on the proposition. What a small model reads first is
+        // what it honours.
+        system: format!("{}{}\n{}{}", claims, base.system, directive, sections),
         user: base.user,
     }
 }
