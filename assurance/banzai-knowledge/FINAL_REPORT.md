@@ -264,3 +264,95 @@ All three are grounded-model variance on the trunk: the English forms of both pa
 present, the sources are correct, and no counter is dirty. Closing them deterministically needs the
 semantic anchor of a unit to reach generation and post-validation — a change to the synthesis contract,
 not another route.
+
+## The grounded semantic claim contract, and 572/572
+
+The three remaining failures were not routing failures and not retrieval failures. The knowledge was
+retrieved, the sources were correct, the counters were clean, and the model still wrote an answer that
+omitted the proposition the question was about. What was missing was an obligation: nothing in the
+pipeline stated *which propositions an answer must carry to count as an answer*, so nothing could tell
+a fluent paraphrase from a fulfilment.
+
+`engines/banzai-query-core/src/claims.rs` states them. A claim is a proposition owned by a semantic
+unit, with the evidence that may support it declared alongside it:
+
+```
+Claim { id, semantic_unit, trigger_entry, trigger_terms,
+        evidence_any_of, authority_class, criticality, obligation_pt, obligation_en }
+```
+
+The contract runs in one direction only: semantic unit → required claims → evidence requirements →
+prompt obligations → generation → validation → at most one repair generation → success or fail-closed.
+`required_claim_ids` come from the unit, never from the benchmark and never from the question text.
+The obligations are rendered *first* in the system prompt, before the base instructions — moving them
+from last to first is what changed the model's behaviour from honest refusal to correct answer.
+
+**Two independent judges.** The runtime validator is Rust predicates over relational patterns
+(`must_any` requires a verb bound to its object within a window, so a bare keyword never satisfies a
+claim). The benchmark oracle is Python regexes written separately. They share the proposition and
+nothing else, so the system does not certify itself.
+
+**Source support is necessary but not sufficient.** `evidence_covers` requires one of the declared
+documents; `claim.conformance.established_by_verification` is not covered by ADR-029 alone, because a
+declaration is not a verification. An answer can be grounded in the right document and still fail the
+claim.
+
+**A claim is owed by the question's vocabulary, not by the entry it happens to route to.** Binding the
+conformance claim to `how-to-demonstrate-conformance` made a definitional question about evidence owe a
+proposition about how conformance is established, and both locales of `banza.evidence.definition` failed
+for it. Claims trigger on declared vocabulary; `tests/grounded_claim_contract.rs` pins both directions.
+
+### The measurement
+
+`src-dbc3f83`, run from zero against live production, no cached verdicts, no reused results.
+
+| | `src-478b70c` | `src-008841a` | `src-dbc3f83` |
+|---|---|---|---|
+| behavioral pass rate | 99.5% | 99.7% | **572/572 = 100%** |
+| fully-passing factual units | 174/176 | 174/176 | **176/176** |
+| P0 · P1 · P2 | 99.0 / 100 / 100 | 100 / 99.2 / 100 | **100 / 100 / 100** |
+| every knowledge class | — | — | **100%** |
+| counters | clean | 2 refusals | **clean** |
+| journeys | 8/8 | 8/8 | **8/8** |
+
+Universe `bf1a472f` (unchanged, 203 units) · corpus `d9084360` · 596 turns · 0 non-200 · 0 timeouts ·
+0 rate-limit retries · 0 probe restarts. Scored results in
+`baseline/scored-src-dbc3f83-v2.json`; the raw transcript is not committed, for the reason recorded
+in that file.
+
+### Performance
+
+| path | n | p50 | p95 | max |
+|---|---|---|---|---|
+| deterministic | 565 | 59 ms | 100 ms | 15.2 s |
+| model | 31 | 14.75 s | 18.6 s | 22.8 s |
+
+Model-use rate 5.2% (31/596). External model calls: 0 — every synthesis was `local_qwen`. Validated-
+cache hits 10.
+
+**Repair frequency is bounded, not measured.** 8 of 596 turns owe a claim from the question's declared
+vocabulary; 1 of those took the model path, so at most one repair generation could have run in the
+whole corpus. The exact count is not recoverable from the recorded evidence: `claim_repair` is written
+to `routerTrace`, which the flat `/ask` envelope drops, and replaying those turns returns the validated
+cache rather than a cold synthesis. What the run does establish is the end state — **0 turns returned
+`claim_contract_unsatisfied`**, so every claim that was owed was satisfied within the one allowed repair.
+A cache-cold production probe with novel phrasings shows the repair path costing roughly 22 s against
+15 s for a first-pass synthesis.
+
+### What 100% is, and what it is not
+
+It is 100% against this corpus and this oracle, both frozen and both in this directory. Outside them,
+the honest picture is unchanged and worth stating:
+
+- **104 of 596 turns are served as `operational_failure` / `unresolved_subject` while returning a
+  correct grounded answer.** The count is identical across `src-478b70c`, `src-008841a` and
+  `src-dbc3f83`, so it is a pre-existing labelling conservatism, not a regression from this work: the
+  router could not fix the *specific* subject, served the entry's trunk definition, and said so. The
+  metadata under-claims relative to the content. It is not a wrong answer, and it is not a lie — but a
+  reader trusting `terminal_kind` alone would misjudge 17% of turns.
+- **A novel phrasing outside the frozen corpus can still fail closed.** "Explique, para um leitor
+  técnico, de que maneira exacta um operador demonstra conformidade com o protocolo BANZA" returns
+  `synthesis_output_unvalidated` and the trunk definition, degraded and labelled. Fail-closed is the
+  designed outcome; the coverage limit is real.
+
+BANZA remains **PRE-PRODUCTION**. AG-10 remains **NOT_RUN**. GLOBAL 404 remains **OPEN**.
