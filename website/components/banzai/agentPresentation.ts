@@ -499,17 +499,21 @@ export const AGENT_COPY = {
   "dev.section.faq": L("PERGUNTAS FREQUENTES", "FREQUENTLY ASKED QUESTIONS"),
   "dev.section.repository": L("REPOSITÓRIO", "REPOSITORY"),
   "dev.opensNewTab": L("abre numa nova aba", "opens in a new tab"),
-  "starter.journeyDuration": L(
-    "Quanto tempo leva uma jornada completa de validação?",
-    "How long does a full validation journey take?",
+  // The three starter questions open the door on the three things BanzAI is for: understand the
+  // protocol, understand what implementing it means, and understand how conformance is shown. Each one
+  // is verified against live production before it ships — a starter question that grounds on the
+  // manifesto's description of the status quo would publish the very claims the protocol denies.
+  "starter.whatIsBanza": L(
+    "O que é o BANZA?",
+    "What is BANZA?",
   ),
-  "starter.slowestStep": L(
-    "Qual a etapa mais lenta da validação e quanto demora?",
-    "Which validation step is the slowest, and how long does it take?",
+  "starter.whatIsImplementation": L(
+    "O que é uma implementação do BANZA?",
+    "What is a BANZA implementation?",
   ),
-  "starter.compareRuns": L(
-    "Compara a duração da última execução com a anterior.",
-    "Compare the duration of the last run with the previous one.",
+  "starter.howConformanceIsShown": L(
+    "Como é que um operador demonstra conformidade com o protocolo?",
+    "How does an operator demonstrate conformance to the protocol?",
   ),
   "rfcCard.adr001.title": L(
     "Hierarquia BANZA / BanzAI / Operadores",

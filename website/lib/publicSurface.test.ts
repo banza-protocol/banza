@@ -4,7 +4,7 @@ import { agentCopy, agentCopyIds } from "@/components/banzai/agentPresentation";
 import { navPrimary, footerColumns } from "./site";
 
 // The three starter questions the empty conversation offers, realized from the catalogue.
-const STARTER_QUESTIONS = (["starter.journeyDuration", "starter.slowestStep", "starter.compareRuns"] as const).map((id) =>
+const STARTER_QUESTIONS = (["starter.whatIsBanza", "starter.whatIsImplementation", "starter.howConformanceIsShown"] as const).map((id) =>
   agentCopy(id, "pt"),
 );
 import { RFC_DOCS, PROTOCOL_MAP_NODES, DEV_COMMANDS, DEV_ENDPOINTS, TRACE_FLOW, TABS } from "@/components/banzai/banzai-agent";
@@ -172,10 +172,9 @@ describe("M2.5 — assistant suggestions are task-oriented", () => {
     expect(STARTER_QUESTIONS.length).toBeGreaterThan(0);
     for (const s of STARTER_QUESTIONS) {
       expect(s.trim().length).toBeGreaterThan(0);
-      // A task/question (or an imperative demonstrator), not a certification-as-goal claim. ADR-036
-      // added a broad operational demonstrator phrased as an instruction ("Compara …"), which ends
-      // with a period; a question still ends with "?".
-      expect(/[?.]$/.test(s.trim())).toBe(true);
+      // A question, not a certification-as-goal claim. The starter set is the empty conversation's
+      // front door, so every entry is phrased as something a reader would actually ask.
+      expect(s.trim().endsWith("?")).toBe(true);
       expect(s).toMatch(/^(Como|O que|Que |Qual|Quanto|Compara|Onde|Porqu[êe]|Para )/);
     }
   });
@@ -186,13 +185,14 @@ describe("M2.5 — assistant suggestions are task-oriented", () => {
     }
   });
 
-  it("points at the real operator goals — the validation journey's operational telemetry (ADR-036)", () => {
-    const joined = STARTER_QUESTIONS.join("  ");
-    expect(joined.toLowerCase()).toContain("valida");
-    // ADR-036 operational duration/metric demonstrators: total duration, the slowest step, and a
-    // run-over-run comparison.
-    expect(joined.toLowerCase()).toContain("tempo");
-    expect(joined.toLowerCase()).toContain("etapa");
-    expect(joined.toLowerCase()).toContain("duração");
+  it("opens on the three things BanzAI is for — the protocol, the implementation, the conformance", () => {
+    const joined = STARTER_QUESTIONS.join("  ").toLowerCase();
+    // Understand the protocol, understand what implementing it means, understand how conformance is
+    // shown. A starter set that asked three variations of one of those would fail here.
+    expect(joined).toContain("banza");
+    expect(joined).toContain("implementação");
+    expect(joined).toContain("conformidade");
+    // The reader has not met L0–L4 yet; the door does not open on the profile vocabulary.
+    expect(joined).not.toMatch(/\bl[0-4]\b/);
   });
 });

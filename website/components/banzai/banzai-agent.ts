@@ -102,9 +102,9 @@ export const REPO_LINK = { nameId: "link.repositoryName" as AgentCopyId, href: "
 
 /** The three starter questions the empty conversation offers. Ids, not sentences. */
 export const AGENT_SUGGESTION_IDS: AgentCopyId[] = [
-  "starter.journeyDuration",
-  "starter.slowestStep",
-  "starter.compareRuns",
+  "starter.whatIsBanza",
+  "starter.whatIsImplementation",
+  "starter.howConformanceIsShown",
 ];
 
 /**

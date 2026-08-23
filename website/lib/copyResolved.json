@@ -757,17 +757,17 @@
           "pt": "abre numa nova aba",
           "en": "opens in a new tab"
         },
-        "starter.journeyDuration": {
-          "pt": "Quanto tempo leva uma jornada completa de validação?",
-          "en": "How long does a full validation journey take?"
+        "starter.whatIsBanza": {
+          "pt": "O que é o BANZA?",
+          "en": "What is BANZA?"
         },
-        "starter.slowestStep": {
-          "pt": "Qual a etapa mais lenta da validação e quanto demora?",
-          "en": "Which validation step is the slowest, and how long does it take?"
+        "starter.whatIsImplementation": {
+          "pt": "O que é uma implementação do BANZA?",
+          "en": "What is a BANZA implementation?"
         },
-        "starter.compareRuns": {
-          "pt": "Compara a duração da última execução com a anterior.",
-          "en": "Compare the duration of the last run with the previous one."
+        "starter.howConformanceIsShown": {
+          "pt": "Como é que um operador demonstra conformidade com o protocolo?",
+          "en": "How does an operator demonstrate conformance to the protocol?"
         },
         "rfcCard.adr001.title": {
           "pt": "Hierarquia BANZA / BanzAI / Operadores",
