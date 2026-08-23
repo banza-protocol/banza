@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { MODES, TABS, TAB_META, RFC_DOCS, PROTOCOL_MAP_NODES, DEV_COMMANDS, DEV_ENDPOINTS, FORBIDDEN_PHRASES } from "./banzai-agent";
+import { MODES, TABS, TAB_META, RFC_DOCS, PROTOCOL_MAP_NODES, DEV_COMMANDS, DEV_ENDPOINTS, FORBIDDEN_PHRASES, AGENT_SUGGESTION_IDS } from "./banzai-agent";
 import { AGENT_COPY, agentCopy, agentCopyIds } from "./agentPresentation";
 
 // Block E2/Q8 — the copy these guards protect moved into the bilingual catalogue, so the guards read the
@@ -108,15 +108,13 @@ describe("authority boundary copy (BX0)", () => {
     expect(publicCopy.toLowerCase()).not.toContain("corpus");
   });
 
-  it("suggests operational duration/metric demonstrators (ADR-036)", () => {
-    const joined = ["starter.journeyDuration", "starter.slowestStep", "starter.compareRuns"]
-      .map((id) => agentCopy(id as never, "pt"))
-      .join(" ");
-    // Still anchored on the validation journey, but now exercising the operational telemetry answers:
-    // total duration, the slowest step, and a run-over-run comparison.
-    expect(joined).toContain("validação");
-    expect(joined.toLowerCase()).toContain("tempo");
-    expect(joined.toLowerCase()).toContain("duração");
+  it("suggests the protocol, the implementation and the conformance — in both editions", () => {
+    for (const locale of ["pt", "en"] as const) {
+      const joined = AGENT_SUGGESTION_IDS.map((id) => agentCopy(id, locale)).join(" ").toLowerCase();
+      expect(joined).toContain("banza");
+      expect(joined).toContain(locale === "pt" ? "implementação" : "implementation");
+      expect(joined).toContain(locale === "pt" ? "conformidade" : "conformance");
+    }
   });
 });
 

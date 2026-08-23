@@ -36,7 +36,7 @@ describe("agent presentation — the Portuguese surface is frozen, and the data 
     expect(agentCopy("validation.header", "pt")).toBe("Validação técnica de implementação");
     expect(agentCopy("draft.title", "pt")).toBe("Validar rascunho");
     expect(agentCopy("link.repositoryName", "pt")).toBe("Repositório");
-    expect(agentCopy("starter.journeyDuration", "pt")).toBe("Quanto tempo leva uma jornada completa de validação?");
+    expect(agentCopy("starter.whatIsBanza", "pt")).toBe("O que é o BANZA?");
   });
 
   it("leaves NO reader copy in the data module", () => {
