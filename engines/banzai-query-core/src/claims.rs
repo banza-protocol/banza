@@ -56,8 +56,28 @@ pub const CLAIMS: &[Claim] = &[
     Claim {
         id: "claim.conformance.established_by_verification",
         semantic_unit: "banza.conformance.demonstrated_by_evidence",
-        trigger_entry: &["how-to-demonstrate-conformance"],
-        trigger_terms: &[],
+        // Triggered by the QUESTION, not merely by the entry it lands on.
+        //
+        // `how-to-demonstrate-conformance` is also the grounding entry an operational classifier picks
+        // for "o que conta como evidência técnica?" — a question about what evidence IS, which owes no
+        // claim about how conformance is established. Binding the obligation to the entry made that
+        // definitional question fail closed for omitting a proposition it was never asked about.
+        trigger_entry: &[],
+        trigger_terms: &[
+            "demonstra conformidade",
+            "demonstrar conformidade",
+            "prova conformidade",
+            "provar conformidade",
+            "prove conformidade",
+            "se prova conformidade",
+            "demonstrate conformance",
+            "demonstrates conformance",
+            "prove conformance",
+            "proves conformance",
+            "conformance to the protocol proven",
+            "conformance is proven",
+            "conformidade com o protocolo",
+        ],
         evidence_any_of: &["ADR-031", "CONFORMANCE"],
         authority_class: "BANZA",
         criticality: "P0",
