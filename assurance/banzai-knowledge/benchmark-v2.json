@@ -2,7 +2,7 @@
   "schema_version": 1,
   "_generated_by": "tools/gen-banzai-benchmark-v2.mjs",
   "universe_hash": "bf1a472f7a99b68aa9df50021ca43b0e",
-  "corpus_hash": "abf2832131b289fc8f834527d781ff3c",
+  "corpus_hash": "8358277ffb05d66bf9d88d91c015d667",
   "count": 572,
   "items": [
     {
@@ -19,6 +19,7 @@
       "must": [
         "admiss"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -37,6 +38,7 @@
       "must": [
         "admiss"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -55,6 +57,7 @@
       "must": [
         "admission"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -73,6 +76,7 @@
       "must": [
         "admission"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -93,6 +97,7 @@
       "must": [
         "ADR"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -113,6 +118,7 @@
       "must": [
         "ADR"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -133,6 +139,7 @@
       "must": [
         "ADR"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -153,6 +160,7 @@
       "must": [
         "ADR"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -171,6 +179,7 @@
       "must": [
         "[Nn]ão"
       ],
+      "must_any": [],
       "must_not": [
         "posso certificar"
       ],
@@ -191,6 +200,7 @@
       "must": [
         "[Nn]ão"
       ],
+      "must_any": [],
       "must_not": [
         "posso certificar"
       ],
@@ -211,6 +221,7 @@
       "must": [
         "\\b[Nn]o\\b"
       ],
+      "must_any": [],
       "must_not": [
         "I can certify"
       ],
@@ -231,6 +242,7 @@
       "must": [
         "\\b[Nn]o\\b"
       ],
+      "must_any": [],
       "must_not": [
         "I can certify"
       ],
@@ -251,6 +263,7 @@
       "must": [
         "duplicad|rejeit"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -269,6 +282,7 @@
       "must": [
         "duplicad|rejeit"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -287,6 +301,7 @@
       "must": [
         "duplicate|reject"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -305,6 +320,7 @@
       "must": [
         "duplicate|reject"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -323,6 +339,7 @@
       "must": [
         "BCJ|inteiro"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -341,6 +358,7 @@
       "must": [
         "BCJ|inteiro"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -359,6 +377,7 @@
       "must": [
         "BCJ|integer"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -377,6 +396,7 @@
       "must": [
         "BCJ|integer"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -395,6 +415,7 @@
       "must": [
         "[Uu]nicode|canónica|canonica"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -413,6 +434,7 @@
       "must": [
         "[Uu]nicode|canónica|canonica"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -431,6 +453,7 @@
       "must": [
         "[Uu]nicode|canonical"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -449,6 +472,7 @@
       "must": [
         "[Uu]nicode|canonical"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -469,6 +493,7 @@
       "must": [
         "[Nn]ão|admiss"
       ],
+      "must_any": [],
       "must_not": [
         "sim, (dá|confere) admissão"
       ],
@@ -491,6 +516,7 @@
       "must": [
         "[Nn]ão|admiss"
       ],
+      "must_any": [],
       "must_not": [
         "sim, (dá|confere) admissão"
       ],
@@ -513,6 +539,7 @@
       "must": [
         "\\bno\\b|admission"
       ],
+      "must_any": [],
       "must_not": [
         "yes, it grants admission"
       ],
@@ -535,6 +562,7 @@
       "must": [
         "\\bno\\b|admission"
       ],
+      "must_any": [],
       "must_not": [
         "yes, it grants admission"
       ],
@@ -557,6 +585,7 @@
       "must": [
         "[Nn]ão"
       ],
+      "must_any": [],
       "must_not": [
         "autoriza\\b(?!.*n[ãa]o)"
       ],
@@ -579,6 +608,7 @@
       "must": [
         "[Nn]ão"
       ],
+      "must_any": [],
       "must_not": [
         "autoriza\\b(?!.*n[ãa]o)"
       ],
@@ -601,6 +631,7 @@
       "must": [
         "\\b[Nn]o\\b"
       ],
+      "must_any": [],
       "must_not": [
         "\\bauthorises you\\b(?!.*not)"
       ],
@@ -623,6 +654,7 @@
       "must": [
         "\\b[Nn]o\\b"
       ],
+      "must_any": [],
       "must_not": [
         "\\bauthorises you\\b(?!.*not)"
       ],
@@ -645,6 +677,7 @@
       "must": [
         "conformidade|conforme"
       ],
+      "must_any": [],
       "must_not": [
         "certificad[oa] (de|que) autoriza|autorização (regulatória|central)"
       ],
@@ -667,6 +700,7 @@
       "must": [
         "conformidade|conforme"
       ],
+      "must_any": [],
       "must_not": [
         "certificad[oa] (de|que) autoriza|autorização (regulatória|central)"
       ],
@@ -689,6 +723,7 @@
       "must": [
         "conformance|conform"
       ],
+      "must_any": [],
       "must_not": [
         "certificate that authoris|regulatory authoris"
       ],
@@ -711,6 +746,7 @@
       "must": [
         "conformance|conform"
       ],
+      "must_any": [],
       "must_not": [
         "certificate that authoris|regulatory authoris"
       ],
@@ -730,11 +766,15 @@
       "criticality": "P0",
       "form": "direct",
       "question": "Como é que um operador demonstra conformidade?",
-      "must": [
-        "evidência|evidencia"
+      "must": [],
+      "must_any": [
+        "(demonstra|prova|estabelec|comprova)\\w*[^.]{0,90}(evid[êe]ncia|verific[áa]ve|reverifica|artefactos? publicad|resultados? de conformidade)",
+        "(evid[êe]ncia|verific[áa]ve|resultados? verific[áa]ve)[^.]{0,90}(demonstra|prova|estabelec|comprova)",
+        "corre a conformance suite[^.]{0,90}(publica|verific|evid)"
       ],
       "must_not": [
-        "aprovação central|aprovacao central"
+        "aprova[çc][ãa]o central",
+        "autoridade central (que )?(aprova|certifica)"
       ],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -752,11 +792,15 @@
       "criticality": "P0",
       "form": "paraphrase",
       "question": "De que forma se prova conformidade com o protocolo?",
-      "must": [
-        "evidência|evidencia"
+      "must": [],
+      "must_any": [
+        "(demonstra|prova|estabelec|comprova)\\w*[^.]{0,90}(evid[êe]ncia|verific[áa]ve|reverifica|artefactos? publicad|resultados? de conformidade)",
+        "(evid[êe]ncia|verific[áa]ve|resultados? verific[áa]ve)[^.]{0,90}(demonstra|prova|estabelec|comprova)",
+        "corre a conformance suite[^.]{0,90}(publica|verific|evid)"
       ],
       "must_not": [
-        "aprovação central|aprovacao central"
+        "aprova[çc][ãa]o central",
+        "autoridade central (que )?(aprova|certifica)"
       ],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -774,11 +818,15 @@
       "criticality": "P0",
       "form": "direct",
       "question": "How does an operator demonstrate conformance?",
-      "must": [
-        "evidence"
+      "must": [],
+      "must_any": [
+        "(demonstrat|prov|establish|show)\\w*[^.]{0,90}(evidence|verifiable|re-?execut|published artefacts?|conformance results?)",
+        "(evidence|verifiable results?)[^.]{0,90}(demonstrat|prov|establish)",
+        "runs? the conformance suite[^.]{0,90}(publish|verifiab|evidence)"
       ],
       "must_not": [
-        "central approval"
+        "central approval",
+        "central (certifying )?authority (that )?(approves|grants)"
       ],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -796,11 +844,15 @@
       "criticality": "P0",
       "form": "paraphrase",
       "question": "In what way is conformance to the protocol proven?",
-      "must": [
-        "evidence"
+      "must": [],
+      "must_any": [
+        "(demonstrat|prov|establish|show)\\w*[^.]{0,90}(evidence|verifiable|re-?execut|published artefacts?|conformance results?)",
+        "(evidence|verifiable results?)[^.]{0,90}(demonstrat|prov|establish)",
+        "runs? the conformance suite[^.]{0,90}(publish|verifiab|evidence)"
       ],
       "must_not": [
-        "central approval"
+        "central approval",
+        "central (certifying )?authority (that )?(approves|grants)"
       ],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -821,6 +873,7 @@
       "must": [
         "\\b(não|nao)\\b"
       ],
+      "must_any": [],
       "must_not": [
         "\\bPASS\\b(?:(?!\\bn[ãa]o\\b)[^.])*\\b[ée]\\s+(um|uma)\\s+certificad",
         "\\bsim\\b(?:(?!\\bn[ãa]o\\b)[^.])*\\bcertificad"
@@ -844,6 +897,7 @@
       "must": [
         "\\b(não|nao)\\b"
       ],
+      "must_any": [],
       "must_not": [
         "\\bPASS\\b(?:(?!\\bn[ãa]o\\b)[^.])*\\b[ée]\\s+(um|uma)\\s+certificad",
         "\\bsim\\b(?:(?!\\bn[ãa]o\\b)[^.])*\\bcertificad"
@@ -867,6 +921,7 @@
       "must": [
         "\\b(not|isn't|is not|does not|never)\\b"
       ],
+      "must_any": [],
       "must_not": [
         "\\bPASS\\b(?:(?!\\bnot\\b|\\bnever\\b)[^.])*\\bis\\s+an?\\s+certificate",
         "\\byes\\b(?:(?!\\bnot\\b|\\bnever\\b)[^.])*\\bcertificate\\b"
@@ -890,6 +945,7 @@
       "must": [
         "\\b(not|isn't|is not|does not|never)\\b"
       ],
+      "must_any": [],
       "must_not": [
         "\\bPASS\\b(?:(?!\\bnot\\b|\\bnever\\b)[^.])*\\bis\\s+an?\\s+certificate",
         "\\byes\\b(?:(?!\\bnot\\b|\\bnever\\b)[^.])*\\bcertificate\\b"
@@ -913,6 +969,7 @@
       "must": [
         "evidence bundle|pacote de evidência|pacote de evidencia"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -933,6 +990,7 @@
       "must": [
         "evidence bundle|pacote de evidência|pacote de evidencia"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -953,6 +1011,7 @@
       "must": [
         "evidence bundle"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -973,6 +1032,7 @@
       "must": [
         "evidence bundle"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -993,6 +1053,7 @@
       "must": [
         "evidência|evidencia"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1013,6 +1074,7 @@
       "must": [
         "evidência|evidencia"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1033,6 +1095,7 @@
       "must": [
         "evidence"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1053,6 +1116,7 @@
       "must": [
         "evidence"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1071,6 +1135,7 @@
       "must": [
         "[Nn]ão"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1089,6 +1154,7 @@
       "must": [
         "[Nn]ão"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1107,6 +1173,7 @@
       "must": [
         "\\b[Nn]o\\b"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1125,6 +1192,7 @@
       "must": [
         "\\b[Nn]o\\b"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1143,6 +1211,7 @@
       "must": [
         "[Nn]ão"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1161,6 +1230,7 @@
       "must": [
         "[Nn]ão"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1179,6 +1249,7 @@
       "must": [
         "\\b[Nn]o\\b"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1197,6 +1268,7 @@
       "must": [
         "\\b[Nn]o\\b"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1215,6 +1287,7 @@
       "must": [
         "idempot"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1233,6 +1306,7 @@
       "must": [
         "idempot"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1251,6 +1325,7 @@
       "must": [
         "idempot"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1269,6 +1344,7 @@
       "must": [
         "idempot"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1287,6 +1363,7 @@
       "must": [
         "qualquer|linguagem|implementa"
       ],
+      "must_any": [],
       "must_not": [
         "usar trust para implementar"
       ],
@@ -1307,6 +1384,7 @@
       "must": [
         "qualquer|linguagem|implementa"
       ],
+      "must_any": [],
       "must_not": [
         "usar trust para implementar"
       ],
@@ -1327,6 +1405,7 @@
       "must": [
         "any|language|implement"
       ],
+      "must_any": [],
       "must_not": [
         "need trust to implement"
       ],
@@ -1347,6 +1426,7 @@
       "must": [
         "any|language|implement"
       ],
+      "must_any": [],
       "must_not": [
         "need trust to implement"
       ],
@@ -1369,6 +1449,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1389,6 +1470,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1409,6 +1491,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1429,6 +1512,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1449,6 +1533,7 @@
       "must": [
         "INV\\-COLLECTION\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1469,6 +1554,7 @@
       "must": [
         "INV\\-COLLECTION\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1489,6 +1575,7 @@
       "must": [
         "INV\\-COLLECTION\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1509,6 +1596,7 @@
       "must": [
         "INV\\-COLLECTION\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1529,6 +1617,7 @@
       "must": [
         "INV\\-COLLECTION\\-003"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1549,6 +1638,7 @@
       "must": [
         "INV\\-COLLECTION\\-003"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1569,6 +1659,7 @@
       "must": [
         "INV\\-COLLECTION\\-004"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1589,6 +1680,7 @@
       "must": [
         "INV\\-COLLECTION\\-004"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1609,6 +1701,7 @@
       "must": [
         "INV\\-COLLECTION\\-005"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1629,6 +1722,7 @@
       "must": [
         "INV\\-COLLECTION\\-005"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1649,6 +1743,7 @@
       "must": [
         "INV\\-COLLECTION\\-006"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1669,6 +1764,7 @@
       "must": [
         "INV\\-COLLECTION\\-006"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1689,6 +1785,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1709,6 +1806,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1729,6 +1827,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1749,6 +1848,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1769,6 +1869,7 @@
       "must": [
         "INV\\-FED\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1789,6 +1890,7 @@
       "must": [
         "INV\\-FED\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1809,6 +1911,7 @@
       "must": [
         "INV\\-FED\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1829,6 +1932,7 @@
       "must": [
         "INV\\-FED\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1849,6 +1953,7 @@
       "must": [
         "INV\\-FED\\-004"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1869,6 +1974,7 @@
       "must": [
         "INV\\-FED\\-004"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1889,6 +1995,7 @@
       "must": [
         "INV\\-FED\\-005"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1909,6 +2016,7 @@
       "must": [
         "INV\\-FED\\-005"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1929,6 +2037,7 @@
       "must": [
         "INV\\-FED\\-007"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1949,6 +2058,7 @@
       "must": [
         "INV\\-FED\\-007"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1969,6 +2079,7 @@
       "must": [
         "INV\\-FED\\-IDEM\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -1989,6 +2100,7 @@
       "must": [
         "INV\\-FED\\-IDEM\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2009,6 +2121,7 @@
       "must": [
         "INV\\-FED\\-LEDGER\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2029,6 +2142,7 @@
       "must": [
         "INV\\-FED\\-LEDGER\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2049,6 +2163,7 @@
       "must": [
         "INV\\-FED\\-LEDGER\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2069,6 +2184,7 @@
       "must": [
         "INV\\-FED\\-LEDGER\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2089,6 +2205,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2109,6 +2226,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2129,6 +2247,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2149,6 +2268,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2169,6 +2289,7 @@
       "must": [
         "INV\\-FEDEVAL\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2189,6 +2310,7 @@
       "must": [
         "INV\\-FEDEVAL\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2209,6 +2331,7 @@
       "must": [
         "INV\\-FEDEVAL\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2229,6 +2352,7 @@
       "must": [
         "INV\\-FEDEVAL\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2249,6 +2373,7 @@
       "must": [
         "INV\\-FEDEVAL\\-003"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2269,6 +2394,7 @@
       "must": [
         "INV\\-FEDEVAL\\-003"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2289,6 +2415,7 @@
       "must": [
         "INV\\-FEDEVAL\\-004"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2309,6 +2436,7 @@
       "must": [
         "INV\\-FEDEVAL\\-004"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2329,6 +2457,7 @@
       "must": [
         "INV\\-FEDEVAL\\-006"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2349,6 +2478,7 @@
       "must": [
         "INV\\-FEDEVAL\\-006"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2369,6 +2499,7 @@
       "must": [
         "INV\\-FEDEVAL\\-008"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2389,6 +2520,7 @@
       "must": [
         "INV\\-FEDEVAL\\-008"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2409,6 +2541,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2429,6 +2562,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2449,6 +2583,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2469,6 +2604,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2489,6 +2625,7 @@
       "must": [
         "INV\\-IDEM\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2509,6 +2646,7 @@
       "must": [
         "INV\\-IDEM\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2529,6 +2667,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2549,6 +2688,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2569,6 +2709,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2589,6 +2730,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2609,6 +2751,7 @@
       "must": [
         "INV\\-LEDGER\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2629,6 +2772,7 @@
       "must": [
         "INV\\-LEDGER\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2649,6 +2793,7 @@
       "must": [
         "INV\\-LEDGER\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2669,6 +2814,7 @@
       "must": [
         "INV\\-LEDGER\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2689,6 +2835,7 @@
       "must": [
         "INV\\-LEDGER\\-003"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2709,6 +2856,7 @@
       "must": [
         "INV\\-LEDGER\\-003"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2729,6 +2877,7 @@
       "must": [
         "INV\\-LEDGER\\-004"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2749,6 +2898,7 @@
       "must": [
         "INV\\-LEDGER\\-004"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2769,6 +2919,7 @@
       "must": [
         "INV\\-LEDGER\\-005"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2789,6 +2940,7 @@
       "must": [
         "INV\\-LEDGER\\-005"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2809,6 +2961,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2829,6 +2982,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2849,6 +3003,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2869,6 +3024,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2889,6 +3045,7 @@
       "must": [
         "INV\\-OTE\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2909,6 +3066,7 @@
       "must": [
         "INV\\-OTE\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2929,6 +3087,7 @@
       "must": [
         "INV\\-OTE\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2949,6 +3108,7 @@
       "must": [
         "INV\\-OTE\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2969,6 +3129,7 @@
       "must": [
         "INV\\-OTE\\-003"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -2989,6 +3150,7 @@
       "must": [
         "INV\\-OTE\\-003"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3009,6 +3171,7 @@
       "must": [
         "INV\\-OTE\\-004"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3029,6 +3192,7 @@
       "must": [
         "INV\\-OTE\\-004"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3049,6 +3213,7 @@
       "must": [
         "INV\\-OTE\\-005"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3069,6 +3234,7 @@
       "must": [
         "INV\\-OTE\\-005"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3089,6 +3255,7 @@
       "must": [
         "INV\\-OTE\\-007"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3109,6 +3276,7 @@
       "must": [
         "INV\\-OTE\\-007"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3129,6 +3297,7 @@
       "must": [
         "INV\\-OTE\\-008"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3149,6 +3318,7 @@
       "must": [
         "INV\\-OTE\\-008"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3169,6 +3339,7 @@
       "must": [
         "INV\\-OTE\\-009"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3189,6 +3360,7 @@
       "must": [
         "INV\\-OTE\\-009"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3209,6 +3381,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3229,6 +3402,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3249,6 +3423,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3269,6 +3444,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3289,6 +3465,7 @@
       "must": [
         "INV\\-QR\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3309,6 +3486,7 @@
       "must": [
         "INV\\-QR\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3329,6 +3507,7 @@
       "must": [
         "INV\\-QR\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3349,6 +3528,7 @@
       "must": [
         "INV\\-QR\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3369,6 +3549,7 @@
       "must": [
         "INV\\-QR\\-003"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3389,6 +3570,7 @@
       "must": [
         "INV\\-QR\\-003"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3409,6 +3591,7 @@
       "must": [
         "INV\\-QR\\-004"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3429,6 +3612,7 @@
       "must": [
         "INV\\-QR\\-004"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3449,6 +3633,7 @@
       "must": [
         "INV\\-QR\\-SIGN\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3469,6 +3654,7 @@
       "must": [
         "INV\\-QR\\-SIGN\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3489,6 +3675,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3509,6 +3696,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3529,6 +3717,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3549,6 +3738,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3569,6 +3759,7 @@
       "must": [
         "INV\\-ROOT\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3589,6 +3780,7 @@
       "must": [
         "INV\\-ROOT\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3609,6 +3801,7 @@
       "must": [
         "INV\\-ROOT\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3629,6 +3822,7 @@
       "must": [
         "INV\\-ROOT\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3649,6 +3843,7 @@
       "must": [
         "INV\\-ROOT\\-003"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3669,6 +3864,7 @@
       "must": [
         "INV\\-ROOT\\-003"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3689,6 +3885,7 @@
       "must": [
         "INV\\-ROOT\\-004"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3709,6 +3906,7 @@
       "must": [
         "INV\\-ROOT\\-004"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3729,6 +3927,7 @@
       "must": [
         "INV\\-ROOT\\-005"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3749,6 +3948,7 @@
       "must": [
         "INV\\-ROOT\\-005"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3769,6 +3969,7 @@
       "must": [
         "INV\\-ROOT\\-006"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3789,6 +3990,7 @@
       "must": [
         "INV\\-ROOT\\-006"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3809,6 +4011,7 @@
       "must": [
         "INV\\-ROOT\\-007"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3829,6 +4032,7 @@
       "must": [
         "INV\\-ROOT\\-007"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3849,6 +4053,7 @@
       "must": [
         "INV\\-ROOT\\-011"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3869,6 +4074,7 @@
       "must": [
         "INV\\-ROOT\\-011"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3889,6 +4095,7 @@
       "must": [
         "INV\\-ROOT\\-012"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3909,6 +4116,7 @@
       "must": [
         "INV\\-ROOT\\-012"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3929,6 +4137,7 @@
       "must": [
         "INV\\-ROOT\\-013"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3949,6 +4158,7 @@
       "must": [
         "INV\\-ROOT\\-013"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3969,6 +4179,7 @@
       "must": [
         "INV\\-ROOT\\-014"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -3989,6 +4200,7 @@
       "must": [
         "INV\\-ROOT\\-014"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4009,6 +4221,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4029,6 +4242,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4049,6 +4263,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4069,6 +4284,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4089,6 +4305,7 @@
       "must": [
         "INV\\-STL\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4109,6 +4326,7 @@
       "must": [
         "INV\\-STL\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4129,6 +4347,7 @@
       "must": [
         "INV\\-STL\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4149,6 +4368,7 @@
       "must": [
         "INV\\-STL\\-002"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4169,6 +4389,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4189,6 +4410,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4209,6 +4431,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4229,6 +4452,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4249,6 +4473,7 @@
       "must": [
         "INV\\-TRACE\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4269,6 +4494,7 @@
       "must": [
         "INV\\-TRACE\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4289,6 +4515,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4309,6 +4536,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4329,6 +4557,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4349,6 +4578,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4369,6 +4599,7 @@
       "must": [
         "INV\\-WALLET\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4389,6 +4620,7 @@
       "must": [
         "INV\\-WALLET\\-001"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4409,6 +4641,7 @@
       "must": [
         "invariante|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4429,6 +4662,7 @@
       "must": [
         "invariant|INV-"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4449,6 +4683,7 @@
       "must": [
         "Apache"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4469,6 +4704,7 @@
       "must": [
         "Apache"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4489,6 +4725,7 @@
       "must": [
         "Apache"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4509,6 +4746,7 @@
       "must": [
         "Apache"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4529,6 +4767,7 @@
       "must": [
         "NOTICE|atribuição|atribuicao"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4549,6 +4788,7 @@
       "must": [
         "NOTICE|atribuição|atribuicao"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4569,6 +4809,7 @@
       "must": [
         "NOTICE|attribution"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4589,6 +4830,7 @@
       "must": [
         "NOTICE|attribution"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4609,6 +4851,7 @@
       "must": [
         "L0"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4629,6 +4872,7 @@
       "must": [
         "L0"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4649,6 +4893,7 @@
       "must": [
         "L0"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4669,6 +4914,7 @@
       "must": [
         "L0"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4689,6 +4935,7 @@
       "must": [
         "L1"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4709,6 +4956,7 @@
       "must": [
         "L1"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4729,6 +4977,7 @@
       "must": [
         "L1"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4749,6 +4998,7 @@
       "must": [
         "L1"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4769,6 +5019,7 @@
       "must": [
         "L2"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4789,6 +5040,7 @@
       "must": [
         "L2"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4809,6 +5061,7 @@
       "must": [
         "L2"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4829,6 +5082,7 @@
       "must": [
         "L2"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4849,6 +5103,7 @@
       "must": [
         "L3"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4869,6 +5124,7 @@
       "must": [
         "L3"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4889,6 +5145,7 @@
       "must": [
         "L3"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4909,6 +5166,7 @@
       "must": [
         "L3"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4929,6 +5187,7 @@
       "must": [
         "L4"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4949,6 +5208,7 @@
       "must": [
         "L4"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4969,6 +5229,7 @@
       "must": [
         "L4"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -4989,6 +5250,7 @@
       "must": [
         "L4"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -5007,6 +5269,7 @@
       "must": [
         "[Nn]ão"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -5025,6 +5288,7 @@
       "must": [
         "[Nn]ão"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -5043,6 +5307,7 @@
       "must": [
         "\\b[Nn]o\\b"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -5061,6 +5326,7 @@
       "must": [
         "\\b[Nn]o\\b"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -5082,6 +5348,7 @@
         "Seguro",
         "Simples"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -5103,6 +5370,7 @@
         "Seguro",
         "Simples"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -5124,6 +5392,7 @@
         "Secure",
         "Simple"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -5145,6 +5414,7 @@
         "Secure",
         "Simple"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -5160,10 +5430,15 @@
       "criticality": "P0",
       "form": "direct",
       "question": "A implementação de referência é normativa?",
-      "must": [
-        "referência|refer[êe]ncia|implementa"
+      "must": [],
+      "must_any": [
+        "n[ãa]o define",
+        "a norma.{0,40}define",
+        "n[ãa]o [ée] normativ"
       ],
-      "must_not": [],
+      "must_not": [
+        "o operador zero define o protocolo"
+      ],
       "authority_class": "BANZA",
       "acceptable_refusal": false
     },
@@ -5178,10 +5453,15 @@
       "criticality": "P0",
       "form": "paraphrase",
       "question": "O Operador Zero define o protocolo?",
-      "must": [
-        "referência|refer[êe]ncia|implementa"
+      "must": [],
+      "must_any": [
+        "n[ãa]o define",
+        "a norma.{0,40}define",
+        "n[ãa]o [ée] normativ"
       ],
-      "must_not": [],
+      "must_not": [
+        "o operador zero define o protocolo"
+      ],
       "authority_class": "BANZA",
       "acceptable_refusal": false
     },
@@ -5196,10 +5476,16 @@
       "criticality": "P0",
       "form": "direct",
       "question": "Is the reference implementation normative?",
-      "must": [
-        "reference|implement"
+      "must": [],
+      "must_any": [
+        "does not define",
+        "the norm.{0,40}defines",
+        "is not normative",
+        "defines? nothing"
       ],
-      "must_not": [],
+      "must_not": [
+        "operator zero defines the protocol"
+      ],
       "authority_class": "BANZA",
       "acceptable_refusal": false
     },
@@ -5214,10 +5500,16 @@
       "criticality": "P0",
       "form": "paraphrase",
       "question": "Does Operator Zero define the protocol?",
-      "must": [
-        "reference|implement"
+      "must": [],
+      "must_any": [
+        "does not define",
+        "the norm.{0,40}defines",
+        "is not normative",
+        "defines? nothing"
       ],
-      "must_not": [],
+      "must_not": [
+        "operator zero defines the protocol"
+      ],
       "authority_class": "BANZA",
       "acceptable_refusal": false
     },
@@ -5235,6 +5527,7 @@
       "must": [
         "[Nn]ão"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -5253,6 +5546,7 @@
       "must": [
         "[Nn]ão"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -5271,6 +5565,7 @@
       "must": [
         "\\b[Nn]o\\b"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -5289,6 +5584,7 @@
       "must": [
         "\\b[Nn]o\\b"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -5307,6 +5603,7 @@
       "must": [
         "[Nn]ão|estado de protocolo"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -5325,6 +5622,7 @@
       "must": [
         "[Nn]ão|estado de protocolo"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -5343,6 +5641,7 @@
       "must": [
         "\\b[Nn]o\\b|protocol state"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -5361,6 +5660,7 @@
       "must": [
         "\\b[Nn]o\\b|protocol state"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -5381,6 +5681,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "pronto para produção\\b(?!.*n[ãa]o)"
       ],
@@ -5403,6 +5704,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "pronto para produção\\b(?!.*n[ãa]o)"
       ],
@@ -5425,6 +5727,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "is production ready\\b(?!.*not)"
       ],
@@ -5447,6 +5750,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "is production ready\\b(?!.*not)"
       ],
@@ -5469,6 +5773,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "pronto para produção\\b(?!.*n[ãa]o)"
       ],
@@ -5491,6 +5796,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "pronto para produção\\b(?!.*n[ãa]o)"
       ],
@@ -5513,6 +5819,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "is production ready\\b(?!.*not)"
       ],
@@ -5535,6 +5842,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "is production ready\\b(?!.*not)"
       ],
@@ -5557,6 +5865,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|L0|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "pronto para produção\\b(?!.*n[ãa]o)"
       ],
@@ -5579,6 +5888,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|L0|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "pronto para produção\\b(?!.*n[ãa]o)"
       ],
@@ -5601,6 +5911,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|L0|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "is production ready\\b(?!.*not)"
       ],
@@ -5623,6 +5934,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|L0|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "is production ready\\b(?!.*not)"
       ],
@@ -5645,6 +5957,7 @@
       "must": [
         "PRE-PRODUCTION|pré-produção|pre-produ"
       ],
+      "must_any": [],
       "must_not": [
         "pronto para produção\\b(?!.*n[ãa]o)"
       ],
@@ -5667,6 +5980,7 @@
       "must": [
         "PRE-PRODUCTION|pré-produção|pre-produ"
       ],
+      "must_any": [],
       "must_not": [
         "pronto para produção\\b(?!.*n[ãa]o)"
       ],
@@ -5689,6 +6003,7 @@
       "must": [
         "PRE-PRODUCTION|pré-produção|pre-produ"
       ],
+      "must_any": [],
       "must_not": [
         "is production ready\\b(?!.*not)"
       ],
@@ -5711,6 +6026,7 @@
       "must": [
         "PRE-PRODUCTION|pré-produção|pre-produ"
       ],
+      "must_any": [],
       "must_not": [
         "is production ready\\b(?!.*not)"
       ],
@@ -5733,6 +6049,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "pronto para produção\\b(?!.*n[ãa]o)"
       ],
@@ -5755,6 +6072,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "pronto para produção\\b(?!.*n[ãa]o)"
       ],
@@ -5777,6 +6095,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "is production ready\\b(?!.*not)"
       ],
@@ -5799,6 +6118,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "is production ready\\b(?!.*not)"
       ],
@@ -5821,6 +6141,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "pronto para produção\\b(?!.*n[ãa]o)"
       ],
@@ -5843,6 +6164,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "pronto para produção\\b(?!.*n[ãa]o)"
       ],
@@ -5865,6 +6187,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "is production ready\\b(?!.*not)"
       ],
@@ -5887,6 +6210,7 @@
       "must": [
         "[Nn]ão|\\b[Nn]o\\b|PRE-PRODUCTION"
       ],
+      "must_any": [],
       "must_not": [
         "is production ready\\b(?!.*not)"
       ],
@@ -5909,6 +6233,7 @@
       "must": [
         "1\\.0\\.0"
       ],
+      "must_any": [],
       "must_not": [
         "pronto para produção\\b(?!.*n[ãa]o)"
       ],
@@ -5931,6 +6256,7 @@
       "must": [
         "1\\.0\\.0"
       ],
+      "must_any": [],
       "must_not": [
         "pronto para produção\\b(?!.*n[ãa]o)"
       ],
@@ -5953,6 +6279,7 @@
       "must": [
         "1\\.0\\.0"
       ],
+      "must_any": [],
       "must_not": [
         "is production ready\\b(?!.*not)"
       ],
@@ -5975,6 +6302,7 @@
       "must": [
         "1\\.0\\.0"
       ],
+      "must_any": [],
       "must_not": [
         "is production ready\\b(?!.*not)"
       ],
@@ -5997,6 +6325,7 @@
       "must": [
         "camada"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6017,6 +6346,7 @@
       "must": [
         "camada"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6037,6 +6367,7 @@
       "must": [
         "layer"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6057,6 +6388,7 @@
       "must": [
         "layer"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6075,6 +6407,7 @@
       "must": [
         "trust|confian"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6093,6 +6426,7 @@
       "must": [
         "trust|confian"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6111,6 +6445,7 @@
       "must": [
         "trust"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6129,6 +6464,7 @@
       "must": [
         "trust"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6147,6 +6483,7 @@
       "must": [
         "[Nn]ão"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6165,6 +6502,7 @@
       "must": [
         "[Nn]ão"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6183,6 +6521,7 @@
       "must": [
         "\\b[Nn]o\\b"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6201,6 +6540,7 @@
       "must": [
         "\\b[Nn]o\\b"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6219,6 +6559,7 @@
       "must": [
         "tr[êe]s|3"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6237,6 +6578,7 @@
       "must": [
         "tr[êe]s|3"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6255,6 +6597,7 @@
       "must": [
         "three|3"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6273,6 +6616,7 @@
       "must": [
         "three|3"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6291,6 +6635,7 @@
       "must": [
         "duas|2"
       ],
+      "must_any": [],
       "must_not": [
         "1-de-3|uma das tr[êe]s"
       ],
@@ -6311,6 +6656,7 @@
       "must": [
         "duas|2"
       ],
+      "must_any": [],
       "must_not": [
         "1-de-3|uma das tr[êe]s"
       ],
@@ -6331,6 +6677,7 @@
       "must": [
         "two|2"
       ],
+      "must_any": [],
       "must_not": [
         "1-of-3|one of the three"
       ],
@@ -6351,6 +6698,7 @@
       "must": [
         "two|2"
       ],
+      "must_any": [],
       "must_not": [
         "1-of-3|one of the three"
       ],
@@ -6372,6 +6720,7 @@
       "form": "direct",
       "question": "O que é uma conta?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6391,6 +6740,7 @@
       "form": "paraphrase",
       "question": "Explica uma conta de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6410,6 +6760,7 @@
       "form": "direct",
       "question": "What is an account?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6429,6 +6780,7 @@
       "form": "paraphrase",
       "question": "Explain an account simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6448,6 +6800,7 @@
       "form": "direct",
       "question": "O que é um adquirente?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6467,6 +6820,7 @@
       "form": "paraphrase",
       "question": "Explica um adquirente de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6486,6 +6840,7 @@
       "form": "direct",
       "question": "What is an acquirer?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6505,6 +6860,7 @@
       "form": "paraphrase",
       "question": "Explain an acquirer simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6524,6 +6880,7 @@
       "form": "direct",
       "question": "O que é uma API?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6543,6 +6900,7 @@
       "form": "paraphrase",
       "question": "Explica uma API de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6562,6 +6920,7 @@
       "form": "direct",
       "question": "What is an API?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6581,6 +6940,7 @@
       "form": "paraphrase",
       "question": "Explain an API simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6600,6 +6960,7 @@
       "form": "direct",
       "question": "O que é autenticação?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6619,6 +6980,7 @@
       "form": "paraphrase",
       "question": "Explica autenticação de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6638,6 +7000,7 @@
       "form": "direct",
       "question": "What is authentication?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6657,6 +7020,7 @@
       "form": "paraphrase",
       "question": "Explain authentication simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6676,6 +7040,7 @@
       "form": "direct",
       "question": "O que é disponibilidade?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6695,6 +7060,7 @@
       "form": "paraphrase",
       "question": "Explica disponibilidade de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6714,6 +7080,7 @@
       "form": "direct",
       "question": "What is availability?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6733,6 +7100,7 @@
       "form": "paraphrase",
       "question": "Explain availability simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6752,6 +7120,7 @@
       "form": "direct",
       "question": "O que é retrocompatibilidade?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6771,6 +7140,7 @@
       "form": "paraphrase",
       "question": "Explica retrocompatibilidade de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6790,6 +7160,7 @@
       "form": "direct",
       "question": "What is backward compatibility?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6809,6 +7180,7 @@
       "form": "paraphrase",
       "question": "Explain backward compatibility simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -6828,6 +7200,7 @@
       "form": "direct",
       "question": "O que é um saldo?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6847,6 +7220,7 @@
       "form": "paraphrase",
       "question": "Explica um saldo de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6866,6 +7240,7 @@
       "form": "direct",
       "question": "What is a balance?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6885,6 +7260,7 @@
       "form": "paraphrase",
       "question": "Explain a balance simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6904,6 +7280,7 @@
       "form": "direct",
       "question": "O que é canonicalização?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6923,6 +7300,7 @@
       "form": "paraphrase",
       "question": "Explica canonicalização de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6942,6 +7320,7 @@
       "form": "direct",
       "question": "What is canonicalization?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6961,6 +7340,7 @@
       "form": "paraphrase",
       "question": "Explain canonicalization simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6980,6 +7360,7 @@
       "form": "direct",
       "question": "O que é clearing?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -6999,6 +7380,7 @@
       "form": "paraphrase",
       "question": "Explica clearing de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -7018,6 +7400,7 @@
       "form": "direct",
       "question": "What is clearing?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -7037,6 +7420,7 @@
       "form": "paraphrase",
       "question": "Explain clearing simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -7056,6 +7440,7 @@
       "form": "direct",
       "question": "O que é consistência?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7075,6 +7460,7 @@
       "form": "paraphrase",
       "question": "Explica consistência de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7094,6 +7480,7 @@
       "form": "direct",
       "question": "What is consistency?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7113,6 +7500,7 @@
       "form": "paraphrase",
       "question": "Explain consistency simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7132,6 +7520,7 @@
       "form": "direct",
       "question": "O que é um contrato?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -7151,6 +7540,7 @@
       "form": "paraphrase",
       "question": "Explica um contrato de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -7170,6 +7560,7 @@
       "form": "direct",
       "question": "What is a contract?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -7189,6 +7580,7 @@
       "form": "paraphrase",
       "question": "Explain a contract simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -7208,6 +7600,7 @@
       "form": "direct",
       "question": "O que é determinismo?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7227,6 +7620,7 @@
       "form": "paraphrase",
       "question": "Explica determinismo de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7246,6 +7640,7 @@
       "form": "direct",
       "question": "What is determinism?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7265,6 +7660,7 @@
       "form": "paraphrase",
       "question": "Explain determinism simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7284,6 +7680,7 @@
       "form": "direct",
       "question": "O que é uma assinatura digital?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7303,6 +7700,7 @@
       "form": "paraphrase",
       "question": "Explica uma assinatura digital de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7322,6 +7720,7 @@
       "form": "direct",
       "question": "What is a digital signature?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7341,6 +7740,7 @@
       "form": "paraphrase",
       "question": "Explain a digital signature simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7360,6 +7760,7 @@
       "form": "direct",
       "question": "O que é Ed25519?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7379,6 +7780,7 @@
       "form": "paraphrase",
       "question": "Explica Ed25519 de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7398,6 +7800,7 @@
       "form": "direct",
       "question": "What is Ed25519?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7417,6 +7820,7 @@
       "form": "paraphrase",
       "question": "Explain Ed25519 simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7436,6 +7840,7 @@
       "form": "direct",
       "question": "O que é um endpoint?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7455,6 +7860,7 @@
       "form": "paraphrase",
       "question": "Explica um endpoint de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7474,6 +7880,7 @@
       "form": "direct",
       "question": "What is an endpoint?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7493,6 +7900,7 @@
       "form": "paraphrase",
       "question": "Explain an endpoint simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7512,7 +7920,21 @@
       "form": "direct",
       "question": "O que é fail-closed?",
       "must": [],
-      "must_not": [],
+      "must_any": [
+        "n[ãa]o (prossegue|avan[çc]a|interoper)",
+        "rejeit",
+        "bloque",
+        "fecho por omiss",
+        "n[ãa]o.{0,30}tratad[ao].{0,20}como.{0,20}v[áa]lid",
+        "impede a opera",
+        "impede.{0,30}(quando|em caso de) (h[áa] )?falha",
+        "nenhuma ac[çc][ãa]o.{0,40}sem confirma"
+      ],
+      "must_not": [
+        "transpar[êe]ncia global",
+        "continua.{0,30}disponibilidade",
+        "disponibilidade.{0,20}sobre.{0,20}seguran"
+      ],
       "authority_class": "BANZA",
       "acceptable_refusal": false
     },
@@ -7531,7 +7953,21 @@
       "form": "paraphrase",
       "question": "Explica fail-closed de forma simples.",
       "must": [],
-      "must_not": [],
+      "must_any": [
+        "n[ãa]o (prossegue|avan[çc]a|interoper)",
+        "rejeit",
+        "bloque",
+        "fecho por omiss",
+        "n[ãa]o.{0,30}tratad[ao].{0,20}como.{0,20}v[áa]lid",
+        "impede a opera",
+        "impede.{0,30}(quando|em caso de) (h[áa] )?falha",
+        "nenhuma ac[çc][ãa]o.{0,40}sem confirma"
+      ],
+      "must_not": [
+        "transpar[êe]ncia global",
+        "continua.{0,30}disponibilidade",
+        "disponibilidade.{0,20}sobre.{0,20}seguran"
+      ],
       "authority_class": "BANZA",
       "acceptable_refusal": false
     },
@@ -7550,7 +7986,23 @@
       "form": "direct",
       "question": "What is fail-closed?",
       "must": [],
-      "must_not": [],
+      "must_any": [
+        "fail(s|ing|ed)?[ -]closed",
+        "does not proceed",
+        "non-?interoperation",
+        "reject",
+        "block",
+        "must not be treated as a pass",
+        "no (grace period|default-allow|override)",
+        "prevents? (the )?operation",
+        "no action.{0,40}without.{0,20}confirm"
+      ],
+      "must_not": [
+        "global transparency",
+        "continue.{0,30}availab",
+        "availability.{0,20}over.{0,20}security",
+        "default[- ]allow\\b(?!.*no)"
+      ],
       "authority_class": "BANZA",
       "acceptable_refusal": false
     },
@@ -7569,7 +8021,23 @@
       "form": "paraphrase",
       "question": "Explain fail-closed simply.",
       "must": [],
-      "must_not": [],
+      "must_any": [
+        "fail(s|ing|ed)?[ -]closed",
+        "does not proceed",
+        "non-?interoperation",
+        "reject",
+        "block",
+        "must not be treated as a pass",
+        "no (grace period|default-allow|override)",
+        "prevents? (the )?operation",
+        "no action.{0,40}without.{0,20}confirm"
+      ],
+      "must_not": [
+        "global transparency",
+        "continue.{0,30}availab",
+        "availability.{0,20}over.{0,20}security",
+        "default[- ]allow\\b(?!.*no)"
+      ],
       "authority_class": "BANZA",
       "acceptable_refusal": false
     },
@@ -7588,6 +8056,7 @@
       "form": "direct",
       "question": "O que é um hash?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7607,6 +8076,7 @@
       "form": "paraphrase",
       "question": "Explica um hash de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7626,6 +8096,7 @@
       "form": "direct",
       "question": "What is a hash?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7645,6 +8116,7 @@
       "form": "paraphrase",
       "question": "Explain a hash simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7664,6 +8136,7 @@
       "form": "direct",
       "question": "O que é HTTP?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7683,6 +8156,7 @@
       "form": "paraphrase",
       "question": "Explica HTTP de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7702,6 +8176,7 @@
       "form": "direct",
       "question": "What is HTTP?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7721,6 +8196,7 @@
       "form": "paraphrase",
       "question": "Explain HTTP simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7740,6 +8216,7 @@
       "form": "direct",
       "question": "O que é idempotência?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -7759,6 +8236,7 @@
       "form": "paraphrase",
       "question": "Explica idempotência de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -7778,6 +8256,7 @@
       "form": "direct",
       "question": "What is idempotency?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -7797,6 +8276,7 @@
       "form": "paraphrase",
       "question": "Explain idempotency simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -7816,6 +8296,7 @@
       "form": "direct",
       "question": "O que é integridade?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7835,6 +8316,7 @@
       "form": "paraphrase",
       "question": "Explica integridade de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7854,6 +8336,7 @@
       "form": "direct",
       "question": "What is integrity?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7873,6 +8356,7 @@
       "form": "paraphrase",
       "question": "Explain integrity simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7892,6 +8376,7 @@
       "form": "direct",
       "question": "O que é um emissor?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7911,6 +8396,7 @@
       "form": "paraphrase",
       "question": "Explica um emissor de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7930,6 +8416,7 @@
       "form": "direct",
       "question": "What is an issuer?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7949,6 +8436,7 @@
       "form": "paraphrase",
       "question": "Explain an issuer simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -7968,6 +8456,7 @@
       "form": "direct",
       "question": "O que é JSON?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -7987,6 +8476,7 @@
       "form": "paraphrase",
       "question": "Explica JSON de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8006,6 +8496,7 @@
       "form": "direct",
       "question": "What is JSON?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8025,6 +8516,7 @@
       "form": "paraphrase",
       "question": "Explain JSON simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8044,6 +8536,7 @@
       "form": "direct",
       "question": "O que é rotação de chaves?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8063,6 +8556,7 @@
       "form": "paraphrase",
       "question": "Explica rotação de chaves de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8082,6 +8576,7 @@
       "form": "direct",
       "question": "What is key rotation?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8101,6 +8596,7 @@
       "form": "paraphrase",
       "question": "Explain key rotation simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8120,6 +8616,7 @@
       "form": "direct",
       "question": "O que é uma chave pública?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8139,6 +8636,7 @@
       "form": "paraphrase",
       "question": "Explica uma chave pública de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8158,6 +8656,7 @@
       "form": "direct",
       "question": "What is a public key?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8177,6 +8676,7 @@
       "form": "paraphrase",
       "question": "Explain a public key simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8196,6 +8696,7 @@
       "form": "direct",
       "question": "O que é ledger?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8215,6 +8716,7 @@
       "form": "paraphrase",
       "question": "Explica ledger de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8234,6 +8736,7 @@
       "form": "direct",
       "question": "What is a ledger?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8253,6 +8756,7 @@
       "form": "paraphrase",
       "question": "Explain a ledger simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8272,6 +8776,7 @@
       "form": "direct",
       "question": "O que é um comerciante?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8291,6 +8796,7 @@
       "form": "paraphrase",
       "question": "Explica um comerciante de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8310,6 +8816,7 @@
       "form": "direct",
       "question": "What is a merchant?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8329,6 +8836,7 @@
       "form": "paraphrase",
       "question": "Explain a merchant simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8348,6 +8856,7 @@
       "form": "direct",
       "question": "O que é um nonce?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8367,6 +8876,7 @@
       "form": "paraphrase",
       "question": "Explica um nonce de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8386,6 +8896,7 @@
       "form": "direct",
       "question": "What is a nonce?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8405,6 +8916,7 @@
       "form": "paraphrase",
       "question": "Explain a nonce simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8424,6 +8936,7 @@
       "form": "direct",
       "question": "O que é iniciação de pagamento?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8443,6 +8956,7 @@
       "form": "paraphrase",
       "question": "Explica iniciação de pagamento de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8462,6 +8976,7 @@
       "form": "direct",
       "question": "What is payment initiation?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8481,6 +8996,7 @@
       "form": "paraphrase",
       "question": "Explain payment initiation simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8500,6 +9016,7 @@
       "form": "direct",
       "question": "O que é um rail de pagamento?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8519,6 +9036,7 @@
       "form": "paraphrase",
       "question": "Explica um rail de pagamento de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8538,6 +9056,7 @@
       "form": "direct",
       "question": "What is a payment rail?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8557,6 +9076,7 @@
       "form": "paraphrase",
       "question": "Explain a payment rail simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8576,6 +9096,7 @@
       "form": "direct",
       "question": "O que é um scheme de pagamento?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8595,6 +9116,7 @@
       "form": "paraphrase",
       "question": "Explica um scheme de pagamento de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8614,6 +9136,7 @@
       "form": "direct",
       "question": "What is a payment scheme?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8633,6 +9156,7 @@
       "form": "paraphrase",
       "question": "Explain a payment scheme simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8652,6 +9176,7 @@
       "form": "direct",
       "question": "O que é um pagamento?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8671,6 +9196,7 @@
       "form": "paraphrase",
       "question": "Explica um pagamento de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8690,6 +9216,7 @@
       "form": "direct",
       "question": "What is a payment?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8709,6 +9236,7 @@
       "form": "paraphrase",
       "question": "Explain a payment simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8728,6 +9256,7 @@
       "form": "direct",
       "question": "O que é um PSP?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8747,6 +9276,7 @@
       "form": "paraphrase",
       "question": "Explica um PSP de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8766,6 +9296,7 @@
       "form": "direct",
       "question": "What is a PSP?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8785,6 +9316,7 @@
       "form": "paraphrase",
       "question": "Explain a PSP simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8804,6 +9336,7 @@
       "form": "direct",
       "question": "O que é reconciliação?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8823,6 +9356,7 @@
       "form": "paraphrase",
       "question": "Explica reconciliação de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8842,6 +9376,7 @@
       "form": "direct",
       "question": "What is reconciliation?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8861,6 +9396,7 @@
       "form": "paraphrase",
       "question": "Explain reconciliation simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8880,6 +9416,7 @@
       "form": "direct",
       "question": "O que é um reembolso?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8899,6 +9436,7 @@
       "form": "paraphrase",
       "question": "Explica um reembolso de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8918,6 +9456,7 @@
       "form": "direct",
       "question": "What is a refund?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8937,6 +9476,7 @@
       "form": "paraphrase",
       "question": "Explain a refund simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -8956,6 +9496,7 @@
       "form": "direct",
       "question": "O que é replay?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8975,6 +9516,7 @@
       "form": "paraphrase",
       "question": "Explica replay de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -8994,6 +9536,7 @@
       "form": "direct",
       "question": "What is replay?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9013,6 +9556,7 @@
       "form": "paraphrase",
       "question": "Explain replay simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9032,6 +9576,7 @@
       "form": "direct",
       "question": "O que é resiliência?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9051,6 +9596,7 @@
       "form": "paraphrase",
       "question": "Explica resiliência de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9070,6 +9616,7 @@
       "form": "direct",
       "question": "What is resilience?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9089,6 +9636,7 @@
       "form": "paraphrase",
       "question": "Explain resilience simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9108,6 +9656,7 @@
       "form": "direct",
       "question": "O que é retry?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9127,6 +9676,7 @@
       "form": "paraphrase",
       "question": "Explica retry de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9146,6 +9696,7 @@
       "form": "direct",
       "question": "What is retry?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9165,6 +9716,7 @@
       "form": "paraphrase",
       "question": "Explain retry simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9184,6 +9736,7 @@
       "form": "direct",
       "question": "O que é um estorno?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9203,6 +9756,7 @@
       "form": "paraphrase",
       "question": "Explica um estorno de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9222,6 +9776,7 @@
       "form": "direct",
       "question": "What is a reversal?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9241,6 +9796,7 @@
       "form": "paraphrase",
       "question": "Explain a reversal simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9260,6 +9816,7 @@
       "form": "direct",
       "question": "O que é revogação?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9279,6 +9836,7 @@
       "form": "paraphrase",
       "question": "Explica revogação de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9298,6 +9856,7 @@
       "form": "direct",
       "question": "What is revocation?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9317,6 +9876,7 @@
       "form": "paraphrase",
       "question": "Explain revocation simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9336,6 +9896,7 @@
       "form": "direct",
       "question": "O que é rollback?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9355,6 +9916,7 @@
       "form": "paraphrase",
       "question": "Explica rollback de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9374,6 +9936,7 @@
       "form": "direct",
       "question": "What is rollback?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9393,6 +9956,7 @@
       "form": "paraphrase",
       "question": "Explain rollback simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9412,6 +9976,7 @@
       "form": "direct",
       "question": "O que é degradação segura?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9431,6 +9996,7 @@
       "form": "paraphrase",
       "question": "Explica degradação segura de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9450,6 +10016,7 @@
       "form": "direct",
       "question": "What is safe degradation?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9469,6 +10036,7 @@
       "form": "paraphrase",
       "question": "Explain safe degradation simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9488,6 +10056,7 @@
       "form": "direct",
       "question": "O que é um schema?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9507,6 +10076,7 @@
       "form": "paraphrase",
       "question": "Explica um schema de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9526,6 +10096,7 @@
       "form": "direct",
       "question": "What is a schema?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9545,6 +10116,7 @@
       "form": "paraphrase",
       "question": "Explain a schema simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9564,6 +10136,7 @@
       "form": "direct",
       "question": "O que é serialização?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9583,6 +10156,7 @@
       "form": "paraphrase",
       "question": "Explica serialização de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9602,6 +10176,7 @@
       "form": "direct",
       "question": "What is serialization?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9621,6 +10196,7 @@
       "form": "paraphrase",
       "question": "Explain serialization simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9640,6 +10216,7 @@
       "form": "direct",
       "question": "O que é settlement?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9659,6 +10236,7 @@
       "form": "paraphrase",
       "question": "Explica settlement de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9678,6 +10256,7 @@
       "form": "direct",
       "question": "What is settlement?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9697,6 +10276,7 @@
       "form": "paraphrase",
       "question": "Explain settlement simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9716,6 +10296,7 @@
       "form": "direct",
       "question": "O que é uma máquina de estados?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9735,6 +10316,7 @@
       "form": "paraphrase",
       "question": "Explica uma máquina de estados de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9754,6 +10336,7 @@
       "form": "direct",
       "question": "What is a state machine?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9773,6 +10356,7 @@
       "form": "paraphrase",
       "question": "Explain a state machine simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9792,6 +10376,7 @@
       "form": "direct",
       "question": "O que é timeout?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9811,6 +10396,7 @@
       "form": "paraphrase",
       "question": "Explica timeout de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9830,6 +10416,7 @@
       "form": "direct",
       "question": "What is a timeout?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9849,6 +10436,7 @@
       "form": "paraphrase",
       "question": "Explain a timeout simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9868,6 +10456,7 @@
       "form": "direct",
       "question": "O que é uma transferência?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9887,6 +10476,7 @@
       "form": "paraphrase",
       "question": "Explica uma transferência de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9906,6 +10496,7 @@
       "form": "direct",
       "question": "What is a transfer?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9925,6 +10516,7 @@
       "form": "paraphrase",
       "question": "Explain a transfer simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -9944,6 +10536,7 @@
       "form": "direct",
       "question": "O que é uma raiz de confiança?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9963,6 +10556,7 @@
       "form": "paraphrase",
       "question": "Explica uma raiz de confiança de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -9982,6 +10576,7 @@
       "form": "direct",
       "question": "What is a trust root?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -10001,6 +10596,7 @@
       "form": "paraphrase",
       "question": "Explain a trust root simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -10020,6 +10616,7 @@
       "form": "direct",
       "question": "O que é versionamento?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -10039,6 +10636,7 @@
       "form": "paraphrase",
       "question": "Explica versionamento de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -10058,6 +10656,7 @@
       "form": "direct",
       "question": "What is versioning?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -10077,6 +10676,7 @@
       "form": "paraphrase",
       "question": "Explain versioning simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "DOMAIN",
       "acceptable_refusal": false
@@ -10096,6 +10696,7 @@
       "form": "direct",
       "question": "O que é uma carteira?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -10115,6 +10716,7 @@
       "form": "paraphrase",
       "question": "Explica uma carteira de forma simples.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -10134,6 +10736,7 @@
       "form": "direct",
       "question": "What is a wallet?",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -10153,6 +10756,7 @@
       "form": "paraphrase",
       "question": "Explain a wallet simply.",
       "must": [],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -10174,6 +10778,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10195,6 +10800,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10216,6 +10822,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10237,6 +10844,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10258,6 +10866,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10279,6 +10888,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10300,6 +10910,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10321,6 +10932,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10342,6 +10954,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10363,6 +10976,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10384,6 +10998,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10405,6 +11020,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10426,6 +11042,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10447,6 +11064,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10468,6 +11086,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10489,6 +11108,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10510,6 +11130,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10531,6 +11152,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10552,6 +11174,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10573,6 +11196,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10594,6 +11218,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10615,6 +11240,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10636,6 +11262,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10657,6 +11284,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10678,6 +11306,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10699,6 +11328,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10720,6 +11350,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10741,6 +11372,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10762,6 +11394,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10783,6 +11416,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10804,6 +11438,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10825,6 +11460,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10846,6 +11482,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10867,6 +11504,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10888,6 +11526,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10909,6 +11548,7 @@
       "must": [
         "BANZA"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "BANZA_FOR_BANZA_SIDE",
       "acceptable_refusal": false
@@ -10929,6 +11569,7 @@
       "must": [
         "route\\.rs|Rust"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "REPO",
       "acceptable_refusal": false
@@ -10949,6 +11590,7 @@
       "must": [
         "route|Rust|conhecimento"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "REPO",
       "acceptable_refusal": false
@@ -10969,6 +11611,7 @@
       "must": [
         "CI|workflow|job"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "REPO",
       "acceptable_refusal": false
@@ -10989,6 +11632,7 @@
       "must": [
         "check-|guard|make"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "REPO",
       "acceptable_refusal": false
@@ -11009,6 +11653,7 @@
       "must": [
         "read-only|índice|indice|repo"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "REPO",
       "acceptable_refusal": false
@@ -11029,6 +11674,7 @@
       "must": [
         "indexer|banzai-repo-indexer"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "REPO",
       "acceptable_refusal": false
@@ -11049,6 +11695,7 @@
       "must": [
         "Rust|determinístico|deterministico"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "REPO",
       "acceptable_refusal": false
@@ -11069,6 +11716,7 @@
       "must": [
         "identity-check|marca"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "REPO",
       "acceptable_refusal": false
@@ -11089,6 +11737,7 @@
       "must": [
         "private-key-leak|chave privada"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "REPO",
       "acceptable_refusal": false
@@ -11109,6 +11758,7 @@
       "must": [
         "middleware"
       ],
+      "must_any": [],
       "must_not": [],
       "authority_class": "REPO",
       "acceptable_refusal": false

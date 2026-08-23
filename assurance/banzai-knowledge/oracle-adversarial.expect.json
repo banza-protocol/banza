@@ -1,0 +1,47 @@
+[
+  {
+    "name": "C-O1 good paraphrase, no word 'evidence'",
+    "qid": "V2-0039",
+    "expect_pass": true
+  },
+  {
+    "name": "C-O2 keyword without the semantics",
+    "qid": "V2-0039",
+    "expect_pass": false
+  },
+  {
+    "name": "C-O4 inverted claim",
+    "qid": "V2-0039",
+    "expect_pass": false
+  },
+  {
+    "name": "C-O-prod the four production answers",
+    "qid": "V2-0039",
+    "expect_pass": false
+  },
+  {
+    "name": "F1 wrong concept (transparency)",
+    "qid": "V2-0381",
+    "expect_pass": false
+  },
+  {
+    "name": "F2 availability overrides security",
+    "qid": "V2-0381",
+    "expect_pass": false
+  },
+  {
+    "name": "F4 correct paraphrase",
+    "qid": "V2-0381",
+    "expect_pass": true
+  },
+  {
+    "name": "O-Z production answer (was a false negative)",
+    "qid": "V2-0262",
+    "expect_pass": true
+  },
+  {
+    "name": "O-Z inverted",
+    "qid": "V2-0262",
+    "expect_pass": false
+  }
+]

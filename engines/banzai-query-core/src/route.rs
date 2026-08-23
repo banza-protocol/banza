@@ -5462,6 +5462,24 @@ fn critical_entry(nq: &str) -> Option<&'static str> {
     ) {
         return Some("who-implements-protocol");
     }
+    // Does the REFERENCE IMPLEMENTATION define the protocol? It does not, and `norm-vs-implementation`
+    // says so — the norm defines what is correct and an implementation demonstrates it. The question
+    // grounded on the Operador-Zero description instead, which describes the demo and never states the
+    // rule the reader is checking.
+    if any(
+        nq,
+        &[
+            "operador zero define o protocolo",
+            "operator zero define the protocol",
+            "operator zero defines the protocol",
+            "does operator zero define",
+            "a implementacao define o protocolo",
+            "implementation define the protocol",
+            "implementation defines the protocol",
+        ],
+    ) {
+        return Some("norm-vs-implementation");
+    }
     // GENERIC technology choice, checked BEFORE the storage arm below. That arm matches the bare
     // substring "implementation use", which also occurs in "can another implementation USE a different
     // technology" — so ordering, not phrasing, is what keeps the two apart.
