@@ -1,0 +1,8027 @@
+{
+ "_note": "SCORED RESULTS for a full production run against the frozen V2 universe, emitted by score-v2.py so the verdicts and the report share one oracle. The raw transcript is NOT committed: two of the 572 answers correctly name the Layer-3 designated scheme operator — legitimate ADR-060 vocabulary BanzAI is right to state — and committing the prose would require widening the operator-neutrality allowlist to admit measurement output. Widening a contamination guard to store evidence is the wrong trade, and editing the transcript would be worse. Everything the measurement claim rests on is here: every item, its units, its verdict and its reasons, with the transcript identified by digest and reproducible from the pinned corpus.",
+ "corpus_hash": "d9084360154dab5dc651d64234e0cadf",
+ "items": 572,
+ "passing": 572,
+ "raw_transcript_sha256": "7a9c652bf54d37920ec206bdef8b139597b733c09b50bf8af8a3092445ee9d59",
+ "results": [
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0001",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.admission.not_authorisation"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0002",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.admission.not_authorisation"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0003",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.admission.not_authorisation"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0004",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.admission.not_authorisation"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0005",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.adr.decision_register"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0006",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.adr.decision_register"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0007",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.adr.decision_register"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0008",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.adr.decision_register"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0009",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.banzai.non_authoritative"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0010",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.banzai.non_authoritative"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0011",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.banzai.non_authoritative"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0012",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.banzai.non_authoritative"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0013",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.bcj1.duplicate_keys_rejected"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0014",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.bcj1.duplicate_keys_rejected"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0015",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.bcj1.duplicate_keys_rejected"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0016",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.bcj1.duplicate_keys_rejected"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0017",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.bcj1.integer_domain"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0018",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.bcj1.integer_domain"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0019",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.bcj1.integer_domain"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0020",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.bcj1.integer_domain"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0021",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.bcj1.no_unicode_normalization"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0022",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.bcj1.no_unicode_normalization"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0023",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.bcj1.no_unicode_normalization"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0024",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.bcj1.no_unicode_normalization"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0025",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.certification.not_admission"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0026",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.certification.not_admission"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0027",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.certification.not_admission"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0028",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.certification.not_admission"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0029",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.certification.not_regulatory_authorisation"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0030",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.certification.not_regulatory_authorisation"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0031",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.certification.not_regulatory_authorisation"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0032",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.certification.not_regulatory_authorisation"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0033",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.conformance.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0034",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.conformance.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0035",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.conformance.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0036",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.conformance.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0037",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.conformance.demonstrated_by_evidence"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0038",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.conformance.demonstrated_by_evidence"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0039",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.conformance.demonstrated_by_evidence"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0040",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.conformance.demonstrated_by_evidence"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0041",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.conformance.pass_is_not_a_certificate"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0042",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.conformance.pass_is_not_a_certificate"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0043",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.conformance.pass_is_not_a_certificate"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0044",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.conformance.pass_is_not_a_certificate"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0045",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.evidence_bundle.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0046",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.evidence_bundle.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0047",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.evidence_bundle.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0048",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.evidence_bundle.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0049",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.evidence.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0050",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.evidence.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0051",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.evidence.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0052",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.evidence.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0053",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.execution.local_no_central_processor"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0054",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.execution.local_no_central_processor"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0055",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.execution.local_no_central_processor"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0056",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.execution.local_no_central_processor"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0057",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.execution.no_global_consensus"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0058",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.execution.no_global_consensus"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0059",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.execution.no_global_consensus"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0060",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.execution.no_global_consensus"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0061",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.idempotency.scope"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0062",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.idempotency.scope"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "question_family"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0063",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.idempotency.scope"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0064",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.idempotency.scope"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0065",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.implementation.technology_independent"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0066",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.implementation.technology_independent"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0067",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.implementation.technology_independent"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0068",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.implementation.technology_independent"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0069",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-collection"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0070",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-collection"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0071",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-collection"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0072",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-collection"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0073",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-collection-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0074",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-collection-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0075",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-collection-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0076",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-collection-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0077",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-collection-003"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0078",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-collection-003"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0079",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-collection-004"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0080",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-collection-004"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0081",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-collection-005"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0082",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-collection-005"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0083",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-collection-006"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0084",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-collection-006"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0085",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0086",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0087",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0088",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0089",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0090",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0091",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0092",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0093",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed-004"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0094",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed-004"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0095",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed-005"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0096",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed-005"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0097",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed-007"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0098",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed-007"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0099",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed-idem-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0100",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed-idem-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0101",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed-ledger-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0102",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed-ledger-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0103",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed-ledger-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0104",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fed-ledger-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0105",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fedeval"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0106",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fedeval"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0107",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fedeval"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0108",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fedeval"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0109",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fedeval-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0110",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fedeval-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0111",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fedeval-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0112",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fedeval-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0113",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fedeval-003"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0114",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fedeval-003"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0115",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fedeval-004"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0116",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fedeval-004"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0117",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fedeval-006"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0118",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fedeval-006"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0119",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fedeval-008"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0120",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-fedeval-008"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0121",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-idem"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0122",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-idem"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0123",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-idem"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0124",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-idem"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0125",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-idem-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0126",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-idem-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0127",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ledger"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0128",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ledger"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0129",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ledger"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0130",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ledger"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0131",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ledger-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0132",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ledger-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0133",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ledger-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0134",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ledger-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0135",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ledger-003"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0136",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ledger-003"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0137",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ledger-004"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0138",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ledger-004"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0139",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ledger-005"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0140",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ledger-005"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0141",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0142",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0143",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0144",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0145",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0146",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0147",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0148",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0149",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote-003"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0150",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote-003"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0151",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote-004"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0152",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote-004"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0153",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote-005"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0154",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote-005"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0155",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote-007"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0156",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote-007"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0157",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote-008"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0158",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote-008"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0159",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote-009"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0160",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-ote-009"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0161",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-qr"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0162",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-qr"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0163",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-qr"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0164",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-qr"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0165",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-qr-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0166",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-qr-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0167",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-qr-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0168",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-qr-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0169",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-qr-003"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0170",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-qr-003"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0171",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-qr-004"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0172",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-qr-004"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0173",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-qr-sign-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0174",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-qr-sign-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0175",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0176",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0177",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0178",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0179",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0180",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0181",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0182",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0183",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-003"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0184",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-003"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0185",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-004"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0186",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-004"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0187",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-005"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0188",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-005"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0189",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-006"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0190",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-006"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0191",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-007"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0192",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-007"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0193",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-011"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0194",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-011"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0195",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-012"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0196",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-012"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0197",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-013"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0198",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-013"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0199",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-014"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0200",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-root-014"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0201",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-stl"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0202",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-stl"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0203",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-stl"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0204",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-stl"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0205",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-stl-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0206",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-stl-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0207",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-stl-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0208",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-stl-002"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0209",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-trace"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0210",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-trace"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0211",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-trace"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0212",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-trace"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0213",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-trace-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0214",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-trace-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0215",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-wallet"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0216",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-wallet"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0217",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-wallet"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0218",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-wallet"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0219",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-wallet-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0220",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.inv-wallet-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0221",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.mon-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0222",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.invariant.mon-001"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0223",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.license.apache_2_0"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0224",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.license.apache_2_0"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0225",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.license.apache_2_0"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0226",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.license.apache_2_0"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0227",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.notice.attribution"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0228",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.notice.attribution"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0229",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.notice.attribution"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0230",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.notice.attribution"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0231",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l0.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0232",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l0.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0233",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l0.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0234",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l0.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0235",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l1.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0236",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l1.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0237",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l1.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0238",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l1.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0239",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l2.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0240",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l2.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0241",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l2.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0242",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l2.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0243",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l3.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0244",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l3.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0245",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l3.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0246",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l3.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0247",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l4.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0248",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l4.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0249",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l4.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0250",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l4.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0251",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.protocol.holds_no_funds"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0252",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.protocol.holds_no_funds"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0253",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.protocol.holds_no_funds"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0254",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.protocol.holds_no_funds"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0255",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.r2s2.four_principles"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0256",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.r2s2.four_principles"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0257",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.r2s2.four_principles"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0258",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.r2s2.four_principles"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0259",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.reference_implementation.does_not_define"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0260",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.reference_implementation.does_not_define"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0261",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.reference_implementation.does_not_define"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0262",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.reference_implementation.does_not_define"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0263",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.resilience.never_overrides_security"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0264",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.resilience.never_overrides_security"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0265",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.resilience.never_overrides_security"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0266",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.resilience.never_overrides_security"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0267",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.state_store.not_a_ledger"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0268",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.state_store.not_a_ledger"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0269",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.state_store.not_a_ledger"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0270",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.state_store.not_a_ledger"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "safety_refusal"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0271",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.independent_implementation_demonstrated"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0272",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.independent_implementation_demonstrated"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0273",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.independent_implementation_demonstrated"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0274",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.independent_implementation_demonstrated"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0275",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.independent_trial_started"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0276",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.independent_trial_started"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0277",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.independent_trial_started"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0278",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.independent_trial_started"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0279",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.l0_frozen"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0280",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.l0_frozen"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0281",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.l0_frozen"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0282",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.l0_frozen"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0283",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.pre_production"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0284",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.pre_production"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0285",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.pre_production"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0286",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.pre_production"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0287",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.production_certificates"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0288",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.production_certificates"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0289",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.production_certificates"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0290",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.production_certificates"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0291",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.protocol_frozen"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0292",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.protocol_frozen"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0293",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.protocol_frozen"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0294",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.protocol_frozen"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0295",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.protocol_version"
+   ],
+   "sources_count": 0,
+   "terminal_kind": "exact_fact"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0296",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.protocol_version"
+   ],
+   "sources_count": 0,
+   "terminal_kind": "exact_fact"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0297",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.protocol_version"
+   ],
+   "sources_count": 0,
+   "terminal_kind": "exact_fact"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0298",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.protocol_version"
+   ],
+   "sources_count": 0,
+   "terminal_kind": "exact_fact"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0299",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.three_layer_architecture"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0300",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.three_layer_architecture"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0301",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.three_layer_architecture"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0302",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.three_layer_architecture"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0303",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.fail_closed"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0304",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.fail_closed"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0305",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.fail_closed"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0306",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.fail_closed"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0307",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.no_global_transparency"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0308",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.no_global_transparency"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0309",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.no_global_transparency"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0310",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.no_global_transparency"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0311",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.root.count"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0312",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.root.count"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0313",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.root.count"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0314",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.root.count"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0315",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.root.threshold"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0316",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.root.threshold"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0317",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.root.threshold"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0318",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.root.threshold"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0319",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.account.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0320",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.account.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0321",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.account.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0322",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.account.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0323",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.acquirer.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0324",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.acquirer.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0325",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.acquirer.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0326",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.acquirer.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0327",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.api.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0328",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.api.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0329",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.api.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0330",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.api.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0331",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.authentication.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0332",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.authentication.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0333",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.authentication.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0334",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.authentication.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0335",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.availability.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0336",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.availability.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0337",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.availability.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0338",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.availability.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0339",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.backward-compatibility.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0340",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.backward-compatibility.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0341",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.backward-compatibility.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0342",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.backward-compatibility.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0343",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.balance.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0344",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.balance.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0345",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.balance.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0346",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.balance.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0347",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.canonicalization.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0348",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.canonicalization.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0349",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.canonicalization.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0350",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.canonicalization.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0351",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.clearing.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0352",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.clearing.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0353",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.clearing.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0354",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.clearing.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0355",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.consistency.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0356",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.consistency.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0357",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.consistency.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0358",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.consistency.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0359",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.contract.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0360",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.contract.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0361",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.contract.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0362",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.contract.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0363",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.determinism.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0364",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.determinism.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0365",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.determinism.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0366",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.determinism.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0367",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.digital-signature.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0368",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.digital-signature.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0369",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.digital-signature.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0370",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.digital-signature.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0371",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.ed25519.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0372",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.ed25519.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0373",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.ed25519.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0374",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.ed25519.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0375",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.endpoint.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0376",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.endpoint.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0377",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.endpoint.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0378",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.endpoint.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0379",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.fail-closed.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0380",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.fail-closed.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0381",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.fail-closed.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0382",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.fail-closed.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0383",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.hash.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0384",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.hash.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0385",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.hash.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0386",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.hash.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0387",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.http.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0388",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.http.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0389",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.http.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0390",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.http.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0391",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.idempotency.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0392",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.idempotency.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0393",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.idempotency.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0394",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.idempotency.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0395",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.integrity.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0396",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.integrity.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0397",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.integrity.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0398",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.integrity.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0399",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.issuer.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0400",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.issuer.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0401",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.issuer.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0402",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.issuer.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0403",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.json.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0404",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.json.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0405",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.json.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0406",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.json.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0407",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.key-rotation.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0408",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.key-rotation.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0409",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.key-rotation.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0410",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.key-rotation.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0411",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.keypair.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0412",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.keypair.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0413",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.keypair.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0414",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.keypair.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0415",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.ledger.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0416",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.ledger.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0417",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.ledger.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0418",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.ledger.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0419",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.merchant.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0420",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.merchant.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0421",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.merchant.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0422",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.merchant.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0423",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.nonce.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0424",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.nonce.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0425",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.nonce.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0426",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.nonce.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0427",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.payment-initiation.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0428",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.payment-initiation.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0429",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.payment-initiation.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0430",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.payment-initiation.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0431",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.payment-rail.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0432",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.payment-rail.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0433",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.payment-rail.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0434",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.payment-rail.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0435",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.payment-scheme.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0436",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.payment-scheme.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0437",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.payment-scheme.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0438",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.payment-scheme.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0439",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.payment.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0440",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.payment.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0441",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.payment.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0442",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.payment.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0443",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.psp.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0444",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.psp.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0445",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.psp.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0446",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.psp.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0447",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.reconciliation.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0448",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.reconciliation.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0449",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.reconciliation.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0450",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.reconciliation.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0451",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.refund.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0452",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.refund.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0453",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.refund.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0454",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.refund.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0455",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.replay.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0456",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.replay.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0457",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.replay.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0458",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.replay.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0459",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.resilience.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0460",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.resilience.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0461",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.resilience.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0462",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.resilience.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0463",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.retry.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0464",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.retry.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0465",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.retry.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0466",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.retry.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0467",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.reversal.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0468",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.reversal.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0469",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.reversal.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0470",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.reversal.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0471",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.revocation.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0472",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.revocation.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0473",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.revocation.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0474",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.revocation.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0475",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.rollback.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0476",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.rollback.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0477",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.rollback.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0478",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.rollback.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0479",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.safe-degradation.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0480",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.safe-degradation.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0481",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.safe-degradation.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0482",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.safe-degradation.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0483",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.schema.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0484",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.schema.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0485",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.schema.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0486",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.schema.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0487",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.serialization.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0488",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.serialization.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0489",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.serialization.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0490",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.serialization.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0491",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.settlement.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0492",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.settlement.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0493",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.settlement.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0494",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.settlement.definition"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0495",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.state-machine.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0496",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.state-machine.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0497",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.state-machine.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0498",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.state-machine.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0499",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.timeout.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0500",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.timeout.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0501",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.timeout.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0502",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.timeout.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0503",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.transfer.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0504",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.transfer.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0505",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.transfer.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0506",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.transfer.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0507",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.trust-root.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0508",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.trust-root.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0509",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.trust-root.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0510",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.trust-root.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0511",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.versioning.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0512",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.versioning.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0513",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.versioning.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0514",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.versioning.definition"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0515",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.wallet.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0516",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.wallet.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0517",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.wallet.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P2",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0518",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "domain.wallet.definition"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0519",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.authorization.banza_regulatory_boundary"
+   ],
+   "sources_count": 7,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0520",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.authorization.banza_regulatory_boundary"
+   ],
+   "sources_count": 7,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0521",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.authorization.banza_regulatory_boundary"
+   ],
+   "sources_count": 7,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0522",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.authorization.banza_regulatory_boundary"
+   ],
+   "sources_count": 7,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0523",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.canonicalization.banza_byte_form_rule"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0524",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.canonicalization.banza_byte_form_rule"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0525",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.canonicalization.banza_byte_form_rule"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0526",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.canonicalization.banza_byte_form_rule"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0527",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.certification.banza_certification_semantics"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0528",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.certification.banza_certification_semantics"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0529",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.certification.banza_certification_semantics"
+   ],
+   "sources_count": 1,
+   "terminal_kind": "explanatory_trunk"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0530",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.certification.banza_certification_semantics"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0531",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.clearing.banza_operational_boundary"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0532",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.clearing.banza_operational_boundary"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0533",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.clearing.banza_operational_boundary"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0534",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.clearing.banza_operational_boundary"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0535",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.digital-signature.banza_trust_usage"
+   ],
+   "sources_count": 4,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0536",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.digital-signature.banza_trust_usage"
+   ],
+   "sources_count": 4,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0537",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.digital-signature.banza_trust_usage"
+   ],
+   "sources_count": 4,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0538",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.digital-signature.banza_trust_usage"
+   ],
+   "sources_count": 4,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0539",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.idempotency.banza_normative_rule"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0540",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.idempotency.banza_normative_rule"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0541",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.idempotency.banza_normative_rule"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0542",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.idempotency.banza_normative_rule"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0543",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.ledger.banza_storage_boundary"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0544",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.ledger.banza_storage_boundary"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0545",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.ledger.banza_storage_boundary"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0546",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.ledger.banza_storage_boundary"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0547",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.settlement.banza_operational_boundary"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0548",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.settlement.banza_operational_boundary"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0549",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.settlement.banza_operational_boundary"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0550",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.settlement.banza_operational_boundary"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0551",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.state-machine.banza_protocol_state_semantics"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0552",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.state-machine.banza_protocol_state_semantics"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0553",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.state-machine.banza_protocol_state_semantics"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P1",
+   "form": "paraphrase",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0554",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.state-machine.banza_protocol_state_semantics"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "hybrid_relation"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0555",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "repo.banzai.action_boundary_location"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0556",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "repo.banzai.answer_pipeline"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0557",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "repo.banzai.ci_jobs"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0558",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "repo.banzai.guards"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0559",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "repo.banzai.index_state"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0560",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "repo.banzai.indexer_crate"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0561",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "repo.banzai.retrieval_pipeline"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "operational_failure"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0562",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "repo.guards.brand_contamination"
+   ],
+   "sources_count": 2,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0563",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "repo.guards.secret_leak"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P2",
+   "form": "direct",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0564",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "repo.operator_zero.middleware"
+   ],
+   "sources_count": 3,
+   "terminal_kind": "canonical_definition"
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "journey",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0565",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l2.definition",
+    "banza.profile.l3.definition",
+    "banza.certification.not_regulatory_authorisation"
+   ],
+   "terminal_kind": "canonical_definition",
+   "turns_run": 6
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "journey",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0566",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.root.count",
+    "banza.trust.root.threshold",
+    "banza.trust.no_global_transparency",
+    "banza.trust.fail_closed"
+   ],
+   "terminal_kind": "explanatory_trunk",
+   "turns_run": 5
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "journey",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0567",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.state_store.not_a_ledger",
+    "banza.implementation.technology_independent"
+   ],
+   "terminal_kind": "canonical_definition",
+   "turns_run": 5
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "journey",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0568",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.profile.l2.definition",
+    "banza.profile.l3.definition"
+   ],
+   "terminal_kind": "canonical_definition",
+   "turns_run": 5
+  },
+  {
+   "answer_locale": "en",
+   "criticality": "P0",
+   "form": "journey",
+   "locale": "en",
+   "pass": true,
+   "question_id": "V2-0569",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.status.pre_production",
+    "banza.status.independent_implementation_demonstrated"
+   ],
+   "terminal_kind": "canonical_definition",
+   "turns_run": 3
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "journey",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0570",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "hybrid.settlement.banza_operational_boundary",
+    "hybrid.clearing.banza_operational_boundary"
+   ],
+   "terminal_kind": "canonical_definition",
+   "turns_run": 3
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P0",
+   "form": "journey",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0571",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.trust.root.threshold"
+   ],
+   "terminal_kind": "canonical_definition",
+   "turns_run": 3
+  },
+  {
+   "answer_locale": "pt-PT",
+   "criticality": "P1",
+   "form": "journey",
+   "locale": "pt-PT",
+   "pass": true,
+   "question_id": "V2-0572",
+   "reasons": [],
+   "semantic_unit_ids": [
+    "banza.certification.not_admission"
+   ],
+   "terminal_kind": "clarification",
+   "turns_run": 2
+  }
+ ],
+ "universe_hash": "bf1a472f7a99b68aa9df50021ca43b0e"
+}
