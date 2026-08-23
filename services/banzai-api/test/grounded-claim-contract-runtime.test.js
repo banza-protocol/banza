@@ -42,9 +42,9 @@ function grounded(text, sourceIds) {
 
 // Answers the first call one way and the second another, so the bounded repair is observable.
 //
-// Named `firstThenRepair` rather than for the two passes: "two-pass" is a RETIRED architecture in this
-// repository and a guard keeps the name out of active code. That guard is right — a helper here is not
-// worth eroding a name that means something else.
+// Named for what it does rather than for its two calls: the phrase a naive name would have used is a
+// retired architecture here, and a guard keeps it out of active code — including out of comments,
+// which is why this sentence avoids it too.
 //
 // By INVOCATION, not by inspecting the options: the harness records only the stub's first argument
 // (the question), so a stub that keys off `args.repairClaims` never sees it and silently returns the
