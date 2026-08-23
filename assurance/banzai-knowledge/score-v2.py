@@ -15,14 +15,17 @@ THREE METRICS, NEVER COLLAPSED INTO ONE.
 
 Reporting one number in place of these three is how a partial run gets mistaken for a clean one.
 """
-import json, re, sys, collections
+import json, os, re, sys, collections
 
 RUN = sys.argv[1]
 # --emit <path> writes the per-item verdicts as a committable artifact. It is produced BY THIS SCORER
 # so there is exactly one oracle: a second implementation of "did this pass?" drifts from the first and
 # then the evidence and the report disagree, which is how a measurement stops meaning anything.
 EMIT = sys.argv[sys.argv.index("--emit") + 1] if "--emit" in sys.argv else None
-ROOT = "/Users/fm65/banza/assurance/banzai-knowledge"
+# Derived from this file's own location, not hard-coded. It was an absolute path to one developer's
+# machine, which worked everywhere it was ever run by hand and failed the moment CI ran it — the two
+# new battery guards went red on a runner for a reason that had nothing to do with what they test.
+ROOT = os.path.dirname(os.path.abspath(__file__))
 bench = json.load(open(f"{ROOT}/benchmark-v2.json"))
 uni = json.load(open(f"{ROOT}/semantic-universe.json"))
 oracle = {i["question_id"]: i for i in bench["items"]}
