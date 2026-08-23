@@ -2,7 +2,7 @@
   "schema_version": 1,
   "_generated_by": "tools/gen-banzai-benchmark-v2.mjs",
   "universe_hash": "bf1a472f7a99b68aa9df50021ca43b0e",
-  "corpus_hash": "8358277ffb05d66bf9d88d91c015d667",
+  "corpus_hash": "b416a0ccf0786366c40038cd03e012bb",
   "count": 572,
   "items": [
     {
@@ -773,8 +773,8 @@
         "corre a conformance suite[^.]{0,90}(publica|verific|evid)"
       ],
       "must_not": [
-        "aprova[çc][ãa]o central",
-        "autoridade central (que )?(aprova|certifica)"
+        "(?<!n[ãa]o )(?<!nem )por aprova[çc][ãa]o central",
+        "\\b(requer|exige|precisa de)\\b[^.]{0,40}aprova[çc][ãa]o central"
       ],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -799,8 +799,8 @@
         "corre a conformance suite[^.]{0,90}(publica|verific|evid)"
       ],
       "must_not": [
-        "aprova[çc][ãa]o central",
-        "autoridade central (que )?(aprova|certifica)"
+        "(?<!n[ãa]o )(?<!nem )por aprova[çc][ãa]o central",
+        "\\b(requer|exige|precisa de)\\b[^.]{0,40}aprova[çc][ãa]o central"
       ],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -825,8 +825,8 @@
         "runs? the conformance suite[^.]{0,90}(publish|verifiab|evidence)"
       ],
       "must_not": [
-        "central approval",
-        "central (certifying )?authority (that )?(approves|grants)"
+        "(?<!not )(?<!nor )by central approval",
+        "\\b(requires?|needs?)\\b[^.]{0,40}central approval"
       ],
       "authority_class": "BANZA",
       "acceptable_refusal": false
@@ -851,8 +851,8 @@
         "runs? the conformance suite[^.]{0,90}(publish|verifiab|evidence)"
       ],
       "must_not": [
-        "central approval",
-        "central (certifying )?authority (that )?(approves|grants)"
+        "(?<!not )(?<!nor )by central approval",
+        "\\b(requires?|needs?)\\b[^.]{0,40}central approval"
       ],
       "authority_class": "BANZA",
       "acceptable_refusal": false

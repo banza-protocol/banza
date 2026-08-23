@@ -2851,7 +2851,17 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       decisionEffective.action === "qwen" && decision.entry_id && coveredEntities().has(decision.entry_id)
         ? decision.entry_id
         : null;
-    const seededEntity = docRes.found ? docRes.id : (conceptSource || routeEntitySeed || null);
+    // A DECLARED entity seed beats an INFERRED concept source.
+    //
+    // `resolveConcept` guesses a document from the question's vocabulary; the coverage table states one.
+    // For "Como é que um operador demonstra conformidade?" the guess is ADR-030 — the profile registry —
+    // and the declaration is ADR-031/ADR-029, the entry's own authority. The guess was winning, so the
+    // trunk grounded on profiles and every answer came back about five cumulative levels instead of
+    // about evidence. Fail-closed only worked because its question resolves to no concept at all.
+    //
+    // The gate stays narrow: `routeEntitySeed` is non-null only for an id in the coverage table, so
+    // everything else keeps the previous precedence exactly.
+    const seededEntity = docRes.found ? docRes.id : (routeEntitySeed || conceptSource || null);
 
     // Bind the resolved identity into the cache key so a cached answer is only valid for the SAME record at
     // the SAME content hash and the SAME mode (M2.10A/M2.10B).
