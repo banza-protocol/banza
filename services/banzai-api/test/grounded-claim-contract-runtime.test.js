@@ -42,10 +42,14 @@ function grounded(text, sourceIds) {
 
 // Answers the first call one way and the second another, so the bounded repair is observable.
 //
+// Named `firstThenRepair` rather than for the two passes: "two-pass" is a RETIRED architecture in this
+// repository and a guard keeps the name out of active code. That guard is right — a helper here is not
+// worth eroding a name that means something else.
+//
 // By INVOCATION, not by inspecting the options: the harness records only the stub's first argument
 // (the question), so a stub that keys off `args.repairClaims` never sees it and silently returns the
 // first answer twice — which reads exactly like "the repair did not help".
-function twoPass(first, repair) {
+function firstThenRepair(first, repair) {
   let n = 0;
   return () => {
     n += 1;
@@ -107,7 +111,7 @@ test("G1 — a bounded repair runs exactly once, and its result is what decides"
   const bad = "Conformance is proven by publishing a discovery document.";
   const { res, meta, runs } = await ask(
     CONF_Q, "en",
-    twoPass(grounded(bad, ["ADR-031"]), grounded(GOOD_CONF, ["ADR-031"])),
+    firstThenRepair(grounded(bad, ["ADR-031"]), grounded(GOOD_CONF, ["ADR-031"])),
   );
   assert.equal(meta.terminal_kind, "explanatory_trunk", "a successful repair publishes");
   assert.match(res.answer, /re-execute|not by central approval/i);
@@ -117,7 +121,7 @@ test("G1 — a bounded repair runs exactly once, and its result is what decides"
 test("G1b — a repair that still omits the proposition fails closed, with no third attempt", async () => {
   const bad = "Conformance is proven by publishing a discovery document.";
   const stillBad = "Conformance is proven by publishing an operator declaration document.";
-  const { meta, runs } = await ask(CONF_Q, "en", twoPass(grounded(bad, ["ADR-031"]), grounded(stillBad, ["ADR-031"])));
+  const { meta, runs } = await ask(CONF_Q, "en", firstThenRepair(grounded(bad, ["ADR-031"]), grounded(stillBad, ["ADR-031"])));
   assert.equal(meta.fallback_reason, "claim_contract_unsatisfied");
   assert.equal(runs, 2, "one generation and one repair, and then it stops");
 });
