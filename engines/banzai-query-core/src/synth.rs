@@ -252,6 +252,44 @@ pub fn build_output_prompt_structured(
 /// mandatory shape the answer must take so the model FULFILS the task (an example gives a scenario, a
 /// procedure gives steps, a template gives fields) instead of a generic grounded blurb. This is the fix
 /// for the "grounds but does not fulfil" defect: the plan's obligations reach the prompt.
+/// The SEMANTIC OBLIGATIONS block: the propositions this answer must establish, stated as obligations
+/// rather than as sentences to copy.
+///
+/// The model stays free to explain, paraphrase, choose depth and pick its own words. What it may not do
+/// is receive the right authority and then drop the proposition that makes the answer correct — which is
+/// what produced "conformance is proven by publishing a discovery document" from sources that say
+/// conformance is proven by verification.
+fn claim_obligations_block(obligations: &crate::obligations::AnswerObligationSet) -> String {
+    if obligations.required_claims.is_empty() {
+        return String::new();
+    }
+    let lines: Vec<String> = obligations
+        .required_claims
+        .iter()
+        .map(|c| format!("- {}", c.statement))
+        .collect();
+    let repair = if obligations.repair_note.is_empty() {
+        String::new()
+    } else {
+        format!(
+            "\nCORRECÇÃO: a tentativa anterior omitiu o seguinte. Reformula a resposta de modo a \
+estabelecê-lo, usando apenas a evidência já fornecida:\n{}",
+            obligations
+                .repair_note
+                .iter()
+                .map(|r| format!("- {r}"))
+                .collect::<Vec<_>>()
+                .join("\n")
+        )
+    };
+    format!(
+        "{repair}\nPROPOSIÇÕES OBRIGATÓRIAS (semântica, não literal). Responde naturalmente e com as tuas \
+próprias palavras, mas a resposta TEM de estabelecer cada uma destas proposições. Não copies estas \
+frases nem menciones identificadores internos.\n{}",
+        lines.join("\n")
+    )
+}
+
 pub fn build_output_prompt_obliged(
     question: &str,
     pkg: &FactualPackage,
@@ -269,7 +307,8 @@ pub fn build_output_prompt_obliged(
         "definition" => "FORMATO OBRIGATÓRIO (DEFINIÇÃO): começa por dizer directamente o que é o assunto (natureza + função), a partir da fonte canónica.",
         _ => "",
     };
-    if directive.is_empty() && obligations.mandatory_sections.is_empty() {
+    let claims = claim_obligations_block(obligations);
+    if directive.is_empty() && obligations.mandatory_sections.is_empty() && claims.is_empty() {
         return base;
     }
     let sections = if obligations.mandatory_sections.is_empty() {
@@ -281,7 +320,7 @@ pub fn build_output_prompt_obliged(
         )
     };
     OutputPrompt {
-        system: format!("{}\n{}{}", base.system, directive, sections),
+        system: format!("{}\n{}{}{}", base.system, directive, sections, claims),
         user: base.user,
     }
 }
@@ -306,7 +345,10 @@ pub fn build_output_prompt_obliged_structured(
         "definition" => "FORMATO OBRIGATÓRIO (DEFINIÇÃO): começa por dizer directamente o que é o assunto (natureza + função), a partir da fonte canónica.",
         _ => "",
     };
-    if directive.is_empty() && obligations.mandatory_sections.is_empty() {
+    // Same obligations block as the baseline builder: the structured path differs in how the answer is
+    // shaped, not in which propositions it owes.
+    let claims = claim_obligations_block(obligations);
+    if directive.is_empty() && obligations.mandatory_sections.is_empty() && claims.is_empty() {
         return base;
     }
     let sections = if obligations.mandatory_sections.is_empty() {
@@ -318,7 +360,7 @@ pub fn build_output_prompt_obliged_structured(
         )
     };
     OutputPrompt {
-        system: format!("{}\n{}{}", base.system, directive, sections),
+        system: format!("{}\n{}{}{}", base.system, directive, sections, claims),
         user: base.user,
     }
 }

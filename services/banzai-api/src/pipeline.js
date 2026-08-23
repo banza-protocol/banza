@@ -27,7 +27,7 @@
 import { GUARDRAILS } from "./provider.js";
 import { operationalDomain } from "./operationalDomain.js";
 import { composeTasked } from "./taskedRealizations.js";
-import { normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, comparisonPlan, hybridPlan, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims, answerFor, unavailableRealization, LOCALES, DEFAULT_LOCALE } from "./knowledge.js";
+import { validateClaims, normalize, retrieve, CORPUS_HASH, REPO_INDEX_HASH, SAFETY_POLICY_VERSION, contractVersions, validateResponse, route, routeWithJourney, getEntry, resolveDocument, resolveConcept, resolveScope, resolveOperationalMetric, resolveQuery, resolveReferences, comparisonPlan, hybridPlan, contextualFallback, answerClass, buildTerminal, queuePriority, queueShouldDedup, recoverQuery, coveredEntities, isVerbatimEntry, attributeAnswer, taskedAnswer, documentLookup, contextUsedFor, buildOperationalPackage, verifyClaims, answerFor, unavailableRealization, LOCALES, DEFAULT_LOCALE } from "./knowledge.js";
 import { honestLiveFailureAnswer } from "./liveArtifact.js";
 import { isPublicSource } from "./answerContract.js";
 
@@ -3021,7 +3021,84 @@ export function createPipeline(provider, env = process.env, { nowFn = Date.now, 
       factual_package: factualPackageSummary(tp.package),
     };
 
+    // ── GROUNDED SEMANTIC CLAIM CONTRACT ───────────────────────────────────────────────────────────
+    //
+    // The last three production failures were not knowledge, routing, transport or locale. They were
+    // the missing link: for this question these propositions are obligatory, this evidence must be able
+    // to support them, and generation may not succeed while omitting them.
+    //
+    // Two halves, because there were two kinds of variance. V2-0040 was grounded on ADR-029 alone — a
+    // discovery document, which supports DECLARATION and not VERIFICATION — so requiring the claim was
+    // never going to be enough. The Portuguese fail-closed answers had the right sources and lost the
+    // proposition.
+    //
+    // The subject id is the ROUTED one; the claims come from it and from the question's declared
+    // vocabulary. No benchmark id reaches this path.
+    const claimSubject = String(decision.entry_id || seededEntity || "");
+    // The package fact carries its source under `f.source.document_id` — the same field `groundedAnswer`
+    // maps citations through. Reading `f.source_id` returned nothing, which would have made every claim
+    // look unsupported and failed closed on answers that were perfectly well grounded.
+    const claimSourceIds = (t) =>
+      (t && t.package && Array.isArray(t.package.facts)
+        ? t.package.facts.map((f) => String(((f && f.source) || {}).document_id || ""))
+        : []
+      ).concat(Array.isArray(t && t.cited_source_ids) ? t.cited_source_ids.map(String) : []).filter(Boolean);
+
     if (tp.status === "grounded" && tp.answer_markdown) {
+      let claimVerdict = validateClaims(claimSubject, correctedQuestion, tp.answer_markdown, claimSourceIds(tp));
+      let claimRepairAttempted = false;
+      if (!claimVerdict.ok && claimVerdict.required.length) {
+        // ONE bounded repair. Same question, same evidence, told only what it left out. There is no
+        // second repair: an unbounded retry loop is a way of eventually getting lucky, not a contract.
+        claimRepairAttempted = true;
+        emit("CLAIM_REPAIR_STARTED", {
+          required: claimVerdict.required.length,
+          missing: claimVerdict.missing.length,
+          violated: claimVerdict.violated.length,
+          unsupported: claimVerdict.unsupported.length,
+        });
+        try {
+          const rp = await runInference(
+            (execSignal) =>
+              runSynthesis(rq, {
+                provider, traceId: String(keyFields.repoIndexHash || ""), timeoutMs: tpTimeoutMs,
+                model: tpModel, entityId: seededEntity, taskQuestion, signal: execSignal,
+                onProgress: emit, queueWaitMs: 0, locale,
+                repairClaims: [...claimVerdict.missing, ...claimVerdict.violated],
+              }),
+            { dedupKey: "", priority, signal },
+          );
+          if (rp && rp.status === "grounded" && rp.answer_markdown) {
+            const rv = validateClaims(claimSubject, correctedQuestion, rp.answer_markdown, claimSourceIds(rp));
+            if (rv.ok) { tp = rp; claimVerdict = rv; }
+          }
+        } catch { /* fecho por omissão: the unrepaired verdict below decides */ }
+      }
+      if (!claimVerdict.ok && claimVerdict.required.length) {
+        // FAIL CLOSED, WITHOUT CHANGING THE SUBJECT.
+        //
+        // This is what V2-0379/V2-0380 got wrong. A fail-closed question whose synthesis did not publish
+        // degraded to the emergency grounding, which served the trust-evaluation entry — so a reader who
+        // asked about fail-closed was answered about something else, confidently. A failure to explain X
+        // must remain a failure to explain X.
+        return contextualInsufficient(rq, "understood_data_missing", {
+          answer_mode: mode,
+          fallback_reason: "claim_contract_unsatisfied",
+          intent,
+          terminal_kind: "insufficient_evidence",
+          claim_contract: {
+            subject: claimSubject,
+            required: claimVerdict.required,
+            missing: claimVerdict.missing,
+            violated: claimVerdict.violated,
+            unsupported: claimVerdict.unsupported,
+            repair_attempted: claimRepairAttempted,
+          },
+          ...ctxMeta,
+          ...docMeta,
+        }, locale);
+      }
+      if (claimRepairAttempted) routerTrace.claim_repair = true;
       // ── M2.19G.5C (ADR-036) — the MANDATORY post-synthesis authority validator, on the EXACT bytes that
       // would be published, AFTER the intrinsic factual validator and BEFORE groundedAnswer, the cache
       // writes and the return. Three gate checks in order; ANY failure degrades via emergency() with a

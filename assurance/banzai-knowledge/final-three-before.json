@@ -1,0 +1,145 @@
+{
+  "_note": "The BEFORE-state of the last three, preserved verbatim so the claim contract is judged against what production actually produced. Not regenerated: these rows are the recorded run.",
+  "production": "src-478b70c",
+  "raw_transcript_sha256": "866b229a651616264f560f3981d7a115c36fd883a916566af6e3fec880a76410",
+  "universe_hash": "bf1a472f7a99b68aa9df50021ca43b0e",
+  "corpus_hash": "35d89b42f8ababbd24cb7ee0c24ed723",
+  "failures": [
+    {
+      "question_id": "V2-0040",
+      "semantic_unit_ids": [
+        "banza.conformance.demonstrated_by_evidence"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "locale": "en",
+      "criticality": "P0",
+      "request": "In what way is conformance to the protocol proven?",
+      "knowledge_class": "BANZA_CANONICAL",
+      "authority_class": "BANZA",
+      "declared_sources": [
+        "CONFORMANCE",
+        "ADR-031",
+        "ADR-029"
+      ],
+      "intent": "conformance_evidence",
+      "routed_entry": null,
+      "terminal_classification": "explanatory_trunk",
+      "model_called": false,
+      "evidence_selected": [
+        "ADR-029"
+      ],
+      "final_answer": "Conformance to the protocol is proven through the publication of an operator discovery document, which is the implementation's own declaration of its identity, supported features, and location.",
+      "oracle_required": [],
+      "oracle_required_any": [
+        "(demonstrat|prov|establish|show)\\w*[^.]{0,90}(evidence|verifi|re-?execut|published artefacts?|conformance results?|self-?publicat)",
+        "(evidence|verifi\\w+)[^.]{0,90}(demonstrat|prov|establish)",
+        "runs? the conformance suite[^.]{0,90}(publish|verifi|evidence)"
+      ],
+      "oracle_forbidden": [
+        "(?<!not )(?<!nor )by central approval",
+        "\\b(requires?|needs?)\\b[^.]{0,40}central approval"
+      ],
+      "verdict_reason": [
+        "establishes none of ['(demonstrat|prov|establish|show)\\\\w*[^.]{0,90}(evidence|verifi|re-?execut|published artefacts?|conformance results?|self-?publicat)', '(evidence|verifi\\\\w+)[^.]{0,90}(demonstrat|prov|establish)', 'runs? the conformance suite[^.]{0,90}(publish|verifi|evidence)']"
+      ]
+    },
+    {
+      "question_id": "V2-0379",
+      "semantic_unit_ids": [
+        "domain.fail-closed.definition"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "locale": "pt-PT",
+      "criticality": "P2",
+      "request": "O que é fail-closed?",
+      "knowledge_class": "DOMAIN",
+      "authority_class": "BANZA",
+      "declared_sources": [
+        "ADR-025",
+        "ADR-025",
+        "ANNEX"
+      ],
+      "intent": "trust_evaluation",
+      "routed_entry": null,
+      "terminal_classification": "operational_failure",
+      "model_called": false,
+      "evidence_selected": [
+        "ADR-025",
+        "ANNEX"
+      ],
+      "final_answer": "No **BANZA** a confiança é avaliada por evidência verificável, sem autoridade certificadora central. Cada participante avalia localmente a metadata assinada do protocolo, o manifest do operador e a evidência de conformidade publicada, aplicando verificações determinísticas (Open Trust Evaluation) que falham em caso de dúvida (fail-closed). Não há CA nem certificados de operador; a interoperabilidade depende de evidência que qualquer parte pode reverificar.",
+      "oracle_required": [],
+      "oracle_required_any": [
+        "n[ãa]o (prossegue|avan[çc]a|interoper)",
+        "rejeit",
+        "bloque",
+        "fecho por omiss",
+        "n[ãa]o.{0,30}tratad[ao].{0,20}como.{0,20}v[áa]lid",
+        "impede a opera",
+        "impede.{0,30}(quando|em caso de) (h[áa] )?falha",
+        "nenhuma ac[çc][ãa]o.{0,40}sem confirma"
+      ],
+      "oracle_forbidden": [
+        "transpar[êe]ncia global",
+        "continua.{0,30}disponibilidade",
+        "disponibilidade.{0,20}sobre.{0,20}seguran"
+      ],
+      "verdict_reason": [
+        "establishes none of ['n[ãa]o (prossegue|avan[çc]a|interoper)', 'rejeit', 'bloque', 'fecho por omiss', 'n[ãa]o.{0,30}tratad[ao].{0,20}como.{0,20}v[áa]lid', 'impede a opera', 'impede.{0,30}(quando|em caso de) (h[áa] )?falha', 'nenhuma ac[çc][ãa]o.{0,40}sem confirma']"
+      ]
+    },
+    {
+      "question_id": "V2-0380",
+      "semantic_unit_ids": [
+        "domain.fail-closed.definition"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "locale": "pt-PT",
+      "criticality": "P2",
+      "request": "Explica fail-closed de forma simples.",
+      "knowledge_class": "DOMAIN",
+      "authority_class": "BANZA",
+      "declared_sources": [
+        "ADR-025",
+        "ADR-025",
+        "ANNEX"
+      ],
+      "intent": "trust_evaluation",
+      "routed_entry": null,
+      "terminal_classification": "operational_failure",
+      "model_called": false,
+      "evidence_selected": [
+        "ADR-025",
+        "ANNEX"
+      ],
+      "final_answer": "No **BANZA** a confiança é avaliada por evidência verificável, sem autoridade certificadora central. Cada participante avalia localmente a metadata assinada do protocolo, o manifest do operador e a evidência de conformidade publicada, aplicando verificações determinísticas (Open Trust Evaluation) que falham em caso de dúvida (fail-closed). Não há CA nem certificados de operador; a interoperabilidade depende de evidência que qualquer parte pode reverificar.",
+      "oracle_required": [],
+      "oracle_required_any": [
+        "n[ãa]o (prossegue|avan[çc]a|interoper)",
+        "rejeit",
+        "bloque",
+        "fecho por omiss",
+        "n[ãa]o.{0,30}tratad[ao].{0,20}como.{0,20}v[áa]lid",
+        "impede a opera",
+        "impede.{0,30}(quando|em caso de) (h[áa] )?falha",
+        "nenhuma ac[çc][ãa]o.{0,40}sem confirma"
+      ],
+      "oracle_forbidden": [
+        "transpar[êe]ncia global",
+        "continua.{0,30}disponibilidade",
+        "disponibilidade.{0,20}sobre.{0,20}seguran"
+      ],
+      "verdict_reason": [
+        "establishes none of ['n[ãa]o (prossegue|avan[çc]a|interoper)', 'rejeit', 'bloque', 'fecho por omiss', 'n[ãa]o.{0,30}tratad[ao].{0,20}como.{0,20}v[áa]lid', 'impede a opera', 'impede.{0,30}(quando|em caso de) (h[áa] )?falha', 'nenhuma ac[çc][ãa]o.{0,40}sem confirma']"
+      ]
+    }
+  ]
+}

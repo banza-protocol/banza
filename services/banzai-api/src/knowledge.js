@@ -4073,10 +4073,47 @@ export function attributeAnswer(question, locale = DEFAULT_LOCALE) {
 // M2.18B.7 (Semantic Task Fulfilment) — the resolved AnswerObligationSet (task ontology + what a fulfilling
 // answer must deliver). Returns the parsed object (never null; a plain question still yields an Explanation
 // obligation). The raw JSON is kept on `._raw` so it can be passed straight to the other WASM entry points.
-export function answerObligations(question, seed = "") {
+/// The RUNTIME verdict over a candidate answer: which obligatory propositions it establishes, which it
+/// inverts, and which lack the evidence that could support them.
+///
+/// Deliberately NOT the benchmark oracle. The V2 scorer is Python regexes over `unit-probes.json`;
+/// these are Rust predicates written independently. They agree about the proposition and share no code,
+/// so a bug in one cannot certify itself green through the other.
+export function validateClaims(entryId, question, text, sourceIds = []) {
+  if (typeof kb.validate_claims_json !== "function") return { required: [], missing: [], violated: [], unsupported: [], ok: true };
+  try {
+    return JSON.parse(
+      kb.validate_claims_json(
+        String(entryId || ""),
+        String(question || ""),
+        String(text || ""),
+        (Array.isArray(sourceIds) ? sourceIds : []).map(String).join(","),
+      ),
+    );
+  } catch {
+    // Unavailable is not a licence to publish: the caller treats a missing verdict as "no obligation
+    // known", which is the pre-contract behaviour, never as "obligations satisfied".
+    return { required: [], missing: [], violated: [], unsupported: [], ok: true };
+  }
+}
+
+/// The obligation statements for a set of claim ids, for a repair prompt.
+export function claimStatements(entryId, question, locale = DEFAULT_LOCALE, only = null) {
+  const o = answerObligations(question, entryId, locale);
+  const all = (o && o.required_claims) || [];
+  return only ? all.filter((c) => only.includes(c.id)) : all;
+}
+
+export function answerObligations(question, seed = "", locale = DEFAULT_LOCALE) {
   if (typeof kb.answer_obligations_json !== "function") return null;
   try {
-    const raw = kb.answer_obligations_json(String(question || ""), String(seed || ""));
+    // Locale-aware where the engine offers it: the SEMANTIC CLAIMS carried in the obligation set are
+    // stated to the model in the reader's language, while the claim IDS stay locale-independent —
+    // a proposition is not a language.
+    const raw =
+      typeof kb.answer_obligations_locale_json === "function"
+        ? kb.answer_obligations_locale_json(String(question || ""), String(seed || ""), String(locale || DEFAULT_LOCALE))
+        : kb.answer_obligations_json(String(question || ""), String(seed || ""));
     const o = JSON.parse(raw);
     Object.defineProperty(o, "_raw", { value: raw, enumerable: false });
     return o;

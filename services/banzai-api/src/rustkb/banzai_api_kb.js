@@ -68,6 +68,34 @@ function answer_obligations_json(question, seeded_entity_id) {
 exports.answer_obligations_json = answer_obligations_json;
 
 /**
+ * The obligation set INCLUDING the semantic claims this turn owes, stated in the reader's locale.
+ * The claims come from the routed subject and declared vocabulary — never from a benchmark id.
+ * @param {string} question
+ * @param {string} seeded_entity_id
+ * @param {string} locale
+ * @returns {string}
+ */
+function answer_obligations_locale_json(question, seeded_entity_id, locale) {
+    let deferred4_0;
+    let deferred4_1;
+    try {
+        const ptr0 = passStringToWasm0(question, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ptr1 = passStringToWasm0(seeded_entity_id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len1 = WASM_VECTOR_LEN;
+        const ptr2 = passStringToWasm0(locale, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len2 = WASM_VECTOR_LEN;
+        const ret = wasm.answer_obligations_locale_json(ptr0, len0, ptr1, len1, ptr2, len2);
+        deferred4_0 = ret[0];
+        deferred4_1 = ret[1];
+        return getStringFromWasm0(ret[0], ret[1]);
+    } finally {
+        wasm.__wbindgen_free(deferred4_0, deferred4_1, 1);
+    }
+}
+exports.answer_obligations_locale_json = answer_obligations_locale_json;
+
+/**
  * Node WASM (M2.18B.6 §10): the deterministic AnswerPlan for a question + router seed (answer type,
  * primary + secondary operations, ordered sections, foci, citation requirement, expected model calls,
  * length, locale, checksum). A mixed request preserves every part. No model.
@@ -487,6 +515,24 @@ function catalogue_templates_json() {
     }
 }
 exports.catalogue_templates_json = catalogue_templates_json;
+
+/**
+ * Every claim id and the semantic unit it refines, for the closed-world guard.
+ * @returns {string}
+ */
+function claim_registry_json() {
+    let deferred1_0;
+    let deferred1_1;
+    try {
+        const ret = wasm.claim_registry_json();
+        deferred1_0 = ret[0];
+        deferred1_1 = ret[1];
+        return getStringFromWasm0(ret[0], ret[1]);
+    } finally {
+        wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+    }
+}
+exports.claim_registry_json = claim_registry_json;
 
 /**
  * Node WASM (Increment 5 §13): the deterministic diagnosis classifier — separate observed cause /
@@ -1240,6 +1286,31 @@ function repo_index_manifest_json() {
 exports.repo_index_manifest_json = repo_index_manifest_json;
 
 /**
+ * The grounded semantic claims this turn owes, from the routed entry and the question's declared
+ * subject. Never from a benchmark id — see `claims.rs`.
+ * @param {string} entry_id
+ * @param {string} question
+ * @returns {string}
+ */
+function required_claims_json(entry_id, question) {
+    let deferred3_0;
+    let deferred3_1;
+    try {
+        const ptr0 = passStringToWasm0(entry_id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ptr1 = passStringToWasm0(question, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len1 = WASM_VECTOR_LEN;
+        const ret = wasm.required_claims_json(ptr0, len0, ptr1, len1);
+        deferred3_0 = ret[0];
+        deferred3_1 = ret[1];
+        return getStringFromWasm0(ret[0], ret[1]);
+    } finally {
+        wasm.__wbindgen_free(deferred3_0, deferred3_1, 1);
+    }
+}
+exports.required_claims_json = required_claims_json;
+
+/**
  * Node WASM (M2.18B.4): resolve a broad concept question to its canonical source id — a registry
  * ADR/RFC id (federation→ADR-025) OR a public Reference/spec/governance document PATH
  * (governance→docs/reference/PROTOCOL_GOVERNANCE_GLOSSARY.md). Empty string when the question names no
@@ -1845,6 +1916,37 @@ function validate_against_schema_json(instance_json, schema_json) {
     }
 }
 exports.validate_against_schema_json = validate_against_schema_json;
+
+/**
+ * The runtime verdict over a candidate answer: which required claims it establishes, which it
+ * inverts, and which lack the evidence that could support them.
+ * @param {string} entry_id
+ * @param {string} question
+ * @param {string} text
+ * @param {string} sources_csv
+ * @returns {string}
+ */
+function validate_claims_json(entry_id, question, text, sources_csv) {
+    let deferred5_0;
+    let deferred5_1;
+    try {
+        const ptr0 = passStringToWasm0(entry_id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ptr1 = passStringToWasm0(question, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len1 = WASM_VECTOR_LEN;
+        const ptr2 = passStringToWasm0(text, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len2 = WASM_VECTOR_LEN;
+        const ptr3 = passStringToWasm0(sources_csv, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len3 = WASM_VECTOR_LEN;
+        const ret = wasm.validate_claims_json(ptr0, len0, ptr1, len1, ptr2, len2, ptr3, len3);
+        deferred5_0 = ret[0];
+        deferred5_1 = ret[1];
+        return getStringFromWasm0(ret[0], ret[1]);
+    } finally {
+        wasm.__wbindgen_free(deferred5_0, deferred5_1, 1);
+    }
+}
+exports.validate_claims_json = validate_claims_json;
 
 /**
  * Node WASM (M2.18B.3 PART 12): the last deterministic gate. Validates a grounded-output JSON against

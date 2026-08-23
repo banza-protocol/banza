@@ -70,6 +70,18 @@ step_measured "BanzAI test suite" bash -c '
 # that the model-call property was measured rather than having to trust that a file was collected.
 # The release headline number, proven rather than trusted. It once read 173/176 over a run with 51
 # failing factual items.
+# The grounded semantic claim contract: obligation → generation → validation → one bounded repair →
+# success, or a failure that keeps its subject. The negative cases are the point.
+step_measured "grounded semantic claim contract" bash -c '
+  cd services/banzai-api
+  out="$(node --test test/grounded-claim-contract-runtime.test.js test/claim-registry-closed-world.test.js 2>&1)"; code=$?
+  printf "%s\n" "$out" | grep -E " (tests|pass|fail) [0-9]+$" | sed "s/^[^a-z]*//" | tr "\n" " "
+  echo
+  if [ "$code" -ne 0 ]; then
+    printf "%s\n" "$out" | sed -n "/^✖ failing tests:/,\$p" | grep -E "^✖ " | head -20 | sed "s/^/      /"
+  fi
+  exit $code'
+
 # The oracle tests the claim, not one preferred word — proven adversarially.
 step "the semantic oracle rejects keyword-without-semantics and accepts paraphrase" \
   bash tools/check-semantic-oracle.sh
