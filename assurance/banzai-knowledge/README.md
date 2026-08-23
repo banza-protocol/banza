@@ -4,6 +4,8 @@
 
 | file | what it is |
 |---|---|
+| `FREEZE.md` | **the universe closure freeze record — the canonical V2 generation, what is closed, and what is not** |
+| `FINAL_REPORT.md` | the assurance report: every run, what each one found, and what 100% is not |
 | `ROOT_CAUSES.md` | the nine root causes, each reproduced against production and isolated locally |
 | `corpus.jsonl` | the question corpus — id, locale, intent class, criticality |
 | `baseline/production-src-14df955.jsonl` | the BEFORE run: the full `/ask` envelope for every question, against live production |

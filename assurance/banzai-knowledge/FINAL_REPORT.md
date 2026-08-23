@@ -94,8 +94,13 @@ exact restore.
 
 ## Status
 
-**BanzAI knowledge & reasoning: production-verified** at `src-ef21f43` for the corpus in this
-directory, at P0 100% · P1 100% · P2 100%, 0 failures, on a fresh run after deployment.
+**BanzAI Knowledge & Reasoning is universe-closed and production-verified against the declared frozen
+semantic universe and V2 assurance corpus.** The generation is frozen; the freeze record, with the two
+characterised limitations and the rule for future engine changes, is [`FREEZE.md`](FREEZE.md).
+Repository `main` `e34f51e`; production runtime `banzai-api:src-dbc3f83` (the runtime diff between them
+is none — the difference is documentation).
+
+The measurement below at `src-ef21f43` is the earlier corpus and is kept as history.
 
 **BANZA protocol: PRE-PRODUCTION.** `protocol_frozen: false`, `l0_frozen: false`,
 `independent_implementation_demonstrated: false`, `independent_trial_started: false`,
