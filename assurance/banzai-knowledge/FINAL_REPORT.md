@@ -218,3 +218,49 @@ turn, and the failures are follow-up resolution rather than missing knowledge �
 journey ("Qual é a diferença entre os dois?") refuses instead of naming L2 and L3. Eleven capabilities
 were declared for this and never exercised against the deployed system until this corpus existed. That
 is the next repair, and it is named here rather than folded into a percentage.
+
+## The final-seven cycle
+
+Universe `bf1a472f` unchanged. Corpus and oracle were corrected — with each correction adjudicated in
+`unit-probes.json` under `_oracle_corrections` — and the old lexical oracle is preserved verbatim as
+`score-v2.oracle-v1.py` (sha256 `cf448a9a…`).
+
+| | `src-7b8c474` | `src-478b70c` |
+|---|---|---|
+| behavioral | 98.8% | **99.5%** |
+| fully-passing factual units | 173/176 | **174/176** |
+| P0 | 94.8% | **99.0%** |
+| P1 | 100% | 100% |
+| BANZA_NORMATIVE | 99.6% | **100%** |
+| BANZA_SUPPORTING | 100% | 100% |
+| HYBRID / RUNTIME / REPO | 100% | 100% |
+| counters | 2 domain refusals | **clean** |
+
+### One of the seven was the oracle, not the engine
+
+`Does Operator Zero define the protocol?` was answered *"Operator Zero does not define the protocol.
+The protocol specification is an open document that defines the rules all operators must follow"* and
+marked RED for lacking the string `reference|implement`. A false negative. Rescoring the recorded run
+against the semantic oracle flipped it to PASS and exposed three answers the lexical one had waved
+through — two of which were also the oracle's fault: one pattern defeated by markdown bold, one missing
+realization (`impede a operação quando há falha`).
+
+### The engine defect was evidence selection
+
+`resolveConcept` guesses a document from the question's vocabulary; the coverage table states one. The
+guess was winning. For the conformance questions the guess was ADR-030, the profile registry, so every
+answer came back about five cumulative levels instead of about evidence. Declared now beats inferred,
+and the routes were never changed — which is why the federation/conformance boundary the earlier
+attempt broke is still green.
+
+### The three that remain
+
+| item | class | root cause |
+|---|---|---|
+| V2-0040 (P0/en) | conformance | grounded on ADR-029 alone and answered from the discovery document; a declaration is not verification |
+| V2-0379, V2-0380 (P2/pt) | fail-closed | the Portuguese synthesis degrades to `operational_failure`, and the fallback entry answers about trust evaluation rather than fail-closed |
+
+All three are grounded-model variance on the trunk: the English forms of both pass, the knowledge is
+present, the sources are correct, and no counter is dirty. Closing them deterministically needs the
+semantic anchor of a unit to reach generation and post-validation — a change to the synthesis contract,
+not another route.
