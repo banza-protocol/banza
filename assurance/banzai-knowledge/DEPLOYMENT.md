@@ -4,6 +4,10 @@ Three controlled deployments, one per merged repair. Each touched **one** servic
 
 | deployed SHA | merge commit | parents | PR checks | required | main CI |
 |---|---|---|---|---|---|
+| `src-478b70c` | `478b70c…` | `513816c…` + `0c3fc9a…` | 307/307 | 7/7 | 9/9 |
+| `src-513816c` | `513816c…` | `7b8c474…` + `f92bfc9…` | 307/307 | 7/7 | 9/9 |
+| `src-7b8c474` | `7b8c474…` | `ed987d4…` + `7b7d5de…` | 307/307 | 7/7 | 9/9 |
+| `src-ed987d4` | `ed987d4…` | `0dd4af6…` + `6bd495d…` | 307/307 | 7/7 | 9/9 |
 | `src-acb0f1b` | `acb0f1b…` | `6c56a6a…` + `84be776…` | 307/307 | 7/7 | 9/9 |
 | `src-6c56a6a` | `6c56a6a…` | `1c893be…` + `e15902f…` | 307/307 | 7/7 | 9/9 (Identity Guard flaked once; re-run green) |
 | `src-1c893be` | `1c893be…` | `ef21f43…` + `aec6fd6…` | 307/307 | 7/7 | 9/9 |
