@@ -336,6 +336,14 @@ pub fn resolve_task(question: &str, plan: &AnswerPlan) -> RequestedTask {
 
 /// The typed contract of what a FULFILLING answer must deliver for a task.
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct ClaimObligation {
+    pub id: String,
+    /// The proposition, stated for the model in the reader's locale. Never a sentence to copy.
+    pub statement: String,
+    pub criticality: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct AnswerObligationSet {
     pub schema_version: u32,
     pub requested_task: String,
@@ -354,6 +362,15 @@ pub struct AnswerObligationSet {
     /// Whether illustrative (hypothetical) content is allowed, and how it must be marked.
     pub illustrative_policy: String, // real_only | illustrative_allowed_marked | structural_from_schema | n/a
     /// The rule the completion validator applies.
+    /// GROUNDED SEMANTIC CLAIMS this answer owes — the propositions it must establish, whatever wording
+    /// it chooses. Distinct from `mandatory_sections`, which is about the SHAPE of the answer: a
+    /// definition-shaped answer can be perfectly shaped and still omit the proposition that makes it
+    /// correct, which is exactly how the last three production failures happened.
+    pub required_claims: Vec<ClaimObligation>,
+    /// Set ONLY on a bounded repair pass: the propositions the first attempt omitted. The prompt states
+    /// these as the thing to fix, so the second attempt is a correction and not a fresh guess.
+    #[serde(default)]
+    pub repair_note: Vec<String>,
     pub completion_rule: String,
     /// What to do when the task cannot be fully satisfied from the sources.
     pub failure_behaviour: String, // transparent_partial | insufficient | clarify | refuse
@@ -381,8 +398,29 @@ fn s(v: &[&str]) -> Vec<String> {
 
 /// Build the AnswerObligationSet for a question (resolves the plan + task internally).
 pub fn obligations_for(question: &str, seeded_entity_id: &str) -> AnswerObligationSet {
+    obligations_for_locale(question, seeded_entity_id, "pt-PT")
+}
+
+/// The obligation set including the SEMANTIC CLAIMS this turn owes, stated in the reader's locale.
+///
+/// The claims come from the routed subject and the question's declared vocabulary — see `claims.rs`.
+/// There is no benchmark id anywhere in this path.
+pub fn obligations_for_locale(
+    question: &str,
+    seeded_entity_id: &str,
+    locale: &str,
+) -> AnswerObligationSet {
     let plan = plan_answer(question, seeded_entity_id);
-    obligations_from_plan(question, &plan)
+    let mut set = obligations_from_plan(question, &plan);
+    set.required_claims = crate::claims::required_claims(seeded_entity_id, question)
+        .into_iter()
+        .map(|c| ClaimObligation {
+            id: c.id.to_string(),
+            statement: crate::claims::obligation_text(c, locale).to_string(),
+            criticality: c.criticality.to_string(),
+        })
+        .collect();
+    set
 }
 
 // ─────────────────────────── M2.18B.7 (TFG-3) context control ───────────────────────────
@@ -744,6 +782,10 @@ pub fn obligations_from_plan(question: &str, plan: &AnswerPlan) -> AnswerObligat
     ]);
 
     AnswerObligationSet {
+        // Empty by default: `obligations_for_locale` fills it from the claim registry. A plan that
+        // resolves no claim owes none, which is the ordinary case.
+        required_claims: Vec::new(),
+        repair_note: Vec::new(),
         schema_version: OBLIGATIONS_VERSION,
         requested_task: task.as_str().to_string(),
         subject,

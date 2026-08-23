@@ -21,6 +21,12 @@ export function answer_class_json(question: string): string;
 export function answer_obligations_json(question: string, seeded_entity_id: string): string;
 
 /**
+ * The obligation set INCLUDING the semantic claims this turn owes, stated in the reader's locale.
+ * The claims come from the routed subject and declared vocabulary — never from a benchmark id.
+ */
+export function answer_obligations_locale_json(question: string, seeded_entity_id: string, locale: string): string;
+
+/**
  * Node WASM (M2.18B.6 §10): the deterministic AnswerPlan for a question + router seed (answer type,
  * primary + secondary operations, ordered sections, foci, citation requirement, expected model calls,
  * length, locale, checksum). A mixed request preserves every part. No model.
@@ -137,6 +143,11 @@ export function catalogue_subjects_json(): string;
  * schema-validation harness proves each published template against its REAL canonical schema. No model.
  */
 export function catalogue_templates_json(): string;
+
+/**
+ * Every claim id and the semantic unit it refines, for the closed-world guard.
+ */
+export function claim_registry_json(): string;
 
 /**
  * Node WASM (Increment 5 §13): the deterministic diagnosis classifier — separate observed cause /
@@ -362,6 +373,12 @@ export function repo_index_hash_str(): string;
 export function repo_index_manifest_json(): string;
 
 /**
+ * The grounded semantic claims this turn owes, from the routed entry and the question's declared
+ * subject. Never from a benchmark id — see `claims.rs`.
+ */
+export function required_claims_json(entry_id: string, question: string): string;
+
+/**
  * Node WASM (M2.18B.4): resolve a broad concept question to its canonical source id — a registry
  * ADR/RFC id (federation→ADR-025) OR a public Reference/spec/governance document PATH
  * (governance→docs/reference/PROTOCOL_GOVERNANCE_GLOSSARY.md). Empty string when the question names no
@@ -551,6 +568,12 @@ export function tool_contracts_json(): string;
  * a JSON instance against a JSON schema. Returns a SchemaVerdict {ok, errors}. Deterministic, no model.
  */
 export function validate_against_schema_json(instance_json: string, schema_json: string): string;
+
+/**
+ * The runtime verdict over a candidate answer: which required claims it establishes, which it
+ * inverts, and which lack the evidence that could support them.
+ */
+export function validate_claims_json(entry_id: string, question: string, text: string, sources_csv: string): string;
 
 /**
  * Node WASM (M2.18B.3 PART 12): the last deterministic gate. Validates a grounded-output JSON against

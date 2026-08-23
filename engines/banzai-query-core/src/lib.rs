@@ -31,6 +31,7 @@ pub mod boundary;
 #[path = "canonical_profiles.generated.rs"]
 pub mod canonical_profiles;
 pub mod catalogue;
+pub mod claims;
 pub mod compare;
 pub mod concept;
 pub mod context;

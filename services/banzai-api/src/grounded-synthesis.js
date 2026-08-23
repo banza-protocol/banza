@@ -132,7 +132,7 @@ function composeAnswerFromClaims(output) {
 
 // Run the OUTPUT pass: grounded synthesis over the FactualPackage, then Rust factual validation.
 // Returns { output|null, verdict } (output is the validated GroundedOutput).
-async function runOutputPass(question, pkg, { provider, timeoutMs, signal, maxTokens, model, depth, taskQuestion, structured = null, queueWaitMs = 0, locale }, trace) {
+async function runOutputPass(question, pkg, { provider, timeoutMs, signal, maxTokens, model, depth, taskQuestion, structured = null, queueWaitMs = 0, locale, entityId = null, repairClaims = null }, trace) {
   // NO DEFAULT, deliberately. This is internal plumbing, and a default here would mean a locale lost
   // between the pipeline and the prompt is silently replaced by Portuguese — the exact failure this
   // change exists to remove, reintroduced one layer down. A mutation proved the point: dropping
@@ -146,7 +146,23 @@ async function runOutputPass(question, pkg, { provider, timeoutMs, signal, maxTo
   // prompt if the obligations/WASM are unavailable (fecho por omissão: never worse than before).
   // TFG-3 — the obligations (task/shape) come from the CURRENT turn (taskQuestion); context supplies the
   // subject via `question`/the seed, but a prior turn's verb never changes the current turn's explicit task.
-  const obligations = answerObligations(taskQuestion || question);
+  // The seeded entity is what triggers the semantic claims (the routed subject), and the locale decides
+  // how the obligations are STATED to the model. Neither is derived from a benchmark.
+  const obligations = answerObligations(taskQuestion || question, entityId || "", locale);
+  // BOUNDED SEMANTIC REPAIR. A second pass gets the SAME evidence and the SAME question, and is told
+  // only which obligatory propositions the first attempt left out. It may reformulate freely; it may
+  // not reach for knowledge that is not in the package, and there is no third attempt.
+  if (repairClaims && repairClaims.length && obligations && Array.isArray(obligations.required_claims)) {
+    const missing = obligations.required_claims.filter((c) => repairClaims.includes(c.id));
+    if (missing.length) {
+      obligations.repair_note = missing.map((c) => c.statement);
+      try {
+        const o = JSON.parse(obligations._raw);
+        o.repair_note = obligations.repair_note;
+        Object.defineProperty(obligations, "_raw", { value: JSON.stringify(o), enumerable: false });
+      } catch { /* fecho por omissão: the baseline obligations still apply */ }
+    }
+  }
   trace.requested_task = obligations ? obligations.requested_task : "";
   // SPR-4 §5 — prefer the STRUCTURED contract (model authors only the linguistic core; cited_source_ids
   // derived deterministically). If the structured prompt/schema are unavailable, fall through to the
@@ -315,7 +331,7 @@ async function runOutputPass(question, pkg, { provider, timeoutMs, signal, maxTo
 // verdict, trace }. status ∈ grounded | clarify | insufficient | fallback.
 export async function runGroundedSynthesis(
   question,
-  { provider, traceId = "", timeoutMs, signal, outputMaxTokens = null, depth = null, model = null, entityId = null, taskQuestion = null, onProgress = null, structured = null, queueWaitMs = 0, locale = DEFAULT_LOCALE } = {},
+  { provider, traceId = "", timeoutMs, signal, outputMaxTokens = null, depth = null, model = null, entityId = null, taskQuestion = null, onProgress = null, structured = null, queueWaitMs = 0, locale = DEFAULT_LOCALE, repairClaims = null } = {},
 ) {
   const trace = emptyTrace();
   // SPR-2 — the safe Channel-A emitter (the pipeline threads its `emit` in as onProgress). It NEVER throws
@@ -440,7 +456,7 @@ export async function runGroundedSynthesis(
   // SYNTHESIS_STARTED — the ONE model call begins. Safe metadata only (model/depth/facts) — never the prompt.
   progress("SYNTHESIS_STARTED", { model: model || "", depth: effectiveDepth, facts_count: pkg.facts.length });
   const tOutputPass = Date.now();
-  const { output, verdict } = await runOutputPass(question, pkg, { provider, timeoutMs, signal, maxTokens: outBudget, model, depth: effectiveDepth, taskQuestion: taskQuestion || question, structured, queueWaitMs, locale }, trace);
+  const { output, verdict } = await runOutputPass(question, pkg, { provider, timeoutMs, signal, maxTokens: outBudget, model, depth: effectiveDepth, taskQuestion: taskQuestion || question, structured, queueWaitMs, locale, entityId, repairClaims }, trace);
   // SPR-4 §1 — total_ms is the whole output pass (build + prefill + generation + validation + verification),
   // stamped here so every return path in runOutputPass carries it; queue_wait_ms sits outside it.
   if (trace.output_timings) trace.output_timings.total_ms = Date.now() - tOutputPass;

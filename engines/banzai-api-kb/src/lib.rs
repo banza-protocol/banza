@@ -476,6 +476,43 @@ pub fn covered_entities_json() -> String {
     serde_json::to_string(&coverage::covered_entities()).unwrap_or_else(|_| "[]".to_string())
 }
 
+/// The grounded semantic claims this turn owes, from the routed entry and the question's declared
+/// subject. Never from a benchmark id — see `claims.rs`.
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen)]
+pub fn required_claims_json(entry_id: &str, question: &str) -> String {
+    claims::required_claims_json(entry_id, question)
+}
+
+/// The runtime verdict over a candidate answer: which required claims it establishes, which it
+/// inverts, and which lack the evidence that could support them.
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen)]
+pub fn validate_claims_json(entry_id: &str, question: &str, text: &str, sources_csv: &str) -> String {
+    let sources: Vec<String> = sources_csv
+        .split(',')
+        .map(|s| s.trim().to_string())
+        .filter(|s| !s.is_empty())
+        .collect();
+    claims::validate_claims_json(entry_id, question, text, &sources)
+}
+
+/// Every claim id and the semantic unit it refines, for the closed-world guard.
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen)]
+pub fn claim_registry_json() -> String {
+    let v: Vec<String> = claims::CLAIMS
+        .iter()
+        .map(|c| {
+            format!(
+                "{{\"id\":\"{}\",\"semantic_unit\":\"{}\",\"authority_class\":\"{}\",\"criticality\":\"{}\",\"evidence_any_of\":[{}],\"trigger_entry\":[{}],\"trigger_terms\":[{}]}}",
+                c.id, c.semantic_unit, c.authority_class, c.criticality,
+                c.evidence_any_of.iter().map(|e| format!("\"{e}\"")).collect::<Vec<_>>().join(","),
+                c.trigger_entry.iter().map(|e| format!("\"{e}\"")).collect::<Vec<_>>().join(","),
+                c.trigger_terms.iter().map(|e| format!("\"{e}\"")).collect::<Vec<_>>().join(",")
+            )
+        })
+        .collect();
+    format!("[{}]", v.join(","))
+}
+
 /// Node WASM (M2.18B.7): resolve an EXACT-FACT attribute question (creation year/date, …) about a
 /// canonical entity to a deterministic answer (0 model calls) — or a precise NOT_DECLARED contextual
 /// message when the canonical public documentation does not declare it (never inferred, never the generic
@@ -760,7 +797,22 @@ pub fn classify_diagnosis_json(input_json: &str) -> String {
 #[cfg(target_arch = "wasm32")]
 #[wasm_bindgen]
 pub fn answer_obligations_json(question: &str, seeded_entity_id: &str) -> String {
-    serde_json::to_string(&obligations::obligations_for(question, seeded_entity_id))
+    answer_obligations_locale_json(question, seeded_entity_id, "pt-PT")
+}
+
+/// The obligation set INCLUDING the semantic claims this turn owes, stated in the reader's locale.
+/// The claims come from the routed subject and declared vocabulary — never from a benchmark id.
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen)]
+pub fn answer_obligations_locale_json(
+    question: &str,
+    seeded_entity_id: &str,
+    locale: &str,
+) -> String {
+    serde_json::to_string(&obligations::obligations_for_locale(
+        question,
+        seeded_entity_id,
+        locale,
+    ))
         .unwrap_or_else(|_| "{}".to_string())
 }
 
