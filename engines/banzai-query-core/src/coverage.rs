@@ -29,6 +29,21 @@ pub const ENTITY_PRIMARY_SOURCES: &[(&str, &[&str])] = &[
     // BANZA/BanzAI/Banzami identity distinction (attribution, not a payment operator).
     ("what-is-banzami", &["ADR-001"]),
     ("banzami", &["ADR-001"]),
+    // CONFORMANCE IS DEMONSTRATED BY EVIDENCE. The router selects
+    // `how-to-demonstrate-conformance`, the turn escalates to the trunk, and without a declared seed
+    // the trunk grounded on ADR-030 — the profile registry. Every one of the four production answers
+    // came back about five cumulative profiles and capability matching, which is true and is not the
+    // question: none of them said conformance is established by verifiable evidence rather than by
+    // central approval. The router's selection was being discarded at the evidence step.
+    //
+    // ADR-031 and ADR-029 are the entry's own declared authority. Seeding them is not a routing change
+    // — the route was already correct — and it leaves the federation/conformance boundary untouched,
+    // which the earlier attempt (marking the entry deterministic) did not.
+    ("how-to-demonstrate-conformance", &["ADR-031", "ADR-029"]),
+    // FAIL-CLOSED. The router selects `how-trust-works` and the trunk found nothing above threshold:
+    // production answered "I did not find enough public evidence", with zero sources and no model call,
+    // for a rule the protocol states outright. ADR-025 is the entry's own authority.
+    ("how-trust-works", &["ADR-025"]),
 ];
 
 /// The declared primary source document ids for a canonical entity id (empty slice if none is declared).

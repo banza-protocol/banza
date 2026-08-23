@@ -44,16 +44,6 @@ FORBIDDEN_GLOBAL = [
 def is_pt(t):
     return bool(PT_STRONG.search(t)) or len(PT_MARK.findall(t)) >= 3
 
-# Judge the TEXT, not its formatting.
-#
-# `a norma.{0,40}define` failed against "a **norma** (normativo) define" — a correct answer, rejected
-# because the emphasis markers sit between the words the pattern binds. An oracle defeated by bold is
-# testing the renderer. Emphasis and code markers are stripped before matching, for `must`, `must_any`
-# and `must_not` alike, so the forbidden patterns cannot be evaded by bolding either.
-MARKDOWN = re.compile(r"[*_`]+")
-def plain(t):
-    return MARKDOWN.sub("", t or "")
-
 rows = [json.loads(l) for l in open(RUN) if l.strip()]
 byprio = collections.defaultdict(lambda: [0, 0])
 byclass = collections.defaultdict(lambda: [0, 0])
@@ -76,7 +66,7 @@ for d in rows:
     if turns_spec:
         why = []
         for idx, (ts, rec) in enumerate(zip(turns_spec, d["records"]), start=1):
-            ta = plain(rec.get("answer") or "")
+            ta = rec.get("answer") or ""
             if rec["status"] != 200:
                 why.append(f"turn {idx}: HTTP {rec['status']}")
             if rec.get("answer_locale") and rec["answer_locale"] != spec["locale"]:
@@ -129,7 +119,7 @@ for d in rows:
         continue
 
     r = d["records"][0]
-    a = plain(r.get("answer") or "")
+    a = r.get("answer") or ""
     why = []
     if r["status"] != 200:
         why.append(f"HTTP {r['status']}")
@@ -153,15 +143,6 @@ for d in rows:
     for rx in spec.get("must", []):
         if not re.search(rx, a, re.I):
             why.append(f"missing required /{rx}/")
-    # `must_any` — the SEMANTIC form. A proposition can be established in more than one wording, and a
-    # single required token tests the wording rather than the claim: production answered "conformance is
-    # proven by demonstrating compliance with the defined profiles", which is about profiles and not
-    # about evidence, while a correct answer saying "verifiable results" would have failed for lacking
-    # the word "evidence". At least ONE acceptable realization must be present, and the forbidden list
-    # below still rejects the claim being inverted.
-    alts = spec.get("must_any", [])
-    if alts and not any(re.search(rx, a, re.I) for rx in alts):
-        why.append(f"establishes none of {alts}")
     for rx in spec.get("must_not", []):
         if re.search(rx, a, re.I):
             why.append(f"FORBIDDEN /{rx}/")

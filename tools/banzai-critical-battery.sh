@@ -68,6 +68,15 @@ step_measured "BanzAI test suite" bash -c '
 # The production-equivalent canary, named and counted in the log. It runs inside the suite above as well;
 # a second sub-second run is cheap, and what it buys is a reader of the required job being able to see
 # that the model-call property was measured rather than having to trust that a file was collected.
+# The release headline number, proven rather than trusted. It once read 173/176 over a run with 51
+# failing factual items.
+# The oracle tests the claim, not one preferred word — proven adversarially.
+step "the semantic oracle rejects keyword-without-semantics and accepts paraphrase" \
+  bash tools/check-semantic-oracle.sh
+
+step "factual-unit metric counts a unit as passing only when EVERY item passes" \
+  bash tools/check-factual-unit-metric.sh
+
 step_measured "critical settlement is model-free (canary)" bash -c '
   cd services/banzai-api
   out="$(node --test test/critical-settlement.test.js 2>&1)"; code=$?

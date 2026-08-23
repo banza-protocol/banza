@@ -1,0 +1,227 @@
+{
+  "_note": "The SEVEN failures of the frozen V2 corpus against production src-7b8c474, recorded in full before any repair. Each carries its actual answer, its sources, whether the model was called and the oracle's reason — so a repair can be judged against what production really said rather than against a summary of it.",
+  "production": "src-7b8c474",
+  "universe_hash": "bf1a472f7a99b68aa9df50021ca43b0e",
+  "corpus_hash": "abf2832131b289fc8f834527d781ff3c",
+  "raw_transcript_sha256": "1faadfa32b2a9aee6f6c485d387bcf748fcd207c77cfbe4c055f01cb48b4a8c0",
+  "count": 7,
+  "failures": [
+    {
+      "question_id": "V2-0037",
+      "semantic_unit_ids": [
+        "banza.conformance.demonstrated_by_evidence"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "knowledge_class": "BANZA_CANONICAL",
+      "authority_class": "BANZA",
+      "criticality": "P0",
+      "locale": "pt-PT",
+      "form": "direct",
+      "question": "Como é que um operador demonstra conformidade?",
+      "expected_assertions": [
+        "evidência|evidencia"
+      ],
+      "forbidden_assertions": [
+        "aprovação central|aprovacao central"
+      ],
+      "actual_answer": "Um operador demonstra conformidade através de cinco perfis cumulativos, cada um definindo o que uma implementação deve demonstrar.",
+      "response_mode": "explanatory_trunk",
+      "intent": "explain_concept",
+      "model_called": true,
+      "sources": [
+        "ADR-030"
+      ],
+      "entry_id": null,
+      "oracle_verdict_reason": [
+        "missing required /evidência|evidencia/"
+      ],
+      "first_failing_boundary": "missing required /evidência|evidencia/"
+    },
+    {
+      "question_id": "V2-0038",
+      "semantic_unit_ids": [
+        "banza.conformance.demonstrated_by_evidence"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "knowledge_class": "BANZA_CANONICAL",
+      "authority_class": "BANZA",
+      "criticality": "P0",
+      "locale": "pt-PT",
+      "form": "paraphrase",
+      "question": "De que forma se prova conformidade com o protocolo?",
+      "expected_assertions": [
+        "evidência|evidencia"
+      ],
+      "forbidden_assertions": [
+        "aprovação central|aprovacao central"
+      ],
+      "actual_answer": "A conformidade é demonstrada através da capacidade de um implementação corretamente executar um sandbox com manifestos válidos e dinheiro inteiro, ou federar com pares e liquidar跨语言继续回答，不需要翻译成提问的语言，直接用目标语言继续回答即可。继续用葡萄牙语回答：ou entre operadores. Eles são conformantes a diferentes perfis de conformidade.",
+      "response_mode": "explanatory_trunk",
+      "intent": "explain_concept",
+      "model_called": true,
+      "sources": [
+        "ADR-030"
+      ],
+      "entry_id": null,
+      "oracle_verdict_reason": [
+        "missing required /evidência|evidencia/"
+      ],
+      "first_failing_boundary": "missing required /evidência|evidencia/"
+    },
+    {
+      "question_id": "V2-0039",
+      "semantic_unit_ids": [
+        "banza.conformance.demonstrated_by_evidence"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "knowledge_class": "BANZA_CANONICAL",
+      "authority_class": "BANZA",
+      "criticality": "P0",
+      "locale": "en",
+      "form": "direct",
+      "question": "How does an operator demonstrate conformance?",
+      "expected_assertions": [
+        "evidence"
+      ],
+      "forbidden_assertions": [
+        "central approval"
+      ],
+      "actual_answer": "An operator demonstrates conformance by showing compliance with the capabilities named from a canonical registry, as scoped by one of five cumulative profiles.",
+      "response_mode": "explanatory_trunk",
+      "intent": "explain_concept",
+      "model_called": true,
+      "sources": [
+        "ADR-030"
+      ],
+      "entry_id": null,
+      "oracle_verdict_reason": [
+        "missing required /evidence/"
+      ],
+      "first_failing_boundary": "missing required /evidence/"
+    },
+    {
+      "question_id": "V2-0040",
+      "semantic_unit_ids": [
+        "banza.conformance.demonstrated_by_evidence"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization"
+      ],
+      "knowledge_class": "BANZA_CANONICAL",
+      "authority_class": "BANZA",
+      "criticality": "P0",
+      "locale": "en",
+      "form": "paraphrase",
+      "question": "In what way is conformance to the protocol proven?",
+      "expected_assertions": [
+        "evidence"
+      ],
+      "forbidden_assertions": [
+        "central approval"
+      ],
+      "actual_answer": "Conformance to the protocol is proven by demonstrating compliance with the defined profiles, which specify the required capabilities through exact matching against a canonical registry.",
+      "response_mode": "explanatory_trunk",
+      "intent": "explain_concept",
+      "model_called": true,
+      "sources": [
+        "ADR-030"
+      ],
+      "entry_id": null,
+      "oracle_verdict_reason": [
+        "missing required /evidence/"
+      ],
+      "first_failing_boundary": "missing required /evidence/"
+    },
+    {
+      "question_id": "V2-0262",
+      "semantic_unit_ids": [
+        "banza.reference_implementation.does_not_define"
+      ],
+      "capability_unit_ids": [],
+      "knowledge_class": "BANZA_NORMATIVE",
+      "authority_class": "BANZA",
+      "criticality": "P0",
+      "locale": "en",
+      "form": "paraphrase",
+      "question": "Does Operator Zero define the protocol?",
+      "expected_assertions": [
+        "reference|implement"
+      ],
+      "forbidden_assertions": [],
+      "actual_answer": "Operator Zero does not define the protocol. The protocol specification is an open document that defines the rules all operators must follow, but it does not specify how an operator verifies identity or other operational details.",
+      "response_mode": "explanatory_trunk",
+      "intent": "explain_concept",
+      "model_called": true,
+      "sources": [
+        "ADR-024"
+      ],
+      "entry_id": null,
+      "oracle_verdict_reason": [
+        "missing required /reference|implement/"
+      ],
+      "first_failing_boundary": "missing required /reference|implement/"
+    },
+    {
+      "question_id": "V2-0381",
+      "semantic_unit_ids": [
+        "domain.fail-closed.definition"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "knowledge_class": "DOMAIN",
+      "authority_class": "BANZA",
+      "criticality": "P2",
+      "locale": "en",
+      "form": "direct",
+      "question": "What is fail-closed?",
+      "expected_assertions": [],
+      "forbidden_assertions": [],
+      "actual_answer": "I did not find enough public evidence to answer this safely. I would rather not guess: name the document or decision identifier, or rephrase, so I can locate the canonical source.",
+      "response_mode": "insufficient_evidence",
+      "intent": "explain_concept",
+      "model_called": false,
+      "sources": [],
+      "entry_id": null,
+      "oracle_verdict_reason": [
+        "incorrect refusal"
+      ],
+      "first_failing_boundary": "incorrect refusal"
+    },
+    {
+      "question_id": "V2-0382",
+      "semantic_unit_ids": [
+        "domain.fail-closed.definition"
+      ],
+      "capability_unit_ids": [
+        "capability.pt_en_semantic_realization",
+        "capability.answer_locale"
+      ],
+      "knowledge_class": "DOMAIN",
+      "authority_class": "BANZA",
+      "criticality": "P2",
+      "locale": "en",
+      "form": "paraphrase",
+      "question": "Explain fail-closed simply.",
+      "expected_assertions": [],
+      "forbidden_assertions": [],
+      "actual_answer": "I did not find enough public evidence to answer this safely. I would rather not guess: name the document or decision identifier, or rephrase, so I can locate the canonical source.",
+      "response_mode": "insufficient_evidence",
+      "intent": "explain_concept",
+      "model_called": false,
+      "sources": [],
+      "entry_id": null,
+      "oracle_verdict_reason": [
+        "incorrect refusal"
+      ],
+      "first_failing_boundary": "incorrect refusal"
+    }
+  ]
+}

@@ -30,13 +30,13 @@ for (const u of universe.units) {
     if (forms.direct) {
       push({ semantic_unit_ids: [u.semantic_id], capability_unit_ids: p.capabilities || [], locale,
              intent: p.intent || "direct", criticality: u.criticality, form: "direct",
-             question: forms.direct, must: p.must?.[locale] || [], must_not: p.must_not?.[locale] || [],
+             question: forms.direct, must: p.must?.[locale] || [], must_any: p.must_any?.[locale] || [], must_not: p.must_not?.[locale] || [],
              authority_class: u.authority_class, acceptable_refusal: Boolean(p.acceptable_refusal) });
     }
     if (forms.paraphrase && u.paraphrase_required) {
       push({ semantic_unit_ids: [u.semantic_id], capability_unit_ids: p.capabilities || [], locale,
              intent: p.intent || "direct", criticality: u.criticality, form: "paraphrase",
-             question: forms.paraphrase, must: p.must?.[locale] || [], must_not: p.must_not?.[locale] || [],
+             question: forms.paraphrase, must: p.must?.[locale] || [], must_any: p.must_any?.[locale] || [], must_not: p.must_not?.[locale] || [],
              authority_class: u.authority_class, acceptable_refusal: Boolean(p.acceptable_refusal) });
     }
   }
