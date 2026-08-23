@@ -507,8 +507,31 @@ The committed inventory of all 43, with each guard's assertion, owning block, cl
 disposition, is `docs/website/phase2-pr32-guard-regressions.json`. The workflow-faithful runner is
 `tools/ci-guards-local-check.sh` / `make ci-guards-local-check`.
 
-**Remediation status: COMPLETE — GitHub CI green, 307/307 contexts SUCCESS. Locally 192 PASS · 0 FAIL ·
-1 NOT_RUN_LOCALLY from `make ci-guards-local-check` on a clean tree.**
+**Phase 2 status: MERGED AND DEPLOYED.**
+
+PR #32 merged into `main` as `93be456`, parents `6b6d226` (previous main) and `fc4ea6f` (approved head), by
+normal merge commit. All 307 GitHub contexts were SUCCESS at the merged head; the nine workflows the merge
+triggered on `main` all succeeded. Post-merge on `main`: guard gate 192 PASS · 0 FAIL · 1 NOT_RUN_LOCALLY,
+route registry 22 / 0 / 1, production build exit 0, no generated-file drift, tree clean.
+
+Production served `93be456` at the time of this record (2026-08-20). Two services were rebuilt — `website` and `banzai-api` — and the second needs
+its reason recorded: PR #32 changed 29 files under `services/banzai-api`, including the bilingual
+realization and the compiled KB, so deploying only the website would have served English routes backed by
+a Portuguese-only agent. Nothing else was touched: postgres, verification-api, the fetcher, llama-local and
+the reverse proxy kept their uptime and their revisions, and no migration ran.
+
+Before the deploy, `/en/reference` and `/en/banzai` were 404 — the English surface did not exist in
+production. Both now answer, in English, with the Portuguese slug still unaddressable under `/en`.
+
+The one live result worth stating plainly: asking BanzAI a question in English returns *"A deterministic
+answer is not yet available in English for this question"*, not a Portuguese answer. That is the designed
+behaviour and the point of the whole locale architecture — the deterministic knowledge base is
+Portuguese-first, and it declines in the reader's language rather than pretending.
+
+Everything above this line stays as written. The premature Q8 freeze, the withdrawn build evidence, the
+incomplete local guard coverage, the Makefile invocation defect and the CI/local divergence are the record
+of how this was actually done, and deleting them once the result is green would be the same class of error
+they document.
 
 **The local battery went green before CI did, and was wrong.** Five discrepancies, four of them defects in
 my own measurement rather than in the work: two generators that existed locally and were never tracked
@@ -749,4 +772,227 @@ recorded as production-build green; those claims are **withdrawn**. `next build`
 `Compiled successfully`, then failed linting, and the process exit code was non-zero — while the check
 read the log substring. Git history was not rewritten. Builds are now verified by exit code only.
 
-No PR, no merge, no deploy until explicitly approved.
+The line above was written before the pull request existed. It is left in place because it is true of the
+moment it describes; what followed is recorded below.
+
+---
+
+# Final record — merge, main verification, production deployment
+
+## 1. PR #32
+
+| | |
+|---|---|
+| final PR head | `fc4ea6f4b9366b02594a05dce3d9aab1165ddf5a` |
+| merge commit | `93be4566265b6d3b8dece84de22ef24e73682283` |
+| parent 1 (previous main) | `6b6d2261f4ec6c715e5b6cc9b275d5ff684c8645` |
+| parent 2 (approved head) | `fc4ea6f4b9366b02594a05dce3d9aab1165ddf5a` |
+| method | normal merge commit |
+| merged at | 2026-08-20T20:25:56Z |
+
+No squash, no rebase, no amend, no force push, no branch-protection bypass, no admin override. Both parents
+were verified with `git rev-parse origin/main^1` and `^2` rather than read from the merge message.
+
+## 2. Assurance immediately before the merge
+
+| gate | result |
+|---|---|
+| required branch-protection contexts | **7 of 7 SUCCESS** |
+| all GitHub checks on the PR | **307 of 307 SUCCESS** |
+| merge state | **CLEAN** |
+| workflow-faithful local gate (`make ci-guards-local-check`) | **192 PASS · 0 FAIL · 1 NOT_RUN_LOCALLY** |
+| Website suite | **exit 0** · 883 tests |
+| TypeScript (`tsc --noEmit`) | **exit 0** |
+| lint | **exit 0** |
+| production build (`npm run build`) | **exit 0** |
+| BanzAI critical battery | **exit 0** |
+| `make assurance-check` | **exit 0** · AG-0…AG-9 **PASS** · AG-10 **NOT_RUN** |
+| `make rust-rule-check` | **exit 0** |
+
+## 3. Post-merge verification, on `main` rather than on the branch
+
+| check | result |
+|---|---|
+| `origin/main` | `93be456` — the merge commit |
+| workflows triggered by the merge | **9, all SUCCESS** |
+| route registry | **22 / 0 / 1** (declared bilingual / missing EN / intentional PT-only) |
+| workflow-faithful guard gate | **192 PASS · 0 FAIL · 1 NOT_RUN_LOCALLY** |
+| production build | **exit 0** |
+| generated artifacts | fresh — chrome-resolved, copy-resolved, vocabulary and Reference mirror all report *up to date* |
+| `git fsck` | **exit 0** |
+| tree | clean |
+
+One grep during the integrity sweep matched a 60-character `=` divider inside a Markdown document and
+looked like a conflict marker. It was already on `main` before the merge. No conflict artefacts exist.
+
+## 4. Production deployment
+
+| | before | after |
+|---|---|---|
+| website | `banza-website:src-47585cc` | `banza-website:src-93be456` |
+| BanzAI API | `banzai-api:src-6b6d226` | `banzai-api:src-93be456` |
+
+Production source SHA proved on the host with `git rev-parse HEAD` in `/srv/banza-protocol/repo`:
+`93be4566265b6d3b8dece84de22ef24e73682283`. Nothing was inferred from a working directory.
+
+**Rollback target retained**: those two exact pre-deploy revisions. Both images remain on the host, and
+`.env.bak-pre-93be456` holds the tag pair. Rollback is a tag revert plus a recreate of the same two
+services — no rebuild required.
+
+**Why two services and not one.** PR #32 changed 29 files under `services/banzai-api` — the bilingual
+realization, the locale-aware knowledge layer and the compiled KB. Deploying only the website would have
+served English routes backed by a Portuguese-only agent, and the English BanzAI verification below could
+not have been true. That is the whole justification; nothing else was coupled.
+
+**Untouched**, each keeping its uptime and its revision: `postgres`, `verification-api`, `banza-fetcher`,
+`llama-local`, `reverse-proxy`.
+
+**Database: no migration, no data change, no volume recreated.** Postgres kept its start time
+(2026-08-12T22:53:49Z) and a restart count of 0.
+
+**Rollback: not performed.**
+
+## 5. Public smoke
+
+Before the deployment, `/en/reference` and `/en/banzai` answered **404** — the English surface did not
+exist in production. That is the delta this deployment delivered.
+
+| edition | routes | result |
+|---|---|---|
+| PT | `/` · `/referencia` · `/glossario` · `/banzai` · `/decisoes` · `/registo-tecnico` | all **200**, `html lang="pt-PT"` |
+| EN | `/en` · `/en/reference` · `/en/glossary` · `/en/banzai` · `/en/decisions` · `/en/technical-registry` | all **200**, `html lang="en"` |
+
+English pages carry English presentation with no Portuguese navigation markers.
+
+## 6. Dynamic semantic identity
+
+| record | PT | EN | result |
+|---|---|---|---|
+| operator | `/banzai/operador/operator-zero` | `/en/banzai/operator/operator-zero` | 200 / 200, identity preserved |
+| implementation | `…/operator-zero/operator-zero-ref-impl` | `…/operator-zero/operator-zero-ref-impl` | 200 / 200, both identities preserved |
+| decision | `/decisoes/adr-001` | `/en/decisions/adr-001` | 200 / 200, identity preserved |
+
+Each Portuguese page links its English counterpart at the same identity, and the reverse.
+
+## 7. Reference and navigation truth
+
+- `/referencia/o-que-e` ↔ `/en/reference/what-banza-is` — both 200, counterpart linked.
+- `/en/reference/o-que-e` → **404**, intentionally: a Portuguese slug is not a valid English chapter
+  address, so the chapter pattern does not leak across editions.
+- `/referencia/completa` → 200 and `/en/reference/full` → 200. The literal record wins over the chapter
+  pattern in both editions.
+- The public registry still reads pre-production in both editions — *zero entradas* / *zero entries*.
+
+**Smoke correction, preserved.** During the sweep I probed `/en/reference/complete` and recorded a 404.
+The registry declares the English address as `/en/reference/full`, which returns 200. The 404 was my probe
+asking for a route that was never declared — a mistake in the check, not a defect in the application. It is
+written down because a smoke result that was wrong and quietly dropped is indistinguishable from one that
+was never run.
+
+## 8. English navigation
+
+The English header resolves entirely within `/en/*`. No unintended Portuguese navigation fallback was
+found. One Portuguese link does appear on English pages — the language selector, carrying
+`aria-label="Current language: English"` and pointing at the correct Portuguese counterpart. That is the
+selector doing its job, and it is **not** classified as an English-backlink defect.
+
+## 9. BanzAI, live and bilingual
+
+The served English bundle (≈932 KB across its chunks) carries the representative realizations from the
+Block E2 presentation owners: the validation header, certification readiness and certification state, the
+validation-journey divider, the engine badges, the sources heading, and the Operator-Zero-only
+demonstration hint. The English surface is the bilingual application, not merely the English routes.
+
+Asked a question in English, the deployed agent answers:
+
+> A deterministic answer is not yet available in English for this question. The sources that support it are
+> still listed below.
+
+That is explicit English unavailability, not a Portuguese fallback, and it is the designed behaviour: the
+deterministic knowledge base is Portuguese-first and declines in the reader's own language rather than
+pretending. **No claim of model or knowledge completeness in English is made here.**
+
+## 10. Production stack health
+
+Seven containers running. Every container with a healthcheck reports healthy; `reverse-proxy` declares no
+healthcheck, so its truth is *running*, not *healthy* — stated as it is rather than rounded up. Restart
+count is 0 for both recreated services, so neither is in a restart loop. Unrelated services were preserved.
+No database changes. Rollback target retained.
+
+## 11. What this record is for
+
+The corrections above are deliberately not tidied away now that the result is green. In order:
+
+- the early E2 scope-count corrections;
+- the premature Q8 closure, declared on an incomplete subset;
+- build success inferred from an intermediate log line rather than an exit status;
+- the thirty withdrawn production-build claims;
+- incomplete local guard coverage — five blocks that never ran the repository battery;
+- a Makefile target defect that made `make` unparseable while I reported the runner as wired into it;
+- the CI/local divergences, four of which were defects in how I measured rather than in the work;
+- the reopening of PR #32 and the guard remediation that followed;
+- the guard migrations, and the mutation survivors that forced real owners into existence;
+- the final GitHub convergence;
+- this deployment.
+
+The ledger is worth keeping because it records where assurance was **falsified** and then strengthened. A
+version of this document containing only the successes would be a weaker artefact, and a misleading one.
+
+## 12. What happened after this record
+
+Sections 1–11 are the PR #32 ledger and are left exactly as they were written on 2026-08-20. They are
+accurate about that day. They are **not** a description of the current system, and the section that used
+to sit here said they were — it declared Website Phase 2 frozen and named `93be456` as the production
+SHA. Four merges and three deployments later that was simply untrue, and a record that quietly ages into
+a falsehood is worse than no record: it is read as current precisely because it is written down.
+
+What followed, in order:
+
+| PR | what it closed | merged as |
+|---|---|---|
+| #34 | PT/EN structural parity — 22 pairs consolidated into shared views, `KNOWN_DIVERGENT` 0 | `f86e6d9` |
+| #35 | home metadata + the 404 boundary between editions | — |
+| #36 | an awk portability defect that only failed on the Linux runner | `178db95` |
+| #37 | the BanzAI English answer-locale regression | `4dc03d0` |
+| #38 | EN presentation parity: shell chrome, runtime card, document composer, footer gate, HomeAsk debt | `14df955` |
+
+Two things in that list correct claims made above. §"Both now answer, in English, with the Portuguese
+slug still unaddressable under `/en`" was superseded by PR #34, which consolidated every bilingual pair
+into one shared view per surface. And the English BanzAI answers this record vouched for were, at the
+time it was written, being served in Portuguese to English readers — the request never carried the
+reader's locale and the envelope never declared one. PR #37 closed the contract; PR #38 closed the
+presentation around it.
+
+## 13. Current status
+
+| | |
+|---|---|
+| PR #32 | **MERGED** (`93be456`) |
+| production SHA | **`14df955b3e0e47bda429f4cf6e0e89ff73e94365`** |
+| production website | `banza-website:src-14df955` |
+| production BanzAI API | `banzai-api:src-14df955` |
+| BanzAI EN locale contract | **LIVE AND VERIFIED** |
+| EN presentation parity | **LIVE AND VERIFIED** |
+| AG-10 | **NOT_RUN** |
+| Website Phase 2 | **NOT FROZEN** — see below |
+
+**Website Phase 2 is deliberately not declared frozen, and this document is not final either.**
+
+Two things are outstanding.
+
+The global unmatched-path 404: `app/not-found.tsx` is absent at the root, so a top-level URL matching no
+route falls to Next.js's default in both editions. That work was paused to close the BanzAI locale
+regression and has not been resumed.
+
+And the documentation itself is still being worked on — this record included. A phase is frozen when
+nothing known is outstanding, not when the interesting parts are done, and freezing a document while it
+is still being edited is how a record starts disagreeing with the system it describes.
+
+This section is therefore the current state as of the last update above, not a closing statement. It is
+expected to change again.
+
+**A boundary that must not be blurred.** "The website is deployed in production" is a statement about a
+website. It is **not** a statement that the BANZA protocol is production-ready. AG-10, the release and
+freeze gate, is NOT_RUN — its evidence has not been produced, and the gate treats absence as NOT_RUN and
+never as PASS. The public surface continues to say what it has always said: the protocol is in
+pre-production, the registry is empty, and no operator is certified.

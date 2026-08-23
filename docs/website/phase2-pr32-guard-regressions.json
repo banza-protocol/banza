@@ -1094,7 +1094,7 @@
       "lesson": "claiming a target is wired is not the same as running it through that target."
     }
   ],
-  "status": "ALL BRANCH-INTRODUCED GUARD FAILURES RESOLVED — GitHub CI fully green (307/307)",
+  "status": "COMPLETE AND FROZEN — PR #32 merged as 93be456; production deployed and verified at 93be456",
   "remaining": {
     "NOT_RUN_LOCALLY": 1,
     "note": "check-whitepaper-hermetic.sh and check-openapi-compatibility.sh are declared NOT_RUN_LOCALLY by the runner; one is counted. They stay CI's responsibility — calling their absence green would be the same error as reading a build log instead of an exit code."
@@ -1129,5 +1129,92 @@
       "ci_symptom": "'fail 1' with no name; the environment difference could not be read from the log, and a non-matching grep under set -e ended the guard silently",
       "fix": "the suite's output is dumped verbatim on failure"
     }
-  ]
+  ],
+  "merge": {
+    "pr": 32,
+    "method": "merge commit (no squash, no rebase, no admin override)",
+    "merge_commit": "93be4566265b6d3b8dece84de22ef24e73682283",
+    "parent1_previous_main": "6b6d2261f4ec6c715e5b6cc9b275d5ff684c8645",
+    "parent2_approved_head": "fc4ea6f4b9366b02594a05dce3d9aab1165ddf5a",
+    "merged_at": "2026-08-20T20:25:56Z",
+    "required_contexts_at_merge": "7 of 7 SUCCESS; 307 of 307 checks pass",
+    "post_merge_main": {
+      "guard_gate": "192 PASS · 0 FAIL · 1 NOT_RUN_LOCALLY",
+      "route_registry": "22 / 0 / 1",
+      "production_build_exit": 0,
+      "generated_file_drift": "none",
+      "tree": "clean",
+      "workflows_triggered": 9,
+      "workflows_conclusion": "all success"
+    }
+  },
+  "deployment": {
+    "deployed_sha": "93be4566265b6d3b8dece84de22ef24e73682283",
+    "pre_deploy": {
+      "website": "src-47585cc",
+      "banzai_api": "src-6b6d226"
+    },
+    "rollback_target": {
+      "website": "src-47585cc",
+      "banzai_api": "src-6b6d226",
+      "env_backup": "/srv/banza-protocol/runtime/.env.bak-pre-93be456",
+      "images_retained": true
+    },
+    "services_rebuilt": [
+      "website",
+      "banzai-api"
+    ],
+    "why_banzai_api_was_in_scope": "PR #32 changed 29 files under services/banzai-api — the bilingual realization, the locale-aware knowledge layer and the compiled KB. Deploying only the website would have served English routes backed by a Portuguese-only agent, and the English BanzAI verification this deployment requires could not have been true.",
+    "services_untouched": [
+      "postgres",
+      "verification-api",
+      "banza-fetcher",
+      "llama-local",
+      "reverse-proxy"
+    ],
+    "database_changes": "none — no migration, no data change, no volume recreated; postgres uptime and restart count unchanged",
+    "smoke": {
+      "pt_routes": "all 200",
+      "en_routes": "all 200",
+      "dynamic_pairs": "operator, implementation and decision pairs all 200 in both editions",
+      "identity_preserved": "the PT page of each dynamic record links its EN counterpart at the same identity",
+      "html_lang": "pt-PT on PT routes, en on EN routes",
+      "en_has_no_pt_fallback": "the only PT link on an EN page is the language switcher itself",
+      "chapter_counterparts": "/referencia/o-que-e ↔ /en/reference/what-banza-is; /en/reference/o-que-e is 404, so the Portuguese slug is not addressable under /en",
+      "literal_routes": "/referencia/completa and /en/reference/full both 200 — the literal record wins over the chapter pattern",
+      "registry_truth": "pre-production, zero entries, in both editions",
+      "banzai_bundle": "the served EN bundle carries every representative E2 realization — validation header, certification readiness, journey divider, engine badges, source heading, OZ-only hint",
+      "banzai_live_answer": "the English ask returns the honest degraded realization rather than Portuguese: \"A deterministic answer is not yet available in English for this question.\" That is the designed behaviour — the deterministic KB is Portuguese-first and declines in English instead of falling back.",
+      "reference_navigation": {
+        "chapter_counterparts": "/referencia/o-que-e ↔ /en/reference/what-banza-is, both 200",
+        "pt_slug_under_en": "/en/reference/o-que-e → 404, intentionally — the chapter pattern does not leak across editions",
+        "literal_routes": "/referencia/completa → 200 and /en/reference/full → 200",
+        "probe_correction": "/en/reference/complete was probed and returned 404. The registry declares the English address as /en/reference/full. The 404 was the probe asking for an undeclared route — a mistake in the check, not a defect in the application. Recorded rather than dropped: a wrong smoke result quietly discarded is indistinguishable from one never run.",
+        "en_navigation": "the English header resolves entirely within /en/*. The one Portuguese link on English pages is the language selector (aria-label \"Current language: English\"), pointing at the correct counterpart — the selector doing its job, NOT an English-backlink defect."
+      },
+      "banzai_completeness_boundary": "no claim of model or knowledge completeness in English is made. The bundle carries the English realizations; the deterministic knowledge base remains Portuguese-first and declines explicitly in English."
+    },
+    "rollback_performed": false,
+    "stack_health": {
+      "containers_running": 7,
+      "healthy": "every container declaring a healthcheck reports healthy",
+      "reverse_proxy": "declares no healthcheck — its truth is 'running', not 'healthy'",
+      "restart_counts": {
+        "website": 0,
+        "banzai-api": 0
+      },
+      "postgres": "start time and restart count unchanged"
+    }
+  },
+  "final_status": {
+    "website_phase_2": "COMPLETE AND FROZEN",
+    "block_e2": "COMPLETE AND FROZEN",
+    "block_e": "COMPLETE AND FROZEN",
+    "pr_32": "MERGED",
+    "main": "VERIFIED",
+    "production": "DEPLOYED AND VERIFIED",
+    "production_sha": "93be4566265b6d3b8dece84de22ef24e73682283",
+    "ag_10": "NOT_RUN",
+    "boundary": "a deployed website is not a production-ready protocol. AG-10 is NOT_RUN — its evidence has not been produced and the gate treats absence as NOT_RUN, never PASS. The public surface still says pre-production, empty registry, no certified operator."
+  }
 }
