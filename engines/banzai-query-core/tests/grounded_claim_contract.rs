@@ -11,12 +11,34 @@ const FC: &str = "claim.failclosed.unsatisfied_condition_does_not_proceed";
 
 #[test]
 fn claims_are_triggered_by_the_routed_subject_never_by_a_question_id() {
-    // The conformance obligation comes from the entry the router chose.
-    let r = required_claims(
-        "how-to-demonstrate-conformance",
-        "in what way is conformance proven",
-    );
-    assert!(r.iter().any(|c| c.id == CONF));
+    // The conformance obligation comes from the QUESTION's declared vocabulary, not from the entry.
+    // That entry is also where an operational classifier sends "o que conta como evidência técnica?",
+    // which asks what evidence IS and owes no claim about how conformance is established — binding the
+    // obligation to the entry made that question fail closed for omitting something nobody asked for.
+    for q in [
+        "in what way is conformance to the protocol proven",
+        "como e que um operador demonstra conformidade",
+        "de que forma se prova conformidade com o protocolo",
+        "how does an operator demonstrate conformance",
+    ] {
+        assert!(
+            required_claims("how-to-demonstrate-conformance", q)
+                .iter()
+                .any(|c| c.id == CONF),
+            "{q:?} owes the conformance claim"
+        );
+    }
+    for q in [
+        "o que conta como evidencia tecnica",
+        "what counts as technical evidence",
+    ] {
+        assert!(
+            !required_claims("how-to-demonstrate-conformance", q)
+                .iter()
+                .any(|c| c.id == CONF),
+            "{q:?} owes no claim about how conformance is established"
+        );
+    }
 
     // fail-closed and general trust share ONE entry, and only one of them owes the fail-closed claim.
     let fc = required_claims("how-trust-works", "what is fail-closed");
