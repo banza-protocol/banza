@@ -468,3 +468,17 @@
 .site-nav-item:active {
   transform: translateY(0.5px);
 }
+
+/* The PT/EN segmented control. The switch is one object with two segments, so the hover belongs to the
+   segment and the border to the container — the inline styles in LocaleSwitch carry the resting look and
+   this carries the states, the same split the nav items already use. */
+.locale-seg-item {
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.locale-seg-item:not([aria-current]):hover {
+  color: #1a1512;
+  background: #fbf3e3;
+}
+.locale-seg-item:active {
+  transform: translateY(0.5px);
+}
