@@ -486,7 +486,12 @@ pub fn required_claims_json(entry_id: &str, question: &str) -> String {
 /// The runtime verdict over a candidate answer: which required claims it establishes, which it
 /// inverts, and which lack the evidence that could support them.
 #[cfg_attr(target_arch = "wasm32", wasm_bindgen)]
-pub fn validate_claims_json(entry_id: &str, question: &str, text: &str, sources_csv: &str) -> String {
+pub fn validate_claims_json(
+    entry_id: &str,
+    question: &str,
+    text: &str,
+    sources_csv: &str,
+) -> String {
     let sources: Vec<String> = sources_csv
         .split(',')
         .map(|s| s.trim().to_string())
@@ -813,7 +818,7 @@ pub fn answer_obligations_locale_json(
         seeded_entity_id,
         locale,
     ))
-        .unwrap_or_else(|_| "{}".to_string())
+    .unwrap_or_else(|_| "{}".to_string())
 }
 
 /// A deterministic tasked terminal (0-model) for the structural/example/procedure cases, or
