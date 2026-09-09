@@ -35,7 +35,33 @@ The fourth is not an implementation defect. After the operator's fix the money
 arrives correctly and the Session still cannot be marked PAID, because the
 protocol has no way to describe what settled it.
 
-## Problem statement
+## Observed fact
+
+This section states only what has been observed on a running deployment. It
+carries no proposal and implies no protocol change.
+
+An externally acquired payment **can** be financially settled by an operator, and
+**can** credit the target Wallet Account correctly, while the Payment Session it
+paid **cannot** reach its normative paid representation.
+
+Measured on the Banzami reference operator's deployed Public Sandbox, through the
+public Developer Platform and the unauthenticated payer surface only:
+
+| Observation | Result |
+|---|---|
+| Payer confirms an externally acquired payment against a Session's payment link | accepted |
+| Ledger posting | balanced, atomic, idempotent |
+| Target Wallet Account credited | yes, gross, exactly once |
+| Repeated and six-way parallel confirmation | one credit, one event |
+| Operator's own interface-level event delivered and signed | yes |
+| `payment_session.paid` emitted | **no** |
+| Payment Session status | **remains `ACTIVE`** |
+
+Thirteen Sessions were created and eleven were paid; the destination account held
+exactly eleven credits, and all thirteen Sessions still read `ACTIVE`.
+
+The mechanism is not an operator defect. It follows from two current normative
+statements taken together:
 
 `contracts/events/types.json`, `payment_session.paid` (certification level 2,
 stability `stable`):
@@ -48,74 +74,91 @@ stability `stable`):
 }
 ```
 
-`transfer_id` is required and not nullable, and the Transfer it names is
-constrained by `contracts/openapi/transfers.yaml`, which defines a Transfer as an
-instant P2P movement **from the authenticated consumer's wallet** — "the JWT
-encodes the sender's identity".
+`contracts/openapi/transfers.yaml` defines a Transfer as an instant P2P movement
+**from the authenticated consumer's wallet** — "the JWT encodes the sender's
+identity".
 
-So the protocol's chain of reasoning is:
+So:
 
 ```
-Session reaches PAID  ⟸  a Transfer settled it
-a Transfer exists     ⟸  a consumer wallet sent it
+Session reaches PAID  ⟸  a Transfer settled it        (events/types.json)
+a Transfer exists     ⟸  a consumer wallet sent it     (openapi/transfers.yaml)
 ```
 
-An externally acquired payment breaks the second link. The payer is a person with
-a bank card or an ATM reference, not a wallet on this network. There is no
-consumer to be the sender, and inventing one would mean asserting that a wallet
-sent money it never held.
+An externally acquired payer — a person with a bank card or an ATM reference — is
+not a wallet on the network. The second implication has no satisfying term, so
+the first cannot be reached. **BANZA does not currently model acquiring at all**;
+`docs/reference/en/BANZA_REFERENCE.md` contains no acquiring concept.
 
 The consequence is not cosmetic. The Session is the protocol's single financial
-entry object: it is what binds a destination Wallet Account and what an
-integrating application observes. An operator that accepts externally acquired
-payments can credit the right account, balance the ledger and emit its own
-interface-level event — and still cannot tell anyone, in the protocol's own
-vocabulary, that the Session was fulfilled. Every integration built on
-`payment_session.paid` is silent for that entire class of payment.
+entry object, and `payment_session.paid` is what integrations observe. For every
+payment whose payer is not already on the network — the normal case for a
+donation platform, an e-commerce checkout, or any merchant acquiring its first
+customers — that event never fires.
 
-The reference operator reaches this state today for any Session paid through an
-acquirer rather than by a Banzami wallet. It is the normal case for a donation
-platform, an e-commerce checkout, or any merchant whose payers are not yet on the
-network — which is to say, for most of the adoption the protocol exists to enable.
+## Open protocol decision
 
-## What is NOT being proposed
+**This RFC does not propose a resolution.** What follows is the decision space,
+kept explicit so that it is decided by the protocol rather than inherited from
+whichever operator implements first.
 
-This RFC deliberately stops at the statement of the gap.
+The question BANZA must answer:
 
-Three directions are visible, and each has consequences the protocol should weigh
-rather than inherit from whichever operator implements first:
+> How should externally acquired value be represented normatively, such that the
+> Payment Session it settles can reach a paid representation?
 
-1. **Widen Transfer.** Let a Transfer originate from something other than a
-   consumer wallet — an acquiring or external-funding origin. This keeps
-   `payment_session.paid` unchanged, and changes what the word Transfer means
-   everywhere else it appears, including in invariants that assume two wallets.
-2. **A second settlement anchor.** Let `payment_session.paid` name either a
-   Transfer or an externally acquired payment. This leaves Transfer alone and
-   makes a stable, certification-level-2 payload polymorphic, which every
-   existing consumer would have to be taught.
+Three directions are visible. Each has consequences the protocol should weigh.
+
+1. **Widen Transfer.** Allow a Transfer to originate from something other than a
+   consumer wallet — an acquiring or external-funding origin. Leaves
+   `payment_session.paid` untouched; changes what "Transfer" means everywhere
+   else it appears, including invariants that presume two wallets.
+2. **A second settlement anchor.** Allow `payment_session.paid` to name either a
+   Transfer or an externally acquired payment. Leaves Transfer untouched; makes a
+   stable, certification-level-2 payload polymorphic, which every existing
+   consumer must be taught.
 3. **A funding step before the Session.** Model the external payment as value
    entering the network first, then settle the Session by a Transfer from the
-   resulting holding. This keeps both existing contracts intact and introduces a
-   new financial object plus a new moment at which value can be stranded between
-   the two steps.
+   resulting holding. Leaves both contracts intact; introduces a new financial
+   object and a new moment at which value can be stranded between the two steps.
 
-None of these is free, and the choice is a protocol choice. An operator picking
-one locally would be defining how money enters the network, which is exactly the
-authority an operator does not hold.
+None is free, and none is endorsed here.
 
-## Interim operator position
+### Explicitly out of scope for any operator
+
+Until BANZA decides, an operator MUST NOT:
+
+* mark a Payment Session PAID without a protocol-defined basis;
+* make `transfer_id` nullable, or emit `payment_session.paid` without one;
+* fabricate a Consumer sender, or introduce an operator pseudo-consumer, to
+  satisfy the Transfer contract;
+* redefine "Transfer" locally;
+* introduce a new wire field on a normative event.
+
+An operator that did any of these would be defining how money enters the network,
+which is the one authority an operator does not hold. Operator implementation
+behaviour must not become de facto BANZA semantics.
+
+## Interim operator position (informative)
+
+Recorded so the observed fact above is reproducible, not as a proposal.
 
 Until this is decided, the reference operator's behaviour on an externally
 acquired Session payment is:
 
 - the destination Wallet Account **is** credited, gross, atomically, once;
-- the operator's own interface-level event **is** emitted and delivered;
-- the Session remains `ACTIVE` and `payment_session.paid` is **not** emitted.
+- the operator's own interface-level event **is** emitted, signed and delivered;
+- the Session remains `ACTIVE` and `payment_session.paid` is **not** emitted;
+- the operator surfaces its own acquiring state **separately from, and clearly
+  labelled as distinct from**, the Session's protocol status — so an integrator
+  can see that value arrived without being told the protocol says PAID.
 
-This is an honest incomplete state rather than a false one. It is recorded here
-because an operator that silently marked the Session PAID would be asserting a
-protocol fact the protocol cannot express, and one that silently dropped the
-credit would be losing money that arrived.
+That last point is operator observability, not a protocol state. `ACTIVE` remains
+the Session's protocol representation; the acquiring state is operator truth
+about execution. An operator that silently marked the Session PAID would assert a
+protocol fact the protocol cannot express; one that silently dropped the credit
+would lose money that arrived; one that showed neither would leave an integrator
+with a balance it cannot reconcile.
 
 ## Open questions
 
