@@ -7,12 +7,12 @@ rejected before the vocabulary). Deterministic, no model.
 ## Counts
 - subjects: 21
 - document_types: 12
-- document_instances: 47
+- document_instances: 48
 - artifact_types: 18
 - aliases: 310
 - relation_kinds: 11
 - relation_aliases: 24
-- relation_edges: 10
+- relation_edges: 8
 - attributes: 11
 - task_terms: 20
 - historical_terms: 6
@@ -20,15 +20,15 @@ rejected before the vocabulary). Deterministic, no model.
 - unresolved: 0
 
 ## Candidate pipeline (Phase 1 — noise separated from vocabulary)
-- total candidates: 3136
-- accepted (terminology): 670
-- rejected (lexical noise / non-terminological): 2466
-  - NON_TERMINOLOGICAL: 1709
-  - GENERIC_PROSE: 565
+- total candidates: 3152
+- accepted (terminology): 674
+- rejected (lexical noise / non-terminological): 2478
+  - NON_TERMINOLOGICAL: 1717
+  - GENERIC_PROSE: 568
   - PATH_FRAGMENT: 86
   - BROKEN_TOKEN: 80
+  - MARKUP_FRAGMENT: 20
   - STOPWORD: 7
-  - MARKUP_FRAGMENT: 19
 
 ## Coverage gates
 - unresolved: 0
@@ -66,10 +66,10 @@ rejected before the vocabulary). Deterministic, no model.
 - **webhook** (artefact) — trunk synthesis grounded in the webhook/event contracts — deliverables [] — sources [webhooks]
 
 ## Why the numbers differ (reconciliation)
-- The vocabulary has 21 SUBJECTS (concepts/entities/artefacts) — the things that can be the main subject of a question. Document instances (47 ADR/RFC) are DOCUMENT_INSTANCE, not subjects.
+- The vocabulary has 21 SUBJECTS (concepts/entities/artefacts) — the things that can be the main subject of a question. Document instances (48 ADR/RFC) are DOCUMENT_INSTANCE, not subjects.
 - 11 of the subjects carry a catalogue SubjectProfile (deterministic deliverable terminals); the rest resolve via entity coverage or trunk synthesis.
 - The 310 engine aliases map to 25 canonical targets (mostly document instances + concepts) — aliases are ALIAS, not subjects.
-- Relations: 11 RELATION_KIND (closed) + 24 RELATION_ALIAS + 10 graph edges — not "10 relation types".
+- Relations: 11 RELATION_KIND (closed) + 24 RELATION_ALIAS + 8 graph edges — not "8 relation types".
 
 ## Review policy
 - A subject is a concept/entity/artefact/document that can be the MAIN semantic subject of a supported question — never promoted by frequency/heading/substring alone.

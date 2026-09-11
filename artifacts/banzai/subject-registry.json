@@ -385,7 +385,8 @@
     "RFC-0003",
     "RFC-0004",
     "RFC-0005",
-    "RFC-0006"
+    "RFC-0006",
+    "RFC-0007"
   ],
   "document_instance_sample": [
     "ADR-001",
@@ -393,5 +394,5 @@
     "ADR-025",
     "RFC-0006"
   ],
-  "checksum": "1e54f2d5369e54a3"
+  "checksum": "126fe9fcd0e807e1"
 }

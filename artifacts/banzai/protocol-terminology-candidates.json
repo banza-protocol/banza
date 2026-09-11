@@ -1,5 +1,5 @@
 {
-  "total": 3136,
+  "total": 3152,
   "rows": [
     {
       "raw_text": "Contributing to BANZA",
@@ -335,6 +335,7 @@
         "decisions-adr-adr-007-regulatory-state-and-the-real-money-activation-gate-md",
         "decisions-adr-adr-030-conformance-profiles-and-the-capability-vocabulary-md",
         "decisions-rfc-readme-md",
+        "decisions-rfc-rfc-0007-externally-acquired-settlement-of-a-payment-session-md",
         "docs-banzai-banzai-protocol-agent-md",
         "docs-banzai-local-inference-runbook-md",
         "docs-banzai-local-inference-runtime-md",
@@ -355,7 +356,7 @@
         "spec-root-authority-set-md",
         "spec-trust-freshness-md"
       ],
-      "frequency": 55,
+      "frequency": 56,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -5961,9 +5962,10 @@
         "decisions-rfc-rfc-0004-provider-capability-negotiation-md",
         "decisions-rfc-rfc-0005-operator-discovery-md",
         "decisions-rfc-rfc-0006-offline-payment-support-md",
+        "decisions-rfc-rfc-0007-externally-acquired-settlement-of-a-payment-session-md",
         "docs-governance-licensing-md"
       ],
-      "frequency": 8,
+      "frequency": 9,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -5978,9 +5980,10 @@
         "decisions-rfc-rfc-0003-wallet-capabilities-md",
         "decisions-rfc-rfc-0004-provider-capability-negotiation-md",
         "decisions-rfc-rfc-0005-operator-discovery-md",
-        "decisions-rfc-rfc-0006-offline-payment-support-md"
+        "decisions-rfc-rfc-0006-offline-payment-support-md",
+        "decisions-rfc-rfc-0007-externally-acquired-settlement-of-a-payment-session-md"
       ],
-      "frequency": 7,
+      "frequency": 8,
       "phrase_length": 1,
       "accepted": false,
       "rejection_reason": "GENERIC_PROSE"
@@ -6594,6 +6597,153 @@
       ],
       "frequency": 1,
       "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Observed fact",
+      "normalized": "observed fact",
+      "sources": [
+        "decisions-rfc-rfc-0007-externally-acquired-settlement-of-a-payment-session-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Open protocol decision",
+      "normalized": "open protocol decision",
+      "sources": [
+        "decisions-rfc-rfc-0007-externally-acquired-settlement-of-a-payment-session-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Explicitly out of scope for any operator",
+      "normalized": "explicitly out of scope for any operator",
+      "sources": [
+        "decisions-rfc-rfc-0007-externally-acquired-settlement-of-a-payment-session-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 7,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Interim operator position (informative)",
+      "normalized": "interim operator position informative",
+      "sources": [
+        "decisions-rfc-rfc-0007-externally-acquired-settlement-of-a-payment-session-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "Open questions",
+      "normalized": "open questions",
+      "sources": [
+        "decisions-rfc-rfc-0007-externally-acquired-settlement-of-a-payment-session-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "can",
+      "normalized": "can",
+      "sources": [
+        "decisions-rfc-rfc-0007-externally-acquired-settlement-of-a-payment-session-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "cannot",
+      "normalized": "cannot",
+      "sources": [
+        "decisions-rfc-rfc-0007-externally-acquired-settlement-of-a-payment-session-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "remains `ACTIVE`",
+      "normalized": "remains active",
+      "sources": [
+        "decisions-rfc-rfc-0007-externally-acquired-settlement-of-a-payment-session-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "MARKUP_FRAGMENT"
+    },
+    {
+      "raw_text": "from the authenticated consumer's wallet",
+      "normalized": "from the authenticated consumer s wallet",
+      "sources": [
+        "decisions-rfc-rfc-0007-externally-acquired-settlement-of-a-payment-session-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "This RFC does not propose a resolution.",
+      "normalized": "this rfc does not propose a resolution",
+      "sources": [
+        "decisions-rfc-rfc-0007-externally-acquired-settlement-of-a-payment-session-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 7,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "Widen Transfer.",
+      "normalized": "widen transfer",
+      "sources": [
+        "decisions-rfc-rfc-0007-externally-acquired-settlement-of-a-payment-session-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "A second settlement anchor.",
+      "normalized": "a second settlement anchor",
+      "sources": [
+        "decisions-rfc-rfc-0007-externally-acquired-settlement-of-a-payment-session-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 4,
+      "accepted": true,
+      "rejection_reason": "",
+      "classification": "SUBJECT"
+    },
+    {
+      "raw_text": "A funding step before the Session.",
+      "normalized": "a funding step before the session",
+      "sources": [
+        "decisions-rfc-rfc-0007-externally-acquired-settlement-of-a-payment-session-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 6,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
     },
@@ -15533,6 +15683,62 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
+      "raw_text": "três autoridades independentes",
+      "normalized": "tres autoridades independentes",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 3,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "duas distintas",
+      "normalized": "duas distintas",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 2,
+      "accepted": false,
+      "rejection_reason": "NON_TERMINOLOGICAL"
+    },
+    {
+      "raw_text": "uma",
+      "normalized": "uma",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md",
+        "docs-governance-public-protocol-registry-md"
+      ],
+      "frequency": 3,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "STOPWORD"
+    },
+    {
+      "raw_text": "duas",
+      "normalized": "duas",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 2,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
+      "raw_text": "bloqueada",
+      "normalized": "bloqueada",
+      "sources": [
+        "docs-governance-banza-trust-architecture-md"
+      ],
+      "frequency": 1,
+      "phrase_length": 1,
+      "accepted": false,
+      "rejection_reason": "GENERIC_PROSE"
+    },
+    {
       "raw_text": "mesma",
       "normalized": "mesma",
       "sources": [
@@ -15555,17 +15761,6 @@
       "rejection_reason": "GENERIC_PROSE"
     },
     {
-      "raw_text": "duas",
-      "normalized": "duas",
-      "sources": [
-        "docs-governance-banza-trust-architecture-md"
-      ],
-      "frequency": 1,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "GENERIC_PROSE"
-    },
-    {
       "raw_text": "nunca autoriza",
       "normalized": "nunca autoriza",
       "sources": [
@@ -15575,18 +15770,6 @@
       "phrase_length": 2,
       "accepted": false,
       "rejection_reason": "NON_TERMINOLOGICAL"
-    },
-    {
-      "raw_text": "uma",
-      "normalized": "uma",
-      "sources": [
-        "docs-governance-banza-trust-architecture-md",
-        "docs-governance-public-protocol-registry-md"
-      ],
-      "frequency": 2,
-      "phrase_length": 1,
-      "accepted": false,
-      "rejection_reason": "STOPWORD"
     },
     {
       "raw_text": "controlos de custódia",

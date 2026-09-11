@@ -5,7 +5,7 @@
     "principle": "The vocabulary is a semantic registry of real protocol terms derived from the engine's own registries + closed protocol sets; corpus terms are candidates (Phase 1), lexical noise never enters here."
   },
   "source_registry": {
-    "total": 425,
+    "total": 426,
     "by_type": {
       "root-doc": 9,
       "conformance": 81,
@@ -13,23 +13,23 @@
       "contract": 48,
       "openapi": 11,
       "adr": 42,
-      "rfc": 7,
+      "rfc": 8,
       "doc": 60,
       "example": 48,
       "spec": 33
     },
     "by_status": {
-      "current": 425
+      "current": 426
     },
     "by_authority_class": {
-      "current": 377,
+      "current": 378,
       "illustrative": 48
     },
     "by_language": {
-      "pt-or-neutral": 425
+      "pt-or-neutral": 426
     },
     "by_origin": {
-      "authored": 425,
+      "authored": 426,
       "generated": 0
     },
     "duplicates": [
@@ -3346,7 +3346,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "c66513b6a8351ab9"
+        "checksum": "fca04536f30cb705"
       },
       {
         "id": "decisions-rfc-rfc-0001-multi-operator-routing-md",
@@ -3413,6 +3413,17 @@
         "generated": false,
         "public_eligible": true,
         "checksum": "1c7f6bac56ffc345"
+      },
+      {
+        "id": "decisions-rfc-rfc-0007-externally-acquired-settlement-of-a-payment-session-md",
+        "path": "decisions/rfc/RFC-0007-externally-acquired-settlement-of-a-payment-session.md",
+        "type": "rfc",
+        "authority_class": "current",
+        "status": "current",
+        "language": "pt-or-neutral",
+        "generated": false,
+        "public_eligible": true,
+        "checksum": "7446d457349ceb4b"
       },
       {
         "id": "docs-banzai-banzai-protocol-agent-md",
@@ -3731,7 +3742,7 @@
         "language": "pt-or-neutral",
         "generated": false,
         "public_eligible": true,
-        "checksum": "819bbd363b1772c0"
+        "checksum": "9cb96e4f4aba7086"
       },
       {
         "id": "docs-governance-claude-base-md",
@@ -5017,7 +5028,7 @@
         "reason": "secrets"
       }
     ],
-    "checksum": "c3cdda3ae649cad8"
+    "checksum": "df72dfd4defbfc47"
   },
   "subjects": [
     {
@@ -5831,6 +5842,12 @@
     {
       "id": "RFC-0006",
       "path": "decisions/rfc/RFC-0006-offline-payment-support.md",
+      "status": "current",
+      "classification": "DOCUMENT_INSTANCE"
+    },
+    {
+      "id": "RFC-0007",
+      "path": "decisions/rfc/RFC-0007-externally-acquired-settlement-of-a-payment-session.md",
       "status": "current",
       "classification": "DOCUMENT_INSTANCE"
     }
@@ -8250,8 +8267,8 @@
     }
   ],
   "relation_edges": {
-    "count": 10,
-    "checksum": "ff0a61f8d413af26"
+    "count": 8,
+    "checksum": "4191833b62a0bdea"
   },
   "attributes": [
     {
@@ -8468,17 +8485,17 @@
   "counts": {
     "subjects": 21,
     "document_types": 12,
-    "document_instances": 47,
+    "document_instances": 48,
     "artifact_types": 18,
     "aliases": 310,
     "relation_kinds": 11,
     "relation_aliases": 24,
-    "relation_edges": 10,
+    "relation_edges": 8,
     "attributes": 11,
     "task_terms": 20,
     "historical_terms": 6,
     "out_of_scope": 7,
     "unresolved": 0
   },
-  "checksum": "1e54f2d5369e54a3"
+  "checksum": "126fe9fcd0e807e1"
 }

@@ -10,9 +10,10 @@
 
 ## Modelo de autorização da raiz — 2-de-3
 
-A `Trust Root` é controlada por **três autoridades de assinatura independentes**. Qualquer acção
-autorizada da raiz exige **duas assinaturas, de duas autoridades distintas**. Uma assinatura isolada
-nunca autoriza, e duas assinaturas da **mesma** autoridade contam como uma só.
+A `Trust Root` tem **três autoridades independentes**; **duas distintas** autorizam. Perdida **uma**,
+as duas restantes substituem-na sem ela; perdidas **duas**, a continuidade fica **bloqueada** e não há
+chave-mestra de emergência. Uma assinatura isolada nunca autoriza, e duas assinaturas da **mesma**
+autoridade contam como uma só.
 
 | | |
 |---|---|

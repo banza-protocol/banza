@@ -1,14 +1,14 @@
 {
   "milestone": "M2.18B.3A canonical corpus integrity",
   "summary": {
-    "total": 47,
-    "ok": 47,
-    "discoverable": 47,
-    "resolvable": 47,
-    "citable": 47,
-    "index_chunks": 608,
+    "total": 48,
+    "ok": 48,
+    "discoverable": 48,
+    "resolvable": 48,
+    "citable": 48,
+    "index_chunks": 620,
     "adr": 41,
-    "rfc": 6
+    "rfc": 7
   },
   "rows": [
     {
@@ -405,7 +405,7 @@
       "id": "ADR-040",
       "kind": "adr",
       "file": "decisions/adr/ADR-040-r2s2-fundamental-principles.md",
-      "chunks": 7,
+      "chunks": 5,
       "discoverable": true,
       "resolvable": true,
       "citable": true,
@@ -415,7 +415,7 @@
       "id": "ADR-041",
       "kind": "adr",
       "file": "decisions/adr/ADR-041-layered-assurance-gates.md",
-      "chunks": 7,
+      "chunks": 5,
       "discoverable": true,
       "resolvable": true,
       "citable": true,
@@ -475,6 +475,16 @@
       "id": "RFC-0006",
       "kind": "rfc",
       "file": "decisions/rfc/RFC-0006-offline-payment-support.md",
+      "chunks": 5,
+      "discoverable": true,
+      "resolvable": true,
+      "citable": true,
+      "ok": true
+    },
+    {
+      "id": "RFC-0007",
+      "kind": "rfc",
+      "file": "decisions/rfc/RFC-0007-externally-acquired-settlement-of-a-payment-session.md",
       "chunks": 5,
       "discoverable": true,
       "resolvable": true,
