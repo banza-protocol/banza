@@ -21,6 +21,8 @@ of them follow from this work.
 | repository `main` | `e34f51e` |
 | production runtime image | `banzai-api:src-dbc3f83` |
 
+> **Current state, 2026-09-11.** Production runs `banzai-api:src-0bafc28` and `banza-website:src-22ce3ff`. The frozen generation — universe `bf1a472f`, corpus `d9084360`, oracle — is unchanged, and the 572-question battery passes 572/572 on the current runtime. The two engine changes since the freeze are recorded below, under *Changes since the freeze*. The rest of this section describes the state at the freeze and is kept as written.
+
 **The production image tag is `src-dbc3f83`, not `src-e34f51e`.** The runtime diff between `dbc3f83`
 and `e34f51e` across `services/`, `engines/` and `website/` is **none** — PR #59 was evidence and
 documentation only — so no redeployment was required and none was performed. `e34f51e` is the
@@ -137,6 +139,53 @@ engine change requires at least one of:
 - **F** — a performance or reliability requirement approved as a new milestone.
 
 Any runtime change must preserve the frozen V2 regression corpus.
+
+## Changes since the freeze
+
+Append-only. Each entry is a runtime change to the frozen engine, why it was made, and the proof that
+the frozen generation survived it. The universe, the corpus and the oracle have not changed.
+
+### 2026-09-11 · PR #63 — RFC-0007, and a Root fact the index was inventing
+
+Adding RFC-0007 (Draft) required BanzAI to index it: every canonical RFC must be discoverable,
+resolvable and citable. The pinned doc index had not been regenerated since 15 August, and the
+maintainer chose to regenerate it in full rather than splice: 608 → 620 chunks.
+
+The regeneration broke two Root tests and exposed a **phantom fact**. Asked what happens when two root
+authorities are lost, BanzAI had been answering from a chunk — *"perdidas duas, a continuidade fica
+bloqueada"* — that no committed version of `BANZA_TRUST_ARCHITECTURE.md` ever contained. The pinned index
+had been built from a working tree that was never committed. The fact is normative
+(`spec/root-authority-set.md` §10), so the document's section lead now states it; the tests were not
+touched.
+
+Production `src-22ce3ff`: **572/572**, 176/176, P0/P1/P2 100%, 8/8 journeys, 0 non-200, 0 timeouts.
+`baseline/scored-src-22ce3ff-v2.json`.
+
+### 2026-09-11 · PR #64 — a Draft RFC is reported as Draft
+
+Found by the smoke after #63, and older than it: asked about any RFC, BanzAI answered *"Estado:
+publicada"* and *"Data: não declarada"*. All seven RFCs are Draft and declare their creation date. The
+registry read metadata only in the ADR style; RFCs declare theirs in YAML frontmatter, so both fields
+arrived empty and the lookup card supplied its default. The registry now reads the frontmatter, and an
+RFC's summary comes from its own *Summary* section rather than the frontmatter line. A demonstrated
+truthfulness defect, fixed with the maintainer's explicit authorisation.
+
+Production `src-0bafc28`: **572/572**, 176/176, P0/P1/P2 100%, 8/8 journeys, 0 non-200, 0 timeouts.
+`baseline/scored-src-0bafc28-v2.json`.
+
+### Performance after both changes
+
+| run | deterministic p50 · p95 | model n | model p50 · p95 · max | cache hits |
+|---|---|---|---|---|
+| `src-dbc3f83` (freeze) | 59 ms · 100 ms | 31 | 14.75 s · 18.6 s · 22.8 s | 10 |
+| `src-22ce3ff` | 59 ms · 102 ms | 40 | 15.48 s · 27.13 s · 41.2 s | 1 |
+| `src-0bafc28` | 66 ms · 109 ms | 40 | 15.16 s · 21.05 s · 22.2 s | 1 |
+
+The rise from 31 to 40 model turns is the validated-answer cache, not routing: cache hits fell from 10
+to 1 after each redeploy, and 31 + 9 = 40. Across the whole corpus only two items changed which path
+answered them, one in each direction. The 41.2 s outlier on `src-22ce3ff` did not recur on `src-0bafc28`;
+whether it was a claim repair is not recoverable from the flat `/ask` envelope — the observability
+limitation above.
 
 ## BANZA status, unchanged
 
