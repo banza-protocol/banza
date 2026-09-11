@@ -147,6 +147,7 @@ What must be decided before implementation.
 | [RFC-0004](RFC-0004-provider-capability-negotiation.md) | Provider Capability Negotiation | Draft |
 | [RFC-0005](RFC-0005-operator-discovery.md) | Operator Discovery | Draft |
 | [RFC-0006](RFC-0006-offline-payment-support.md) | Offline Payment Support | Draft |
+| [RFC-0007](RFC-0007-externally-acquired-settlement-of-a-payment-session.md) | Externally Acquired Settlement of a Payment Session | Draft |
 
 ---
 
