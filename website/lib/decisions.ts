@@ -535,6 +535,17 @@ export const decisions: Decision[] = [
     "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/rfc/RFC-0006-offline-payment-support.md",
     "category": "Propostas técnicas",
     "summary": "Define a protocol by which operator-controlled wallet or account implementations can authorize and complete payment flows in conditions of intermittent or absent network connectivity, with settlement deferred to the next available online wi"
+  },
+  {
+    "type": "RFC",
+    "id": "RFC-0007",
+    "slug": "rfc-0007",
+    "title": "Externally Acquired Settlement of a Payment Session",
+    "status": "rascunho",
+    "path": "decisions/rfc/RFC-0007-externally-acquired-settlement-of-a-payment-session.md",
+    "canonicalUrl": "https://github.com/banza-protocol/banza/blob/main/decisions/rfc/RFC-0007-externally-acquired-settlement-of-a-payment-session.md",
+    "category": "Propostas técnicas",
+    "summary": "A Payment Session can only be marked PAID by a Transfer, and a Transfer can only originate from a consumer wallet. A payment that arrives from outside the network — a card, an ATM reference, a domestic instant-payment confirmation relayed b"
   }
 ];
 
