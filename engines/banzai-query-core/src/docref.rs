@@ -120,6 +120,63 @@ fn field_after(text: &str, label: &str) -> String {
         .to_string()
 }
 
+/// The keys an RFC declares in its YAML frontmatter. A value runs until the next of these, because the
+/// indexer collapses the block onto a single line: `--- rfc: 0007 title: … status: Draft created: … ---`.
+const FRONTMATTER_KEYS: &[&str] = &[
+    "rfc",
+    "title",
+    "status",
+    "created",
+    "updated",
+    "authors",
+    "requires",
+    "supersedes",
+    "superseded_by",
+];
+
+/// Read one field from an RFC's YAML frontmatter.
+///
+/// RFCs declare their metadata as `status: Draft` / `created: 2026-09-09`, not in the ADR style
+/// (`**Status:** Accepted`) that `field_after` reads. Reading only the ADR style left every RFC with an
+/// empty status and date, and the lookup card then supplied its own default — so seven Draft RFCs were
+/// each reported to readers as "publicada", with the date "não declarada". A record's declared status is
+/// data; losing it to a format mismatch turned it into a claim the record never made.
+fn frontmatter_field(text: &str, key: &str) -> String {
+    let Some(body) = text.trim_start().strip_prefix("---") else {
+        return String::new();
+    };
+    let Some(end) = body.find("---") else {
+        return String::new();
+    };
+    let fm = body[..end].split_whitespace().collect::<Vec<_>>().join(" ");
+    let needle = format!("{key}:");
+    let mut from = 0;
+    while let Some(rel) = fm[from..].find(&needle) {
+        let pos = from + rel;
+        // Whole key only: "requires:" must not be read as "res:".
+        if pos == 0 || fm[..pos].ends_with(' ') {
+            let after = &fm[pos + needle.len()..];
+            let stop = FRONTMATTER_KEYS
+                .iter()
+                .filter_map(|k| after.find(&format!(" {k}:")))
+                .min()
+                .unwrap_or(after.len());
+            return after[..stop].trim().trim_matches('"').trim().to_string();
+        }
+        from = pos + needle.len();
+    }
+    String::new()
+}
+
+/// The declared value: the ADR style when present, else the RFC frontmatter.
+fn declared(adr_style: String, frontmatter: String) -> String {
+    if adr_style.is_empty() {
+        frontmatter
+    } else {
+        adr_style
+    }
+}
+
 /// The registry, derived from the SAME generated doc-index the retriever uses — no second source of
 /// truth, no hand-maintained duplicate list. A document exists here iff its chunks are indexed.
 pub fn registry() -> &'static Vec<RegistryDoc> {
@@ -138,13 +195,24 @@ pub fn registry() -> &'static Vec<RegistryDoc> {
             match docs.iter_mut().find(|d| d.path == c.path) {
                 Some(d) => d.chunk_idx.push(i),
                 None => docs.push(RegistryDoc {
+                    // An RFC has no H1, so the indexer titles it by filename slug; its human title
+                    // lives in the frontmatter. Render it the way an ADR's H1 reads: "ID — Title".
+                    title: match frontmatter_field(&c.chunk, "title") {
+                        t if t.is_empty() => c.title.clone(),
+                        t => format!("{id} — {t}"),
+                    },
                     id,
                     kind,
                     number,
-                    title: c.title.clone(),
                     path: c.path.clone(),
-                    status: field_after(&c.chunk, "Status:"),
-                    date: field_after(&c.chunk, "Date:"),
+                    status: declared(
+                        field_after(&c.chunk, "Status:"),
+                        frontmatter_field(&c.chunk, "status"),
+                    ),
+                    date: declared(
+                        field_after(&c.chunk, "Date:"),
+                        frontmatter_field(&c.chunk, "created"),
+                    ),
                     alias,
                     chunk_idx: vec![i],
                 }),
@@ -314,6 +382,8 @@ fn section_kind(section: &str) -> &'static str {
         "consequences"
     } else if n.contains("implement") {
         "implementation"
+    } else if n == "summary" || n == "resumo" || n == "sumario" {
+        "summary"
     } else {
         "other"
     }
@@ -552,9 +622,22 @@ fn summary_for(doc: &RegistryDoc) -> String {
             .find(|c| section_kind(&c.section) == kind)
             .map(|c| c.chunk.as_str())
     };
-    let raw = pick("decision")
+    // An RFC's own Summary says what it is; an ADR's Decision does. The frontmatter chunk is metadata,
+    // never prose — falling through to it is how "--- rfc: 0006 title: …" reached a reader as a summary.
+    let summary = if doc.kind == "RFC" {
+        pick("summary")
+    } else {
+        None
+    };
+    let raw = summary
+        .or_else(|| pick("decision"))
         .or_else(|| pick("context"))
-        .or_else(|| chunks.first().map(|c| c.chunk.as_str()))
+        .or_else(|| {
+            chunks
+                .iter()
+                .find(|c| !c.chunk.trim_start().starts_with("---"))
+                .map(|c| c.chunk.as_str())
+        })
         .unwrap_or("");
     first_sentences(&clean_prose(raw), 360)
 }
@@ -1001,5 +1084,122 @@ mod tests {
         ] {
             assert!(document_lookup_card(q, "", "pt-PT").is_none(), "{q}");
         }
+    }
+
+    // RFC METADATA. Every RFC declares `status:` and `created:` in YAML frontmatter; the registry read
+    // only the ADR style, so all seven arrived empty and the card supplied "publicada" — telling readers
+    // that Draft proposals, one of which explicitly proposes nothing, had been published. The expectations
+    // below are read from the files on disk, never restated here, so a new RFC is covered the day it lands.
+    fn rfcs_on_disk() -> Vec<(String, String, String, String)> {
+        let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../decisions/rfc");
+        let mut out = Vec::new();
+        for e in std::fs::read_dir(&dir).expect("decisions/rfc") {
+            let path = e.expect("entry").path();
+            let name = path.file_name().unwrap().to_string_lossy().to_string();
+            if !(name.starts_with("RFC-") && name.ends_with(".md")) {
+                continue;
+            }
+            let text = std::fs::read_to_string(&path).expect("read rfc");
+            let field = |k: &str| {
+                text.lines()
+                    .take_while(|l| !l.starts_with("## "))
+                    .find_map(|l| l.strip_prefix(&format!("{k}:")))
+                    .map(|v| v.trim().trim_matches('"').to_string())
+                    .unwrap_or_default()
+            };
+            out.push((
+                name[..8].to_string(),
+                field("status"),
+                field("created"),
+                field("title"),
+            ));
+        }
+        out.sort();
+        out
+    }
+
+    #[test]
+    fn every_rfc_reports_the_status_and_date_its_frontmatter_declares() {
+        let rfcs = rfcs_on_disk();
+        assert!(
+            rfcs.len() >= 7,
+            "expected the RFC corpus on disk, found {}",
+            rfcs.len()
+        );
+        for (id, status, created, _) in &rfcs {
+            assert!(
+                !status.is_empty() && !created.is_empty(),
+                "{id}: frontmatter lacks status/created"
+            );
+            let d = resolve(id).unwrap_or_else(|| panic!("{id} is not in the registry"));
+            assert_eq!(
+                &d.status, status,
+                "{id}: registry status is not the declared one"
+            );
+            assert_eq!(
+                &d.date, created,
+                "{id}: registry date is not the declared one"
+            );
+        }
+    }
+
+    #[test]
+    fn a_draft_rfc_is_never_called_published() {
+        for (id, status, created, _) in rfcs_on_disk() {
+            for (loc, invented) in [("pt-PT", "publicada"), ("en", "published")] {
+                let c = document_lookup_card(&id, "", loc).expect("card");
+                let md = &c.answer_markdown;
+                assert!(
+                    md.contains(&status),
+                    "{id}/{loc}: card omits the declared status:\n{md}"
+                );
+                assert!(
+                    md.contains(&created),
+                    "{id}/{loc}: card omits the declared date:\n{md}"
+                );
+                if !status.eq_ignore_ascii_case(invented) {
+                    assert!(
+                        !md.contains(invented),
+                        "{id}/{loc}: a {status} RFC is called {invented:?}:\n{md}"
+                    );
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn an_rfc_card_carries_its_human_title_and_never_its_frontmatter() {
+        for (id, _, _, title) in rfcs_on_disk() {
+            let c = document_lookup_card(&id, "", "en").expect("card");
+            assert_eq!(
+                c.title,
+                format!("{id} — {title}"),
+                "{id}: the title is not the declared one"
+            );
+            for leak in ["---", "rfc: ", "requires: ", "authors: "] {
+                assert!(
+                    !c.answer_markdown.contains(leak),
+                    "{id}: frontmatter {leak:?} leaked into the card:\n{}",
+                    c.answer_markdown
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn a_frontmatter_key_is_read_whole_and_stops_at_the_next_key() {
+        let chunk = "--- rfc: 0009 title: Offline Payment Support status: Draft created: 2026-01-02 requires: [0003] ---";
+        assert_eq!(frontmatter_field(chunk, "status"), "Draft");
+        assert_eq!(frontmatter_field(chunk, "created"), "2026-01-02");
+        assert_eq!(frontmatter_field(chunk, "title"), "Offline Payment Support");
+        assert_eq!(
+            frontmatter_field(chunk, "res"),
+            "",
+            "a key must not match inside \"requires:\""
+        );
+        assert_eq!(
+            frontmatter_field("# ADR-001 — no frontmatter", "status"),
+            ""
+        );
     }
 }

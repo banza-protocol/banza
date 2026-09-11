@@ -794,3 +794,25 @@ test("the quorum-loss consequence survives the hypothesis path's truncation", as
   assert.match(result.answer, /bloquead/i, "below threshold, continuity blocks");
   assert.match(result.answer, /chave-mestra/i, "and the absence of a master key is stated, not implied");
 });
+
+// A Draft RFC is a proposal, and RFC-0007 says outright that it proposes nothing. The lookup card had
+// been telling readers every RFC was "publicada", with the date "não declarada", because the registry
+// read only the ADR metadata style and every RFC declares its own in YAML frontmatter. Driven through the
+// pipeline, not the registry: a registry fix that the lookup path did not reach would pass the unit tests.
+test("a Draft RFC is reported as Draft, with its declared date — never as published", async () => {
+  for (const [q, locale, invented] of [
+    ["O que é o RFC-0007?", "pt-PT", /publicada/i],
+    ["What is RFC-0007?", "en", /\bpublished\b/i],
+    ["O que é o RFC-0006?", "pt-PT", /publicada/i],
+  ]) {
+    const { pipeline, stub } = pipe();
+    const { result, meta } = await pipeline.answer(q, { locale });
+    assert.equal(meta.llm_called, false, `${q}: a document lookup is deterministic`);
+    assert.equal(stub.calls.length, 0, `${q}: no trunk call`);
+    assert.match(result.answer, /\bDraft\b/, `${q}: states the declared status`);
+    assert.match(result.answer, /\b20\d\d-\d\d-\d\d\b/, `${q}: states the declared date`);
+    assert.doesNotMatch(result.answer, invented, `${q}: a Draft is never called published`);
+    assert.doesNotMatch(result.answer, /não declarada|not declared/i, `${q}: the date is declared`);
+    assert.doesNotMatch(result.answer, /rfc: 00|requires: \[/, `${q}: frontmatter never reaches the reader`);
+  }
+});
