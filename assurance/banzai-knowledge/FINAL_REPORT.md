@@ -97,8 +97,9 @@ exact restore.
 **BanzAI Knowledge & Reasoning is universe-closed and production-verified against the declared frozen
 semantic universe and V2 assurance corpus.** The generation is frozen; the freeze record, with the two
 characterised limitations and the rule for future engine changes, is [`FREEZE.md`](FREEZE.md).
-Repository `main` `e34f51e`; production runtime `banzai-api:src-dbc3f83` (the runtime diff between them
-is none — the difference is documentation).
+At the freeze, repository `main` was `e34f51e` and production ran `banzai-api:src-dbc3f83`. Production now
+runs `banzai-api:src-0bafc28`, still 572/572 against the same frozen generation; the two engine changes
+since the freeze are logged in [`FREEZE.md`](FREEZE.md).
 
 The measurement below at `src-ef21f43` is the earlier corpus and is kept as history.
 
